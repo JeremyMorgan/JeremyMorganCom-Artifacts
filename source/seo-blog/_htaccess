@@ -1,0 +1,92 @@
+Options +FollowSymlinks
+
+ExpiresActive On
+ExpiresDefault "access plus 4 hours"
+ExpiresByType application/javascript A900
+ExpiresByType application/x-javascript A900
+ExpiresByType text/javascript A900
+ExpiresByType text/html A90
+ExpiresByType text/xml A90
+ExpiresByType text/css A900
+ExpiresByType text/plain A62
+ExpiresByType image/gif A14400
+ExpiresByType image/jpg A14400
+ExpiresByType image/jpeg A14400
+ExpiresByType image/png A14400
+ExpiresByType image/bmp A14400
+ExpiresByType application/x-shockwave-flash A3600
+
+Redirect 301 /seo-blog/search-engine-optimization/article-marketing-is-dead-long-live-guest-blogging/ /blog/seo/article-marketing-is-dead-long-live-guest-blogging/
+Redirect 301 /seo-blog/search-engine-optimization/why-the-best-seos-at-mozcon-arent-worried-about-tonights-google-update/ /blog/seo/why-the-best-seos-at-mozcon-arent-worried-about-tonights-google-update/
+Redirect 301 /seo-blog/search-engine-optimization/how-to-penguin-proof-your-website/ /blog/seo/how-to-penguin-proof-your-website/
+Redirect 301 /seo-blog/search-engine-optimization/advanced-search-techniques-to-improve-seo-analysis/ /blog/seo/advanced-search-techniques-to-improve-seo-analysis/
+Redirect 301 /seo-blog/search-engine-optimization/its-2012-nobody-cares-about-your-website/ /blog/seo/its-2012-nobody-cares-about-your-website/
+Redirect 301 /seo-blog/search-engine-optimization/my-latest-top-secret-seo-prediction/ /blog/seo/my-latest-top-secret-seo-prediction/
+Redirect 301 /seo-blog/search-engine-optimization/5-seo-myths-you-probably-still-believe/ /blog/seo/5-seo-myths-you-probably-still-believe/
+Redirect 301 /seo-blog/search-engine-optimization/how-to-display-your-profile-picture-in-google-search-results/ /blog/seo/how-to-display-your-profile-picture-in-google-search-results/
+Redirect 301 /seo-blog/search-engine-optimization/google-adds-new-tools-for-webmasters/ /blog/seo/google-adds-new-tools-for-webmasters/
+Redirect 301 /seo-blog/search-engine-optimization/changes-coming-to-jeremymorgan-com/ /blog/seo/changes-coming-to-jeremymorgan-com/
+Redirect 301 /seo-blog/search-engine-optimization/how-to-use-google-search-to-help-with-seo/ /blog/seo/how-to-use-google-search-to-help-with-seo/
+Redirect 301 /seo-blog/search-engine-optimization/google-confirms-1-is-used-as-a-ranking-signal/ /blog/seo/google-confirms-1-is-used-as-a-ranking-signal/
+Redirect 301 /seo-blog/search-engine-optimization/what-is-google-really-using-for-rankings/ /blog/seo/what-is-google-really-using-for-rankings/
+Redirect 301 /seo-blog/search-engine-optimization/how-to-succeed-with-stumbleupon/ /blog/seo/how-to-succeed-with-stumbleupon/
+Redirect 301 /seo-blog/search-engine-optimization/google-announces-plus-one/ /blog/seo/google-announces-plus-one/
+Redirect 301 /seo-blog/search-engine-optimization/google-panda-update-survival/ /blog/seo/google-panda-update-survival/
+Redirect 301 /seo-blog/search-engine-optimization/how-to-avoid-getting-banned-by-google/ /blog/seo/how-to-avoid-getting-banned-by-google/
+Redirect 301 /seo-blog/search-engine-optimization/10-really-good-seo-and-marketing-forums/ /blog/seo/10-really-good-seo-and-marketing-forums/
+Redirect 301 /seo-blog/search-engine-optimization/7-ways-to-make-your-website-faster/ /blog/seo/7-ways-to-make-your-website-faster/
+Redirect 301 /seo-blog/search-engine-optimization/should-you-put-all-your-eggs-in-the-seo-basket/ /blog/seo/should-you-put-all-your-eggs-in-the-seo-basket/
+Redirect 301 /seo-blog/search-engine-optimization/google-algorithm-update-takes-aim-at-content-farms/ /blog/seo/google-algorithm-update-takes-aim-at-content-farms/
+Redirect 301 /seo-blog/search-engine-optimization/dont-fall-for-these-seo-scams/ /blog/seo/dont-fall-for-these-seo-scams/
+Redirect 301 /seo-blog/search-engine-optimization/the-skinny-on-domain-names-5-things-you-should-never-do/ /blog/seo/the-skinny-on-domain-names-5-things-you-should-never-do/
+Redirect 301 /seo-blog/search-engine-optimization/google-changes-algorithm-in-response-to-decormyeyes-story/ /blog/seo/google-changes-algorithm-in-response-to-decormyeyes-story/
+Redirect 301 /seo-blog/search-engine-optimization/great-places-to-find-information-about-seo/ /blog/seo/great-places-to-find-information-about-seo/
+Redirect 301 /seo-blog/search-engine-optimization/optimizing-for-bing/ /blog/seo/optimizing-for-bing/
+Redirect 301 /seo-blog/search-engine-optimization/a-new-way-to-promote-your-site-on-the-net/ /blog/seo/a-new-way-to-promote-your-site-on-the-net/
+Redirect 301 /seo-blog/search-engine-optimization/google-announces-the-canonical-tag/ /blog/seo/google-announces-the-canonical-tag/
+Redirect 301 /seo-blog/search-engine-optimization/how-to-make-an-seo-friendly-wordpress-blog/ /blog/seo/how-to-make-an-seo-friendly-wordpress-blog/
+Redirect 301 /seo-blog/search-engine-optimization/what-you-should-know-before-hiring-an-seo/ /blog/seo/what-you-should-know-before-hiring-an-seo/
+Redirect 301 /seo-blog/webmaster-help/what-the-heck-is-bounce-rate/ /blog/seo/what-the-heck-is-bounce-rate/
+Redirect 301 /seo-blog/search-engine-optimization/you-need-google-chrome/ /blog/seo/you-need-google-chrome/
+Redirect 301 /seo-blog/search-engine-optimization/google-launches-insight-a-new-keyword-resource/ /blog/seo/google-launches-insight-a-new-keyword-resource/
+Redirect 301 /seo-blog/search-engine-optimization/should-we-be-thinking-about-cuil/ /blog/seo/should-we-be-thinking-about-cuil/
+Redirect 301 /seo-blog/search-engine-optimization/google-knol-what-does-it-mean-for-seo/ /blog/seo/google-knol-what-does-it-mean-for-seo/
+Redirect 301 /seo-blog/search-engine-optimization/good-news-for-flash-sites-and-seo/ /blog/seo/good-news-for-flash-sites-and-seo/
+Redirect 301 /seo-blog/search-engine-optimization/google-shows-a-little-knee-opens-up-their-algorithm/ /blog/seo/google-shows-a-little-knee-opens-up-their-algorithm/
+Redirect 301 /seo-blog/search-engine-optimization/want-to-republish-my-work/ /blog/seo/want-to-republish-my-work/
+Redirect 301 /seo-blog/search-engine-optimization/what-you-dont-know-about-the-google-algorithm/ /blog/seo/what-you-dont-know-about-the-google-algorithm/
+Redirect 301 /seo-blog/search-engine-optimization/how-to-find-good-keywords/ /blog/seo/how-to-find-good-keywords/
+Redirect 301 /seo-blog/search-engine-optimization/five-easy-steps-to-better-seo/ /blog/seo/five-easy-steps-to-better-seo/
+Redirect 301 /seo-blog/search-engine-optimization/text-to-code-ratio-yet-another-factor-in-seo/ /blog/seo/text-to-code-ratio-yet-another-factor-in-seo/
+Redirect 301 /seo-blog/website-promotion/my-huge-rpc-ping-list/ /blog/seo/my-huge-rpc-ping-list/
+Redirect 301 /seo-blog/wordpress-help/how-to-avoid-duplicate-content-issues-with-wordpress/ /blog/seo/how-to-avoid-duplicate-content-issues-with-wordpress/
+Redirect 301 /seo-blog/search-engine-optimization/page-optimization-for-dummies/ /blog/seo/page-optimization-for-dummies/
+Redirect 301 /seo-blog/search-engine-optimization/section-targeting-for-adsense/ /blog/seo/section-targeting-for-adsense/
+Redirect 301 /seo-blog/webmaster-help/how-to-make-hundreds-a-day-with-adsense/ /blog/seo/how-to-make-hundreds-a-day-with-adsense/
+Redirect 301 /seo-blog/search-engine-optimization/10-things-you-can-do-to-increase-search-engine-exposure/ /blog/seo/10-things-you-can-do-to-increase-search-engine-exposure/
+Redirect 301 /seo-blog/search-engine-optimization/how-to-avoid-getting-ripped-off-by-an-seo/ /blog/seo/how-to-avoid-getting-ripped-off-by-an-seo/
+Redirect 301 /seo-blog/search-engine-optimization/10-things-you-can-do-to-increase-search-engine-exposure/ /blog/seo/10-things-you-can-do-to-increase-search-engine-exposure/
+Redirect 301 /seo-blog/search-engine-optimization/seo-20-the-new-wave-of-seo-part-1/ /blog/seo/seo-20-the-new-wave-of-seo-part-1/
+Redirect 301 /seo-blog/search-engine-optimization/css-layouts-fad-or-future-standard/ /blog/seo/css-layouts-fad-or-future-standard/
+Redirect 301 /seo-blog/marketing/what-we-can-learn-from-caines-arcade/	/blog/marketing/what-we-can-learn-from-caines-arcade/
+Redirect 301 /seo-blog/marketing/the-real-secret-to-success-on-the-web/	/blog/marketing/the-real-secret-to-success-on-the-web/
+Redirect 301 /seo-blog/marketing/we-didnt-even-see-it-coming/ /blog/marketing/we-didnt-even-see-it-coming/
+Redirect 301 /seo-blog/marketing/the-charlie-sheen-strategy/ /blog/marketing/the-charlie-sheen-strategy/
+Redirect 301 /seo-blog/marketing/find-the-edges/ /blog/marketing/find-the-edges/
+Redirect 301 /seo-blog/marketing/check-in-apps-silly-fad-or-hidden-opportunity/ /blog/marketing/check-in-apps-silly-fad-or-hidden-opportunity/
+Redirect 301 /seo-blog/marketing/how-to-make-social-media-work-for-you/ /blog/marketing/how-to-make-social-media-work-for-you/
+Redirect 301 /seo-blog/marketing/the-big-secret-to-getting-people-to-notice-you-online/ /blog/marketing/the-big-secret-to-getting-people-to-notice-you-online/
+Redirect 301 /seo-blog/marketing/a-great-product-isnt-enough/ /blog/marketing/a-great-product-isnt-enough/
+Redirect 301 /seo-blog/search-engine-marketing/targeting-more-traffic-isnt-always-better/ /blog/marketing/targeting-more-traffic-isnt-always-better/
+Redirect 301 /seo-blog/social-media/how-to-increase-your-klout-score/	/blog/social-media/how-to-increase-your-klout-score/
+Redirect 301 /seo-blog/social-media/how-disqus-is-going-to-change-the-web/ /blog/social-media/how-disqus-is-going-to-change-the-web/
+Redirect 301 /seo-blog/social-media/five-reasons-why-im-not-giving-up-on-google/ /blog/social-media/five-reasons-why-im-not-giving-up-on-google/
+Redirect 301 /seo-blog/social-media/how-to-remove-annoying-apps-from-facebook/ /blog/social-media/how-to-remove-annoying-apps-from-facebook/
+Redirect 301 /seo-blog/social-media/twitter-and-facebook-can-help-seo-but-how/ /blog/social-media/twitter-and-facebook-can-help-seo-but-how/
+Redirect 301 /seo-blog/social-media/why-arent-people-following-me-on-twitter/ /blog/social-media/why-arent-people-following-me-on-twitter/
+Redirect 301 /seo-blog/twitter/how-to-add-followers-to-twitter/ /blog/social-media/how-to-add-followers-to-twitter/
+Redirect 301 /seo-blog/twitter/twitter-101-for-beginners/ /blog/marketing/twitter-101-for-beginners/
+Redirect 301 /seo-blog/search-engine-optimization/twitter-success-series-part-1-build-your-tribe/ /blog/seo/twitter-success-series-part-1-build-your-tribe/
+Redirect 301 /seo-blog/wordpress-help/how-to-use-a-custom-thumbnail-when-posting-a-wordpress-link-to-facebook/ /tutorials/wordpress/how-to-use-a-custom-thumbnail-when-posting-a-wordpress-link-to-facebook/
+Redirect 301 /seo-blog/wordpress-help/how-to-install-wordpress/ /tutorials/wordpress-help/how-to-install-wordpress/
+Redirect 301 /seo-blog/a-typical-programmers-toolbox/ /blog/programming/a-typical-programmers-toolbox/ 

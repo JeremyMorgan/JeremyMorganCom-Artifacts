@@ -1,0 +1,46 @@
+---
+layout: page
+title: Error 404 - File Not Found
+footer: true
+comments: false
+sharing: false
+---
+
+<h3>Error: That Page is no longer here!</h3>
+
+<style type="text/css">
+@import url(http://www.google.com/cse/api/branding.css);
+</style>
+<div class="cse-branding-bottom" style="background-color:#FFFFFF;color:#000000">
+  <div class="cse-branding-form">
+    <form action="http://www.google.com" id="cse-search-box" target="_blank">
+      <div>
+        <input type="hidden" name="cx" value="partner-pub-8244625199628957:8355617553" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input type="text" name="q" size="55" />
+        <input type="submit" name="sa" value="Search" />
+      </div>
+    </form>
+  </div>
+  <div class="cse-branding-logo">
+    <img src="http://www.google.com/images/poweredby_transparent/poweredby_FFFFFF.gif" alt="Google" />
+  </div>
+  <div class="cse-branding-text">
+    Custom Search
+  </div>
+</div>
+
+
+I recently rebuilt this entire site from the ground up. As a part of that I killed a lot of pages that were really outdated or junk. You may be looking for one of those pages. 
+
+Here's a listing of recent posts and hopefully that will help you find what you're looking for. 
+
+Thanks - Jeremy
+<br /><br /><br /><br />
+<div id="blog-archives" class="missing">
+{% for post in site.posts limit: 10 %}
+<article>
+  {% include archive_post.html %}
+</article>
+{% endfor %}
+</div>

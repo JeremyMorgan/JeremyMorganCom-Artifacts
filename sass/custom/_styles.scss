@@ -1,0 +1,14 @@
+// This File is imported last, and will override other styles in the cascade
+// Add styles here to make changes without digging in too much
+
+.tutorialbox {	
+	width: 275px;
+	border: solid 1px black; 
+	margin: 20px;
+    padding: 15px;	
+	float:right; 
+	background-color: #77B0FF;
+}
+pre.line-numbers { 
+	display: none; 
+}

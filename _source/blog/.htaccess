@@ -1,0 +1,30 @@
+Options +FollowSymlinks
+
+<ifmodule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript text/javascript
+</ifmodule>
+
+ExpiresActive On
+ExpiresDefault "access plus 4 hours"
+ExpiresByType application/javascript A900
+ExpiresByType application/x-javascript A900
+ExpiresByType text/javascript A900
+ExpiresByType text/html A90
+ExpiresByType text/xml A90
+ExpiresByType text/css A900
+ExpiresByType text/plain A62
+ExpiresByType image/gif A14400
+ExpiresByType image/jpg A14400
+ExpiresByType image/jpeg A14400
+ExpiresByType image/png A14400
+ExpiresByType image/bmp A14400
+ExpiresByType application/x-shockwave-flash A3600
+
+Redirect 301 /blog/c-tutorials/how-to-write-text-files-with-c/ /tutorials/c-programming/how-to-write-text-files-with-c/
+Redirect 301 /blog/linux/how-to-install-the-google-go-compiler-on-ubuntu-linux/ /tutorials/linux/how-to-install-the-google-go-compiler-on-ubuntu-linux/
+Redirect 301 /blog/linux/why-i-love-using-old-hardware/ /blog/programming/why-i-love-using-old-hardware/
+Redirect 301 /blog/programming/java-tutorial-hello-world/ /tutorials/java/java-tutorial-hello-world/
+Redirect 301 /blog/linux/how-to-install-apache-php-and-mysql-in-ubuntu-the-easy-way/ /tutorials/linux/how-to-install-apache-php-and-mysql-in-ubuntu-the-easy-way/
+Redirect 301 /blog/programming/how-to-make-curl-work-with-xampp-in-windows/ /tutorials/php-tutorials/how-to-make-curl-work-with-xampp-in-windows/
+Redirect 301 /blog/linux/old-g4-debian-linux-dirt-cheap-development-machine/ /blog/programming/old-g4-debian-linux-dirt-cheap-development-machine/
+Redirect 301 /blog/c-sharp-tutorials/how-to-write-text-files-in-c/ /tutorials/c-sharp/how-to-write-text-files-in-c/

@@ -1,0 +1,25 @@
+Options +FollowSymlinks
+
+<ifmodule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript text/javascript
+</ifmodule>
+
+ExpiresActive On
+ExpiresDefault "access plus 4 hours"
+ExpiresByType application/javascript A900
+ExpiresByType application/x-javascript A900
+ExpiresByType text/javascript A900
+ExpiresByType text/html A90
+ExpiresByType text/xml A90
+ExpiresByType text/css A900
+ExpiresByType text/plain A62
+ExpiresByType image/gif A14400
+ExpiresByType image/jpg A14400
+ExpiresByType image/jpeg A14400
+ExpiresByType image/png A14400
+ExpiresByType image/bmp A14400
+ExpiresByType application/x-shockwave-flash A3600
+
+Redirect 301 /tutorials/object-oriented-programming/an-introduction-to-object-oriented-programming/ /blog/programming/an-introduction-to-object-oriented-programming/
+Redirect 301 /tutorials/awesome-gel-buttons-in-photoshop/ /tutorials/photoshop/awesome-gel-buttons-in-photoshop/
+Redirect 301 /tutorials/how-to-work-with-arrays-in-php/ /tutorials/php-tutorials/how-to-work-with-arrays-in-php/

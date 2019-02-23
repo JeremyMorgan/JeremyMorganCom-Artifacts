@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<style type="text/css">
+#container { margin-left: auto; margin-right: auto; width: 400px;}
+</style>
+</head>
+<body>
+<div id="container"></div>
+<h1>TEST</h1>
+<div id="groups"></div>
+</body>
+<!-- URLs
+
+https://api.meetup.com/2/groups?&sign=true&photo-host=public&zip=97201&category_id=34&radius=30&page=20
+https://api.meetup.com/2/groups?callback=?&sign=true&api&key=3f5816c3734b5b496e381b1221&photo-host=public&zip=97201&category_id=34&radius=30&page=20
+https://api.meetup.com/2/groups?callback=?&sign=true&member_id=8377069&page=20&api&key=3f5816c3734b5b496e381b1221&only=name,link
+
+-->
+ <script type="text/javascript">
+    $(document).ready(function(){
+    $.getJSON("https://api.meetup.com/2/groups?callback=?&sign=true&api&key=3f5816c3734b5b496e381b1221&photo-host=public&zip=97201&category_id=34&radius=30&page=200", 
+function (data) {
+    var htmlString = "";
+    $.each(data.results, function (i, item) {
+        htmlString += '<img src="' + item.group_photo + '"><a href="' + item.link + '" target="_blank">' + item.name + '</a></img>';
+    });
+    $('#groups').html(htmlString);});
+    });
+    </script>
+</html>

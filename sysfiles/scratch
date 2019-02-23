@@ -1,0 +1,21 @@
+
+	if ( $request_filename ~ /how-to/linux-how-to/5-cool-vim-command-line-tricks/) {
+		rewrite ^ https://www.jeremymorgan.com/tutorials/linux/5-cool-vim-command-line-tricks/ permanent;
+	}
+
+
+	if ( $request_filename ~ /seo-blog/search-engine-optimization/how-to-penguin-proof-your-website/) {
+		rewrite ^ https://www.jeremymorgan.com/blog/seo/how-to-penguin-proof-your-website/ permanent;
+	}
+
+	if ( $request_filename ~ /seo-blog/a-typical-programmers-toolbox/) {
+		rewrite ^ https://www.jeremymorgan.com/blog/programming/a-typical-programmers-toolbox/ permanent;
+	}
+
+
+
+
+
+
+
+

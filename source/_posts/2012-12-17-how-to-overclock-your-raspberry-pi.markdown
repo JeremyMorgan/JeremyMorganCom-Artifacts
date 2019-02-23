@@ -1,0 +1,221 @@
+---
+layout: post
+title: "How to Overclock your Raspberry Pi"
+date: 2012-12-17 06:40
+updated: 2018-03-25 12:22
+comments: true
+description: Do you want to safely overclock your Raspberry Pi? Here's how you need to do it.  
+categories: 
+ - Tutorials
+ - Raspberry Pi
+author: Jeremy Morgan
+sharing: true
+permalink: /tutorials/raspberry-pi/how-to-overclock-raspberry-pi/
+ogimage: https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png
+---
+
+Do you want to safely overclock your Raspberry Pi? Here's how you need to do it. There are a few articles out there on overclocking your Raspberry Pi, and I followed them but it didn't work. So after some Googling and Stack Overflow work I find the answer, and I'm here to save you some time. 
+<!-- more -->
+<br />
+{% include custom/asides/rpi-footer.html %}
+###Find your current clock speed
+
+There are several ways to find out what you Pi is running at currently. Most likely it's running at 700mhz, and this is how you verify it
+
+<pre>
+cat /proc/cpuinfo
+</pre>
+
+After running this you should see the following output:
+
+<pre>
+Processor       : ARMv6-compatible processor rev 7 (v6l)
+BogoMIPS        : 697.95
+Features        : swp half thumb fastmult vfp edsp java tls
+CPU implementer : 0x41
+CPU architecture: 7
+CPU variant     : 0x0
+CPU part        : 0xb76
+CPU revision    : 7
+
+Hardware        : BCM2708
+Revision        : 000f
+Serial          : 0000000035dfc68c
+</pre>
+
+Note the "BogoMIPS" is at 697.95. You can also run this:
+
+<pre>
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+</pre>
+
+Which displays your frequency in Hz, which should be 700000. 
+
+The best way to see what your Pi is really running is by using the following:
+
+<pre>
+vcgencmd get_config arm_freq
+</pre>
+
+{% include custom/asides/raspberry-pi-3.html %}It should say something like
+
+>arm_freq=700
+
+*Note: it may say arm_freq=0 I have seen this happen too. Don't fret about it. 
+
+This is the base frequency of 700 MHz, which is the default. But we want it to go faster than that right? 
+
+<br />
+###How to Overclock the Raspberry Pi
+
+You can use software to overclock your Raspberry Pi and still be covered by the warranty. I gave some innaccurate information about this and was corrected in the comments:
+
+>Please note though that dynamic overvolting as you describe here doesn't void your warranty; it's only if you set "force_turbo=1" that we set the "warranty void" bit. - Eben Upton
+
+The first thing you'll want to do is modify your config.txt:
+
+<pre>
+sudo nano /boot/config.txt
+</pre>
+
+The config.txt is read by the GPU before the ARM core is initialized. It can be used to set various system configuration parameters such as overclocking. 
+
+In this file, you'll want to add the following two lines:
+
+<pre>
+arm_freq=800
+sdram_freq=500
+</pre>
+
+<strong>Note:</strong> These are the settings I found that get the most speed and stability. Your mileage may vary, feel free to play around with it. There are folks running at 1ghz just fine, but my unit didn't function well at this level. 
+
+Now according to most instructions you can change this and just reboot. But it won't always work. It didn't for me. I found some advice on <a href="http://raspberrypi.stackexchange.com/questions/1219/how-do-i-determine-the-current-mhz" rel="nofollow">Stack Overflow</a> and had to do the following:
+
+<pre>
+sudo sync
+sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"
+sudo cp config.txt config.txt.save
+sudo cp config.txt config.txt.save.1
+sudo sync; sync; exit; exit
+</pre>
+
+This will log you out of your terminal, or terminal window, so log back in and type:
+
+<pre>
+sudo sync; sync;
+sudo shutdown -h now
+</pre>
+Now, your Raspberry Pi will be shut down. Unplug it, and plug it back in. 
+
+###Check your changes
+{% include custom/asides/in-article-side.html %}
+To see what frequency you're running at, issue the following command:
+
+vcgencmd get_config arm_freq
+
+It should say:
+
+>arm_freq=800
+
+Congratulations, you've overclocked your Pi. For building large packages or just surfing the desktop you'll notice a big difference. 
+
+<br />
+###If that doesn't work
+
+You can also overclock using the raspi-config utility. To get this, you'll have to update your firmware, issue the following command:
+
+<pre>
+sudo apt-get update && sudo apt-get install raspberrypi* raspi-config
+</pre>
+
+Now with the updated firmware, start the raspi-config utility:
+
+<pre>
+sudo raspi-config
+</pre>
+
+You will see the following menu:
+
+{% img center https://www.jeremymorgan.com/images/how-to-overclock-raspberry-pi-1.png How to overclock a raspberry pi %}
+
+And you'll be shown the following options:
+
+{% img center https://www.jeremymorgan.com/images/how-to-overclock-raspberry-pi-2.png How to overclock a raspberry pi %}
+
+I set mine to "Modest" at 800/250. As it says this is a modest overclocking and seems the safest. 
+
+After selecting your option, it will ask to reboot, say yes. 
+
+Again to check it, you can type in
+
+<pre>
+vcgencmd get_config arm_freq
+</pre>
+
+and it should say:
+
+>arm_freq=800
+
+You can also check more options by typing:
+
+<pre>
+vcgencmd get_config int
+</pre>
+
+And it should look like this:
+
+<pre>
+arm_freq=800
+core_freq=250
+sdram_freq=500
+disable_overscan=1
+boot_delay=1
+temp_limit=85
+</pre>
+
+Enjoy! As I said there are many different options and your results may vary. There are people running very fast speeds and not having stability or heat problems, I don't know enough about the Pi to know exactly why that is. It could be a combination of environment and the tasks being performed. 
+
+
+<br />
+###Even more options
+
+So do you want to play around with it some more? Of course, if you have the Raspberry Pi you're likely a hacker anyway. Here is another update you can do to make the memory dynamic between the GPU and CPU.
+
+<pre>
+sudo rpi-update 5fcbae1010c1ba99a77bab5198508bb9e6964d03
+</pre>
+
+And add the following to your cmdline.txt
+
+<pre>
+coherent_pool=2M cma=2M smsc95xx.turbo_mode=N
+</pre>
+
+And add the following to config.txt
+
+<pre>
+gpu_mem_256=160
+gpu_mem_512=316
+cma_lwm=16
+cma_hwm=32
+</pre>
+
+Reboot your Raspberry Pi. Now, you'll always have a set number allocated to the ARM, it will have 96M of memory and the GPU will always have at least 20M. But, when the GPU gets low, it will request some memory from ARM, and vice versa. The cma_lwm is the "low water mark" meaning if it has less that memory available it will request it from ARM. If the GPU has more than cma_hwm (high water mark) it will release memory to the ARM. 
+
+{% img center https://www.jeremymorgan.com/images/raspberry-pi-web-server-02.png How to over clock your Raspberry Pi %}
+
+<br />
+###Summary
+
+I hope this has helped you wade through some of the problems with overclocking the Raspberry Pi. It's not always as straightforward as some of the tutorials suggest, but it isn't terribly difficult. Here are some additional <a href="http://elinux.org/RPi_config.txt#Overclocking_options" rel="nofollow">Raspberry Pi overlocking options</a> if you want to play around even more. 
+
+For the most part you'll probably want to run some pretty modest settings, but if you're building something from source or doing a lot of video you'll want to squeeze every bit of performance you can out of it. 
+
+Let me know what kind of configs you come up with and what works best for you!
+
+{% include custom/asides/rpi-footer.html %}
+
+
+
+
+
