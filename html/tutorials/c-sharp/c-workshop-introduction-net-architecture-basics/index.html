@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>C# Tutorials - Introduction: .Net Architecture Basics - CSharp Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="C# Tutorials - Introduction: .Net Architecture Basics" /><meta itemprop="name" content="C# Tutorials - Introduction: .Net Architecture Basics" /><meta name="twitter:title" content="C# Tutorials - Introduction: .Net Architecture Basics">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-07-06 23:29:01 +0000" />
+
+<meta property="article:section" content="CSharpDotNetProgrammingTutorials" />
+
+<meta name="description" content="A nice introduction to C# and the .Net Architecture. I explain the basics and show you how to get started." />
+<meta property="og:description" content="A nice introduction to C# and the .Net Architecture. I explain the basics and show you how to get started." />
+<meta itemprop="description" content="A nice introduction to C# and the .Net Architecture. I explain the basics and show you how to get started." />
+<meta name="twitter:description" content="A nice introduction to C# and the .Net Architecture. I explain the basics and show you how to get started.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/c-workshop-introduction-net-architecture-basics/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/c-workshop-introduction-net-architecture-basics/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/c-sharp/c-workshop-introduction-net-architecture-basics/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">C# Tutorials - Introduction: .Net Architecture Basics</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2012-07-06T23:29:01+00:00" pubdate data-updated="true">Jul 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>In the next few months I&#8217;m going to be creating some tutorials on learning C#.Net, from the very beginning. Because of the close integration the first part of this workshop will be about the .Net framework, so you can get a general familiarity with developing in this environment. This is just a basic introduction to the .Net Framework and we&#8217;ll drill down more in coming tutorials.</p>
+
+<!-- more -->
+
+
+<h3>.Net Framework Basics</h3>
+
+<p><img class="right" src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/07/how-to-learn-c-sharp.png" title="How to learn C# Programming" ></p>
+
+<p>Topics we&#8217;ll cover here:</p>
+
+<ul>
+<li>What is the .Net Framework?</li>
+<li>Some Benefits of the .Net Framework</li>
+<li>What is C#?</li>
+<li>Design Goals of C#</li>
+<li>Some Benefits of C#
+So let&#8217;s get started!</li>
+</ul>
+
+
+<h3>What is the .Net Framework?</h3>
+
+<p>The .Net Framework is a set of software libraries provided by Microsoft for developing applications for Microsoft Windows (mostly). It is a library of abstracted code written to do common functions to help windows developers. It is also a virtual machine that runs the software in a virtual environment, optimizing the code for the host&#8217;s hardware. Microsoft&#8217;s main motivation is to create an easy, powerful system to help develop software for their product, Microsoft Windows. In my opinion, they&#8217;ve succeeded in that effort.</p>
+
+<p>The basic idea is just a large collection of commonly used code that makes programs run faster, more consistent at drastically reduced development time. The .Net framework is offered free for Microsoft, though it is closed source (that&#8217;s changing in some ways).</p>
+
+<p>You can download the latest .Net framework by <a href="http://www.microsoft.com/net/download">clicking here</a> and installing it.</p>
+
+<h3>Some benefits of the .Net framework:</h3>
+
+<p><strong>Large, robust class library</strong> - The class library is a huge collection of pre-written code that is useful and extensible. You don&#8217;t need to reinvent the wheel, many functions have been simplified for you.</p>
+
+<p><strong>Rapid Development </strong> - Especially when developing Windows desktop applications, the .Net framework provides a great rapid development solution. It is integrated tightly with Windows as Microsoft makes them both, and many common Windows elements like forms, buttons etc are already built.</p>
+
+<p><strong>Excellent Support</strong> - The support for .Net is amazing. Not only can get you paid support through Microsoft, but they also have tremendous amounts of documentation available for free, and there are countless developers on the web on sites like Stack Overflow and Programming Forums who can help you as well.</p>
+
+<p><strong>Excellent Performance -</strong> The framework contains tons of pre written code that&#8217;s optimized and standardized for the environment, but the framework also provides JIT or <a href="http://en.wikipedia.org/wiki/Just-in-time_compilation">&#8220;Just in Time&#8221; compilation</a> which ensures that only the code that is needed is compiled, and it&#8217;s also compiled for the platform it&#8217;s running on.</p>
+
+<p><strong>Language Interop -</strong> Does your application contain multiple languages? That&#8217;s ok because with the language interop capabilities you can write your code in C++, C#, Visual Basic, Delphi and more. Since they all share the same black box they work together fairly well.</p>
+
+<p>As a programmer, I really love the .Net framework and I could go on and on about it, but this isn&#8217;t a commercial for Microsoft&#8217;s (free) product, so I&#8217;ll let you investigate whether the .Net framework is the right choice of you and your company.</p>
+
+<h3>What is C#?</h3>
+
+<p>C# ( &#8220;See Sharp&#8221; ) is a programming language created by Microsoft for the .Net iniative by a team led by Anders Hejlsberg. It was originally called &#8220;Cool&#8221; or &#8220;C like Object Oriented Language&#8221;. The project started in 1999 and was publicly announced in July of 2000. It is maintained and standards are developed by Microsoft.</p>
+
+<h3>Some Design Goals of C</h3>
+
+<ul>
+<li><p>C# language is intended to be a simple, modern, general-purpose, object-oriented programming language.</p></li>
+<li><p>The language, and implementations thereof, should provide support for software engineering principles such as strong type checking, array bounds checking, detection of attempts to use uninitialized variables, and automatic garbage collection. Software</p></li>
+<li><p>Robustness, durability, and programmer productivity are important.</p></li>
+<li><p>The language is intended for use in developing software components suitable for deployment in distributed environments.</p></li>
+<li><p>Source code portability is very important, as is programmer portability, especially for those programmers already familiar with C and C++.</p></li>
+<li><p>Support for internationalization is very important.</p></li>
+<li><p>C# is intended to be suitable for writing applications for both hosted and embedded systems, ranging from the very large that use sophisticated operating systems, down to the very small having dedicated functions.</p></li>
+<li><p>Although C# applications are intended to be economical with regard to memory and processing power requirements, the language was not intended to compete directly on performance and size with C or assembly language.</p></li>
+</ul>
+
+
+<p>Source: C# Language Reference ECMA: <a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-334.pdf">http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-334.pdf</a></p>
+
+<p>It should be noted that the lead designer and archictect Anders Hejlsberg was also involved in building Turbo Pascal and Embarcadero Delphi, so he had considerable experience with RAD Environments and there are some similarities.</p>
+
+<h3>Advantages of C</h3>
+
+<ul>
+<li><p>Familiar syntax</p></li>
+<li><p>Automatic garbage collection</p></li>
+<li><p>Type safety</p></li>
+<li><p>Compiled code - performance</p></li>
+<li><p>Linq and collections</p></li>
+<li><p>Works with object models well</p></li>
+<li><p>Supports functional programming</p></li>
+<li><p>Close integration with the .Net framework. (specifically designed for it)</p></li>
+</ul>
+
+
+<p>The idea behind C# is pretty simple: They want something that&#8217;s easy to develop in like Visual Basic, where you can build programs very rapidly, and have the performance of compiled code like C or C++.
+Before C# came along you could develop applications quick and easy with Visual Basic but if you wanted real speed you had to use C or C++. Now you get the best of both worlds and there&#8217;s nothing quite like it.</p>
+
+<p>In our next tutorial we&#8217;re going to start diving in to the C# language itself.</p>
+
+<h3>Where can I get the tools to build C# apps?</h3>
+
+<p>The best news here is you can develop C# without spending a dime. Here&#8217;s the tools you&#8217;ll need.</p>
+
+<p><a href="http://www.microsoft.com/net/download">Microsoft .Net Framework</a><br />
+<a href="http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-csharp-express">Visual Studio C# Express 2010</a><br /></p>
+
+<p>Optionally you may want to install the following:</p>
+
+<p><a href="http://www.microsoft.com/sqlserver/en/us/editions/2012-editions/express.aspx">SQL Server Express 2012</a><br />
+<a href="http://www.microsoft.com/web/">Microsoft Web Matrix 2</a></p>
+
+<p> ( if you plan on doing web development )<br /></p>
+
+<p>Join me on my next tutorial where I start digging in to the C# language itself. It&#8217;s something I really get excited about because it&#8217;s one of my favorites and you&#8217;ll soon see why. See you then!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/csharp/'>CSharp</a>, <a class='category' href='/blog/dotnet/'>DotNet</a>, <a class='category' href='/blog/programming/'>Programming</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/social-media/how-to-increase-your-klout-score/" title="Previous Post: How to Increase Your Klout Score">&laquo; How to Increase Your Klout Score</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/c-sharp/c-workshop-introduction-net-architecture-basics/" title="Next Post: C# Tutorials - Introduction: .Net Architecture Basics">C# Tutorials - Introduction: .Net Architecture Basics &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,869 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements - CSharp Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements" /><meta itemprop="name" content="C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements" /><meta name="twitter:title" content="C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-11-29 11:06:00 +0000" />
+
+<meta property="article:section" content="CSharpDotNetProgrammingTutorials" />
+
+<meta name="description" content="In part 5 of my learning C# tutorial series we're going to talk about selection statements. This is a crucial part of your foundation as a C# .NET &hellip;" />
+<meta property="og:description" content="In part 5 of my learning C# tutorial series we're going to talk about selection statements. This is a crucial part of your foundation as a C# .NET &hellip;" />
+<meta itemprop="description" content="In part 5 of my learning C# tutorial series we're going to talk about selection statements. This is a crucial part of your foundation as a C# .NET &hellip;" />
+<meta name="twitter:description" content="In part 5 of my learning C# tutorial series we're going to talk about selection statements. This is a crucial part of your foundation as a C# .NET &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2012-11-29T11:06:00+00:00" pubdate data-updated="true">Nov 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><br />
+
+
+<p><a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a></p>
+
+<br />
+
+
+<p>In part 5 of my learn<br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a></p>
+
+<br />
+
+
+<p>ing C# tutorial series we&#8217;re going to talk about selection statements. This is a crucial part of your foundation as a C# .NET coder, and it&#8217;s pretty important to know how and when to use selection statements.</p>
+
+<!-- more -->
+
+
+<h3>What is a statement?</h3>
+
+<p>Statements are explicit instructions to the compiler. They&#8217;re executed in sequence from top to bottom just as they appear in your source code.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello, &quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;is it me you&#39;re looking for?&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div class="tutorialbox">
+<h3>C# Tutorials: How to Learn C#</h3>
+<ol>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-1/">C# Introduction</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/">C# Namespaces</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-3-coding-basics/">C# Coding Basics</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/" rel="prev">C# Variables and Types</a></li>
+<li>C# Selection Statements</li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-6-iteration-statements/" rel="next">C# Iteration Statements</a></li>
+</ol>
+<a href="https://feedburner.google.com/fb/a/mailverify?uri=JeremyMorganTutorials&amp;loc=en_US" rel="nofollow"><strong>Get notified when new C# tutorials are released!</strong></a>
+</div>
+
+
+<p>This will print out the following:</p>
+
+<blockquote><p>Hello, is it me you&#8217;re looking for?</p></blockquote>
+
+<p>This is how all statements are evaluated in C#. There are several types of statements you use, which we&#8217;ll examine individually. Today&#8217;s tutorial will cover selection statements.</p>
+
+<h3>Selection statements</h3>
+
+<p>Selection statements control program flow through the result of evaluating boolean (true and false) values. An if statement only executes if the conditions are true. Here are some examples:</p>
+
+<p><strong>If Statements</strong></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="n">something</span> <span class="n">is</span> <span class="nb">true</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// do this</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This statement simply checks that the conditions are true and does something based on that. A real world example looks like this:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">ourValue</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">ourValue</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Our value is 10!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you set the integer ourValue to 10, you&#8217;ll see some output. If ourValue is not equal to 10, it will exit the section and move on to do nothing.</p>
+
+<p><strong>If-Else Statements</strong></p>
+
+<p>A more common use is the if-else statement. This will check the conditions you present and do one thing if it&#8217;s true, and another if it&#8217;s false. Both code paths lead to an action of some kind.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">ourValue</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">ourValue</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Our value is 10!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Our value is not 10!);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is very useful because you can nest &#8220;if&#8221; statements to control program flow in powerful ways. Let&#8217;s build a silly little program that tries to guess the number you&#8217;re thinking of in a few steps.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">NumberGuesser</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Please enter a number from 1 to 5&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="kt">int</span> <span class="n">ourNumber</span> <span class="o">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt16</span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">());</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="k">if</span> <span class="p">(</span><span class="n">ourNumber</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span>
+</span><span class='line'>          <span class="p">{</span>
+</span><span class='line'>              <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;is it 5?&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="k">if</span> <span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span><span class="o">==</span> <span class="s">&quot;n&quot;</span><span class="p">)</span>
+</span><span class='line'>              <span class="p">{</span>
+</span><span class='line'>                  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Is it 4?&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                  <span class="k">if</span> <span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;y&quot;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">{</span>
+</span><span class='line'>                      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah! The answer is 4&quot;</span><span class="p">);</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>                  <span class="k">else</span>
+</span><span class='line'>                  <span class="p">{</span>
+</span><span class='line'>                      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Is it 3?&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                      <span class="k">if</span> <span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;y&quot;</span><span class="p">)</span>
+</span><span class='line'>                      <span class="p">{</span>
+</span><span class='line'>                          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah! The answer is 3!&quot;</span><span class="p">);</span>
+</span><span class='line'>                      <span class="p">}</span>
+</span><span class='line'>                      <span class="k">else</span>
+</span><span class='line'>                      <span class="p">{</span>
+</span><span class='line'>                          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Is it 2?&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                          <span class="k">if</span> <span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;y&quot;</span><span class="p">)</span>
+</span><span class='line'>                          <span class="p">{</span>
+</span><span class='line'>                              <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah! The answer is 2!&quot;</span><span class="p">);</span>
+</span><span class='line'>                          <span class="p">}</span>
+</span><span class='line'>                          <span class="k">else</span>
+</span><span class='line'>                          <span class="p">{</span>
+</span><span class='line'>                              <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah the answer is either 1 or you&#39;ve answered no every time.&quot;</span><span class="p">);</span>
+</span><span class='line'>                          <span class="p">}</span>
+</span><span class='line'>                      <span class="p">}</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>              <span class="p">}</span><span class="k">else</span>
+</span><span class='line'>              <span class="p">{</span>
+</span><span class='line'>                  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah! The answer is 5!&quot;</span><span class="p">);</span>
+</span><span class='line'>              <span class="p">}</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>          <span class="k">else</span>
+</span><span class='line'>          <span class="p">{</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You must give me a number from 1-10!&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Take a good look at the program and see if you can follow the flow. If it looks like a jumbled mess, that&#8217;s because we&#8217;re using a lot of nested if statements, which in the future will be something you&#8217;ll only want to do if you absolutely have to. It does however show how if statements work to check conditions and direct the program to the next spot.</p>
+
+<p>If your number is 5, you will see the following output:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/c-sharp-dotnet-tutorials-1.jpg"></p>
+
+<p>But if you pick the number 1, you&#8217;ll get this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/c-sharp-dotnet-tutorials-2.jpg"></p>
+
+<p>This is because the program uses a top down method to find the number, it basically asks what the number is until you answer yes.</p>
+
+<ul>
+<li>Is it 5?      no</li>
+<li>Is it 4?      no</li>
+<li>Is it 3?      no</li>
+<li>Is it 2?      no</li>
+</ul>
+
+
+<p>It must be 1 as there are no other options.</p>
+
+<p>If you answer yes to any of the numbers, the statement will evaluate to true and break out of the code block. But is there an better way?</p>
+
+<blockquote><p>If you&#8217;re looking for a challenge, rewrite the program above. It&#8217;s a horrible algorithm and could be cut down pretty drastically. Just make sure it takes the same input and outputs the same result. This is called <em>refactoring</em> and it&#8217;s something you&#8217;ll be doing a lot in the future.</p></blockquote>
+
+<h4>Else-If Statements</h4>
+
+<p>Another form of if statement is the if-else-elseif structure.</p>
+
+<p>Let&#8217;s say we want to figure out what college someone is attending from a list of 3 colleges and tell them what their mascot is going to be. Since two of them are in Oregon, this means the branching will be a little different. Here is our list:</p>
+
+<ul>
+<li>Oregon State University</li>
+<li>University of Oregon</li>
+<li>University of Washington</li>
+</ul>
+
+
+<p>Create the following program and run it from your console window:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">MascotFinder</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>          <span class="p">{</span>
+</span><span class='line'>              <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Mascot Finder - Find your Mascot Now&quot;</span><span class="p">);</span>
+</span><span class='line'>              <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Please Choose which university you plan to attend:&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(1) Oregon State University&quot;</span><span class="p">);</span>
+</span><span class='line'>              <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(2) University of Oregon&quot;</span><span class="p">);</span>
+</span><span class='line'>              <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(3) University of Washington&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="n">string</span> <span class="n">ourState</span> <span class="o">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="k">if</span> <span class="p">((</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;2&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;3&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+</span><span class='line'>              <span class="p">{</span>
+</span><span class='line'>                  <span class="k">if</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">{</span>
+</span><span class='line'>                      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Beaver!&quot;</span><span class="p">);</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>                  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;2&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">{</span>
+</span><span class='line'>                      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Duck!&quot;</span><span class="p">);</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>                  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;3&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>                  <span class="p">{</span>
+</span><span class='line'>                      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Huskie!&quot;</span><span class="p">);</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>              <span class="p">}</span>
+</span><span class='line'>              <span class="k">else</span>
+</span><span class='line'>              <span class="p">{</span>
+</span><span class='line'>                  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You must select options 1-3 only&quot;</span><span class="p">);</span>
+</span><span class='line'>              <span class="p">}</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Take a look at the code above and observe the structure. We display a menu with the options 1-3 and then read in the answer to evaluate. In line 17 we are asking what what user typed in: if it&#8217;s 1, 2, or 3 we&#8217;ll move forward, if it&#8217;s not we are dropped into the else statement which displays the message that only 1-3 can be selected.</p>
+
+<p>If it is one of the numbers we allow, we check to see if the user typed &#8220;1&#8221;. If so we announce they will be a Beaver and exit the code block. The new statement &#8220;elseif&#8221; performs another check immediately after that to see if it&#8217;s a 2, and the same for 3. Once a condition is met we will display the right message. If statements, as well as if-else and else-if are valuable tools to control your program flow.</p>
+
+<p>But is there a better way to do this? Naturally there is, and we&#8217;ll take a look at that next .</p>
+
+<h4>Switch Statements</h4>
+
+<p>There is a better way to write this. Switch is a control statement that works with multiple options and tries to make a match, then executes the code with that &#8220;case&#8221;. Here&#8217;s what it looks like:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">MascotFinder</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Mascot Finder - Find your Mascot Now&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Please Choose which university you plan to attend:&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(1) Oregon State University&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(2) University of Oregon&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(3) University of Washington&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="n">string</span> <span class="n">ourState</span> <span class="o">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="k">switch</span> <span class="p">(</span><span class="n">ourState</span><span class="p">)</span>
+</span><span class='line'>          <span class="p">{</span>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;1&quot;</span>:
+</span><span class='line'>                  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Beaver!&quot;</span><span class="p">);</span>
+</span><span class='line'>              <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;2&quot;</span>:
+</span><span class='line'>                  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Duck&quot;</span><span class="p">);</span>
+</span><span class='line'>                  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="k">case</span> <span class="s">&quot;3&quot;</span>:
+</span><span class='line'>                  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Huskie!&quot;</span><span class="p">);</span>
+</span><span class='line'>                  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="nl">default:</span>
+</span><span class='line'>                  <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You must select options 1-3 only&quot;</span><span class="p">);</span>
+</span><span class='line'>                  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this example you can see what code we&#8217;ve changed. We now have this to control our flow:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">switch</span> <span class="p">(</span><span class="n">ourState</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="s">&quot;1&quot;</span>:
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Beaver!&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">case</span> <span class="s">&quot;2&quot;</span>:
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Duck&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">case</span> <span class="s">&quot;3&quot;</span>:
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Huskie!&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nl">default:</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You must select options 1-3 only&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The switch statement takes ourState as a parameter and matches it against each case. If there is a match it runs the code within that case then breaks out of it. If there are no matches, it goes to a &#8220;default&#8221; case that lets you know none of the options were selected.</p>
+
+<p>A couple of things to remember about switch statements:</p>
+
+<ul>
+<li>You can optionally set a &#8220;default&#8221; case to run if none of the cases match. This is cleaner than a bunch of if statements like our previous example.</li>
+<li>You cannot have two cases with the same value.</li>
+<li>Unlike C++ and other languages, there is no &#8220;fall through&#8221; to the next case. Meaning you can&#8217;t leave out the break and have it automatically go to the next one.</li>
+</ul>
+
+
+<br />
+
+
+<p><a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a></p>
+
+<br />
+
+
+<h3>Summary</h3>
+
+<p>We&#8217;ve taken a good look at selection statements, and examined how they&#8217;re used. Next we&#8217;ll be taking a look at iteration statements, another crucial part of core C# programming.</p>
+
+<p>Each of my tutorials in this series build on the previous ones, and we&#8217;ll build on this one as well as we expand into operators and more flow control stuff. I hope you&#8217;ll stick with me through these and <a href="http://feeds.feedburner.com/JeremyMorganTutorials">subscribe</a> to my tutorial feed.</p>
+
+<p>If you have any questions or comments, leave them below I&#8217;ll be checking them frequently. In the next tutorial we&#8217;re going to cover some iteration statements.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/csharp/'>CSharp</a>, <a class='category' href='/blog/dotnet/'>DotNet</a>, <a class='category' href='/blog/programming/'>Programming</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/" title="Previous Post: C# .Net Tutorials - How to Learn C# Part 4 - Variables and Types">&laquo; C# .Net Tutorials - How to Learn C# Part 4 - Variables and Types</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/" title="Next Post: C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements">C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

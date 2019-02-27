@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Google Adds New Tools for Webmasters - source Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Google Adds New Tools for Webmasters" /><meta itemprop="name" content="Google Adds New Tools for Webmasters" /><meta name="twitter:title" content="Google Adds New Tools for Webmasters">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-10-04 11:40:57 +0000" />
+
+<meta property="article:section" content="source" />
+
+<meta name="description" content="If you&#8217;re not using Google Webmaster Tools already, you&#8217;re missing out on crucial SEO data for your site. Recently there have been some &hellip;" />
+<meta property="og:description" content="If you&#8217;re not using Google Webmaster Tools already, you&#8217;re missing out on crucial SEO data for your site. Recently there have been some &hellip;" />
+<meta itemprop="description" content="If you&#8217;re not using Google Webmaster Tools already, you&#8217;re missing out on crucial SEO data for your site. Recently there have been some &hellip;" />
+<meta name="twitter:description" content="If you&#8217;re not using Google Webmaster Tools already, you&#8217;re missing out on crucial SEO data for your site. Recently there have been some &hellip;">
+
+<meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/seo/google-adds-new-tools-for-webmasters/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/seo/google-adds-new-tools-for-webmasters/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/seo/google-adds-new-tools-for-webmasters/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Google Adds New Tools for Webmasters</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-04T11:40:57+00:00" pubdate data-updated="true">Oct 4<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>If you&#8217;re not using Google Webmaster Tools already, you&#8217;re missing out on crucial SEO data for your site. Recently there have been some changes to this tool, I&#8217;ll show you some of the new features that have been added, and also go over some older ones.</p>
+
+<p>If you aren&#8217;t signed up for Google Webmaster Tools yet, <a href="https://www.google.com/webmasters/">visit this link </a>and get your site verified and check out the wealth of information it can provide. Many of the top SEOs dispute the accuracy of some of the tools but they still give you a good idea of how Google views your site.</p>
+
+<h3>New Tool: Site Health</h3>
+
+<p>The &#8220;site health&#8221; function is a report Google generates based on the overall status of your site in Google. It&#8217;s ranked mainly by three factors:</p>
+
+<ul>
+<li><p>Is there malware on the site?</p></li>
+<li><p>Have any of your pages been removed via the URL removal tool?</p></li>
+<li><p>Is the crawler being blocked from certain areas of your site (via robots.txt)?</p></li>
+</ul>
+
+
+<p>If any of these conditions exist, Google will let you know. All of these things are detrimental to your site being indexed and ranked, so you should really pay attention to these things. As a note, my site was once flagged for having malware because an advertiser had malware <em>on their site</em>. Needless to say I removed their ads, but it goes to show you really need to pay close attention to everything happening on your site, because a small innocent mistake can get you penalized.</p>
+
+<p>You can use a website like <a href="http://www.siteadvisor.com/">SiteAdvisor</a> to check your own website for potential problems, as well as keep yourself safe when browsing.</p>
+
+<p>Proper setup of your robots.txt is also crucial. Look at this article for tips on <a href="http://www.seoconsultants.com/robots-text-file/">how to setup your robots.txt  </a></p>
+
+<p>If you want to know what&#8217;s blocked in the URL removal tool, you will get a message in Webmaster tools, or you can look under the messages tab to see reports of blocked urls. This is usually done via a DMCA request or some other complaint submitted by someone else about your content.</p>
+
+<h3>New Tool: +1 Metrics</h3>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/10/google-webmaster-tools-plus.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/10/google-webmaster-tools-plus.jpg" alt="Google Webmaster Tools +1 Metrics" /></a></p>
+
+<p>This tool shows you some great information about +1 and how people are using it (or not using it).</p>
+
+<p><strong>Search Impact -</strong> This shows you the CTR for your pages, how much it is with a +1 button, and how much it is without. Since the +1 button isn&#8217;t heavily used on my site I don&#8217;t have a lot of data for it, but maybe in time this will change. This looks like it will be a good way to track your results of putting +1 buttons on your page.</p>
+
+<p><strong>Activity -</strong> This shows how many people are using the +1 button, and which pages they&#8217;re using it on. This information could be very useful if you see certain categories or subjects with more +1 activity, or certain types of pages that receive more clicks. If you have subjects or pages that don&#8217;t receive a lot of +1 activity you can investigate why.</p>
+
+<p><strong>Audience -</strong> This shows you what type of people added a +1 for your page, including location, age and gender. Very useful if you&#8217;re targeting based on these metrics, or seeing what type of people use the +1 button.</p>
+
+<h3>Other Great Google Webmaster Tools:</h3>
+
+<p>The Google Webmaster Tools suite offers other great tools to help you out as well:</p>
+
+<p><strong>Sitemap Management</strong> - This shows you the sitemaps you&#8217;ve submitted and what their status is. This will also show you sitemap errors, which are very important and need to be corrected immediately.</p>
+
+<p><strong>Crawler Access -</strong> This shows you your robots.txt and the parsing results. You can also test what the crawler sees and change the crawler from the web to mobile or image searching.</p>
+
+<p>[caption id=&#8221;attachment_703&#8221; align=&#8221;aligncenter&#8221; width=&#8221;541&#8221; caption=&#8221;An example of the crawlers you can select.&#8221;]<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/10/google-webmaster-tools.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/10/google-webmaster-tools.jpg" alt="Google Webmaster Tools" /></a>[/caption]</p>
+
+<p><strong>Search Queries -</strong> This is a very useful one because it shows a few things about the queries that come into your site. It shows queries used to visit your site, and shows:</p>
+
+<ul>
+<li><p>Keyword</p></li>
+<li><p>Impressions</p></li>
+<li><p>Clicks</p></li>
+<li><p>Change (increase or decrease) in the last month</p></li>
+<li><p>Click Through Rate</p></li>
+<li><p>Change in CTR</p></li>
+<li><p>Relative Position</p></li>
+</ul>
+
+
+<p>If this sounds like useful information, you&#8217;re right. This is one of the best ways to track your progress in the terms you&#8217;re shooting for.</p>
+
+<p><strong>Links to your site -</strong> Pretty self explanatory, but also not a very reliable tool. You&#8217;ll find that there are a lot more sites linking to you than what this shows (check your server logs, or Google Analytics) but it can be used as a benchmark to see if your link building campaigns are working. If it shows improvement on here, it&#8217;s likely you are seeing a big improvement in the actual links.It also shows your &#8220;most linked content&#8221; which can be useful.</p>
+
+<p><strong>Keywords -</strong> Another super important tool. This tool shows how Google views your site in terms of keywords. It ranks them based on relevance, and you can get a good view of what Google thinks your site is really about. Very useful for SEO.</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/10/google-webmaster-tools-seo.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/10/google-webmaster-tools-seo.jpg" alt="Google Webmaster Tools - SEO Keywords" /></a></p>
+
+<p>If you want to make changes to your keyword density, this is a good tool to monitor those changes. <strong>NOTE: I am not advising you to focus too much on keyword density per page</strong>. This can actually harm your results, but rather focus on keyword distribution amongst your whole site. If you&#8217;re targeting one type of result but talking about something else on your site you&#8217;ll have a hard time. But don&#8217;t over optimize your pages or load up your site with a keyword, these techniques rarely work anymore.</p>
+
+<p><strong>Internal Links</strong> - This is another important tool. Though not nearly as important as external links (links from other websites) internal links are very important. This shows Google what YOU think is important on your site.</p>
+
+<p>I&#8217;ll explain. If you have a page you think is a centerpiece of what your site is all about, you&#8217;ll link to it on every page. If you think readers of other pages are going to be interested in it you&#8217;ll make sure they can get there, right? If you have a page that&#8217;s only somewhat relative to the overall content of the site you may not want to clutter up other pages with a link to something the readers wont care about. <strong>Internal linking strategy is very important because of this.</strong> If Google thinks you have a page that isn&#8217;t useful enough to link to from other parts of the site, they may not think it&#8217;s very important either. Make sure your navigation is clean, and your important pages are linked well within your site.</p>
+
+<p><strong>Diagnostics</strong> - This is an important tool for checking your site for errors (usually outlined in the site health section). Some of the things you can check for:</p>
+
+<ul>
+<li><p>Malware</p></li>
+<li><p>Crawl errors</p></li>
+<li><p>Crawl stats</p></li>
+<li><p>Fetch as Googlebot</p></li>
+<li><p>HTML suggestions</p></li>
+</ul>
+
+
+<p>This is important stuff: if Google isn&#8217;t crawling your site properly you&#8217;ll never get the results you want. Make sure and correct any errors as soon as possible. Some examples of common errors:</p>
+
+<p><strong>Malware or linking to malware sites -</strong> Don&#8217;t do it. Ever. Not only because you risk losing rankings but you&#8217;ll lose your audience and put yourself in legal trouble. If one of your advertisers has some questionable software drop them, it simply isn&#8217;t worth the risk.</p>
+
+<p><strong>Not Found or blocked by robots.txt -</strong> You may have 404 errors that aren&#8217;t being handled gracefully or sections of your site blocked by robots.txt that shouldn&#8217;t be.</p>
+
+<p><strong>URLs not followed -</strong> This could indicate a technical problem with your site. You could have redirects that aren&#8217;t working, or &#8220;circular&#8221; redirects that cause an endless loop. You should fix these as soon as possible for the sake of your SEO rankings and for your visitors. Nothing is more frustrating than having to close your browser because it&#8217;s locked in a loop.</p>
+
+<p><strong>URL timed out or unreachable -</strong> This is another problem that causes frustration for your visitors and causes problems with crawling. Use a tool like <a href="http://home.snafu.de/tilman/xenulink.html">Xenu&#8217;s search sleuth</a> to find broken links on your site.</p>
+
+<p><strong>&#8220;Soft&#8221; 404 pages -</strong> This is what comes up when your page does not return a 404 http response but rather shows a &#8220;file not found&#8221; message. This is what Google has to say about soft 404 pages:</p>
+
+<blockquote><p>Returning a code other than 404 or 410 for a non-existent page (or redirecting users to another page, such as the homepage, instead of returning a 404) can be problematic. Firstly, it tells search engines that there’s a real page at that URL. As a result, that URL may be crawled and its content indexed. Because of the time Googlebot spends on non-existent pages, your unique URLs may not be discovered as quickly or visited as frequently and your site’s crawl coverage may be impacted (also, you probably don’t want your site to rank well for the search query [<a href="http://www.google.com/search?q=file+not+found">File not found</a>]).</p></blockquote>
+
+<p>They also offer suggestions for <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=181708">how to fix soft 404 errors here</a>. You should use 404 errors as an opportunity to either redirect visitors to the new page, or offer them a link back to your home page or relevant content.</p>
+
+<p><strong>Crawl Stats -</strong> Want to see how much Google is crawling your site? This is useful information to see when and how often Google is crawling your site. If you can detect patterns in this data you may even be able to figure out how to keep the Googlebot crawling your page frequently.</p>
+
+<p><strong>View as GoogleBot</strong> - A great tool to see how the Googlebot views your site, you may be surprised at the result.</p>
+
+<h3>Conclusion</h3>
+
+<p>I hope this helps give you an overall guide to the Google Webmaster Tools website. It&#8217;s a great resource for eliminating problems and tracking your SEO progress. Remember in the world of SEO every little detail counts. It&#8217;s those small details that add up to great search engine traffic.</p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-04T11:40:57+00:00" pubdate data-updated="true">Oct 4<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/source/'>source</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/linux/how-to-show-realtime-dmesg-output-in-linux/" title="Previous Post: Linux Tutorial: How to Show Realtime dmesg Output in Linux">&laquo; Linux Tutorial: How to Show Realtime dmesg Output in Linux</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/php-tutorials/how-to-upload-a-file-with-php/" title="Next Post: How to upload a file with PHP">How to upload a file with PHP &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

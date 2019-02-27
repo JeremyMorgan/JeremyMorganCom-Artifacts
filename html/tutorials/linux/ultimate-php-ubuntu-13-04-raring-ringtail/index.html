@@ -1,0 +1,778 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How to Set up the Ultimate PHP Dev Machine in Ubuntu 13.04 - source Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How to Set up the Ultimate PHP Dev Machine in Ubuntu 13.04" /><meta itemprop="name" content="How to Set up the Ultimate PHP Dev Machine in Ubuntu 13.04" /><meta name="twitter:title" content="How to Set up the Ultimate PHP Dev Machine in Ubuntu 13.04">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-03-07 19:55:00 +0000" />
+
+<meta property="article:section" content="source" />
+
+<meta name="description" content="How To Set up the Ultimate PHP Development Machine in Ubuntu 13.04 (Raring Ringtail) and write better software." />
+<meta property="og:description" content="How To Set up the Ultimate PHP Development Machine in Ubuntu 13.04 (Raring Ringtail) and write better software." />
+<meta itemprop="description" content="How To Set up the Ultimate PHP Development Machine in Ubuntu 13.04 (Raring Ringtail) and write better software." />
+<meta name="twitter:description" content="How To Set up the Ultimate PHP Development Machine in Ubuntu 13.04 (Raring Ringtail) and write better software.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/php-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/php-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/php-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/linux/ultimate-php-ubuntu-13-04-raring-ringtail/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/linux/ultimate-php-ubuntu-13-04-raring-ringtail/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/linux/ultimate-php-ubuntu-13-04-raring-ringtail/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How to Set Up the Ultimate PHP Dev Machine in Ubuntu 13.04</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-07T19:55:00+00:00" pubdate data-updated="true">Mar 7<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>Today I&#8217;m going to tell you how to build the ultimate PHP development environment in Ubuntu 13.04 (Raring Ringtail). PHP has been getting a lot of flack lately, but there is still a lot of enterprise level professional development going on with this language. And hey, I love .Net programming but you can build solid, quality PHP applications with the right knowledge and the right tools. Today I&#8217;ll tell you how set that up.</p>
+
+<!-- more -->
+
+
+<h3>What we&#8217;ll need</h3>
+
+<p>This is going to be a fairly long tutorial, but worth the trouble. In order to set up a this development environment, here is what we&#8217;ll need:</p>
+
+<ul>
+<li>A PHP 5 Installation.</li>
+<li>A local instance of a Web Server.</li>
+<li>An IDE</li>
+<li>A debugger</li>
+<li>A unit tester</li>
+</ul>
+
+
+<p>This is an enterprise class setup, and believe it or not the entire thing is free. That&#8217;s what makes this so much cooler than developing .Net in Visual Studio. All you need is a computer.</p>
+
+<h3>Set up PHP and our Web Server</h3>
+
+<p>The first thing we&#8217;ll want to do is set up our web server. What this will do is put a local server on your machine for development. You really don&#8217;t want to be saving and uploading to a server over and over, especially for a big project.</p>
+
+<p>There are a few ways we can do this:</p>
+
+<p><strong>Compile from Source</strong> - The best option for custom stuff and the most performance. It&#8217;s a great way to do it, but not how we&#8217;re going to set it up today.</p>
+
+<p><strong>Install from apt-get or Software Center</strong> - Also a great option, super easy and a good way to get the latest and greatest. Also not the way we&#8217;re going to do it today.</p>
+
+<p><strong>Install Zend Server </strong> because of the extra tools and nice integration, we&#8217;re going to be using the Zend Server Community edition. It&#8217;s an easy setup, and free.</p>
+
+<p>Download <a href="http://www.zend.com/en/products/server/" title="Zend Server">Zend Server Here</a> and save it.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-1.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Now click on the home folder and go to downloads, and you&#8217;ll see it:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-2.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Double click it and extract it somewhere. I just put it in the download folder.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-3.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Sorry if some of this seems kind of basic, but I want to make sure everyone gets a chance to do this. If you have any questions feel free to comment.</p>
+
+<h4>Install Zend Server</h4>
+
+<p>To install this, we will run a script in the terminal. Zend provides a script for Ubuntu that sets up your repositories and downloads a fresh version and saves you a lot of work.</p>
+
+<p>Click the launcher in the upper left corner of the screen, and type in &#8220;terminal&#8221;. Then click the terminal icon.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-4.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>In the terminal, type in</p>
+
+<pre>
+sudo -s
+</pre>
+
+
+<p>and hit enter. This will make you root. Then go to your download folder and type in</p>
+
+<pre>
+./install_zs.sh 5.4
+</pre>
+
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-5.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>And the script will start. After it updates everything if it&#8217;s successful it will ask you:</p>
+
+<pre>
+Need to get 101 MB of archives
+After this operation, 340 MB of additional disk space will be used. 
+Do you want to continue [Y/n]?
+</pre>
+
+
+<p>Click Y to continue. If you have a slow connection or computer, go grab a soda.</p>
+
+<p>If it&#8217;s successful, you&#8217;ll see this screen:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-6.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Now, open FireFox and go to the following web address:</p>
+
+<pre>
+http://localhost:10081/ZendServer
+</pre>
+
+
+<p>Agree to the terms of service and click next.</p>
+
+<p>Select &#8220;Development&#8221; and click next.</p>
+
+<p>Enter the password you want to use for the admin interface.</p>
+
+<h3>How to make sure it&#8217;s the free version</h3>
+
+<p>Once the web interface is open, you will see this is a &#8220;Zend Server Enterprise Trial&#8221;. If you want to use the full version during the trial, or even purchase it that&#8217;s great. But if you can&#8217;t afford the price tag or just need the bare features, go up to the upper right hand corner to your messages:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-7.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>And then click details</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-8.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>And select &#8220;Use free edition&#8221;. Don&#8217;t worry, it will still have plenty of awesome stuff for us to use.</p>
+
+<h3>Set up your web folder</h3>
+
+<p>By default the website&#8217;s files are published to /var/www. Usually people either set up virtual user directories or point the web root. The simplest way, is just to add permissions for your account to access the web folder:</p>
+
+<pre>
+sudo chown -R [your username] /var/www
+</pre>
+
+
+<p>That way you can write to the /var/www folder. You can even create a symbolic link to a folder in your home folder. One thing I usually do is:</p>
+
+<pre>
+ln -s /var/www/ /home/jeremy/
+</pre>
+
+
+<p>This makes it a little quicker to get to my web folder after logging in.</p>
+
+<h3>Create your php info page</h3>
+
+<p>If you&#8217;re a php dev, you&#8217;ve likely done this a million times. In your web directory, create a file called phpinfo.php (or whatever you want). Inside that file put the following code:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php phpinfo(); ?></span></code></pre></td></tr></table></div></figure>
+
+
+<p>And load it up in your browser. You can use this page to see all your PHP settings.</p>
+
+<h3>Make your utilities usable system wide.</h3>
+
+<p>Zend Server installs stuff like PEAR, PECL, etc but it&#8217;s not installed in the usual locations and it isn&#8217;t in your path. Run these commands to make them avaialable system wide.</p>
+
+<pre>
+sudo ln -s /usr/local/zend/bin/zendctl.sh /usr/sbin/zendctl
+sudo ln -s /usr/local/zend/bin/pear /usr/sbin/pear
+sudo ln -s /usr/local/zend/bin/pecl /usr/sbin/pecl
+sudo ln -s /usr/local/zend/bin/php /usr/sbin/php
+sudo ln -s /usr/local/zend/bin/phpize /usr/sbin/phpize
+</pre>
+
+
+<h3>Install XDebug</h3>
+
+<p>We&#8217;re going to set up some Debuggers you can use to get a better idea of what&#8217;s going on with this program. Many PHP developers neglect debuggers for some reason, but they really are helpful and do save you a lot of time. The Zend Debugger is already installed with the Zend server, but we&#8217;re going to add XDebug too, in case you prefer that. There are valid reasons to use both of them.</p>
+
+<pre>
+sudo apt-get install m4
+sudo apt-get install autoconf
+sudo pecl install xdebug
+</pre>
+
+
+<p>After that completes, you&#8217;ll need to add the xdebug.so to your extention</p>
+
+<pre>
+sudo nano /usr/local/zend/etc/conf.d/debugger.ini 
+</pre>
+
+
+<p>add the following line at the TOP of the file:</p>
+
+<pre>
+zend_extension=/usr/local/zend/lib/php_extensions/xdebug.so
+</pre>
+
+
+<p>CTRL+X they &#8220;Y&#8221; to save. Then restart the server:</p>
+
+<pre>
+sudo /etc/init.d/zend-server restart
+</pre>
+
+
+<p>Now, you can check to see if xdebug installed properly:</p>
+
+<pre>
+php -i | grep xdebug
+</pre>
+
+
+<p>You should see output similar to this:</p>
+
+<pre>
+xdebug
+xdebug support => enabled
+xdebug.auto_trace => Off => Off
+xdebug.cli_color => 0 => 0
+xdebug.collect_assignments => Off => Off
+xdebug.collect_includes => On => On
+xdebug.collect_params => 0 => 0
+xdebug.collect_return => Off => Off
+xdebug.collect_vars => Off => Off
+xdebug.coverage_enable => On => On
+xdebug.default_enable => On => On
+xdebug.dump.COOKIE => no value => no value
+xdebug.dump.ENV => no value => no value
+xdebug.dump.FILES => no value => no value
+xdebug.dump.GET => no value => no value
+xdebug.dump.POST => no value => no value
+xdebug.dump.REQUEST => no value => no value
+xdebug.dump.SERVER => no value => no value
+xdebug.dump.SESSION => no value => no value
+xdebug.dump_globals => On => On
+xdebug.dump_once => On => On
+xdebug.dump_undefined => Off => Off
+xdebug.extended_info => On => On
+xdebug.file_link_format => no value => no value
+xdebug.idekey => no value => no value
+xdebug.max_nesting_level => 100 => 100
+xdebug.overload_var_dump => On => On
+xdebug.profiler_aggregate => Off => Off
+xdebug.profiler_append => Off => Off
+xdebug.profiler_enable => Off => Off
+xdebug.profiler_enable_trigger => Off => Off
+xdebug.profiler_output_dir => /tmp => /tmp
+xdebug.profiler_output_name => cachegrind.out.%p => cachegrind.out.%p
+xdebug.remote_autostart => Off => Off
+xdebug.remote_connect_back => Off => Off
+xdebug.remote_cookie_expire_time => 3600 => 3600
+xdebug.remote_enable => Off => Off
+xdebug.remote_handler => dbgp => dbgp
+xdebug.remote_host => localhost => localhost
+xdebug.remote_log => no value => no value
+xdebug.remote_mode => req => req
+xdebug.remote_port => 9000 => 9000
+xdebug.scream => Off => Off
+xdebug.show_exception_trace => Off => Off
+xdebug.show_local_vars => Off => Off
+xdebug.show_mem_delta => Off => Off
+xdebug.trace_enable_trigger => Off => Off
+xdebug.trace_format => 0 => 0
+xdebug.trace_options => 0 => 0
+xdebug.trace_output_dir => /tmp => /tmp
+xdebug.trace_output_name => trace.%c => trace.%c
+xdebug.var_display_max_children => 128 => 128
+xdebug.var_display_max_data => 512 => 512
+xdebug.var_display_max_depth => 3 => 3
+</pre>
+
+
+<p>This means it installed properly and you can now use it for debugging!</p>
+
+<h3>Install Composer</h3>
+
+<p>Composer is one of the most awesome things to come to PHP. To install it, you will need curl to get the installer. If you don&#8217;t already have it, type</p>
+
+<pre>
+sudo apt-get install curl
+</pre>
+
+
+<p>And to get the Composer installer:</p>
+
+<pre>
+curl -sS https://getcomposer.org/installer | php
+</pre>
+
+
+<p>You should see something that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-9.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Note where it shows composer.phar is. We want to move that to our path so we can call composer from anywhere.</p>
+
+<pre>
+sudo mv composer.phar /usr/local/bin/composer
+</pre>
+
+
+<p>That&#8217;s it!</p>
+
+<h3>Install PHPUnit</h3>
+
+<p>Now we want to install PHPUnit so we can do unit testing in our environment.</p>
+
+<p>Here is how you do it:</p>
+
+<pre>
+sudo pear config-set auto_discover 1
+sudo pear clear-cache
+sudo Pear install pear.phpunit.de/PHPUnit
+</pre>
+
+
+<p>This will use pear to install PHP unit for you. If you would like you can <a href="http://www.phpunit.de/manual/3.0/en/writing-tests-for-phpunit.html">Build a test case for PHPUnit</a> to make sure it&#8217;s working properly.</p>
+
+<h3>Install JRE</h3>
+
+<p>You will need the JRE to run Eclipse, if you don&#8217;t already have it installed, you&#8217;ll need to download it from here:</p>
+
+<ul>
+<li><a href="http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jre-7u17-linux-i586.tar.gz">JRE 32 bit</a></li>
+<li><a href="http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jre-7u17-linux-x64.tar.gz">JRE 64 bit</a></li>
+</ul>
+
+
+<p>Save the archive in your downloads folder.</p>
+
+<p>I like to install this one fresh, especially with the latest Java Security issues going around. Run the following to remove any old versions:</p>
+
+<pre>
+sudo apt-get purge openjdk*
+</pre>
+
+
+<p>Now, go to where you saved the file (for me it was /home/jeremy/Downloads) and extract it:</p>
+
+<pre>
+tar -xvzf jre-7u17-linux-x64.tar.gz
+sudo mkdir -p /usr/lib/jvm/jre1.7.0
+sudo mv jre1.7.0_17/* /usr/lib/jvm/jre1.7.0/
+sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jre1.7.0/bin/java 0
+</pre>
+
+
+<p>While you&#8217;re here, you may as well set it up for Firefox as well:</p>
+
+<pre>
+mkdir ~/.mozilla/plugins 
+ln -s /usr/lib/jvm/jre1.7.0/lib/i386/libnpjp2.so ~/.mozilla/plugins/
+</pre>
+
+
+<h3>Install Eclipse</h3>
+
+<p>We&#8217;re going to install the Eclipse PDT plugin by Zend. You might notice we&#8217;re using a lot of Zend products: this is for consistency between the products but it&#8217;s by no means a requirement.</p>
+
+<p><a href="http://www.zend.com/en/community/pdt/downloads">Eclipse PDT download Page</a></p>
+
+<p>Click on your version (32 or 64 bit) and again, open with the archive manager. You might note that Eclipse is a standalone application, so it doesn&#8217;t have an &#8220;Installer&#8221; and you can put it anywhere.</p>
+
+<p>I just extract mine into /home/jeremy and run it from there. Open the folder and click on the eclipse-php icon:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-10.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>It will ask you to save a workspace. You will want to make this your web root.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-11.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>And let&#8217;s create a new project. Go to the New button and select new -&gt; PHP Project.</p>
+
+<p>I usually configure it something like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-12.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Now we have an open project we can work with. Create an index.php file and open it up. Put in the following code:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$somevar = "test";
+</span><span class='line'>
+</span><span class='line'>echo "This is a " . $somevar;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we&#8217;ll set up Eclipse and play around with it a little.</p>
+
+<h3>Configuring Eclipse</h3>
+
+<p>The first thing we want to do is go to Project -&gt; Properties.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-13.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>In the properties window, select <strong>PHP Debug</strong> and check &#8220;Enable project specific settings&#8221;.</p>
+
+<p>You&#8217;ll notice here you can choose your debugger:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-14.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Click on:
+&#8220;Enable CLI Debug&#8221;
+&#8220;PHP Executables&#8221;
+&#8220;Add&#8221;</p>
+
+<p>In the next window, put the following information to point to your PHP executables.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-15.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Now you can do CLI debugging whenever you need to.</p>
+
+<p>Let&#8217;s set up web debugging. Click on the little green bug and select &#8220;Debug Configurations&#8221;.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-16.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Set up this screen to look like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-17.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Then click &#8220;configure&#8221; and make sure it&#8217;s set up like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-18.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Save the settings.</p>
+
+<h3>Do a test run</h3>
+
+<p>Now you have it set up, so click on the green bug again and select &#8220;index&#8221;. You&#8217;ll see a screen that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-19.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>This, of course is your debug screen. This shows you all your variable data, and a lot more.</p>
+
+<p>With this you are now ready to rock!</p>
+
+<h3>Conclusion</h3>
+
+<p>Ok so that was definitely a lot of setup, but I hope it at least gives an idea of what a professional level PHP development environment should look like. You should have debugging and Unit testing going with all of your PHP applications no matter what. Much of the bad reputation associated with PHP is from people &#8220;gluing&#8221; stuff together and hacking up nasty solutions and leaving them around for years. One way to improve the reputation of PHP is to start building better code, and I think this set up helps with that.</p>
+
+<p>All the software in the world configured perfectly won&#8217;t make you write better code. THat&#8217;s up to you, and something I&#8217;ll cover in future tutorials as well, and I&#8217;ll show you some ways to make your PHP solutions solid, fast and enterprise ready.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-07T19:55:00+00:00" pubdate data-updated="true">Mar 7<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/source/'>source</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/raspberry-pi/raspberry-pi-programming-python/" title="Previous Post: Raspberry Pi Programming For Beginners">&laquo; Raspberry Pi Programming For Beginners</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/linux/ultimate-php-ubuntu-13-04-raring-ringtail/" title="Next Post: How to Set up the Ultimate PHP Dev Machine in Ubuntu 13.04">How to Set up the Ultimate PHP Dev Machine in Ubuntu 13.04 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

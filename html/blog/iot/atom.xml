@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  IoT | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/iot/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Hands on IoT with the Raspberry Pi]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/hands-on-internet-of-things/"/>
+    <updated>2016-06-01T21:07:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/hands-on-internet-of-things-with-the-raspberry-pi</id>
+    <content type="html"><![CDATA[<p>Great news! I finally got my IoT course done! It took a long time to develop, and a lot of learning but totally worth it. This is not really a post advertising it but just a quick talk about the process.</p>
+
+<!-- more -->
+
+
+<h2>Hands on Internet of Things</h2>
+
+<p><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/hands-on-iot/hands-on-iot-00.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></a></p>
+
+<p>If you're interested in taking the course, you can <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">redeem a 50% off coupon by clicking here!</a> It's already dirt cheap at $20, but why not get it for $10?</p>
+
+<p>In this course, I cover the basics, such as how to connect to the Pi, blink an LED, etc. Then we get into reading sensors and gathering the data. Then we walk through ways to send it to endpoints on the internet. Finally we create our OWN endpoint and start sending data there. Finally we build a dashboard for our data. Sound fun? Sign up!!</p>
+
+<h2>What I learned here</h2>
+
+<p>I learned a few things over the months. I started out not knowing much about video or sound editing. I also knew next to nothing about course design. I'm not an expert at any of those things now but I have learned a lot. Some key points I learned:</p>
+
+<ul>
+<li>Course design is hard.</li>
+<li>Video editing is hard.</li>
+<li>Audio editing is hard.</li>
+<li>Every sound within 10 miles comes in very loudly on your microphone.</li>
+</ul>
+
+
+<p>So I set off with my Yeti Blue microphone, and purchased some software to help out:</p>
+
+<ul>
+<li>Camtasia for Mac</li>
+<li>Camtasia for PC</li>
+<li>Reaper Audio</li>
+<li>ACON Audio plugins</li>
+</ul>
+
+
+<p>I read through countless tutorials and and watched videos to learn as much as I could. Then I started to record random stuff and chop it up, clean it etc. Lots of trial by fire, and my early work was terrible.</p>
+
+<h3>Sound: My Biggest Obstacle</h3>
+
+<p>One thing I learned quickly: The world is loud. The Yeti Blue microphone is AMAZING and the sound quality is great. Unfortunately it picks up sounds everwhere. I had many fruitless hours recording and re-recording when a dog barked, or someone drove one of those obnoxious import cars by my house. Also nobody could be home, you can hear everything. Rather than try to silence the world I decided to improviss</p>
+
+<p>First I took a box and stuffed it with insulation like so:</p>
+
+<p><img src="/images/hands-on-iot/hands-on-iot-02.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></p>
+
+<p>This cut down noise considerably. It also gave a much clearer, deeper sound that's difficult to explain. If it looks stupid but it works, it isn't stupid.</p>
+
+<p>I still had way too much neighborhood noise, so my final recording area looked like this:</p>
+
+<p><img src="/images/hands-on-iot/hands-on-iot-03.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></p>
+
+<p>Yup, that's a supply closet! I managed to remove the echo and background noise from here fairly well.</p>
+
+<p>This was my biggest obstacle by far and I worked through it.</p>
+
+<h3>Why do I find this fun?</h3>
+
+<p>So I spent hours writing out scripts, recording and re-recording. I set up goofy stages and filmed things with my webcam. It was a ton of work. But it was.... fun.</p>
+
+<p><img src="/images/hands-on-iot/hands-on-iot-04.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></p>
+
+<p>Teaching people is a huge passion of mine, and I love doing these courses. I am bitten by the bug and this will be the first of many courses from me. Got a few laid out in the queue for this year.</p>
+
+<p>During the process of building this I auditioned for <a href="http://www.pluralsight.com">Pluralsight</a> and got signed (yes!), so I'm now working on a course for them. Pluralsight has some exacting standards as well as branding and other style preferences so it's a bit more work. On the flipside of that they have people with tons of knowledge helping you out and cheering you on. It's pushing me to be a better instructor fast and I love it! But that's for another article.</p>
+
+<h3>Do you want to do this?</h3>
+
+<p><img src="/images/hands-on-iot/hands-on-iot-01.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></p>
+
+<p>If you are itching to become an instructor, contact me. I have learned a TON over the last few months, and will gladly share. I'm going to do a series of articles soon detailing how to get started and tricks I've learned. Stay tuned or <a href="http://eepurl.com/b3Y9Wz">sign up for my newsletter</a>.</p>
+
+<p>More to come soon!!!</p>
+
+<p>-Jeremy</p>
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Setting up the Adafruit Huzzah ESP8266 Breakout]]></title>
+    <link href="https://www.jeremymorgan.com/internet-of-things/arduino-projects/huzzah-ESP8266-breakout/"/>
+    <updated>2016-01-12T21:16:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/internet-of-things/arduino-projects/review-adafruit-huzzah-esp8266-breakout</id>
+    <content type="html"><![CDATA[<p>Recently I showed a friend of mine some of the projects I've working on with Arduino and Wifi, and he introduced me to the <a href="http://www.esp8266.com/">ESP8266 chip</a>. I found them all over the internet ranging from $1.50 US to $20, with a variety of configurations and manufacturers. I decided to go with a company I trust, Adafruit Industries, and see what their offering is like.</p>
+
+<!-- more -->
+
+
+<p>Full disclosure: I was not paid or compensated by Adafruit, I purchased this product. You can <a href="https://www.adafruit.com/products/2471">grab one for $9.95 here</a>.</p>
+
+<h2>Assembly</h2>
+
+<p>With Adafruit products you can expect a few things:</p>
+
+<ul>
+<li>A good design</li>
+<li>Software for devices</li>
+<li>Lots of instructions</li>
+<li>Soldering</li>
+</ul>
+
+
+<p>As I've said before I think soldering components is a good thing, even for beginners. It gives you more freedom with how you set up your boards, and it forces you to get good at soldering. This kit comes to you looking like this:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-01.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Its a board, with some pins (extras) and that's it. I generally like to place them in the breadboard when soldering to keep everything straight. Some have warned against this because you might damage your breadboard. If you are getting the pins that hot or slopping that much solder you're doing it wrong. Practice on some old electronic stuff!</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-02.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>In a few minutes you should have something that looks like this:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-03.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>It's ready to program!</p>
+
+<h2>Setting up the Software</h2>
+
+<p>I should note there are a few ways to connect to this device to program it. I chose the easy way, and got a <a href="http://www.adafruit.com/products/70">FTDI Serial USB cable</a> to do this. I figure it won't be the last time I program a serial device, and I freely admit I am NOT an electronic engineer so this route worked well for me.</p>
+
+<p>The first thing I thought I'd do, is the "hello world" of electronics and blink an LED.</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-04.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>To get the software you need, head on over to <a href="https://github.com/esp8266/Arduino">this GitHub repo</a> and download the .zip file and save it in your libraries folder.</p>
+
+<p>Start Arduino and open Preferences window.</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-05.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Enter http://arduino.esp8266.com/stable/package_esp8266com_index.json into Additional Board Manager URLs field. You can add multiple URLs, separating them with commas. Click OK.</p>
+
+<p>Open Boards Manager from Tools > Board menu and install ESP8266 platform (and don't forget to select your ESP8266 board from Tools > Board menu after installation).</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-06.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-07.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Note, you may need to change your port also:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-08.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<h3>Write the Code</h3>
+
+<p>The code to blink an LED is super simple. Create in the already familiar Arduino IDE:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-09.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Here's the actual code:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kt">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// initialize digital pin 14 as an output.</span>
+</span><span class='line'><span class="n">pinMode</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">// the loop function runs over and over again forever</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>   <span class="c1">// turn the LED on (HIGH is the voltage level)</span>
+</span><span class='line'><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>              <span class="c1">// wait for a second</span>
+</span><span class='line'><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>    <span class="c1">// turn the LED off by making the voltage LOW</span>
+</span><span class='line'><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>              <span class="c1">// wait for a second</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In order to push the code to the ESP8266, you must hold down GPIO0 then press and release reset:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-10.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Once you see the red light dim, it's ready to flash.</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-11.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Once complete, you'll have a blinking LED!</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-12.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<h3>Playing with Sensors</h3>
+
+<p>I decided to get a little more creative and hook a couple sensors up to this. I am not going to go into great detail, if you want to do this <a href="https://github.com/IoT-Projects/IoT-home-temp-tracking">head over to this repo</a> and get code for turning your ESP8266 into a home temperature tracker. But it was super easy to set up.</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-13.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Using the <a href="https://github.com/adafruit/DHT-sensor-library">Adafruit DHT Libraries</a> and some code from the IoT home temp repo I was able to get it running in minutes. Very easy!</p>
+
+<p>I even ended up sending the data to Sparkfun, you can see the live feed here --> <a href="https://data.sparkfun.com/streams/n1L3R6yql5I3WYrxKXK7">data.sparkfun.com</a> (it may go down at any time).</p>
+
+<h2>Conclusion</h2>
+
+<p>I really enjoyed the <a href="https://www.jeremymorgan.com/internet-of-things/arduino-projects/how-to-wifi-arduino/">CC3000 Arduino Wifi breakout</a> and would still use it if I needed additional data pins. With the ESP2866 product I have a much smaller footprint, it doesn't even require an Arduino, and it is super easy to set up. Here's how to know if you should use an ESP2866:</p>
+
+<ul>
+<li>You don't need a full OS</li>
+<li>You have a few sensors</li>
+<li>You want to simply grab data and push it</li>
+</ul>
+
+
+<p>This is where the ESP8266 really shines. It's dead simple and does one thing and does it well. I can't wait to start building more projects with this, and at $10 you really should too.</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled "<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>" which is intended to be a course for people who want to get started with IoT. I'll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I'm offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div><br />
+
+<a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br />
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started with Adafruit IO]]></title>
+    <link href="https://www.jeremymorgan.com/internet-of-things/how-to-adafruit-io/"/>
+    <updated>2015-12-26T20:31:28+00:00</updated>
+    <id>https://www.jeremymorgan.com/internet-of-things/getting-started-with-adafruit-io</id>
+    <content type="html"><![CDATA[<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+
+<p>Earlier this year Adafruit Industries put their IoT dashboard <a href="http://www.adafruit.io">Adafruit.IO</a> into Beta, and it looks pretty cool. I'll show you how to set up a dashboard using one of my mini weather station designs for data input. You may remember <a href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-weather-station-raspberry-pi/">this project</a> from a few months ago. I'll be adding yet another endpoint to the project on Adafruit.IO.</p>
+
+<!-- more -->
+
+
+<h2>Setting up the Feeds</h2>
+
+<p>Adafruit IO uses "feeds" for the data used in your dashboard. This feed contains the raw data you'll be looking at, such as a temperature reading. This data can be populated through a REST API, Python, Ruby, and NodeJS clients, or uploading a .csv. I'm going to be using the REST Api called from a Python script in <a href="https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station">this project</a>.</p>
+
+<p>The first step is to create a feed:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-01.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>After creating it you'll be given a chance to edit some metadata:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-02.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>After your feed is created, you can edit attributes such as:</p>
+
+<ul>
+<li>Name</li>
+<li>Description</li>
+<li>License</li>
+<li>Public / Private setting</li>
+</ul>
+
+
+<p>This is pretty neat because you can make your feeds public, and specify how you would like them used. If this service gains a big following this opens a ton of doors for us.</p>
+
+<p>In my case I set up feeds for each piece of data I want on my dashboard that will come from the Raspberry Pi with the corresponding sensors wired up:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-03.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>Next I'll show you how I populated them.</p>
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+
+<h2>Working with the Feed API</h2>
+
+<p>For this project we're going to use the feed REST API. <a href="https://learn.adafruit.com/adafruit-io-basics-feeds/resources">You can find full documentation here</a>. I won't go into great detail with interacting with the API, but instead explain what I've done so far. I encourage you to dig into it and take a look.</p>
+
+<p>First, the base URL is:</p>
+
+<blockquote><p><a href="https://io.adafruit.com/api">https://io.adafruit.com/api</a></p></blockquote>
+
+<p>Let's send a few requests to it and see how it works.</p>
+
+<p>Note: You will need your AIO key for all requests, you can get this key in the upper right hand corner of your feed view with the "View AIO keys" button:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-04.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>To send a simple request, I'll use CURL to test it out. I sent the following command:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl https://io.adafruit.com/api/feeds?x-aio-key=[MY AIO KEY]</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>It shows the following response (showing a list of my feeds)</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-05.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>Using similar REST commands, we'll send data to the feeds. I'll use Postman for building and testing these commands.</p>
+
+<p>Create a new request in Postman, using the following URL:</p>
+
+<blockquote><p>https://io.adafruit.com/api/feeds/temperature/data</p></blockquote>
+
+<p>Set the x-aio-key header with your key:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-06.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>and send a form value like so:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-07.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>After sending it you should see a result like this:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-08.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>You've just sent a piece of data to your feed (I recommend deleting test entries of course). Now we'll integrate that into the script on the Raspberry Pi that's gathering data.</p>
+
+<h2>Integrating the REST Calls Into the Weather Station</h2>
+
+<p>For this part, I'm going to use the code from the <a href="https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station">Raspberry Pi Mini Weather Station</a> I set up a few months ago. I've got this sitting in my garage collecting data (going to both an Azure site and a Python/Linux endpoint) and this will make a nice realtime monitor for it.</p>
+
+<p>If you want to use this code as a base to start, clone it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station.git</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you want to replicate my results exactly, you'll want to make sure it's set up as described in the <a href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-weather-station-raspberry-pi/">Raspberry Pi Mini Weather Station</a> project.</p>
+
+<p>Here we'll open up readings.py, and add "import urllib" to the top, since we'll be using that in addition to the urllib2 we've been using.</p>
+
+<p>Then we'll add an additional call (for temperature). We start by adding a variable for my AIO key:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-09.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>Next we'll go down add the additional call. Add the URL for the 3rd call here:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>url3 = 'https://io.adafruit.com/api/feeds/temperature/data'</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next, let's create a 3rd request. The data object for this one will be a little different from the others in the file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ftemp = round((9.0 / 5.0  * avgTemp + 32), 2)
+</span><span class='line'>values3 = {'value' : ftemp }</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We have converted it to Farenhiet and created a small tuple called "values"</p>
+
+<p>The request for this will be different from the others in the file as well. We're going to urlencode the value, then add a different content type header, and the aiokey. It will look like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>data3 = urllib.urlencode(values3)
+</span><span class='line'>req3 = urllib2.Request(url3, data3)
+</span><span class='line'>req3.add_header('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
+</span><span class='line'>req3.add_header('x-aio-key',aiokey)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>response3 = urllib2.urlopen(req3)</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, after saving the file you should now be sending data to the endpoint.</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-10.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>You should also see entries for when the data is sent:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-11.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>Congratulations, you've got a feed going! Repeat this process for the other measurements you want to add to your dashboard. I added in the following:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-12.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>Let's create a dashboard next to view the data.</p>
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+
+<h2>Creating an Adafruit IO Dashboard</h2>
+
+<p>Now that you have some feeds gathering info, you can create a dashboard to view it. The dashboard is a customized window into your data, and you can use as many or as few of your feeds. Create a new dashboard and take a look at the options available:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-13.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<ul>
+<li>Edit your dashboard blocks and layout</li>
+<li>Create a new block</li>
+<li>View your secret AIO key</li>
+<li>Delete Dashboard</li>
+<li>Set privacy</li>
+</ul>
+
+
+<p>When you create a new block, you're greeted with a list of options:</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-14.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>Once you choose one (for instance I chose the gauge) you can modify some of the options, and select the feed.</p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-15.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<p>It's that easy to set up. You create a set of blocks, and put together your dashboard.</p>
+
+<p><a href="https://io.adafruit.com/JeremyMorgan/garage-weather">Take a look at my Garage Dashboard</a></p>
+
+<p><img class="center" src="/images/adafruit-io/adafruit-io-how-to-16.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
+
+<h2>Conclusion: My Impressions</h2>
+
+<p>One key thing to keep in mind if you'll be using this service: it's still in beta. It's not yet ready for production use. That being said it does appear to be functioning quite well. I had a few issues sizing up boxes and rendering the dashboard in Chrome under Arch Linux, but opened it up in Firefox and it was fine. These were the only minor problems I ran into. I got set up pretty fast and it looks great, so I'd recommend checking it out.</p>
+
+<p>The good points:</p>
+
+<ul>
+<li>Several options to interface data</li>
+<li>REST API well structured and useful</li>
+<li>Great documentation</li>
+<li>Easy to use and set up</li>
+<li>Visually appealing</li>
+</ul>
+
+
+<p>So if you'd like a cool dashboard to augment your project or want to share some data go check it out. It's well worth a couple hours of playing.</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled "<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>" which is intended to be a course for people who want to get started with IoT. I'll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I'm offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div><br />
+
+<a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br />
+</p>
+
+<br />
+
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to add WiFi to your Arduino]]></title>
+    <link href="https://www.jeremymorgan.com/internet-of-things/arduino-projects/how-to-wifi-arduino/"/>
+    <updated>2015-12-19T01:05:24+00:00</updated>
+    <id>https://www.jeremymorgan.com/internet-of-things/arduino-projects/adding-wifi-to-arduino-with-the-cc3000</id>
+    <content type="html"><![CDATA[<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+
+<p>If you want to add internet connectivity to an Arduino, you have quite a few options. Since most Arduino models are not bundled with Ethernet or WiFi a market has developed for it, and I decided to try one out and share my thoughts.</p>
+
+<p>For this article I'll be using the Adafruit CC3000 <a href="https://www.adafruit.com/products/1469">breakout board found here</a>. For the platform I'm using an Arduino Mega 2560 I received from <a href="http://www.newark.com" target="_blank">Newark element14</a>.</p>
+
+<!-- more -->
+
+
+<h3>Assembling the CC3000</h3>
+
+<p>The CC3000 comes shipped with the board and pins like so:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-1.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>This kit does require soldering, but not a lot. One tip, is to break off the 9 pins as instructed and put them in the a breadboard and place the PCB on top:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-2.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>This will hold it in place while soldering, when done it should look like this:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-3.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>Only I hope your soldering looks better.</p>
+
+<p>Now, put it on the breadboard and wire it up! The <a href="https://learn.adafruit.com/adafruit-cc3000-wifi/cc3000-breakout">wiring instructions are here</a>  and in this case it's wired up for an Arduino Mega.</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-4.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>Notice I have an additional power supply coming in. A note from Adafruit:</p>
+
+<blockquote><p>Make sure your Arduino is powered by a 1 amp or higher rated external power supply when using with the CC3000! Powering an Arduino + CC3000 from a computer/laptop USB port will lead to unstable behavior and lockups because the USB port can't supply enough power!</p></blockquote>
+
+<p>This is good advice, and if you don't have a power supply yet, pick one up. You'll need it when you start adding things to your Arduino.</p>
+
+<h2>Software</h2>
+
+<p>Now, we're going to work on the software part of the project using Arduino Sketch. I'm doing it in Linux, but the instructions will be the same for Windows and OSX as well.</p>
+
+<p>You'll want to make sure and get the <a href="https://github.com/adafruit/Adafruit_CC3000_Library/archive/master.zip">latest Adafruit CC3000 library here</a> for the next steps.</p>
+
+<p>Unzip this file into a folder, we'll be working with some of the demos included. Do not delete the Zip file.</p>
+
+<p>Open up sketch and browse to the folder you just created:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-5.jpg" alt="Arduino WiFi How To" /></p>
+
+<h3>Run the Build Test</h3>
+
+<p>We want to run the build test to make sure the device is working correctly. Open up buildtest.ino. You'll need to change the following to connect to your WiFi network:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>define WLAN_SSID       "myNetwork"&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>define WLAN_PASS       "myPassword"&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Note if you want to change the security setting for your WAP with the "WLAN_SECURITY" Variable.</p>
+
+<p>Save the sketch. Now you'll want to import the Adafruit CC3000 library into your sketch. This is generally the fastest way to do it:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-6.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>Browse to where you downloaded the zip archive and import it.</p>
+
+<p>Now, try compiling the sketch. You should see this:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-7.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>It is now ready to send to the Arduino. Next I'll show you how to communicate with the Arduino to watch what's happening.</p>
+
+<h3>Monitor the Serial Port</h3>
+
+<p>You can compile a sketch and push it to the Arduino and (hopefully) things will happen. The serial monitor is a good way to visually see what's happening and get feedback from the device. In the Sketch IDE go to Tools -> Serial Monitor.</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-8.jpg" alt="Arduino WiFi How To" /></p>
+
+<blockquote><p>Note: If you're using Linux, you may need to add your user account to a group to access this port. Instructions <a href="http://playground.arduino.cc/Linux/All#Permission">can be found here</a> for how to do that.</p></blockquote>
+
+<p>Make sure and set the proper baud rate for the CC3000, which is 115200:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-9.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>If your WiFi info is correct, you should see:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-10.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>and after it connects it will attempt to ping adafruit. If successful it will look like this:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-11.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>I'm not sure why but on mine it says it failed to get an IP, then displays it and pings the site. I'll be looking into that further soon. If all tests pass you're ready to go.</p>
+
+<h3>Build a Web Server</h3>
+
+<p>For this project, go back into the examples folder and go into the HTTPServer folder.</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-12.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>Open up HTTPServer.ino in sketch. Like the previous file, you will need to change the WiFi settings:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>define WLAN_SSID       "myNetwork"&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>define WLAN_PASS       "myPassword"&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Note if you want to change the security setting for your WAP with the "WLAN_SECURITY" Variable.</p>
+
+<p>Verify and upload the sketch.</p>
+
+<p>Open the Serial Monitor again to watch the output of the sketch.  If successful, you should see something like this:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-13.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>Your server is now listening and ready to go!</p>
+
+<p>Open a web browser and browse to the IP address:</p>
+
+<p><img src="/images/arduino-wifi-how-to/arduino-wifi-how-to-14.jpg" alt="Arduino WiFi How To" /></p>
+
+<p>And easy as that you have a web server up. It's pretty barebones but a good starting point.</p>
+
+<h2>Conclusion</h2>
+
+<p>I've been doing a considerable amount of hacking on the Arduino and the lack of network connectivity hasn't been that big of a deal. However I know for future projects it will be necessary which is why I decided to purchase this kit and give it a try, and share my results with you.</p>
+
+<p>Overall it was really easy to assemble, only having to solder the pins in. The wiring diagrams are clearly laid out on the Adafruit site, and the software is pretty much written for you. At $34.95 this is an awesome deal for hobbyists wanting an easy way to go Wifi. I opted for the breakout option to see how well it works in case I want to build a product that uses this form factor. I would be curious to see how the shield version stacks up, but I suspect it will be identical.</p>
+
+<p>If you're looking for a quick, easy way to add WiFi to your Arduino, I recommend the CC3000.</p>
+
+<p>Thanks again to <a href="http://www.newark.com" target="_blank">Newark element14</a> for the Arduino Mega!</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled "<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>" which is intended to be a course for people who want to get started with IoT. I'll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I'm offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div><br />
+
+<a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br />
+</p>
+
+<br />
+
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+]]></content>
+  </entry>
+  
+</feed>

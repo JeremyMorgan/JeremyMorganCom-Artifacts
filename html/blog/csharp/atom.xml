@@ -1,0 +1,1918 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  CSharp | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/csharp/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Unit Testing with dotnet core]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-net-core-unit-test/"/>
+    <updated>2018-03-29T23:48:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/c-sharp/unit-testing-with-dotnet-core</id>
+    <content type="html"><![CDATA[<p>So you've just started building .Net Core applications and really starting to gain some traction. You quickly learn how mature and thorough the .Net Core framework is becoming and think "I need to start writing some unit tests for this!". As it turns out, it's super easy and very intuitive, especially for C# developers.</p>
+
+<!-- more -->
+
+
+<blockquote><p>Note: I cover this topic and many others in my course, <a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOMTUTORIAL" target="_blank"><strong>Hands on .Net Core</strong></a> at Udemy. Check it out!</p></blockquote>
+
+<p>So let's walk through building Unit Tests for .Net core apps.</p>
+
+<h2>Let's Build a Class Library</h2>
+
+<p>For this tutorial we'll build a simple class library called "string modifier". As the name suggests, it will be used to modify strings. We'll use the .NET Core CLI to create a new class library.</p>
+
+<p><code>
+dotnet new classlib -o stringModifier
+</code></p>
+
+<p>You should see something that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-01.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>This uses the dotnet CLI to create a new class library in the folder named stringModifier. It creates an application that is essentially just a basic class. We're going to name this something a bit more useful though.</p>
+
+<p>rename your class to ChangeMyString. It should look like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">namespace</span> <span class="n">stringModifier</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">public</span> <span class="n">class</span> <span class="n">ChangeMyString</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We're going to create a library that modifies strings for us, so let's add a couple methods to our string modifier library.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="n">string</span> <span class="nf">makeAllUppercase</span><span class="p">(</span><span class="n">string</span> <span class="n">inputString</span><span class="p">){</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="n">inputString</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This method will make any string you send it all uppercase.</p>
+
+<p>The next method will reverse a string:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="n">string</span> <span class="nf">makeReverse</span><span class="p">(</span><span class="n">string</span> <span class="n">inputString</span><span class="p">){</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">char</span><span class="p">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">inputString</span><span class="p">.</span><span class="n">ToCharArray</span><span class="p">();</span>
+</span><span class='line'><span class="n">Array</span><span class="p">.</span><span class="n">Reverse</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
+</span><span class='line'><span class="k">return</span> <span class="n">new</span> <span class="n">string</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now these are obviously for demo purposes and easy to see what they do, but let's do a quick smoke test with them.</p>
+
+<p>Let's make sure the application builds. Run the following in the folder your project is located in:</p>
+
+<p><code>
+dotnet build
+</code>
+It should look like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-02.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>And we can go into our BIN folder and verify the artifacts were generated:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-03.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>Now you're ready to go.</p>
+
+<h2>Smoke Test</h2>
+
+<p>Let's build a quick console application that calls the class library just to do a quick visual test of functionality. Exit out of the project folder, and we want to use the dotnet CLI to create a runner for this.</p>
+
+<p><code>
+dotnet new console - smrunner
+</code></p>
+
+<p>This will create a simple "hello world" application for us. Open up Project.cs and add the following using:</p>
+
+<p><code>
+using stringModifier;
+</code></p>
+
+<p>then add the following into the Main method:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">));</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The entire method should look this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">stringModifier</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">namespace</span> <span class="n">smrunner</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">(</span><span class="n">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">));</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, back at the command line, let's add a reference to our class library:</p>
+
+<p><code>
+dotnet add reference "../stringModifer/stringModifier.csproj"
+</code></p>
+
+<p>This will add the reference to the class library automatically. You could also manually put in the following in the .csproj file:</p>
+
+<p>```
+<ItemGroup></p>
+
+<pre><code>&lt;ProjectReference Include="..\stringModifier\stringModifier.csproj" /&gt;
+</code></pre>
+
+<p></ItemGroup>
+```
+Either way is fine. Now we're ready to run it:</p>
+
+<p><code>
+dotnet run
+</code></p>
+
+<p>You should see something that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-04.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>Now we can verify that the methods work as we expect them to. But we'll add some unit tests to be sure.</p>
+
+<blockquote><p>Remember: Unit tests are not just to check the individual functionality of a method. They also check the functionality does not change when other parts of the application change. This is part of what makes them so important.</p></blockquote>
+
+<h2>Building the Unit Tests</h2>
+
+<p>Let's build a separate project for the unit tests. This is the project you'll run after a build, or preferably automatically on a build server every time you deploy.</p>
+
+<p>Exit out of the directory you were just in and let's use the dotnet CLI to create yet another project. This will be an MSTEST Unit Test project.</p>
+
+<p><code>
+dotnet new mstest -o libraryTester
+</code></p>
+
+<p>This creates a unit test project in the libraryTester directory. Now we open up UnitTest1.cs, and this should look really familiar to you if you've built unit tests before. This looks identical to tests in conventional .Net.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-05.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>So let's add a couple tests.</p>
+
+<p>First we need to add a using statement to include the library.</p>
+
+<p><code>
+using stringModifier;
+</code></p>
+
+<p>The first tests we want to run are to make sure the test method returns a string. Now we know the return type of these methods, but we want to make a test to catch it if everyone ever changes that:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="kt">void</span> <span class="n">TestMUCReturnsString</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">IsInstanceOfType</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">typeof</span><span class="p">(</span><span class="n">string</span><span class="p">));</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="kt">void</span> <span class="n">TestMRReturnsString</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">IsInstanceOfType</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">typeof</span><span class="p">(</span><span class="n">string</span><span class="p">));</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next we want to test the actual functionality of the methods. So we have a couple test cases here to do that.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="kt">void</span> <span class="n">TestMakeAllUppercase</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="s">&quot;TEST STRING&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="kt">void</span> <span class="n">TestMakeReverse</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="s">&quot;gnirtS tseT&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now what we are doing here is asserting what we expect the method to return, and then inserting test string in the method to see if it matches what we expect.</p>
+
+<p>This is what the final file should look like:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">VisualStudio</span><span class="p">.</span><span class="n">TestTools</span><span class="p">.</span><span class="n">UnitTesting</span><span class="p">;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">stringModifier</span><span class="p">;</span>
+</span><span class='line'><span class="n">namespace</span> <span class="n">libraryTester</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="n">TestClass</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="n">class</span> <span class="n">UnitTest1</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">public</span> <span class="kt">void</span> <span class="n">TestMUCReturnsString</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">IsInstanceOfType</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">typeof</span><span class="p">(</span><span class="n">string</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">public</span> <span class="kt">void</span> <span class="n">TestMRReturnsString</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">IsInstanceOfType</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">typeof</span><span class="p">(</span><span class="n">string</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">public</span> <span class="kt">void</span> <span class="n">TestMakeAllUppercase</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="s">&quot;TEST STRING&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">public</span> <span class="kt">void</span> <span class="n">TestMakeReverse</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="s">&quot;gnirtS tseT&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>These are some pretty basic tests, but should be good for now. Let's try it out.</p>
+
+<p>Now we're in the library tester folder, and In order to build this, we'll have to add a reference again.</p>
+
+<p><code>
+dotnet add reference "../stringModifier/stringModifier.csproj"
+</code></p>
+
+<p>Now let's test the build.</p>
+
+<p><code>
+dotnet build
+</code></p>
+
+<p>It looks like we don't have any failures here so we should be good to go.</p>
+
+<p>To run the tests we'll type in</p>
+
+<p><code>
+dotnet test
+</code></p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-06.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>And our tests are successful! We can see that 4 tests were run and everything is green.</p>
+
+<p>Now, let's break a test just to see what that looks like.</p>
+
+<p>Let's go back to our original library. Change this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="n">string</span> <span class="nf">makeAllUppercase</span><span class="p">(</span><span class="n">string</span> <span class="n">inputString</span><span class="p">){</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="n">inputString</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>to this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="n">string</span> <span class="nf">makeAllUppercase</span><span class="p">(</span><span class="n">string</span> <span class="n">inputString</span><span class="p">){</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="n">inputString</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Let's refactor the method to pass through the string instead of making it upper case. Save it and build it.</p>
+
+<p><code>
+dotnet build
+</code></p>
+
+<p>And go back into our library tester folder, and run a test again:</p>
+
+<p><code>
+dotnet test
+</code></p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-07.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>And now we have a failure. As you can see by the splash of red on the screen it threw an error. It expected test string to be in all caps, and it's not.</p>
+
+<p>This is a great feature of unit tests, if some yahoo goes in and refactors something and breaks the functionality, your test will pick it up right away.</p>
+
+<p>This is how easy it is to build unit tests in .NET Core!!</p>
+
+<h2>Conclusion</h2>
+
+<p>Unit tests are super important. I'm not going to use this tutorial as a lecture, but they're well worth your time and too frequently overlooked. Just because you're developing .NET Core apps doesn't mean they can't be unit tested, MSTEST seems to work very well with everything I've done with it so far. So do it!!</p>
+
+<p>And as I mentioned I cover this and many other topics in my course, <a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOMTUTORIAL" target="_blank"><strong>Hands on .NET Core at Udemy</strong></a>. Click the link to check it out.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Common C# Interview Questions]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/c-sharp-interview-questions/"/>
+    <updated>2014-08-03T21:50:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/common-c-number-interview-questions</id>
+    <content type="html"><![CDATA[<p>I was reading a post about some common C# interview questions, and thought I'd share some of mine. These are questions that I asked in interviews, or was asked in past interviews. Try them out and see you how you do! I'm not going to post the answers here, if you don't know them, find out!</p>
+
+<!-- more -->
+
+
+<p>
+<br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br /></p>
+
+<h3>Common C# (and .Net) Interview Questions</h3>
+
+<ul>
+<li>What are the different types of collections in .Net?</li>
+<li>What are the benefits offered by generics as opposed to other collections?</li>
+<li>What is the difference between a class and a struct?</li>
+<li>When calling a function, are parameters passed by value or by reference?</li>
+<li>What are the different ways to pass a parameter by reference?</li>
+<li>What are the mechanisms for maintaining state in an asp.net application?</li>
+<li>Describe inheritance. Describe different ways you can implement inheritance.</li>
+<li>What is dependency injection?</li>
+<li>How do you override a static method?</li>
+<li>Name some of the parts of the page life cycle in ASP.NET.</li>
+<li>Where I would validate something like an email address?</li>
+<li>What is the difference between public, static and void?</li>
+<li>What are Jagged Arrays?</li>
+<li>What is serialization?</li>
+<li>Can "this" be used within a static method?</li>
+<li>What is the difference between Array and Arraylist?</li>
+<li>Can a private virtual method be overridden?</li>
+<li>Describe the accessibility modifier "protected internal".</li>
+<li>What are the differences between System.String and System.Text.StringBuilder?</li>
+<li>What's the difference between the System.Array.CopyTo() and System.Array.Clone()?</li>
+<li>What's the difference between an interface and abstract class?</li>
+<li>What is the difference between Finalize() and Dispose() methods?</li>
+<li>What's an object pool?</li>
+<li>What is the difference between method overriding and method overloading?</li>
+<li>What is the difference between a Struct and a Class?</li>
+<li>What are Indexers?</li>
+</ul>
+
+
+<h3>MS SQL</h3>
+
+<ul>
+<li>What are the different ways for storing behaviors in SQL?</li>
+<li>What are the different kinds of SQL joins? When would you use each?</li>
+<li>If you have a slow running query that looks at seldom changed data, how might you speed it up?</li>
+<li>Describe the different types of joins?</li>
+<li>What is the no-lock feature?</li>
+<li>How do you make sure you maintain your referential integrity?</li>
+<li>He asked me to describe the Controller?</li>
+<li>What is a clustering index?</li>
+<li>How do you handle an error in a SQL query?</li>
+</ul>
+
+
+<p><br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br /></p>
+
+<h3>Exercises</h3>
+
+<ul>
+<li>Name the 3 language features that make a programming language object-oriented.</li>
+<li>Write a C# method that takes an array of integers and returns the largest integer in the array</li>
+<li>Explain the difference between pass by value and pass by reference?</li>
+<li>Write a C# method that will reverse a string (e.g. "abcd" -> "dcba"). Make sure that it works.</li>
+<li>Write a function that tests if a string is a Palindrome</li>
+<li>Write this same function recursively</li>
+<li>Write a function that acts as a telegraph, that has a set limit of characters per line (for example only 20 characters per line) and break it up so you don't split any words.</li>
+</ul>
+
+
+<p><br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br /></p>
+
+<h3>Summary</h3>
+
+<p>These are just a few I had stored over the years for interviews, but I'll come up with some more. It's always good to keep brushed up on this stuff to make sure your skill level is where you think it should be.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C# .Net Tutorials - How to Learn C# Part 6 - Iteration Statements]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-6-iteration-statements/"/>
+    <updated>2013-02-01T20:24:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/c-sharp/c-number-net-tutorials-how-to-learn-c-number-part-6-iteration-statements</id>
+    <content type="html"><![CDATA[<p><br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br /></p>
+
+<p>In part 6 of my learning C# tutorial series we're going to talk about Iteration Statements in C#. In part 5 we went over <a href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/">C# selection statements</a>, which control program flow with true and false values using statements that execute a statement once based on a criteria. This is great for statements that need to execute in a sequence, but Iteration statements simplify statements that need to be executed in repetition.</p>
+
+<!-- more -->
+
+
+<h3>What exactly is an Iteration?</h3>
+
+<p><div class="tutorialbox">
+<h3>C# Tutorials: How to Learn C#</h3>
+<ol>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-1/">C# Introduction</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/">C# Namespaces</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-3-coding-basics/">C# Coding Basics</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/">C# Variables and Types</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/" rel="prev">C# Selection Statements</a></li>
+<li>C# Iteration Statements</li>
+</ol>
+<a href="https://feedburner.google.com/fb/a/mailverify?uri=JeremyMorganTutorials&amp;loc=en_US" rel="nofollow"><strong>Get notified when new C# tutorials are released!</strong></a>
+</div>
+An Iteration is just a fancy word for a loop. An Iteration statement will perform operations a set number of times until you tell it to stop, with a true or false value.</p>
+
+<p>Iteration statements also depend on an expression being evaluated until a that expression evaluates to false. This is called "loop termination criteria" and depends on Boolean values being evaluated.</p>
+
+<p>I'll explain with some code. Let's write something that counts ten items procedurally.</p>
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">namespace</span> <span class="n">tutorials</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">public</span> <span class="n">class</span> <span class="n">TestDoWhile</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">public</span> <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span> <span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 0&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 1&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 2&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 3&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 4&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 5&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 6&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 7&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 8&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count is 9&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<blockquote><p>You might be wondering why we aren't counting from 1 to 10. That's because computers start counting at zero, not one and you have to start getting used to that idea if you're a beginner. There are ten elements here, but since we started at zero the last digit is 9.</p></blockquote>
+
+<p>While it's pretty easy to understand what's going on here you can tell right away there is a need for optimization. Part of being a "lazy programmer" is not wanting to repeat yourself. This adds time and increases the amount of mistakes.</p>
+
+<p>Look how much cleaner and easier this code is:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">namespace</span> <span class="n">tutorials</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">public</span> <span class="n">class</span> <span class="n">TestDoWhile</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">public</span> <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span> <span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">do</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count: &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">limit</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This code produces the same output yet it's much less to write and easier to understand. The expression "do" executes and outputs a number (represented by i) then increments that number by adding 1 to it. This <strong>do</strong> statement would run forever if we let it, so the 2nd part of it is the <strong>while</strong> statement that evaluates the expression "i &lt; limit". While checks to see if i is smaller than the limit we specified, and if it is then it returns to execute do again.</p>
+
+<p>Next I'll explain the Iteration Statements available in C#, and how they work.</p>
+
+<blockquote><p><b>Note</b>: Like my other tutorials I will be eliminating the using statements and namespace / class declarations because you shouldn't repeat yourself in tutorials either ;)</p></blockquote>
+
+<h3>While statement</h3>
+
+<p>The while statement is frequently used in code due to it's simplicity and speed. In the example above I used a combination of do and while to create a do-while loop, but while can operate on it's own. Let's do the count to 10 with just a while loop and see how it works:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">static</span> <span class="kt">void</span> <span class="nf">Main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">limit</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count: &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This loop is pretty much as simple as it gets. The while simply runs while the expression evaluates to <strong>true</strong> .</p>
+
+<p>In plain English:</p>
+
+<ul>
+<li>While our value (i) is less than another value (limit) execute,</li>
+<li>Write out the value (i)</li>
+<li>Increment the value (i)</li>
+</ul>
+
+
+<p>This loop will repeat until the expression (i &lt; limit) evaluates to false. If it is already set to false, nothing in the while loop will execute. Type the following in and run it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="p">{</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">limit</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count: &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>When you run this, you'll notice nothing happens. This is because (i) is not less than (limit) so the loop never runs. This is ideal for most situations, but you may want your loop to run at least once, which brings us to the next loop.</p>
+
+<h3>Do statement (with while)</h3>
+
+<p>I used the do statement in the first example in combination with the while statment. Do executes a statement or block of statements until a specified expression evaluates to FALSE. You can use do without braces if it's only a single statement:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">do</span> <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count: &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span> <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">limit</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>but if you need to execute more than one statement you'll need to enclose them in braces:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">do</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count: &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">limit</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The mechanics of this should be fairly obvious: in plain English we want to:</p>
+
+<ul>
+<li>write a value (i) to the console</li>
+<li>increment the value</li>
+<li>repeat while that value is less than another (limit)</li>
+</ul>
+
+
+<p>This is pretty simple, but take a note of the order of operations with this loop. The thing to remember about a do-while loop such as the one above is this:</p>
+
+<blockquote><p>A do-while loop will always execute then evaluate an expression to see if it needs to continue looping. The statement will always be executed at least once, while a while loop will only execute if a condition is evaluated as true. This is an important distinction.</p></blockquote>
+
+<p>We can break out of a while loop early if needed:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">do</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">7</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>    <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span><span class="k">else</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Count: &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">limit</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>When you run this you will see the following output:</p>
+
+<pre>
+Count: 0
+Count: 1
+Count: 2
+Count: 3
+Count: 4
+Count: 5
+Count: 6
+</pre>
+
+
+<p>This is because you put in a condition that evaluated whether i was 7 and if so, terminate the loop. This can come in pretty handy. You can also use goto, return and flow to break out of this loop as well. There are times where you may want to check for something in each iteration and if it happens, break out of it to correct it or stop the process.</p>
+
+<h3>For Statement</h3>
+
+<p>The for loop is a little more tricky to understand at first, but it performs the same function as a while loop. The for loop isn't faster or any more powerful, but it is easier to construct and read so it's mostly a programmer advantage (very important).</p>
+
+<p>Here's an example of a for loop that counts to 10:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="kt">void</span> <span class="nf">Main</span> <span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>When you compile and run this it should look pretty familiar to you. The output is the same, but as you can see constructing the loop is easier and there is less code to look at. Let's explain how it works in plain English:</p>
+
+<ul>
+<li>test to see if our initial value (i) is less than ten</li>
+<li>if so, increment it and execute next expression</li>
+<li>write out the value (i)</li>
+</ul>
+
+
+<p>This is my preferred method of looping most of the time because it's so easy to set up. Here is how the function works:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/c-sharp-net-tutorial-iteration-1.png" title="C# .Net Tutorials" >
+<img src="https://www.jeremymorgan.com/images/c-sharp-net-tutorial-iteration-2.png" title="C# .Net Tutorials" >
+<img src="https://www.jeremymorgan.com/images/c-sharp-net-tutorial-iteration-3.png" title="C# .Net Tutorials" >
+<img src="https://www.jeremymorgan.com/images/c-sharp-net-tutorial-iteration-4.png" title="C# .Net Tutorials" >
+<img src="https://www.jeremymorgan.com/images/c-sharp-net-tutorial-iteration-5.png" title="C# .Net Tutorials" >
+<img src="https://www.jeremymorgan.com/images/c-sharp-net-tutorial-iteration-6.png" title="C# .Net Tutorials" >
+<img src="https://www.jeremymorgan.com/images/c-sharp-net-tutorial-iteration-7.png" title="C# .Net Tutorials" ></p>
+
+<p>I hope this has helped clear up how the <strong>for</strong> loop works. This is a really quick way to iterate through a finite number fairly quick.</p>
+
+<h3>Foreach statement</h3>
+
+<p>The foreach statement is a little different than for in that it repeats a group of statements <strong>for each</strong> element in an array, object or collection. It is used for reading those elements in the sequence defined by the foreach statement.</p>
+
+<p>Here is an example of our count to 10 app with a foreach statement:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'> <span class="n">public</span> <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span> <span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span><span class="p">[]</span> <span class="n">ourArray</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">int</span><span class="p">[]</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span> <span class="p">,</span> <span class="mi">9</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">foreach</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="n">in</span> <span class="n">ourArray</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>As you can see in this example it's a little different because we're creating an array on line 3 that we iterate though. Since this is an integer array we create the int(i) to represent the element of the array. Then we execute everything in the brackets each time a new element in the array is found. While there are new elements in i we will display them, then as soon as there are no more we exit from the loop.</p>
+
+<p>But this doesn't just work on integer arrays, it works on all types of arrays and objects where you use an iterator. Here's an example with strings:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span> <span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="p">{</span>
+</span><span class='line'>    <span class="n">string</span><span class="p">[]</span> <span class="n">ourArray</span> <span class="o">=</span> <span class="n">new</span> <span class="n">string</span><span class="p">[]</span> <span class="p">{</span> <span class="s">&quot;C# Tutorials&quot;</span><span class="p">,</span> <span class="s">&quot;Python Tutorials&quot;</span><span class="p">,</span> <span class="s">&quot;Underwater Basket Weaving&quot;</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">foreach</span> <span class="p">(</span><span class="n">string</span> <span class="n">s</span> <span class="n">in</span> <span class="n">ourArray</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Notice how the variable (s) is pulled from the array and displayed until there are no more in the array. This is a great way to iterate through arrays, lists, collections and objects.</p>
+
+<blockquote><p>Note that you should generally only use this for read only operations. If you start messing with items of an array as it's being traversed you get some pretty unexpected results.</p></blockquote>
+
+<p>The foreach statement is great for working with data objects, and is extremely powerful and easy to use.</p>
+
+<p><br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br /></p>
+
+<h3>Conclusion</h3>
+
+<p>In this tutorial we explored four kinds of iterations in C#:</p>
+
+<ul>
+<li>while</li>
+<li>do</li>
+<li>for</li>
+<li>foreach</li>
+</ul>
+
+
+<p>These are what I would consider very commonly used core parts of C# development, but it's far from the only way to iterate data in C#. In many ways LINQ is taking over this area pretty well, and I'll cover that in future issues. But learning these statements well will help you on your way to becoming a better C# Programmer.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/"/>
+    <updated>2012-11-29T11:06:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/c-sharp/c-number-net-tutorials-how-to-learn-c-number-part-5-selection-statements</id>
+    <content type="html"><![CDATA[<p><br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br /></p>
+
+<p>In part 5 of my learn<br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br />
+ing C# tutorial series we're going to talk about selection statements. This is a crucial part of your foundation as a C# .NET coder, and it's pretty important to know how and when to use selection statements.</p>
+
+<!-- more -->
+
+
+<h3>What is a statement?</h3>
+
+<p>Statements are explicit instructions to the compiler. They're executed in sequence from top to bottom just as they appear in your source code.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello, &quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;is it me you&#39;re looking for?&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class="tutorialbox">
+<h3>C# Tutorials: How to Learn C#</h3>
+<ol>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-1/">C# Introduction</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/">C# Namespaces</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-3-coding-basics/">C# Coding Basics</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/" rel="prev">C# Variables and Types</a></li>
+<li>C# Selection Statements</li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-6-iteration-statements/" rel="next">C# Iteration Statements</a></li>
+</ol>
+<a href="https://feedburner.google.com/fb/a/mailverify?uri=JeremyMorganTutorials&amp;loc=en_US" rel="nofollow"><strong>Get notified when new C# tutorials are released!</strong></a>
+</div>
+This will print out the following:</p>
+
+<blockquote><p>Hello, is it me you're looking for?</p></blockquote>
+
+<p>This is how all statements are evaluated in C#. There are several types of statements you use, which we'll examine individually. Today's tutorial will cover selection statements.</p>
+
+<h3>Selection statements</h3>
+
+<p>Selection statements control program flow through the result of evaluating boolean (true and false) values. An if statement only executes if the conditions are true. Here are some examples:</p>
+
+<p><strong>If Statements</strong></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="n">something</span> <span class="n">is</span> <span class="nb">true</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// do this</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This statement simply checks that the conditions are true and does something based on that. A real world example looks like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">ourValue</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="n">ourValue</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Our value is 10!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you set the integer ourValue to 10, you'll see some output. If ourValue is not equal to 10, it will exit the section and move on to do nothing.</p>
+
+<p><strong>If-Else Statements</strong></p>
+
+<p>A more common use is the if-else statement. This will check the conditions you present and do one thing if it's true, and another if it's false. Both code paths lead to an action of some kind.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">ourValue</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="n">ourValue</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Our value is 10!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Our value is not 10!);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is very useful because you can nest "if" statements to control program flow in powerful ways. Let's build a silly little program that tries to guess the number you're thinking of in a few steps.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">namespace</span> <span class="n">NumberGuesser</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Please enter a number from 1 to 5&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">ourNumber</span> <span class="o">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt16</span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">());</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">ourNumber</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">5</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;is it 5?&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span><span class="o">==</span> <span class="s">&quot;n&quot;</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Is it 4?&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                <span class="k">if</span> <span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;y&quot;</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">{</span>
+</span><span class='line'>                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah! The answer is 4&quot;</span><span class="p">);</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="k">else</span>
+</span><span class='line'>                <span class="p">{</span>
+</span><span class='line'>                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Is it 3?&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                    <span class="k">if</span> <span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;y&quot;</span><span class="p">)</span>
+</span><span class='line'>                    <span class="p">{</span>
+</span><span class='line'>                        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah! The answer is 3!&quot;</span><span class="p">);</span>
+</span><span class='line'>                    <span class="p">}</span>
+</span><span class='line'>                    <span class="k">else</span>
+</span><span class='line'>                    <span class="p">{</span>
+</span><span class='line'>                        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Is it 2?&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>                        <span class="k">if</span> <span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;y&quot;</span><span class="p">)</span>
+</span><span class='line'>                        <span class="p">{</span>
+</span><span class='line'>                            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah! The answer is 2!&quot;</span><span class="p">);</span>
+</span><span class='line'>                        <span class="p">}</span>
+</span><span class='line'>                        <span class="k">else</span>
+</span><span class='line'>                        <span class="p">{</span>
+</span><span class='line'>                            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah the answer is either 1 or you&#39;ve answered no every time.&quot;</span><span class="p">);</span>
+</span><span class='line'>                        <span class="p">}</span>
+</span><span class='line'>                    <span class="p">}</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>            <span class="p">}</span><span class="k">else</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Yeah! The answer is 5!&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">else</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You must give me a number from 1-10!&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Take a good look at the program and see if you can follow the flow. If it looks like a jumbled mess, that's because we're using a lot of nested if statements, which in the future will be something you'll only want to do if you absolutely have to. It does however show how if statements work to check conditions and direct the program to the next spot.</p>
+
+<p>If your number is 5, you will see the following output:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/c-sharp-dotnet-tutorials-1.jpg"></p>
+
+<p>But if you pick the number 1, you'll get this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/c-sharp-dotnet-tutorials-2.jpg"></p>
+
+<p>This is because the program uses a top down method to find the number, it basically asks what the number is until you answer yes.</p>
+
+<ul>
+<li>Is it 5?      no</li>
+<li>Is it 4?      no</li>
+<li>Is it 3?      no</li>
+<li>Is it 2?      no</li>
+</ul>
+
+
+<p>It must be 1 as there are no other options.</p>
+
+<p>If you answer yes to any of the numbers, the statement will evaluate to true and break out of the code block. But is there an better way?</p>
+
+<blockquote><p>If you're looking for a challenge, rewrite the program above. It's a horrible algorithm and could be cut down pretty drastically. Just make sure it takes the same input and outputs the same result. This is called <em>refactoring</em> and it's something you'll be doing a lot in the future.</p></blockquote>
+
+<h4>Else-If Statements</h4>
+
+<p>Another form of if statement is the if-else-elseif structure.</p>
+
+<p>Let's say we want to figure out what college someone is attending from a list of 3 colleges and tell them what their mascot is going to be. Since two of them are in Oregon, this means the branching will be a little different. Here is our list:</p>
+
+<ul>
+<li>Oregon State University</li>
+<li>University of Oregon</li>
+<li>University of Washington</li>
+</ul>
+
+
+<p>Create the following program and run it from your console window:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">MascotFinder</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Mascot Finder - Find your Mascot Now&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Please Choose which university you plan to attend:&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(1) Oregon State University&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(2) University of Oregon&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(3) University of Washington&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">string</span> <span class="n">ourState</span> <span class="o">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="p">((</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;2&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;3&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="k">if</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">{</span>
+</span><span class='line'>                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Beaver!&quot;</span><span class="p">);</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;2&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">{</span>
+</span><span class='line'>                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Duck!&quot;</span><span class="p">);</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Compare</span><span class="p">(</span><span class="s">&quot;3&quot;</span><span class="p">,</span> <span class="n">ourState</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>                <span class="p">{</span>
+</span><span class='line'>                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Huskie!&quot;</span><span class="p">);</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>            <span class="k">else</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You must select options 1-3 only&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Take a look at the code above and observe the structure. We display a menu with the options 1-3 and then read in the answer to evaluate. In line 17 we are asking what what user typed in: if it's 1, 2, or 3 we'll move forward, if it's not we are dropped into the else statement which displays the message that only 1-3 can be selected.</p>
+
+<p>If it is one of the numbers we allow, we check to see if the user typed "1". If so we announce they will be a Beaver and exit the code block. The new statement "elseif" performs another check immediately after that to see if it's a 2, and the same for 3. Once a condition is met we will display the right message. If statements, as well as if-else and else-if are valuable tools to control your program flow.</p>
+
+<p>But is there a better way to do this? Naturally there is, and we'll take a look at that next .</p>
+
+<h4>Switch Statements</h4>
+
+<p>There is a better way to write this. Switch is a control statement that works with multiple options and tries to make a match, then executes the code with that "case". Here's what it looks like:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">MascotFinder</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Mascot Finder - Find your Mascot Now&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Please Choose which university you plan to attend:&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(1) Oregon State University&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(2) University of Oregon&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;(3) University of Washington&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">string</span> <span class="n">ourState</span> <span class="o">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">switch</span> <span class="p">(</span><span class="n">ourState</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">case</span> <span class="s">&quot;1&quot;</span>:
+</span><span class='line'>                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Beaver!&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">case</span> <span class="s">&quot;2&quot;</span>:
+</span><span class='line'>                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Duck&quot;</span><span class="p">);</span>
+</span><span class='line'>                <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="k">case</span> <span class="s">&quot;3&quot;</span>:
+</span><span class='line'>                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Huskie!&quot;</span><span class="p">);</span>
+</span><span class='line'>                <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="nl">default:</span>
+</span><span class='line'>                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You must select options 1-3 only&quot;</span><span class="p">);</span>
+</span><span class='line'>                <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In this example you can see what code we've changed. We now have this to control our flow:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">switch</span> <span class="p">(</span><span class="n">ourState</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="s">&quot;1&quot;</span>:
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Beaver!&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">case</span> <span class="s">&quot;2&quot;</span>:
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Duck&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">case</span> <span class="s">&quot;3&quot;</span>:
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You&#39;re going to be a Huskie!&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nl">default:</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You must select options 1-3 only&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The switch statement takes ourState as a parameter and matches it against each case. If there is a match it runs the code within that case then breaks out of it. If there are no matches, it goes to a "default" case that lets you know none of the options were selected.</p>
+
+<p>A couple of things to remember about switch statements:</p>
+
+<ul>
+<li>You can optionally set a "default" case to run if none of the cases match. This is cleaner than a bunch of if statements like our previous example.</li>
+<li>You cannot have two cases with the same value.</li>
+<li>Unlike C++ and other languages, there is no "fall through" to the next case. Meaning you can't leave out the break and have it automatically go to the next one.</li>
+</ul>
+
+
+<p><br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br /></p>
+
+<h3>Summary</h3>
+
+<p>We've taken a good look at selection statements, and examined how they're used. Next we'll be taking a look at iteration statements, another crucial part of core C# programming.</p>
+
+<p>Each of my tutorials in this series build on the previous ones, and we'll build on this one as well as we expand into operators and more flow control stuff. I hope you'll stick with me through these and <a href="http://feeds.feedburner.com/JeremyMorganTutorials">subscribe</a> to my tutorial feed.</p>
+
+<p>If you have any questions or comments, leave them below I'll be checking them frequently. In the next tutorial we're going to cover some iteration statements.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C# .Net Tutorials - How to Learn C# Part 4 - Variables and Types]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/"/>
+    <updated>2012-11-26T16:34:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/c-sharp/c-number-net-tutorials-how-to-learn-c-number-part-4-variables-and-types</id>
+    <content type="html"><![CDATA[<p><br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br />
+In part 4 of my learning C# tutorial series we're going to talk about variables and types in C#. I hope to give you a general idea of how variables work in C#, and introduce you to types which are a core part of the language. If you've done some programming in other languages this will probably be a quick skim, but if you're a beginner it's one you won't want to miss.</p>
+
+<!-- more -->
+
+
+<h3>What is a variable?</h3>
+
+<p>A variable is a storage place for data. Think of it like a mailbox. You have a wall of mailboxes in an apartment building the mail carrier puts mail into the box for later retrieval by you.</p>
+
+<p><div class="tutorialbox">
+<h3>C# Tutorials: How to Learn C#</h3>
+<ol>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-1/">C# Introduction</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/">C# Namespaces</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-3-coding-basics/" rel="prev">C# Coding Basics</a></li>
+<li>C# Variables and Types</li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/" rel="next">C# Selection Statements</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-6-iteration-statements/">C# Iteration Statements</a></li>
+</ol>
+<a href="https://feedburner.google.com/fb/a/mailverify?uri=JeremyMorganTutorials&amp;loc=en_US" rel="nofollow"><strong>Get notified when new C# tutorials are released!</strong></a>
+</div>
+But how do does he or she know the mail will go to the right people? Each box is given a unique identifier such as an apartment number and possibly your name on the box so each letter that's addressed to you, will reach you. When you go to retrieve it, you know which box is yours because of those same labels.</p>
+
+<p>That's how variables work as well. Variables are given unique names so you can identify them later, when storing or retrieving information. You can then store, reuse and manipulate data in program. Each of those variables has a unique name, and a type assigned to it.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">apples</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>       <span class="c1">// integer</span>
+</span><span class='line'><span class="n">string</span> <span class="n">myname</span> <span class="o">=</span> <span class="s">&quot;Jeremy&quot;</span>  <span class="c1">// string</span>
+</span><span class='line'><span class="kt">double</span> <span class="n">pivalue</span> <span class="o">=</span> <span class="mf">3.14</span>     <span class="c1">// double</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>What is a type?</h3>
+
+<p>Every variable and expression (we'll get to those) in C# has a type. This is the type of data that's stored in the variable which could be numbers, letters, or objects. There are several built in types that are mostly for numbers, and there are complex types that you will create such as objects, collections, and more. To find a good analogy for types, look in your kitchen. In one cupboard you have plates, in another bowls, and a drawer for silverware. The cupboards are variables and bowl is a type.</p>
+
+<p>Your kitchen is a loosely typed scenario, because you can put cups with the plates, and move the silverware with the bowls if you really want to. If you're like me you have a significant other that won't tolerate such disorganization and will insist everything is kept separate, or "strongly typed". Bowls go with bowls, and silverware goes in a drawer.</p>
+
+<p>She has a good point: if everything were mixed up we would never be able to find anything when we need it. When I put the dishes away it would be a lot easier and faster to stuff them wherever they fit, but would cause some problems down the road. Programming languages are the same way. I'll elaborate on that in a bit.</p>
+
+<p>Here are the built in types for C&#35; that we'll be talking about:</p>
+
+<table border="1">
+<tr><th width="100"><strong>C&#35; Type</strong></th><th width="200"><strong>.NET Framework Type</strong></th><th width="325"><strong>Description</strong></th></tr>
+<tr><td>bool</td><td>System.Boolean</td><td>Stores Boolean values true and false</td></tr>
+<tr><td>byte</td><td>System.Byte</td><td>Unsigned Integer from 0 to 255</td></tr>
+<tr><td>sbyte</td><td>System.SByte</td><td>Signed 8-bit integer from -128 to 127</td></tr>
+<tr><td>char</td><td>System.Char</td><td>Unicode 16-bit Character from U+0000 to U+ffff</td></tr>
+<tr><td>decimal</td><td>System.Decimal</td><td>128-bit &#177;1.0 x 10-28 to &#177;7.9 x 1028 (approximate) </td></tr>
+<tr><td>double</td><td>System.Double</td><td>64-bit floating point from &#177;5.0 x 10-324 to &#177;1.7 x 10308 (approximate)</td></tr>
+<tr><td>float</td><td>System.Single</td><td>32-bit floating point from &#177;1.5 x 10-45 to &#177;3.4 x 1038(approximate)</td></tr>
+<tr><td>int</td><td>System.Int32</td><td>Signed 32-bit integer from -2,147,483,648 to 2,147,483,647</td></tr>
+<tr><td>uint</td><td>System.UInt32</td><td>Unsigned 32-bit integer from 0 to 4,294,967,295</td></tr>
+<tr><td>long</td><td>System.Int64</td><td>Signed 64-bit integer from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td></tr>
+<tr><td>ulong</td><td>System.UInt64</td><td>Unsigned 64-bit integer from 0 to 18,446,744,073,709,551,615</td></tr>
+<tr><td>object</td><td>System.Object</td><td>Alias for a .NET Framework object</td></tr>
+<tr><td>short</td><td>System.Int16</td><td>Signed 16-bit integer from -32,768 to 32,767</td></tr>
+<tr><td>ushort</td><td>System.UInt16</td><td>Unsigned 16-bit integer from 0 to 65,535</td></tr>
+<tr><td>string</td><td>System.String</td><td>zero or more Unicode characters</tr>
+</table>
+
+
+<br /><br />
+
+
+<p>This is taken from the <a href="http://msdn.microsoft.com/en-us/library/ya5y69ds(v=vs.80).aspx" rel="nofollow">MSDN Page on Built-In Types</a> which contains more detailed information about each type.</p>
+
+<h3>Variables in C&#35;</h3>
+
+<p>We call these containers <em>variables</em> because the data frequently changes, yet the type of data it contains doesn't. Variable can mean several things in C&#35; meaning it can be a local variable, or fields or properties in objects. For now we'll just talk about local variables that will be used to store information within a method.</p>
+
+<p>To declare a variable, you must first declare the type, then the name you want for it.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>int apples = 0;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This declares an integer value named apples, and sets it to 0. You can just create the variable without any data like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>int apples;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>But you must assign this variable a value before trying to use it, if you don't the compiler will give you an error. Let's take our hello world app, and add this variable to it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="kt">int</span> <span class="n">apples</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>When you try to compile the program, you get the following warning:</p>
+
+<blockquote><p>int.cs(7,15): warning CS0168: The variable 'apples' is declared but never used</p></blockquote>
+
+<p>Note that this is only a warning, the program will still compile and run, but you're warned that you have a variable that isn't being used. So what happens when we try to use it?</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="kt">int</span> <span class="n">apples</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;We have {0} apples in our basket&quot;</span><span class="p">,</span> <span class="n">apples</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>As you can see we create the variable <em>apples</em> and then we try to use it though it has no value. When you compile it you'll get the following error:</p>
+
+<blockquote><p>int.cs(8,57): error CS0165: Use of unassigned local variable 'apples'</p></blockquote>
+
+<p>An error is more serious than a warning: this program will not compile. When a local variable is created you have to give it a value before we use it. Change the program to the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="kt">int</span> <span class="n">apples</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+</span><span class='line'>      <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;We have {0} apples in our basket&quot;</span><span class="p">,</span> <span class="n">apples</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now when you compile it, you'll get no errors or warnings because you created a variable, assigned it a value of 42, and then used it. After it compiles, run it and you'll see:</p>
+
+<blockquote><p>We have 42 apples in our basket</p></blockquote>
+
+<p>This is our expected output.</p>
+
+<h4>A note about variable naming</h4>
+
+<p>Notice how we named the variable <em>apples</em> to represent how many apples we have. The truth is, the compiler doesn't care if you name it apples, oranges, or oiueoriue. It's only useful for programmers, you could name the variable "a" and the next one you need "b" if you really wanted to. But the next time you go back into your code, or someone else does things will be a lot harder. Always give your variables valuable names that represent the data being stored.</p>
+
+<h3>Strings</h3>
+
+<p>Strings are what we were dealing with in our hello world app. A string is a sequence of Unicode characters that represent text. Most human readable items are stored in strings. A string is a reference type, but you and also use it as an object to do do comparisons and I'll demonstrate that in a future tutorial. You can learn more about strings in the <a href="http://msdn.microsoft.com/en-us/library/362314fe%28v=vs.80%29.aspx" rel="nofollow">MSDN C# Reference</a>.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">string</span> <span class="n">sentence</span> <span class="o">=</span> <span class="s">&quot;The quick brown fox jumped over the lazy dog&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Char</h3>
+
+<p>The char type contains a single Unicode character within the valid range. They are 16 bit values and can be very useful in many situations. You can write Hexadecimal Unicode and Integers into a char value when needed.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>char ourHexChar = '\x0058';   // Hexadecimal Value</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Bool</h3>
+
+<p>The Boolean data type only stores either true or false values. You'll be using Booleans a lot in your expressions. Boolean values are used for checking, validation and flow control. It's a crucial part of any application. Here's an example:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">bool</span> <span class="n">isValid</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Integers</h3>
+
+<p>Integers represent whole numbers. Integer data types are best for discrete values, such as incrementers, rows in a database or any value constrained to a whole number. The benefit of using integers is the computation is exact, no rounding or guessing involved.</p>
+
+<p>data types that use integers are often referred to as <em>integral</em> data types. This can sometimes confuse new programmers because they trip up on the word "integral" or mistake it for "integrated". Integral just means a value that uses integers.</p>
+
+<h4>Signed and unsigned integers</h4>
+
+<p>Of the integer data types you'll notice some of them have negative numbers some do not. <em>Unsigned</em> integers can only recognize positive numbers, while <em>signed</em> values can represent negative or positive. Why do we have these two different data types? You'll notice unsigned integers have a much higher maximum value, because it utilizes space that would otherwise be used for negative values.</p>
+
+<p>For example a signed 16-bit integer has a maximum value of 32,767. If the value you're storing is larger than that you'll have to use a 32-bit integer. However if you know you'll never need negative numbers you can use an unsigned 16-bit integer as large as 65,535 in the same 16 bits of space.</p>
+
+<p>Many languages do not support unsigned integers so you'll sometimes find types in the .NET framework that don't use negative values, yet still use signed integers for compatibility. The effect this has on memory and performance is very minimal.</p>
+
+<h4>8-bit, 16-bit, 32-bit, and 64-bit integers</h4>
+
+<p>At the present time 32-bit integers are the most widely used. This is because it offers a very good range of values and is very efficient with 32-bit CPUs. Here are some of the uses for each type:</p>
+
+<p><strong>8-bit</strong> - sometimes used for I/0 and network connections when byte-oriented operations are optimal.</p>
+
+<p><strong>16-bit</strong> - Mostly used for compatibility with old protocols an interfaces.</p>
+
+<p><strong>32-bit</strong> - Most frequently used for integer operations</p>
+
+<p><strong>64-bit</strong> - used for very large values where the 32-bit limitations are not optimal.</p>
+
+<h4>Big Integers</h4>
+
+<p>In version 4 of the .NET framework you have BigInteger as an option. This is for very large values but there is a key difference in that it is a dynamic data type, and it will only use as much space as it needs. As the size of the integer grows more space is allocated, meaning your theoretical size limit is dependent on how much memory you have. Not something you'd want to use unless you absolutely need it.</p>
+
+<h4>Floating Point</h4>
+
+<p>Floating point numbers are named such because there is a fixed number of digits available, but the decimal point is allowed to "float" around, for example:</p>
+
+<blockquote><p>123.456
+12.3456</p></blockquote>
+
+<p>While the decimal point is allowed to move within the number the amount of <em>precision</em> changes. Precision is the amount of detail allowed in your value. For example, our monetary system uses a precision of 2 digits, such as</p>
+
+<blockquote><p>$10.34</p></blockquote>
+
+<p>There is no such value as $10.345 because we generally don't deal in terms of fractions of a cent. As you can see from our table above, you can have <em>float</em> values ranging from &#177;1.5 x 10-45 to &#177;3.4 x 1038(approximate). If you need a greater range you can use something like <em>long</em> (-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807) or even <em>ulong</em> for very large positive values (0 to 18,446,744,073,709,551,615).</p>
+
+<p>Since I mentioned precision earlier, you might be wondering if data can be lost, or calculations can possibly be inaccurate if there is not enough precision and the value is truncated. This is correct, and though it's fairly accurate if you're doing something that requires absolute results from computations you'll want to use the next data type.</p>
+
+<h3>Decimal</h3>
+
+<p>For high precision computation such as accounting, you'll want to use the decimal format. Because floating point numbers are rounded off, you can end up with small incremental changes to each value that can lead to inaccuracies. This is why you would use the aptly named <em>decimal</em> data type for decimal values. Decimal data types have a precision up to 28 digits and won't give unexpected results for precise calculations.</p>
+
+<p>You want to use this data type only when it's needed because there is a trade off and decimals are slightly less efficient than double or float because of the conversions from decimal to binary and vice-versa.</p>
+
+<p><br />
+<a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a>
+<br /></p>
+
+<h3>Summary</h3>
+
+<p>In this tutorial I have explained variables, what they are how to assign them. We also talked about some of the types available. Because this started to get so long winded I haven't covered everything on the subject but given you a good foundation to start with. You'll be working with variables and types a lot in the future, and I'll cover more as we go on.</p>
+
+<p>If you have any questions or comments, leave them below I'll be checking them frequently. In the next tutorial we're going to cover some statements.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div></p>
+]]></content>
+  </entry>
+  
+</feed>

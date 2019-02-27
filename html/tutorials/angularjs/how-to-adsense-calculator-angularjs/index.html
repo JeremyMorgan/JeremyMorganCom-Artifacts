@@ -1,0 +1,675 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Getting Started With AngularJS - AngularJS Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Getting Started With AngularJS" /><meta itemprop="name" content="Getting Started With AngularJS" /><meta name="twitter:title" content="Getting Started With AngularJS">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-02-17 20:59:00 +0000" />
+
+<meta property="article:section" content="AngularJSTutorials" />
+
+<meta name="description" content="In this tutorial I'm going to show you how to create a basic AdSense calculator with AngularJS. It's easy, fun and might get you inspired to learn &hellip;" />
+<meta property="og:description" content="In this tutorial I'm going to show you how to create a basic AdSense calculator with AngularJS. It's easy, fun and might get you inspired to learn &hellip;" />
+<meta itemprop="description" content="In this tutorial I'm going to show you how to create a basic AdSense calculator with AngularJS. It's easy, fun and might get you inspired to learn &hellip;" />
+<meta name="twitter:description" content="In this tutorial I'm going to show you how to create a basic AdSense calculator with AngularJS. It's easy, fun and might get you inspired to learn &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/angularjs.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/angularjs.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/angularjs.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/angularjs/how-to-adsense-calculator-angularjs/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/angularjs/how-to-adsense-calculator-angularjs/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/angularjs/how-to-adsense-calculator-angularjs/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Getting Started With AngularJS</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2014-02-17T20:59:00+00:00" pubdate data-updated="true">Feb 17<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>Lately I&#8217;ve been playing around a little with AngularJS, and I&#8217;m pretty impressed. It&#8217;s amazing how many time saving features and structure this framework brings to your applications. I decided to build an app to calculate AdSense earnings, and I&#8217;ll demonstrate it here.</p>
+
+<!-- more -->
+
+
+<h3>What the app does</h3>
+
+<p>You can check your Google AdSense earnings in realtime, and if you&#8217;re a stats nut like me, you might just do that. What I wanted to do is see if I can predict my payout of the end of the month based on that day&#8217;s earnings, and total earnings based on the current trends. So the application will:</p>
+
+<ul>
+<li><p>Take your day&#8217;s amount and see what the total would be if you made that every day</p></li>
+<li><p>Take your accumulated amount and determine what you&#8217;d make at the current rate.</p></li>
+</ul>
+
+
+<p>The daily amount of course is just multiplied by the days of the month, but the accumulated amount is averaged over how many days are passed. You could easily do this with vanilla JavaScript but AngularJS makes it simpler and better structured. Let&#8217;s get started!</p>
+
+<h3>What you need</h3>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/angularjs.jpg" width="250" height="250" title="How to build an AdSense calculator in AngularJS" >
+This is the easy part. You just need a copy of Angular.Min.Js and an index.html file. You should run them in a web server on your local machine, and you can modify the index with any text editor.</p>
+
+<ul>
+<li><a href="http://angularjs.org/">Angular.min.js</a></li>
+<li><a href="https://github.com/JeremyMorgan/AdSenseCalculator">The GitHub for this project</a></li>
+</ul>
+
+
+<p>Let&#8217;s get started!</p>
+
+<h3>Initial page setup</h3>
+
+<p>We create a standard html webpage like so:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;title&gt;</span>Angular Demo<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We need to add a few things to make sure this is recognized as an AngularJS application:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">ng-app</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The ng-app directive tells AngularJS that you want to auto bootstrap that root element as an Angular application. You don&#8217;t need to make the entire HTML page an application, but in this case we will.</p>
+
+<p>You will also want to include your script into the page in the footer:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;angular.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we&#8217;ll get started with the actual application.</p>
+
+<h3>Adding the controllers</h3>
+
+<p>Add the following to your body tag:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;body</span> <span class="na">ng-controller=</span><span class="s">&quot;TextController&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This declares that the body element is using the controller &#8220;TextController&#8221;. Controllers are a primary means of functionality in AngularJS. This is the central part of MVC (Model View Controller) pattern that AngularJS uses.</p>
+
+<p>For display purposes we want to create a placeholder in the title like so:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;h2&gt;</span>{{someText}}<span class="nt">&lt;/h2&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Since AngularJS treats the HTML as a template, this is a simple placeholder you may have seen in other templating systems. Let&#8217;s change what this says. We will add a controller to the page within script tags using common JavaScript:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script&gt;</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">TextController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">someText</span> <span class="o">=</span> <span class="s2">&quot;Angular Adsense Calculator&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>One thing you may notice is the parameter we&#8217;re passing to this function named &#8220;$scope&#8221;. This is our root scope which serves as a global storage area for the application. The line of code in your controller shows that we&#8217;re declaring the someText property value within the scope. Save and run this page and you&#8217;ll see that the headline changes.</p>
+
+<p>Now we&#8217;ll do some real stuff.</p>
+
+<h3>Creating the calculator form</h3>
+
+<p>Here we&#8217;re going to create an AngularJS driven form that&#8217;s going to be used to handle our input values. Add the following:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;form</span> <span class="na">ng-controller=</span><span class="s">&quot;StartupController&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    Today (Actual): <span class="nt">&lt;input</span> <span class="na">ng-change=</span><span class="s">&quot;computeDaily()&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;funding.dailycount&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>   <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>   This Month: <span class="nt">&lt;input</span> <span class="na">ng-change=</span><span class="s">&quot;computeMonthly()&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;funding.monthcount&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;b&gt;</span>Based on Today:<span class="nt">&lt;/b&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    Predicted Payment: {{funding.dailyaftertax | currency:&quot;USD $ &quot;}} <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;b&gt;</span>Based on Month:<span class="nt">&lt;/b&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    Predicted Payment: {{funding.monthlyaftertax | currency:&quot;USD $ &quot;}} <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Some things to note. In the input tags we have ng-change=&#8221;&#8220;. This means when the value in this text box changes, it will call the function named inside. In this case, we&#8217;re going to call the computeDaily() function, and the computeMonthly() function.</p>
+
+<p>Also, you notice the ng-model=&#8221;&#8221; parameters. These set the funding.dailycount and funding.monthcount inside our scope. Funding. is our model name.</p>
+
+<p>You will notice we have two template placeholders, and they are also accessing properties in the model, funding.dailyaftertax and funding.monthlyaftertax. These two properties are also added to the funding model, which will create and use below.</p>
+
+<h3>Creating the calculator controller</h3>
+
+<p>As I said earlier, controllers are a crucial function of AngularJS and where most of the work gets done. Here we&#8217;ll create the StartupController that will do the calculations for us.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script&gt;</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">StartupController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getDate</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">dailycount</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">monthcount</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">dailyaftertax</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">monthlyaftertax</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">computeDaily</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">dailyaftertax</span> <span class="o">=</span> <span class="p">((</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">dailycount</span> <span class="o">*</span> <span class="mi">28</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.33</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">computeMonthly</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">monthlyaftertax</span> <span class="o">=</span> <span class="p">((</span><span class="mi">28</span> <span class="o">*</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">monthcount</span> <span class="o">/</span> <span class="nx">date</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.33</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;funding.dailycount&#39;</span><span class="p">,</span> <span class="nx">computeDaily</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;funding.monthcount&#39;</span><span class="p">,</span> <span class="nx">computeMonthly</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you look at this code you&#8217;ll see a few things going on. For one, we&#8217;re getting the date of the month from the getDate() function in JavaScript. This is so we know what day of the month it is.</p>
+
+<p>The next line shows how we set up our funding model. We define these four variables in the model and initialize them to zero. We will set values to these once the form is in use.</p>
+
+<p>The computeDaily function assigns the dailyaftertax variable a value that takes the dailycount from the input in the form and multiplies it by 28 (the number of days in February) then divides it by 1.33 to get our rate after taxes. This calculation simply assumes how much we would make if the value you input were our daily average.</p>
+
+<p>The computeMonthly function works a little different. It assigns a value to monthlyaftertax by taking how much have made so far and averaging it over the elapsed days, then multiplying that by 28, and dividing by 1.33 to remove the tax rate.</p>
+
+<p>Obviously, for months other than February we&#8217;ll need to change the value 28, or determine the days present based on what month it is. For now I just hardcoded 28.</p>
+
+<h3>Adding in watches</h3>
+
+<p>You&#8217;ll notice two lines that say $scope.$watch followed by a variable and a function name. Watch is an expression that registers a listener callback to be executed when the values of those variables change. You can assign these listeners to multiple variables and even have listeners call other listeners.</p>
+
+<h3>The full page</h3>
+
+<p>By now your full page should look like this:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">ng-app</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;title&gt;</span>Angular Demo<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body</span> <span class="na">ng-controller=</span><span class="s">&quot;TextController&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;h2&gt;</span>{{someText}}<span class="nt">&lt;/h2&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;form</span> <span class="na">ng-controller=</span><span class="s">&quot;StartupController&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        Today (Actual): <span class="nt">&lt;input</span> <span class="na">ng-change=</span><span class="s">&quot;computeDaily()&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;funding.dailycount&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        This Month: <span class="nt">&lt;input</span> <span class="na">ng-change=</span><span class="s">&quot;computeMonthly()&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;funding.monthcount&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;b&gt;</span>Based on Today:<span class="nt">&lt;/b&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        Predicted Payment: {{funding.dailyaftertax | currency:&quot;USD $ &quot;}}<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;b&gt;</span>Based on Month:<span class="nt">&lt;/b&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        Predicted Payment: {{funding.monthlyaftertax | currency:&quot;USD $ &quot;}}<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/form&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;angular.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">StartupController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getDate</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">dailycount</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">monthcount</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">dailyaftertax</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">monthlyaftertax</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">computeDaily</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>           <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">dailyaftertax</span> <span class="o">=</span> <span class="p">((</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">dailycount</span> <span class="o">*</span> <span class="mi">28</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.33</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">};</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">computeMonthly</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">monthlyaftertax</span> <span class="o">=</span> <span class="p">((</span><span class="mi">28</span> <span class="o">*</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">monthcount</span> <span class="o">/</span> <span class="nx">date</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.33</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;funding.dailycount&#39;</span><span class="p">,</span> <span class="nx">computeDaily</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;funding.monthcount&#39;</span><span class="p">,</span> <span class="nx">computeMonthly</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">TextController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">){</span>
+</span><span class='line'>       <span class="nx">$scope</span><span class="p">.</span><span class="nx">someText</span> <span class="o">=</span> <span class="s2">&quot;Angular Adsense Calculator&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And when you run it, you can see the realtime AdSense calculator in action.</p>
+
+<h3>Summary</h3>
+
+<p>AngularJS is extremely powerful, testable and suited for rapid development. It&#8217;s popularity has risen dramatically and for good reason. Things are being improved and added to it daily, and people are finding best practices and establishing guidelines as we speak.</p>
+
+<p>Don&#8217;t be shy! Download a copy and start digging in now!!</p>
+
+<h3>Video Tutorial</h3>
+
+<p>Here is a video I made of this tutorial:</p>
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/r38xNCqs-2U?list=UUAR4QD5vqpn4LFrrBiDe7lQ" frameborder="0" allowfullscreen></iframe>
+
+
+<p>Be sure to check it out and subscribe to my channel for more tutorials and instructional videos!</p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/angularjs/'>AngularJS</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/programming/how-fast-are-github-pages/" title="Previous Post: Just How Fast Are GitHub Pages?">&laquo; Just How Fast Are GitHub Pages?</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/angularjs/how-to-adsense-calculator-angularjs/" title="Next Post: Getting Started With AngularJS">Getting Started With AngularJS &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

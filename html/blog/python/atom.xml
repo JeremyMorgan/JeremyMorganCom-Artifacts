@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Python | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/python/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to Build a REST API with Python]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/python-tutorials/how-to-rest-api-python/"/>
+    <updated>2015-10-04T20:15:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/python-tutorials/building-a-rest-api-with-python</id>
+    <content type="html"><![CDATA[<p>In this article I will describe the process I used to create a new endpoint for my Raspberry Pi weather station, and how I set it up to to use Python and MariaDB for storage. I set this up as an endpoint for one of my IoT projects and thought I'd share the results.</p>
+
+<!-- more -->
+
+
+<h3>Background</h3>
+
+<p>If you've been following my Raspberry Pi Weather Station tutorials, I set the first one up to use Firebase as a data store. I found it somewhat clunky to work with and I wasn't very happy with my options. I'm not sure this is the type of data best suited for Firebase. So in the second iteration I used a .Net Web API on a Windows Azure website and had it store to a MS-SQL database. This was a really good solution.</p>
+
+<p>I started getting a flood of emails with people asking for a more open source endpoint. Granted ASP.Net is open source, but some complained about the cost of hosting it. If you wanted to keep the database in house you'd have to pay for windows license and a SQL server for instance. Another issue was some people were developing in Linux or Mac, which makes interfacing with ASP.Net difficult (though they are working on that). Long story short I decided to create a Linux friendly solution and decided upon Python/Flask with MariaDB.</p>
+
+<h3>Why Python? Why MariaDB?</h3>
+
+<p>I chose Python because I've always loved the language from my first line of code. It's simple, elegant and does a lot of things very well. I had never written a Web API with it, so I thought I'd give it a shot.</p>
+
+<p>MariaDB is a fork of MySQL that is maintained by the founder, and superior to the original in many ways. Since it's a drop in replacement I can still use the MySQL tools I'm familiar with. It seemed like a good fit.</p>
+
+<h3>Get Started</h3>
+
+<p>Get your Linux server ready. For this task I chose to use a <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Digital Ocean Server</a> running Debian. If you must use Ubuntu, put "sudo" in front of everything.</p>
+
+<p>The first thing you'll want to do is update everything:</p>
+
+<p><code>
+apt-get update
+apt-get upgrade
+</code></p>
+
+<p>Next we'll get the database set up.</p>
+
+<h3>1. Install MariaDB</h3>
+
+<p>As I mentioned, MariaDB is a drop in replacement (upgrade really) of MySQL. You'll need to add the repository:</p>
+
+<p><code>
+apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+</code></p>
+
+<p>Then add it to your sources:</p>
+
+<p><code>
+nano /etc/apt/sources.list
+</code></p>
+
+<p>And add the following to it:</p>
+
+<p>```</p>
+
+<pre><code># MariaDB 5.5 repository list
+deb http://ftp.osuosl.org/pub/mariadb/repo/5.5/debian wheezy main
+deb-src http://ftp.osuosl.org/pub/mariadb/repo/5.5/debian wheezy main
+</code></pre>
+
+<p>```
+save and close the file</p>
+
+<p>Now run the following:</p>
+
+<p><code>
+apt-get install mariadb-server
+</code>
+You will see a screen like this that will ask to set your root password:</p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-1.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<p>To add some additional security settings, run</p>
+
+<p><code>
+/usr/bin/mysql_secure_installation
+</code></p>
+
+<p>After that you can log into your MariaDB server:</p>
+
+<p><code>
+mysql -u root -p
+</code></p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-2.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<p>To make it accessible from outside the server, you'll need to make a change to my.cnf:</p>
+
+<p><code>
+nano /etc/mysql/my.cnf
+</code></p>
+
+<p>Look for "bind-address" and change it:</p>
+
+<p><code>
+bind-address = 0.0.0.0
+</code>
+Save the file and close it.</p>
+
+<p>Now restart the server:</p>
+
+<p><code>
+service mysql restart
+</code>
+You should now be able to connect to your server from the outside.</p>
+
+<h3>2. PYTHON / SQL Connection</h3>
+
+<p>In order to connect to MariaDB you'll need to install a couple things:</p>
+
+<p><code>
+apt-get install libmariadbclient-dev libssl-dev python-mysqldb
+</code>
+You'll also need to download the mysql connector.</p>
+
+<p>```
+wget http://ftp.kaist.ac.kr/mysql/Downloads/Connector-Python/mysql-connector-python_2.1.3-1debian8.2_all.deb</p>
+
+<p>dpkg -i mysql-connector-python_2.1.3-1debian8.2_all.deb
+```</p>
+
+<p>This will install it the proper files to use the MySQL connector module.</p>
+
+<h3>3. Set up Python Flask</h3>
+
+<p>Next, we're going to use Python Flask for the REST interface. Flask is written in Python and a very fast, powerful and stable way to connect.</p>
+
+<p>```
+mkdir source
+cd source</p>
+
+<p>apt-get install curl</p>
+
+<p>curl -O http://peak.telecommunity.com/dist/ez_setup.py</p>
+
+<p>python ez_setup.py</p>
+
+<p>easy_install pip</p>
+
+<p>pip install flask
+```</p>
+
+<p>This will set up Flask on your machine. Now let's build a sample API to test it out.</p>
+
+<h3>4. Set up a test endpoint</h3>
+
+<p>We will want to add a web user (or whatever you want to name it) to set up this application.</p>
+
+<p>I would like to give a shout to <a href="http://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask">Miguel Grinberg</a> for all the work that he's done setting this up! I learned a lot from his tutorials.</p>
+
+<p>```
+adduser web</p>
+
+<p>su web</p>
+
+<p>cd ~</p>
+
+<p>mkdir weather-api</p>
+
+<p>cd weather-api
+```</p>
+
+<p>Now we want to create a file called app.py and make it look like this:</p>
+
+<p>```</p>
+
+<pre><code>#!flask/bin/python
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Hello, World!"
+
+if __name__ == '__main__':
+
+    app.run(debug=True)
+</code></pre>
+
+<p>```</p>
+
+<p>Next, we'll want to set it to be executable, then execute it.</p>
+
+<p><code>
+chmod a+x app.py
+./app.py
+</code></p>
+
+<p>Now create a new SSH session and type the following:</p>
+
+<p><code>
+curl 127.0.0.1:5000
+</code></p>
+
+<p>You will see a hello world message:</p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-3.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<p>Next, change it to have some actions:</p>
+
+<p>```python</p>
+
+<pre><code>#!flask/bin/python
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+tasks = [
+    {
+        'id': 1,
+        'title': u'Buy groceries',
+        'description': u'Milk, Cheese, Pizza, Fruit, Tylenol',
+        'done': False
+    },
+    {
+        'id': 2,
+        'title': u'Learn Python',
+        'description': u'Need to find a good Python tutorial on the web',
+        'done': False
+    }
+]
+
+@app.route('/todo/api/v1.0/tasks', methods=['GET'])
+def get_tasks():
+    return jsonify({'tasks': tasks})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
+</code></pre>
+
+<p>```</p>
+
+<p>Notice at the bottom I put in</p>
+
+<p><code>
+app.run(host=0.0.0.0)
+</code></p>
+
+<p>This will allow your API to be accessed from the outside.</p>
+
+<p>Now, get POSTMAN or something similar and point it at your URL. Send it a GET:</p>
+
+<blockquote><p><strong>{YOUR IP}:5000/todo/api/v1.0/tasks</strong></p></blockquote>
+
+<p>and it should look like this:</p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-4.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<p>Congrats, you have Flask working. For security you should install and implement httpauth later down the road.</p>
+
+<p><code>
+pip install flask-httpauth
+</code></p>
+
+<h3>5. Set up MariaDB for the Weather Station</h3>
+
+<p>Now we will set up a database for the weather station endpoint.</p>
+
+<p>```sql
+CREATE DATABASE weather;
+GRANT ALL PRIVILEGES ON weather.* TO web@'%' IDENTIFIED BY 'secretpassword';
+FLUSH PRIVILEGES;
+quit</p>
+
+<p>```</p>
+
+<p>Log in as that web user:</p>
+
+<p><code>
+mysql -u web -p
+</code></p>
+
+<p>You will be created with an SQL prompt. Type the following:</p>
+
+<p>```sql
+use weather;</p>
+
+<p>CREATE TABLE <code>weather</code>.<code>reading</code> (
+  <code>readingID</code> INT NOT NULL AUTO_INCREMENT COMMENT '',
+  <code>TempSensor1</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>TempSensor2</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>TempSensor3</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>TempSensorAvg</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>Humidity</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>Pressure</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>Altitude</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>SeaLevelPressure</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>Lux</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>TimeStamp</code> VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (<code>readingID</code>)  COMMENT '');</p>
+
+<p>```</p>
+
+<p>This creates your MariaDB database for storing items.</p>
+
+<h3>6. Set up Flask for the Weather Station</h3>
+
+<p>For this rather than dump the code on this page, just check out the endpoint from my github repo:</p>
+
+<p><code>
+git clone https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station_PY_API
+</code></p>
+
+<p>You'll need to change the values in datastore.py to match your credentials.</p>
+
+<p>start  it up as you did before:</p>
+
+<p><code>
+./app.py
+</code></p>
+
+<p>Note, if you want to run as a service in the background:</p>
+
+<p><code>
+nohup ./app.py &amp;
+</code></p>
+
+<p>()I've had mine up for about 2 weeks now without crashing)</p>
+
+<p>Now, you can add a new reading like this:</p>
+
+<p><code>
+curl -i -H "Content-Type: application/json" -X PUT -d '{"TempSensor1":"23"}' http://localhost:5000/weather/api/v1/readings
+</code></p>
+
+<p>But how do we add this as an endpoint for the <a href="https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station">Rasperry Pi Weather Station</a> project? Easy! Just point it to your Linux endpoint instead of the Azure/.Net one in readings.py:</p>
+
+<p><code>
+url = '[YOUR URL]'
+</code></p>
+
+<p>And you're set! All your results will be stored by the minute in a MariaDB database:</p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-5.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<h3>Conclusion</h3>
+
+<p>While this is specific to an endpoint I created for my project it's a good outline for building a REST API with Python in Linux. It's a very stable and performant way to collect data. The work on Flask has made it incredibly easy to get an API up and going quickly. I hope to do more cool stuff with it in the future and I hope you do too.</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: How to connect to MySQL with Python]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/python-tutorials/how-to-connect-to-mysql-with-python/"/>
+    <updated>2012-09-13T16:33:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/python-tutorials/how-to-connect-to-mysql-with-python</id>
+    <content type="html"><![CDATA[<p>The more I jump into Python the more I like it. This tutorial is about one of the more basic parts of Python - connecting it to a MySQL database.</p>
+
+<p>The reason I chose MySQL is purely because of ubiquity, I figure this will be the one people will be connecting to the most if they're using Python especially in a web envronment.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<h3>Get The Database Setup</h3>
+
+<p>If you're following this excersize exactly, you'll want to create a table on your MySQL database that holds names. This is just a simple dumb table for this excersize.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>SQL to create the table for this tutorial. </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">CREATE</span>  <span class="k">TABLE</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">test</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">name</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;`</span><span class="n">nameid</span><span class="o">`</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span> <span class="p">,</span>
+</span><span class='line'><span class="o">`</span><span class="n">firstname</span><span class="o">`</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">NULL</span> <span class="p">,</span>
+</span><span class='line'><span class="o">`</span><span class="n">lastname</span><span class="o">`</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">NULL</span> <span class="p">,</span>
+</span><span class='line'><span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">nameid</span><span class="o">`</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">test</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">name</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="p">(</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">firstname</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">,</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">lastname</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">)</span>
+</span><span class='line'><span class="k">VALUES</span>
+</span><span class='line'><span class="p">(</span><span class="ss">&quot;Cookie&quot;</span><span class="p">,</span><span class="ss">&quot;Monster&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="ss">&quot;Guy&quot;</span><span class="p">,</span><span class="ss">&quot;Smiley&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="ss">&quot;Big&quot;</span><span class="p">,</span><span class="ss">&quot;Bird&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="ss">&quot;Oscar&quot;</span><span class="p">,</span><span class="ss">&quot;Grouch&quot;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="ss">&quot;Alastair&quot;</span><span class="p">,</span><span class="ss">&quot;Cookie&quot;</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now that you have your highly sophisticated database set up, let's connect to it and start playing around.</p>
+
+<h3>Create Your Python Script</h3>
+
+<p>The first step of course is to create your Python Script. Create a file called "datademo.py" (or whatever you want to call it).</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Your Initial Python Script. </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="err">!</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">filename</span><span class="p">:</span> <span class="n">datademo</span><span class="o">.</span><span class="n">py</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">a</span> <span class="n">simple</span> <span class="n">script</span> <span class="n">to</span> <span class="n">pull</span> <span class="n">some</span> <span class="n">data</span> <span class="kn">from</span> <span class="nn">a</span> <span class="nn">MySQL</span> <span class="nn">table</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Connect to the Database</h3>
+
+<p>The first thing you'll need do is import the MySQL modules with the following line:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">MySQLdb</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This assumes you have MySQLdb installed. If not, don't worry it's a quick install.</p>
+
+<ul>
+<li>Windows Users can get it here: <a href="http://sourceforge.net/projects/mysql-python/files/latest/download?source=files">MySQL for Python Installer</a></li>
+<li>Linux Users you can get the <a href="http://pypi.python.org/pypi/MySQL-python/">Linux Install</a> and install it by hand, or use your package manager and look for python-mysql</li>
+</ul>
+
+
+<p>Now that you have that set up, let's get connected:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">db</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">&quot;root&quot;</span><span class="p">,</span> <span class="n">passwd</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>With this string you can connect using your MySQL credentials. If you want you can store these credentials in variables elsewhere.</p>
+
+<h3>The Cursor</h3>
+
+<p>Python uses a "cursor" when dealing with data. A cursor is a simple data structure that transverses the records in the database. Cursors perform CRUD ( Create Read Update Delete ) operations on the database.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">create</span> <span class="n">a</span> <span class="n">cursor</span> <span class="k">for</span> <span class="n">the</span> <span class="n">select</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">cur</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This intializes the cursor so you can use the "cur "object wherever needed. So the next thing we need to do is come up with an SQL command.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="n">firstname</span><span class="p">,</span><span class="n">lastname</span> <span class="k">FROM</span> <span class="n">test</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This of course selects a first and last name from our database. We want to stuff that SQL command into a parameter for the execute method of the cursor:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">execute</span> <span class="n">an</span> <span class="n">sql</span> <span class="n">query</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT firstname,lastname FROM test.name&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Iteration and Display</h3>
+
+<p>The next part of this is iterating through the database result and displaying it.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">loop</span> <span class="n">to</span> <span class="n">iterate</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span> <span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="c">#data from rows</span>
+</span><span class='line'>    <span class="n">firstname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">lastname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#print it</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;The first name is &quot;</span> <span class="o">+</span> <span class="n">firstname</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;The last name is &quot;</span> <span class="o">+</span> <span class="n">lastname</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Pretty simple huh? The for loop iterates through the data and produces an array, in this case it's "row". You then select the index of that row to get the data from it.</p>
+
+<p>When you run it you should see this output:</p>
+
+<pre>
+The first name is Cookie
+The last name is Monster
+The first name is Guy
+The last name is Smiley
+The first name is Big
+The last name is Bird
+The first name is Oscar
+The last name is Grouch
+The first name is Alastair
+The last name is Cookie
+</pre>
+
+
+<p>This is just a straight dump of the database. Let's clean it up little.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">loop</span> <span class="n">to</span> <span class="n">iterate</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span> <span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="c">#data from rows</span>
+</span><span class='line'>    <span class="n">firstname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">lastname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#print i</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;This Person&#39;s name is &quot;</span> <span class="o">+</span> <span class="n">firstname</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">lastname</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This obviously is a cleaned up version of the same thing. Just remember, for iterates but the cursor is the important part.</p>
+
+<p>Your output will look like this:</p>
+
+<pre>
+This Person's name is Cookie Monster
+This Person's name is Guy Smiley
+This Person's name is Big Bird
+This Person's name is Oscar Grouch
+This Person's name is Alastair Cookie
+</pre>
+
+
+<p>You can also simply print out the row and look at the raw data:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">loop</span> <span class="n">to</span> <span class="n">iterate</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span> <span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">print</span> <span class="n">row</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Your output will look something like this:</p>
+
+<pre>
+('Cookie', 'Monster')
+('Guy', 'Smiley')
+('Big', 'Bird')
+('Oscar', 'Grouch')
+('Alastair', 'Cookie')
+</pre>
+
+
+<p>This allows you to look at the data structure to determine what you want to grab.</p>
+
+<h3>Closing it all up</h3>
+
+<p>One quick way to bring down a server is leaving your connections open. Since there are persistent connections, when you end your script that doesn't mean the database session ends with it, generally it does not. So here is how you close it up:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">close</span> <span class="n">the</span> <span class="n">cursor</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">cur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">close</span> <span class="n">the</span> <span class="n">connection</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">db</span><span class="o">.</span><span class="n">close</span> <span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Notice how we call the close() method for both objects. closing them. You are actually closing two things: the cursor and the connection. It's actually a good thing you have to do them separate, as opposed to one function. There may be a need to close
+a cursor yet leave the connection open. This is why we do it in two steps.</p>
+
+<h3>The full script</h3>
+
+<p>Here is the full code for this article, in case you are one of those people who skip down to the code, then download it and play around.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="err">!</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">datademo</span><span class="o">.</span><span class="n">py</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">a</span> <span class="n">simple</span> <span class="n">script</span> <span class="n">to</span> <span class="n">pull</span> <span class="n">some</span> <span class="n">data</span> <span class="kn">from</span> <span class="nn">MySQL</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">MySQLdb</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">db</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">&quot;root&quot;</span><span class="p">,</span> <span class="n">passwd</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s">&quot;test&quot;</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">create</span> <span class="n">a</span> <span class="n">cursor</span> <span class="k">for</span> <span class="n">the</span> <span class="n">select</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">cur</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">execute</span> <span class="n">an</span> <span class="n">sql</span> <span class="n">query</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT firstname,lastname FROM test.name&quot;</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="n">Iterate</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span> <span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="c">#data from rows</span>
+</span><span class='line'>    <span class="n">firstname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>    <span class="n">lastname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">#print </span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;This Person&#39;s name is &quot;</span> <span class="o">+</span> <span class="n">firstname</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">lastname</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">close</span> <span class="n">the</span> <span class="n">cursor</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">cur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">close</span> <span class="n">the</span> <span class="n">connection</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">db</span><span class="o">.</span><span class="n">close</span> <span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>There it is, easy as that! In the next article I'll be diving in a little deeper and we'll build some tests to demonstrate the MySQL usage.</p>
+
+<p>Good luck!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Python For The Absolute Beginner]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/python-tutorials/python-for-beginners/"/>
+    <updated>2012-05-21T10:58:15+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/python-tutorials/python-for-beginners</id>
+    <content type="html"><![CDATA[<p>If you're a Programmer / Developer, chances are you've at least heard of this neat little program called Python. Those who know it sing it's praises, and it can be found in some very powerful applications. If you've been curious about how to get started with Python I have built this tutorial to help you on your way to becoming a text manipulating ninja.</p>
+
+<p>Ok, that sounded a little corny but Python is really, really good at parsing and manipulating text. It's one of the duties you'll see it doing often. Let's get started.</p>
+
+<p><strong>Step 1:Get Python</strong></p>
+
+<p>I'm not going to go into great detail about installation, but you can get python for any of the big three (PC, Mac Linux) operating environments and the setup is pretty similar. In many versions of OSX and Linux Python is installed by default. One way to see if it's installed is by opening up a command window, and simply typing "python" or "py". If it's installed you'll see something like this:</p>
+
+<p>```</p>
+
+<blockquote><p>[jeremy@localhost ~]$ python
+Python 2.4.3 (#1, Jul 27 2009, 11:32:33)
+[GCC 4.1.2 20080704 (Red Hat 4.1.2-44)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.</p>
+
+<blockquote><blockquote><p>```</p></blockquote></blockquote></blockquote>
+
+<p>If not, the best place to get the latest version is from<a href="http://www.python.org/download/"> Python.org</a>.</p>
+
+<p><strong>Step 2: Start Coding</strong>
+<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/python-tutorials.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/python-tutorials.jpg" alt="Python Tutorials" /></a>
+Here is how you should start building Python scripts:</p>
+
+<ul>
+<li><p>Plain Text Editor</p></li>
+<li><p>Running Python at the prompt</p></li>
+</ul>
+
+
+<p>The editor I use the most is <a href="http://kate-editor.org/">Kate</a> in Linux. This is because Kate manages your files, and you have a command terminal below, allowing you to enter stuff. If I'm on a windowless machine Vim works very well too. For Windows machines I would recommend <a href="http://notepad-plus-plus.org/">Notepad++</a> to edit. Both are free and there are tons of free text editors out there, especially in Linux.</p>
+
+<p>Your first step is the obligatory "Hello world". You'll find it's nearly as simple as it could possibly be in Python.</p>
+
+<p>Create a file called test.py and put the following line in it:</p>
+
+<p>```</p>
+
+<pre><code>print "hello world"
+</code></pre>
+
+<p>```</p>
+
+<p>and save it. Now type:</p>
+
+<blockquote><p>python test.py</p></blockquote>
+
+<p>Amazing right? Now do something silly, to make it spit out an error, and remove the last quote. Type this exactly as you see it:</p>
+
+<p>```</p>
+
+<pre><code>print "hello world
+</code></pre>
+
+<p>```</p>
+
+<p>You should see the following message:</p>
+
+<blockquote><p>File "test.py", line 1
+print "hello world
+^
+SyntaxError: EOL while scanning string literal</p></blockquote>
+
+<p>Like every programming language you have to close everything you open. (With the exception of tags in PHP, but let's not get into that).</p>
+
+<p>So to clarify, our steps are:</p>
+
+<ol>
+<li><p> Put python code into a text file.</p></li>
+<li><p> run that text file with python ( python + filename )</p></li>
+<li><p> look at the results.</p></li>
+</ol>
+
+
+<p>Seems simple enough, so let's do some more stuff.</p>
+
+<p><strong>Comments</strong></p>
+
+<p>A quick note about comments: use them. When you become a better programmer you can decide whether "good code comments itself" but for now, let's use comments to explain what's going on. Basically a comment is any text that YOU can see as a programmer, but the computer can't. This is so you can leave yourself notes, or notes for other programmers.</p>
+
+<p>In Python, you use the # pound sign for commenting, like so:</p>
+
+<p>```</p>
+
+<pre><code># This is a comment
+print "hello world"
+</code></pre>
+
+<p>```</p>
+
+<p>But usually they're explaining something a little more important:</p>
+
+<p>```</p>
+
+<pre><code># classroom.py
+
+boys = 5 # Boys in the class
+girls = 8 # Girls in the class
+total = boys + girls # Add up the total
+
+# print our message
+print "There are", boys, "boys in the class and", girls, "girls in the class"
+
+# print the total
+print "There are a total of", total, "students in this class"
+</code></pre>
+
+<p>```</p>
+
+<p>When you run classroom.py the computer (python interpreter to be exact) will ignore all the comments you insert, but they remain in the file for the next person to look at (which could be you).</p>
+
+<p>Speaking of math, let's do some!</p>
+
+<p>As you saw above it doesn't take much to do basic arithmatic in Python. Here is one way of performing mathmatic expressions:</p>
+
+<p>```</p>
+
+<pre><code># weeksinyear.py
+
+print "How many weeks are in a year?", 365 / 7
+
+See how easy that was? But this prints the answer at the end of the line. What if we want it in the middle of the sentence?
+
+# weeksinyear.py
+
+# figure out the total
+weeksinyear = 365 / 7
+
+print "There are", weeksinyear, "weeks in a year"
+</code></pre>
+
+<p>```</p>
+
+<p>Notice how easy it was to insert the text into the sentence? That was done with a variable.</p>
+
+<p>Here is what you should see:</p>
+
+<blockquote><p>There are 52 weeks in a year</p></blockquote>
+
+<p>You can do all kinds of things with the output, you can output just answers:</p>
+
+<p>```</p>
+
+<pre><code>print 3+2
+</code></pre>
+
+<p>```</p>
+
+<p>But why stop there?</p>
+
+<p>```</p>
+
+<pre><code>print 3 + (2 + 4) / 2 * 34
+</code></pre>
+
+<p>```</p>
+
+<p>You can group expressions and output the answer however you like, or feed it into a variable and use the variable.</p>
+
+<p>Python also outputs boolean (true / false) as well:</p>
+
+<p>```</p>
+
+<pre><code>print 3 + 3 &lt; 10
+</code></pre>
+
+<p>```</p>
+
+<p>Since 6 obviously less than 10 it will output true. This statement isn't exactly useful, but once you start using variables and inputs it will.</p>
+
+<h3>Variables</h3>
+
+<p>Variables are simply containers to put data in. Think of a set of mailboxes for an apartment building. Each mailbox contains someone's mail (data) and each mailbox is labeled with a number (variable name). The variable is the mailbox, and the number on the mailbox is the variable name.</p>
+
+<p>So let's create some variables.</p>
+
+<p>```</p>
+
+<pre><code># aboutme.py
+name = "Jeremy"
+age = 34
+currentyear = 2012
+drivingyears = age - 16
+alcyears = age - 21
+
+print "Some facts about",name
+print "Jeremy was born sometime around", currentyear - age
+print "He's",age,"years
+print "He has been driving around", drivingyears, "years"
+print "He could has been able to drink alcohol for about", alcyears, "years"
+</code></pre>
+
+<p>```</p>
+
+<p>Here you can see we've created some variables here to hold my name, age, and the current year. We also added in a couple of formulas to figure out how long I've been driving, and (legally) drinking alchohol. If you copy this script exactly (don't!) you will get the following output:</p>
+
+<p>```</p>
+
+<blockquote><p>Some facts about Jeremy
+Jeremy was born sometime around 1978
+He's 34 years old
+He has been driving around 18 years
+He has been able to legally drink alcohol for about 13 years
+```</p></blockquote>
+
+<p>OK, so this script makes me feel pretty old. Create a similar script for yourself and feel free to modify it. Add in how many years you've been married or how long you've been in school. I encourage you to take these examples and run with them, modify and go crazy, because that's the best way to learn. Experiment and don't worry about breaking things.</p>
+
+<p>Now it's time to change it up a little.</p>
+
+<p>```</p>
+
+<pre><code>radius = 2
+pi = 3.14
+
+print "The area of our circle is", pi * (radius * radius)
+</code></pre>
+
+<p>```</p>
+
+<p>Notice something different? We're now using a floating point number, which Python detected and used, then output another float. Python supports many different datatypes including integers, long, floats and complex.</p>
+
+<p>In the next tutorial we're going to get a little more in depth and start exploring some more math, and loops.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div></p>
+]]></content>
+  </entry>
+  
+</feed>

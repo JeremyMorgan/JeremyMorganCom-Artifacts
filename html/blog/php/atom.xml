@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  PHP | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/php/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The Book Every PHP Developer Should Read]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/the-book-every-php-dev-should-read/"/>
+    <updated>2014-06-12T21:07:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/the-book-every-php-developer-should-read</id>
+    <content type="html"><![CDATA[<p>PHP has gotten a bad rap over the years. There is plenty of discussion around it's "Fractal of Bad Design" and syntactical inconsistencies but the chief complaint is generally security. Lots of PHP sites get hacked by the minute, and even some experienced and knowledgeable programmers will say that the language is inherently insecure.</p>
+
+<!-- more -->
+
+
+<p>I have always argued against this because there is a common sense reason there are so many security breaches of PHP.</p>
+
+<p><a href="http://buildingsecurephpapps.com/?coupon=jmorgan" target="_new"><img class="right" src="https://www.jeremymorgan.com/images/php-security-howto-1.jpg" title="&#34;PHP Security how to&#34;" alt="&#34;PHP Security how to&#34;"></a>
+PHP applications are hacked frequently because:</p>
+
+<ol>
+<li>There are so many PHP applications.</li>
+<li>It's very easy to learn and write PHP.</li>
+<li>It's easy to write bad PHP.</li>
+</ol>
+
+
+<p>It’s that simple. PHP is popular and has been for many years. The more PHP out in the wild the more it will it's exploited. Few of these hacks exploit flaws in the PHP processing engine itself, and are usually vulnerabilities of the scripts themselves.</p>
+
+<p>This means, of course that it's mostly the programmer's fault when a PHP application is hacked. Sorry folks, but that's the truth.</p>
+
+<p>You can write PHP that's just as secure (or more so) than other web languages out there. It's time we started really striving towards that.</p>
+
+<h3>Your Best Defense against PHP Hacks</h3>
+
+<p>Writing secure PHP code is not a secret black art hidden away from PHP developers. But the information is so scattered it would take you weeks or months (or longer) to gather good PHP security practices into some sort of checklist or formula. Even then only true experience would tell you how much of it is true.</p>
+
+<p>Thankfully Ben Edmunds has already done that for you. He recently released "<a href="http://buildingsecurephpapps.com/?coupon=jmorgan">Building Secure PHP Apps - a Practical Guide</a>" and it's one of the best security related books I've ever read, and certainly the best covering PHP. In this review I'll go over why I think every PHP developer should be reading this.</p>
+
+<p>The book is a very concise guide that will bring to the next level as a developer and have you building better, more secure scripts.</p>
+
+<h4>Introduction</h4>
+
+<p>The book quickly jumps right in with a common sense rule about web development: Never Trust Your Users and Sanitize ALL Input. It starts by painting a small scenario and and jumps right into the technical ways that users can enter your system. In the first chapter it jumps right into topics like:</p>
+
+<ul>
+<li>SQL Injection</li>
+<li>Mass Assignable Fields</li>
+<li>Typecasting</li>
+<li>Sanitizing Input / Output</li>
+</ul>
+
+
+<p>These are items that new PHP programmers (and some experienced ones) neglect all the time. Sanitizing input is seen as an optional step by many, and this chapter talks a lot about.</p>
+
+<p>In reading it I was reminded of my first day on a job many years ago when I was digging into the existing code and found the following in the new user creation script:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">&quot;isadmin&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">/&gt;</span>
+</span><span class='line'><span class="c1">// code to set to admin in database</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>I panicked when seeing this as it was a VERY active script and there was much to be gained by a malicious user who could have guessed this and inserted a simple form variable and accessed around 5,000 credit card numbers and other personal info.</p>
+
+<p>Digging deeper I found stuff like:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO database (id,name,...) VALUES (&quot;</span> <span class="o">.</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;);&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>I almost walked out of that job on the first day because of this terrible stuff they were relying on. This stuff is out there and it's up to you to change it, and definitely avoid creating more of it.</p>
+
+<p>This chapter talks about why code like this is a terrible risk and how you can fix it.</p>
+
+<h4>HTTPS and Certificates</h4>
+
+<p>This is another area Ben covers with scenarios, stories and a little humor but also clearly explains some concepts of HTTPS that can be unclear. He explains it in a way that even your boss can understand it.</p>
+
+<p>The book is very thorough in describing how certificates work, types of certificates and how they're implemented, and even how to set them up in Apache or Nginx.</p>
+
+<h4>Passwords</h4>
+
+<p>In this book some careful explanation of passwords, hashes, lookup tables and salts is included that is incredibly helpful for developers creating a user login system.</p>
+
+<p>Folks, this is one area that is extremely lacking even in 2014. I still run across applications that store plain text passwords or something silly like a <a href="http://en.wikipedia.org/wiki/ROT13">ROT13</a> cipher to protect them. Please, for the sake of the people using your app and your good reputation don’t do this.</p>
+
+<p>Passwords and other sensitive should be very difficult to obtain even if someone has full access to the database. This is covered pretty thoroughly here and will give you great direction for designing better systems.</p>
+
+<h4>Authentication and Access Control</h4>
+
+<p>The book covers this topic very thoroughly. When you’re building a new PHP application some of the first considerations are:</p>
+
+<ul>
+<li>Who can access what resources?</li>
+<li>Who can control other users access?</li>
+</ul>
+
+
+<p>These are crucial things to think about for applications, especially ones handling sensitive data. A good portion of development in the enterprise world is devoted to this. If you set up authentication and access control improperly the best that can happen is you annoy your users and create more work. The worst than can happen is a severe data breach and / or data destruction.</p>
+
+<p>In this book the basics are covered well, then it deep dives a little more into things like controlling access to files and individual pages of an application, and has plenty of code samples to look at.</p>
+
+<h4>Specific Exploits</h4>
+
+<p>The book covers some common exploits that are used to breach systems and goes into very good detail about Cross Site Scripting, arguably the most common way attackers exploit applications. It explains different types of attacks and how to protect yourself.</p>
+
+<p><a href="http://buildingsecurephpapps.com/?coupon=jmorgan"><h3>Sound Good? You can get this book at a discount using this link!</h3></a></p>
+
+<h3>What I liked the most about this book</h3>
+
+<p>In reading this book I really enjoyed how information is presented in a way that's useful for both beginners and experienced programmers. There is a set of concepts presented, what they are and how to protect yourself against it. There are plenty of code samples without "filler code" that some technical books suffer from.</p>
+
+<p>You can go through this book fairly quickly because there isn't a lot of fluff. Newer developers can go through this book and examine each topic and start looking at their code and making revisions to how they do things. Remember in this business you need to constantly change. If you look back and are ashamed of code you wrote 6 months ago you're doing it right.</p>
+
+<p>More advanced and experienced programmers can use this guide to fill in their weak spots (admit it no matter how long you've been in the game, you have them) and learn more about systems they've been using in their work. For instance I have used certificates like crazy over the years but never thought about things down to the level presented in this book.</p>
+
+<p>No matter who you are, you'll learn something. So stop reading this post and pick up a copy already! Use this link to purchase it for a discount!!</p>
+
+<h3>Disclaimer</h3>
+
+<p>I don't do many reviews on my blog so you may have a few questions. To be clear, I am not being paid or compensated for this review. The coupon code above is to give my blog readers $4 off the price of the book, and I receive none of that. I did receive a promotional copy of the book for reviewing purposes of course.</p>
+
+<p>Also I know the author personally and that's one of the reasons I trust the information in this book and have full faith in it's guidance. <a href="http://benedmunds.com/">Ben Edmunds</a> has been a huge influence in the PHP community over the years, he has over 10 years experience with PHP is one of the leaders of the Portland area PHP users group, and has made significant <a href="http://benedmunds.com/code.html">contributions to open source PHP projects</a> over the years. It's pretty safe to say he knows his stuff and you can trust the information presented here.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial: How To Create an Ajax Drop Down Menu With PHP and MySQL]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/php-tutorials/how-to-create-an-ajax-drop-down-menu-with-php-and-mysql/"/>
+    <updated>2012-09-21T00:20:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/php-tutorials/how-to-create-an-ajax-drop-down-menu-with-php-and-mysql</id>
+    <content type="html"><![CDATA[<p>There's no doubt by now you've heard of Ajax, it's far from a new thing. We went from hating JavaScript in the late 90s / early 2000s to now having arguably more development in JavaScript than any other language on the web. Simply put: we found a way to turn a gimmicky technology into something useful with Ajax.</p>
+
+<p>Today I'm going to show you how a basic dropdown list works with Ajax. This is mostly geared towards beginners to show you the basics of how it works. When you get serious about development you'll likely be using some kind of library like jQuery anyway. But here's how you can roll your own Ajax dropdown.</p>
+
+<!-- more -->
+
+
+<p>
+You can view a <a href="http://jeremymorgan.phpfogapp.com/ajaxdropdown/shoppinglist.php">live demo of this dropdown here</a></p>
+
+<p>Note: This is for academic purposes only. Please do not use this code in a production site. This is not very secure or robust code it's just to teach you the basics. This will be a website to show shopping lists for sesame street muppets.</p>
+
+<h3>Step 1: Create your MySQL tables.</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>SQL to create the tables for this tutorial. </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">customer</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="p">(</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">idcustomer</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">customername</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'>  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">idcustomer</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">)</span>
+</span><span class='line'><span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span>  <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">latin1</span> <span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">6</span> <span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">customer</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">idcustomer</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">customername</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">VALUES</span>
+</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Cookie Monster&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Guy Smiley&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Big Bird&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Oscar Grouch&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Alastair Cookie&#39;</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">item</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="p">(</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">iditem</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">customerfk</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">itemname</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'>  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">iditem</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">)</span>
+</span><span class='line'><span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span>  <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">latin1</span> <span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">18</span> <span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">item</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">iditem</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">customerfk</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">itemname</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">VALUES</span>
+</span><span class='line'><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Milk&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Cookies&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Napkins&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Toothpaste&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Hair Gel&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Razors&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Tooth Whitener&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Comb&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Seeds&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Bread&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Snuffalupagus Treats&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Febreeze&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Earplugs&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;St Johns Wort&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Cookies&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Milk&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Eyeglass cleaner&#39;</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This of course gives us two basic tables that show a list of names, and a list of items. They're joined by idcustomer matching up to customerfk. Let's first create our page, titled shoppinglist.php and put in some code to connect to the database.</p>
+
+<p>We're just going to use mysql_connect with zero error checking for simplicity. If this were a real app I would use PDO with prepared statements and error checking. But this is just an exercise.</p>
+
+<h3>Step 2: Create Your Webpage</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Initial php file </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;//</span> <span class="nx">shoppinglist</span><span class="o">.</span><span class="nx">php</span> <span class="o">-</span> <span class="nx">a</span> <span class="nx">Demo</span> <span class="nx">by</span> <span class="nx">Jeremy</span> <span class="nx">Morgan</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$link</span> <span class="o">=</span> <span class="nb">mysql_connect</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nb">mysql_select_db</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;?&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Replace the connection items with your own of course. And the first thing we'll do is put a database driven dropdown in the file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>database driven select </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;select * from customer&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">echo</span> <span class="s2">&quot;&lt;select name=</span><span class="se">\&quot;</span><span class="s2">muppetname</span><span class="se">\&quot;</span><span class="s2"> onchange=</span><span class="se">\&quot;</span><span class="s2">changeContent(this.value)</span><span class="se">\&quot;</span><span class="s2">&gt;&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">while</span> <span class="p">(</span><span class="nv">$ary</span> <span class="o">=</span> <span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">)){</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">echo</span> <span class="s2">&quot;&amp;lt;option value=</span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">.</span> <span class="nv">$ary</span><span class="p">[</span><span class="s1">&#39;idcustomer&#39;</span><span class="p">]</span>  <span class="o">.</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&amp;gt;&quot;</span> <span class="o">.</span> <span class="nv">$ary</span> <span class="p">[</span><span class="s1">&#39;customername&#39;</span><span class="p">]</span>  <span class="o">.</span> <span class="s2">&quot;&amp;lt;/option&amp;gt;&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">echo</span> <span class="s2">&quot;&lt;/select&gt;&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>It's pretty easy to see what this does right? It simply pulls a result from the database and uses the mysql_fetch_array() function to fetch the data into an array. This outputs the "option" part of the dropdown using the idcustomer element as an id value and the customername is the displayed value.</p>
+
+<p>Now we need to create a div below that:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>content div </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>?&gt;<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h2&gt;</span>Shopping list:<span class="nt">&lt;/h2&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>(Empty)<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span><span class="ni">&amp;lt;</span>?php
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>It's pretty simple to see what we're doing here. We escape out of php to create a div with the id of "content". This is where our shopping list will go.</p>
+
+<h3>Step 3: Create the JavaScript</h3>
+
+<p>This step is where we'll create the actual JavaScript that's going to interact with the dropdown. Here's the script you'll want to add to the top of your page:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>JavaScript to communicate with getlist.php </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">changeContent</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">str</span><span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// if blank, we&#39;ll set our innerHTML to be blank.</span>
+</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">XMLHttpRequest</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>   <span class="c1">// code for IE7+, Firefox, Chrome, Opera, Safari</span>
+</span><span class='line'>        <span class="c1">// create a new XML http Request that will go to our generator webpage.</span>
+</span><span class='line'>        <span class="nx">xmlhttp</span><span class="o">=</span><span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>    <span class="p">{</span>   <span class="c1">// code for IE6, IE5</span>
+</span><span class='line'>        <span class="c1">// create an activeX object</span>
+</span><span class='line'>        <span class="nx">xmlhttp</span><span class="o">=</span><span class="k">new</span> <span class="nx">ActiveXObject</span><span class="p">(</span><span class="s2">&quot;Microsoft.XMLHTTP&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">// on state change</span>
+</span><span class='line'>    <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span><span class="o">=</span><span class="kd">function</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// if we get a good response from the webpage, display the output</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span><span class="o">==</span><span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span><span class="o">==</span><span class="mi">200</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="o">=</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'> <span class="c1">// use our XML HTTP Request object to send a get to our content php. </span>
+</span><span class='line'><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;getlist.php?idcustomer=&quot;</span><span class="o">+</span><span class="nx">str</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>I tried to explain what's going on with this script in the file. Basically what you need to know is:</p>
+
+<ul>
+<li>An event (dropdownmenu changes) triggers and calls the changeContent() function</li>
+<li>Event passes a string to that function (the customer id)</li>
+<li>Checks to see if string passed is blank</li>
+<li>Create a new XMLHttpRequest</li>
+<li>When readystate changes we send a request to getlist.php</li>
+<li>If it returns back successfully we populate the div with id of content.</li>
+</ul>
+
+
+<h3>Step 4: Create the response php file</h3>
+
+<p>So now, it looks like the only thing missing is the getlist.php. This file simply needs to take an id and return a list. It is very black box and only serves this purpose, and the data will be populated on the page. Here's what it will look like;</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Initial php file </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;//</span> <span class="nx">getlist</span><span class="o">.</span><span class="nx">php</span> <span class="o">-</span> <span class="nx">a</span> <span class="nx">Demo</span> <span class="nx">by</span> <span class="nx">Jeremy</span> <span class="nx">Morgan</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$link</span> <span class="o">=</span> <span class="nb">mysql_connect</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nb">mysql_select_db</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT itemname FROM item WHERE customerfk=&quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;idcustomer&#39;</span><span class="p">];</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">echo</span> <span class="s2">&quot;&lt;ul&gt;&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">while</span> <span class="p">(</span><span class="nv">$ary</span> <span class="o">=</span> <span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">)){</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">echo</span> <span class="s2">&quot;&amp;lt;li&amp;gt;&quot;</span> <span class="o">.</span> <span class="nv">$ary</span><span class="p">[</span><span class="s1">&#39;itemname&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;&amp;lt;/li&amp;gt;&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">echo</span> <span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;?&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Again this file is pretty self explanatory, you send it a customer id and it sends you back the list for the customer. Now that every thing is combined, your page should be functional. Load up shoppinglist.php in a web browser.</p>
+
+<p>To be sure, this is what your final shoppinglist.php should look like:</p>
+
+<h3>The final shoppinglist.php file</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Final shoppinglist.php </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">changeContent</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">str</span><span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// if blank, we&#39;ll set our innerHTML to be blank.</span>
+</span><span class='line'>    <span class="nx">document</span><span class="o">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span><span class="o">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">window</span><span class="o">.</span><span class="nx">XMLHttpRequest</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>   <span class="c1">// code for IE7+, Firefox, Chrome, Opera, Safari</span>
+</span><span class='line'>        <span class="c1">// create a new XML http Request that will go to our generator webpage.</span>
+</span><span class='line'>        <span class="nx">xmlhttp</span><span class="o">=</span><span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>    <span class="p">{</span>   <span class="c1">// code for IE6, IE5</span>
+</span><span class='line'>        <span class="c1">// create an activeX object</span>
+</span><span class='line'>        <span class="nx">xmlhttp</span><span class="o">=</span><span class="k">new</span> <span class="nx">ActiveXObject</span><span class="p">(</span><span class="s2">&quot;Microsoft.XMLHTTP&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">// on state change</span>
+</span><span class='line'>    <span class="nx">xmlhttp</span><span class="o">.</span><span class="nx">onreadystatechange</span><span class="o">=</span><span class="k">function</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// if we get a good response from the webpage, display the output</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">xmlhttp</span><span class="o">.</span><span class="nx">readyState</span><span class="o">==</span><span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">xmlhttp</span><span class="o">.</span><span class="nx">status</span><span class="o">==</span><span class="mi">200</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nx">document</span><span class="o">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span><span class="o">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="nx">xmlhttp</span><span class="o">.</span><span class="nx">responseText</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'> <span class="c1">// use our XML HTTP Request object to send a get to our content php. </span>
+</span><span class='line'><span class="nx">xmlhttp</span><span class="o">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;getlist.php?idcustomer=&quot;</span><span class="o">+</span><span class="nx">str</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+</span><span class='line'><span class="nx">xmlhttp</span><span class="o">.</span><span class="nx">send</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;//</span> <span class="nx">shoppinglist</span><span class="o">.</span><span class="nx">php</span> <span class="o">-</span> <span class="nx">a</span> <span class="nx">Demo</span> <span class="nx">by</span> <span class="nx">Jeremy</span> <span class="nx">Morgan</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$link</span> <span class="o">=</span> <span class="nb">mysql_connect</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nb">mysql_select_db</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;select * from customer&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">echo</span> <span class="s2">&quot;&lt;select name=</span><span class="se">\&quot;</span><span class="s2">muppetname</span><span class="se">\&quot;</span><span class="s2"> onchange=</span><span class="se">\&quot;</span><span class="s2">changeContent(this.value)</span><span class="se">\&quot;</span><span class="s2">&gt;&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">while</span> <span class="p">(</span><span class="nv">$ary</span> <span class="o">=</span> <span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">)){</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">echo</span> <span class="s2">&quot;&amp;lt;option value=</span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">.</span> <span class="nv">$ary</span><span class="p">[</span><span class="s1">&#39;idcustomer&#39;</span><span class="p">]</span>  <span class="o">.</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&amp;gt;&quot;</span> <span class="o">.</span> <span class="nv">$ary</span> <span class="p">[</span><span class="s1">&#39;customername&#39;</span><span class="p">]</span>  <span class="o">.</span> <span class="s2">&quot;&amp;lt;/option&amp;gt;&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">echo</span> <span class="s2">&quot;&lt;/select&gt;&quot;</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;?&gt;&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">Shopping</span> <span class="k">list</span><span class="o">:&lt;/</span><span class="nx">h2</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="o">&gt;</span><span class="p">(</span><span class="k">Empty</span><span class="p">)</span><span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nb">mysql_close</span><span class="p">(</span><span class="nv">$link</span><span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;?&gt;&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Run the file and start changing the name in the dropdown menu. As it changes, so does the list! Congratulations you've built your first PHP Ajax page!</p>
+
+<p><img class="center" src="https://s3-us-west-1.amazonaws.com/jeremymorgan/hosted/php-mysql-ajax-tutorial.jpg" title="Your first PHP Ajax App" >
+It should look something like this.</p>
+
+<h3>Conclusion</h3>
+
+<p>I hope this helps you understand how Ajax works a little better. As your skills advance there's no doubt you'll use some sort of library to perform functions like this, but it's good to know how it actually works behind the scenes.</p>
+
+<p>You can view a <a href="http://jeremymorgan.phpfogapp.com/ajaxdropdown/shoppinglist.php">live demo of this dropdown here</a></p>
+
+<p>If you'd like you can <a href="https://github.com/JeremyMorgan/JM-AjaxDropDownDemo">grab the source for this on Github</a>. If you want to use it for your own tutorials or courses go for it!</p>
+
+<p>I hope this tutorial has helped you and if you have any questions, feel free to contact me about it or leave a comment below.</p>
+
+<p>Good Luck!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorials: How to work with arrays in PHP]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/php-tutorials/how-to-work-with-arrays-in-php/"/>
+    <updated>2008-08-05T17:43:41+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/php-tutorials/how-to-work-with-arrays-in-php</id>
+    <content type="html"><![CDATA[<p><strong>What is an array? </strong>
+Arrays are common to almost every programming language. An array is simply an ordered map of values, indexed so you can find these values, called <em>elements</em>. These elements can be of multiple datatypes, and can be ordered any way you want.</p>
+
+<p>```
+Array
+(</p>
+
+<pre><code>[a] =&gt; 1
+[b] =&gt; 2
+[c] =&gt; 3
+</code></pre>
+
+<p>)
+```
+<strong>Two types of arrays in PHP</strong></p>
+
+<p>There are two types of arrays in PHP, <a href="http://en.wikipedia.org/wiki/Associative_array">associative</a> and <a href="http://en.wikipedia.org/wiki/Enumerative">enumerative</a>. The difference between the two is how they are indexed.</p>
+
+<p><strong>Associative array</strong>s allow you to index each element with an arbitrary value. For example, you can use letters of the alphabet, or just about anything to index the value, as long as it's unique. Here is an example:</p>
+
+<p>```
+Array
+(</p>
+
+<pre><code>[name] =&gt; Jeremy
+[website] =&gt; jeremymorgan.com
+[occupation] =&gt; developer
+</code></pre>
+
+<p>)
+```</p>
+
+<p>Some programmers prefer associative arrays because they can use the key to indicate what type of data is stored in the element, like "name" in the above example. This is an indicator of what is stored, however its not a rule that's enforced. You can just as easily put a phone number in a name field and vice versa.</p>
+
+<p><strong>Enumerative arrays</strong> are indexed with a numerical index, either auto incremented, or random. PHP is very flexible with arrays, you can use numbers at will, and add in associative elements, and return to enumerative again. Also, the keys do not need to be sequential. Also note if you leave a key blank, an auto incremented number will be assigned to the key. Here is an example of an enumerative array:</p>
+
+<p>```
+Array
+(</p>
+
+<pre><code>[0] =&gt; Jeremy
+[1] =&gt; jeremymorgan.com
+[2] =&gt; developer
+</code></pre>
+
+<p>)
+```
+<strong>How to build an array in PHP</strong></p>
+
+<p>Using the <a href="http://www.php.net/array">array function</a> you can create arrays a few different ways:</p>
+
+<p><code>
+$ourary = array (1,2,3);
+$ourary = array ('a' =&gt; '1', 'b' =&gt; '2', 'c' =&gt; '3');
+$ourary = array ();`
+</code></p>
+
+<p><strong>What do we do with arrays? </strong></p>
+
+<p>There are a few neat things we can do with arrays. You can extract only specific parts of an array:</p>
+
+<p><code>
+$name = $ourary['name'];
+</code></p>
+
+<p>or you can loop through an array:</p>
+
+<p><code>``
+$ourary = array(0 =&gt; 'Jeremy', 1 =&gt; 'jeremymorgan.com', 2 =&gt; 'developer');</code></p>
+
+<p>foreach ($ourary as $value) {</p>
+
+<pre><code>echo "Value: $value";
+</code></pre>
+
+<p>}
+```</p>
+
+<p>There are many things arrays can be really handy for, and I'll cover that in future articles.</p>
+
+<p><strong>Checking your arrays</strong></p>
+
+<p>One question you might have is, how to easily check the data in the array. There are two easy ways to do this.</p>
+
+<p><code>
+print_r($yourary);
+</code></p>
+
+<p>This will display the contents of your array so you can visually verify the data before processing it. Print_r will recursively print the values of your elements. Here is another way:</p>
+
+<p><code>
+var_dump($yourary);
+</code></p>
+
+<p>This also prints out the values of your elements, but displays the datatypes as well. Whether or not you need this functionality will determine whether you use print_r or var_dump.</p>
+
+<p><strong>Conclusion</strong></p>
+
+<p>Arrays are a beautiful thing. Mastering them is key to success in any language. In future articles I will cover some of the things you can do with arrays.</p>
+
+<p>Questions or comments? <a href="http://www.jeremymorgan.com/contact/">Contact me! </a></p>
+]]></content>
+  </entry>
+  
+</feed>

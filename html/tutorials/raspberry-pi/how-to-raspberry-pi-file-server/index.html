@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How to Build a Raspberry Pi File Server - Linux Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How to Build a Raspberry Pi File Server" /><meta itemprop="name" content="How to Build a Raspberry Pi File Server" /><meta name="twitter:title" content="How to Build a Raspberry Pi File Server">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-01-28 19:49:00 +0000" />
+
+<meta property="article:section" content="LinuxRaspberry PiTutorials" />
+
+<meta name="description" content="A step by step guide to setting up your Raspberry Pi to share files to every computer on your network." />
+<meta property="og:description" content="A step by step guide to setting up your Raspberry Pi to share files to every computer on your network." />
+<meta itemprop="description" content="A step by step guide to setting up your Raspberry Pi to share files to every computer on your network." />
+<meta name="twitter:description" content="A step by step guide to setting up your Raspberry Pi to share files to every computer on your network.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-raspberry-pi-file-server/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-raspberry-pi-file-server/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-raspberry-pi-file-server/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How to Build a Raspberry Pi File Server</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2013-01-28T19:49:00+00:00" pubdate data-updated="true">Jan 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><br />
+
+
+<p><a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
+
+<br />
+
+
+<p>So I found yet another cool use for a Raspberry Pi. You can actually use it as a file server, or more accurately a controller for a file server. All you need is your Pi and a nice external drive and you can serve files to anyone on your network. It&#8217;s pretty easy, I&#8217;ll show you how.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<div class="tutorialbox">
+<h3>Other Raspberry Pi Stuff</h3>
+<ol>
+<li><a href="/tutorials/raspberry-pi/how-to-raspberry-pi-web-server/">Set up a Raspberry Pi Web Server</a></li>
+<li><a href="/blog/programming/raspberry-pi-web-server-comparison/">Raspberry Pi Web Server Speed Test</a></li>
+<li><a href="/tutorials/raspberry-pi/how-to-overclock-raspberry-pi/">How to Overclock Raspberry Pi</a></li>
+<li><a href="/tutorials/raspberry-pi/how-to-install-node-js-raspberry-pi/" rel="prev">How to Install Node.js on RPi</a></li>
+<li>How to Build a Raspberry Pi File Server</a></li>
+</ol>
+<a href="http://feedburner.google.com/fb/a/mailverify?uri=JeremyMorganTutorials&amp;loc=en_US" rel="nofollow"><strong>Get notified when new tutorials are released!</strong></a>
+</div>
+
+
+<h3>What you&#8217;ll need.</h3>
+
+<p>You need the Raspberry Pi set up and connected to your network. You&#8217;ll also need an external drive. I&#8217;m using a <a href="http://www.amazon.com/gp/product/B000XRK3LG/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B000XRK3LG&linkCode=as2&tag=webfootcentra-20">Western Digital My Book 500 GB</a><img src="http://www.assoc-amazon.com/e/ir?t=webfootcentra-20&l=as2&o=1&a=B000XRK3LG" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /> drive.</p>
+
+<p>But this drive is a few years old, so if you&#8217;re going to buy one you can pick up a <a href="http://www.amazon.com/gp/product/B0042Z55RM/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B0042Z55RM&linkCode=as2&tag=webfootcentra-20">3 Terabyte Model</a><img src="http://www.assoc-amazon.com/e/ir?t=webfootcentra-20&l=as2&o=1&a=B0042Z55RM" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /> for around $120. Since your SD card doesn&#8217;t have a lot of space and doesn&#8217;t handle frequent reading and writing you&#8217;ll need to get an external USB drive.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-file-server.png" title="Raspberry Pi File Server" ></p>
+
+<p>As with most of my tutorials, you&#8217;ll need an install of <a href="http://www.raspberrypi.org/downloads" target="_new" rel="nofollow">Raspian Wheezy</a> to do this tutorial.</p>
+
+<br />
+
+
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled &#8221;<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>&#8221; which is intended to be a course for people who want to get started with IoT. I&#8217;ll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I&#8217;m offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div>
+
+
+<br />
+
+
+<p><a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br /></p>
+
+<h3>Mount an external USB drive</h3>
+
+<p>The first thing you need to do is make sure your Raspberry Pi can see the external drive. Before you plug it in, open up an LXTerminal (or get to the prompt through SSH) and type in</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>tail -f /var/log/messages</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and watch the output. Now plug in the USB drive. You should see something like this come up:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-file-server-2.png" title="Raspberry Pi File Server" ></p>
+
+<p>You want to look for a string identifying your USB device, but the [sda] is the part you want to pay attention to. Another thing to note: Some drives like the WD My Book come with a built in CD-ROM emulator as well for software installation. You don&#8217;t want to mount this, so look for the size of the device (in my case 499GB).</p>
+
+<p>To escape this screen, press CTRL+C.</p>
+
+<p>So first we want to create a location for this drive on the Raspberry Pi. This is done with the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mkdir /media/USBDRIVE</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, you want to mount the drive:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mount -t ntfs-3g -o uid=pi,gid=pi /dev/sda1 /media/USBDRIVE/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you get a message saying ntfs-3g isn&#8217;t supported, install it:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install ntfs-3g</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will enable you to mount it.</p>
+
+<p><strong>If your drive is not NTFS</strong>
+Simply replace ntfs-3g with vfat</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mount -t vfat -o uid=pi,gid=pi /dev/sda1 /media/USBDRIVE/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, you can cd to /media/USBDRIVE and see it, and it should also pop up in your file manager:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-file-server-3.png" title="Raspberry Pi File Server" ></p>
+
+<h3>Mount the drive at startup</h3>
+
+<p>This step is optional but if you want your drive to mount automatically on startup, here&#8217;s what you do:</p>
+
+<p>Backup the fstab:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/fstab /etc/fstab.backup</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now open fstab:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/fstab</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the fstab file, add the mount information (yours may vary slightly)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/dev/sda1    /media/USBDRIVE    ntfs-3g    rw,defaults    0    0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Make sure you have write permissions to it:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo chmod 775 /media/USBDRIVE</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, reboot your machine and make sure the drive automatically comes up.</p>
+
+<h3>Share the drive on your network</h3>
+
+<p>Next, we&#8217;ll install SAMBA to share this drive on your network.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install samba
+</span><span class='line'>sudo apt-get install samba-common-bin</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now that Samba is installed, let&#8217;s add a user:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo smbpasswd -a pi</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Enter the password you want to use to log on.</p>
+
+<p>Now, make a backup of the Samba config file</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.backup</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and now we&#8217;re going to open that file and make some changes:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/samba/smb.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The first thing to look for is workgroup.</p>
+
+<p>For Windows XP or Vista:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>workgroup = WORKGROUP</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(or the name of your network workgroup)</p>
+
+<p>For Windows 7 or 8</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>workgroup = HOME</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(or the name of your network workgroup)</p>
+
+<p>Next, we want to enable user security. Remove the hash tag (#) so the entry looks like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>security = user</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For better performance, do the same with TCP_NODELAY</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>socket options = TCP_NODELAY</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, we want to create our share. Under the &#8220;Share Definitions&#8221; line, add something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[USB] 
+</span><span class='line'>path = /media/USBDRIVE
+</span><span class='line'>comment = My USB Drive 
+</span><span class='line'>valid users = pi 
+</span><span class='line'>writeable = yes 
+</span><span class='line'>browseable = yes</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Save and Quit Nano. (CTRL + X and answer Yes)</p>
+
+<p>Run a check on the config file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>testparm </span></code></pre></td></tr></table></div></figure>
+
+
+<p>You should see something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Load smb config files from /etc/samba/smb.conf
+</span><span class='line'>rlimit_max: increasing rlimit_max (1024) to minimum Windows limit (16384)
+</span><span class='line'>Processing section "[homes]"
+</span><span class='line'>Processing section "[USB]"
+</span><span class='line'>Processing section "[printers]"
+</span><span class='line'>Processing section "[print$]"
+</span><span class='line'>Loaded services file OK.
+</span><span class='line'>Server role: ROLE_STANDALONE
+</span><span class='line'>Press enter to see a dump of your service definitions</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As long as it says &#8220;Loaded services file OK.&#8221; you won&#8217;t have a problem.</p>
+
+<p>Now, restart the Samba Server:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo /etc/init.d/samba restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You should see something like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-file-server-4.png" title="Raspberry Pi File Server" ></p>
+
+<p>Now you&#8217;re on the network!</p>
+
+<h3>Connect to your Pi from Windows</h3>
+
+<p>To connect to your Raspberry Pi from Windows, you&#8217;ll need to know your hostname. Type in:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hostname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and check the output. For me my hostname is &#8220;raspberrypi&#8221; (I know, creative right?).</p>
+
+<p>On your Windows machine, type in Start -> Run and type in</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\\raspberrypi</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(or whatever your hostname is)</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-file-server-5.png" title="Raspberry Pi File Server" ></p>
+
+<p>and you should see a screen like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-file-server-6.png" title="Raspberry Pi File Server" ></p>
+
+<p>Double click on the USB folder. It will ask you for your password:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-file-server-7.png" title="Raspberry Pi File Server" ></p>
+
+<p>Here you want to enter the username and password you set earlier with &#8220;smbpasswd&#8221;.</p>
+
+<p>You&#8217;ll now see that you can browse the folder:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-file-server-8.png" title="Raspberry Pi File Server" ></p>
+
+<p>Congratulations!</p>
+
+<br />
+
+
+<p><a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
+
+<br />
+
+
+<h3>Add this as a drive on your computer</h3>
+
+<p>This step is also optional, but you can add this as a drive on your computer. Go to &#8220;My Computer&#8221; or Start -> computer and select the button at the top that says &#8220;Map Network Drive&#8221;.</p>
+
+<p>In the next box, browse to your USB drive on your Raspberry Pi and add it:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-file-server-8.png" title="Raspberry Pi File Server" ></p>
+
+<p>Now it will be added automatically as a drive on your computer!</p>
+
+<h3>Some Notes:</h3>
+
+<p>Make sure you have an additional power supply going to your USB drive. Don&#8217;t rely on the Raspberry Pi to power it, as that is too much of a drain for it. The drive I used has its own power supply and I haven&#8217;t had any problems with it.</p>
+
+<p>You may also need to <a href="http://www.sevenforums.com/network-sharing/6128-cant-connect-samba-share.html" target="_blank" rel="nofollow">Change 128bit to 40-56 bit encryption for file shares under Advanced Sharing Options</a> to make it work with certain versions of Windows.</p>
+
+<h3>Summary</h3>
+
+<p>I hope this tutorial has shown you how to set up a file server on your network. I don&#8217;t keep a lot of stuff on this drive, but I don&#8217;t exactly want to lug it around and plug it in to every computer I want to pull the files on (first world problems, I know). So it&#8217;s nice that I can now grab files off here from any computer in the house with ease. I could do this with any Linux or Windows machine, but the idea of a big loud machine to do the same task is wasteful and more expensive.</p>
+
+<br />
+
+
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled &#8221;<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>&#8221; which is intended to be a course for people who want to get started with IoT. I&#8217;ll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I&#8217;m offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div>
+
+
+<br />
+
+
+<p><a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br /></p>
+
+<br />
+
+
+<p><a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
+
+<br />
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/linux/'>Linux</a>, <a class='category' href='/blog/raspberry-pi/'>Raspberry Pi</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/programming/why-use-mysql/" title="Previous Post: Why Should You Use MySQL?">&laquo; Why Should You Use MySQL?</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/raspberry-pi/how-to-raspberry-pi-file-server/" title="Next Post: How to Build a Raspberry Pi File Server">How to Build a Raspberry Pi File Server &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

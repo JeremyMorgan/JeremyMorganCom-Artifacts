@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Reviews | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/reviews/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Review: Netgear WAC730 Wireless Access Point]]></title>
+    <link href="https://www.jeremymorgan.com/blog/reviews/netgear-wac730-prosafe-wap-review/"/>
+    <updated>2016-04-30T16:39:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/reviews/the-netgear-wac730-wireless-access-point</id>
+    <content type="html"><![CDATA[<p>In this article I'll be reviewing the Netgear Prosafe WAC730 Wireless Access Point. This is a WAP geared towards small to medium sized businesses, and is designed to compliment your existing network. I received this product for free in exchange for my honest opinion as part of the Netgear Ambassador Program. They sent me this unit to try out, and after extensive evaluation here's what I think.</p>
+
+<!-- more -->
+
+
+<h2>The Netgear Prosafe WAC730</h2>
+
+<p>The WAC730 is a high performance dual band wireless access point. This is a device you add on to your network to expand your wireless access. It would typically be added to an office to expand wireless coverage or improve it in certain areas of the building.</p>
+
+<p>A good use case for this would be if you have a router or modem with a wireless access point on one side of your office, and you wanted a stronger signal on the other side of the building, you would purchase this device and plug it into the wall somewhere in that area so wireless devices could connect to it there.</p>
+
+<p>Here is how it was hooked up on my home network:</p>
+
+<p><a href="https://www.jeremymorgan.com/images/netgear-wac730/netgear-wac730-review-large-00.jpg"><img src="/images/netgear-wac730/netgear-wac730-review-00.jpg" title="Netgear WAC730 Review" ></a></p>
+
+<p>(Click the image for a larger view)</p>
+
+<p>As you can see I have a ton of devices and computers on our network. This is the first place I decided to try this out, by routing our wireless devices through the WAC730.</p>
+
+<h2>Setup</h2>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-01.jpg" title="Netgear WAC730 Review" ></p>
+
+<p>The setup for this device was incredibly easy. Although I have an extensive background with networking I still try to put myself in the shoes of a less technical person with reviews.</p>
+
+<p>With the documentation provided I was able to plug in the device to my switch, then I found the IP and logged in. If you don't know how to find the IP and you don't have a DHCP server, it will automatically go to 192.168.0.100 which can be pretty handy.</p>
+
+<p>The instructions give you a login and password for the web based admin panel. Those who know me well know I love to critique documentation. Bad documentation is everywhere and I'm quite vocal about it. NetGEAR gets it right in this case. It comes with two small pamphlets:</p>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-02.jpg" title="Netgear WAC730 Review" ></p>
+
+<p>One to install the mounting hardware, and one to set up the access point. They are 5 pages each and only contain the information you need to get it set up, with handy diagrams and troubleshooting instructions if things go wrong. I went through the instructions to set it up as if it were my first time working with something like this, and I found it to be brief, complete and easy.</p>
+
+<p>Here's a shot of the admin panel:</p>
+
+<p><a href="https://www.jeremymorgan.com/images/netgear-wac730/netgear-wac730-review-large-03.jpg"><img src="/images/netgear-wac730/netgear-wac730-review-03.jpg" title="Netgear WAC730 Review" ></a></p>
+
+<p>(Click the image for a larger view)</p>
+
+<p>The admin panel is fairly intuitive. The documentation doesn't dive really deep into this, but it does guide you through the important task of getting an access point set up and securing it, which is probably where most people would stop anyway. The panel shows you configuration options, monitoring, maintenance and support. It's a clean interface, and I didn't feel like I had to search really deep to find anything. I like an interface like this.</p>
+
+<p>Some cool things to note that would probably only interest you if you're a geek:</p>
+
+<p><strong> Dashboard</strong> - I like the dashboard that monitors traffic. Visually appealing and pretty neat.</p>
+
+<p><strong>Packet Capture</strong> - There is a packet capture utility that exports to a .pcap file. Super useful if you need to do some troubleshooting.</p>
+
+<p><strong>Statistics</strong> - I love statistics of any type due to curiosity. But these could be very useful in a business setting.</p>
+
+<p><strong>Firmware Upgrade</strong> - You can do this through the panel. Pretty awesome.</p>
+
+<p>There are more features in the admin panel that help you set up some of the features I'll cover in the next section.</p>
+
+<h3>Verdict</h3>
+
+<p>The setup of this device was intuitive and easy. If you're an office person without an IT department you can get this set up just by following the instructions, and it takes 10-15 minutes. That's extremely important because small to medium businesses don't always have a fully staffed IT department.</p>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-06.jpg" title="Netgear WAC730 Review" ></p>
+
+<h2>Features</h2>
+
+<p>This access point comes with a range of good features.</p>
+
+<p>It's dual band 801.11 AC, and 802.11n. It supports 2.4 GHz and 5GHz simultaneously. Since I have both types of devices in my home I was able to setup a point for each and connect the devices simply and easily. It's backwards compatible with some pretty old devices, including 802.11a!</p>
+
+<p>It operates in a standalone mode, or "ensemble mode" with 10 other WAPs without a controller. Judging by the range of this device that would cover a very large building well.</p>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-04.jpg" title="Netgear WAC730 Review" ></p>
+
+<p>It has integrated PoE (Power over Ethernet). I cannot stress how great this is. If you have a PoE switch you just plug in the network cable and it's ready. This means you aren't limited to putting it close to a power outlet, and you can punch a small hole in the ceiling and mount this very cleanly.</p>
+
+<p>It supports WPA, WPA2, Rouge AP detection and RADIUS. This covers a lot of ground.</p>
+
+<p>Internal antennas that work really well, plus you can add external ones if you like.</p>
+
+<h3>Verdict</h3>
+
+<p>This is a full featured product that will meet some pretty demanding needs. It can be set up in a simple mode just to access the internet or take on a more complex role depending on what you need. What I really like is the coverage of different protocols. I was trying to find a device that's really old and obscure to trip it up and couldn't. This WAP will give you coverage for most anything that someone will bring into your office.</p>
+
+<h2>Performance</h2>
+
+<p>It supports an aggregate throughput of 1.7 Gbps ( 450Mbps for 2.4, 1.3 Gbps for 5 GHz). This is plenty of performance for most people. I started streaming Netflix and copying ISOs from my internal servers and it didn't miss a beat. From a performance standpoint this would serve an office very well.</p>
+
+<p>But stats are kind of useless without putting it to the test. So I started walking around the house checking the Wifi coverage. Entire house, and front yard is covered completely. Score! I decided to see how far out I could get:</p>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-05.jpg" title="Netgear WAC730 Review" ></p>
+
+<p>It was pretty off and on, mostly because this is situated in a room upstairs, and I went down the hill, so the line of sight was definitely off, but at around 50 feet away I was still able to get decent connectivity. If this were mounted on a ceiling in an office I have no doubts it would have some impressive coverage.</p>
+
+<p>As a side note, one of my biggest pet peeves with WAPs is when they randomly disconnect. Yes, it's only a few seconds to connect again but it can be frustrating... a real first world problem. But in using this I have not noticed any intermittent issues at all. It seems to be extremely solid in that regard.</p>
+
+<h3>Verdict</h3>
+
+<p>Great performance, better than expected in some cases. It gives me full coverage all over with lots of devices, it performs extremely well. I have yet to throw any external antennas on it, but when I do I will update this article and do another distance test.</p>
+
+<h2>Conclusion</h2>
+
+<p>I am extremely pleased with this device. You're really getting your money's worth for this device. It's solid, reliable and fast. Within minutes you can set it up and forget it about it. I've used Netgear products for a very long time so I knew what to expect but this product still exceeded my expectations. I was surprised at the performance and the ability to configure this device to meet your needs. It can definitely be simple and easy or more powerful depending on how you want to use it. I would highly recommend this device to anyone considering it.</p>
+
+<p>You should purchase this device if you're in a small or medium sized business environment and want to extend your wireless range. I could see this doing well in offices, hospitals, schools, etc, and even home use. If you have a large house, this will cover it well. You don't need an IT person to set it up and it can plug into the wall and go. It brings fast, solid access to a range of devices, old and new. If you happened upon this article searching for reviews on it my vote is to purchase it. You won't be sorry.</p>
+
+<p>-Jeremy</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+]]></content>
+  </entry>
+  
+</feed>

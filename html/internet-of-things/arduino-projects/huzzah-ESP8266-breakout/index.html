@@ -1,0 +1,502 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Setting up the Adafruit Huzzah ESP8266 Breakout - Arduino Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Setting up the Adafruit Huzzah ESP8266 Breakout" /><meta itemprop="name" content="Setting up the Adafruit Huzzah ESP8266 Breakout" /><meta name="twitter:title" content="Setting up the Adafruit Huzzah ESP8266 Breakout">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-01-12 21:16:00 +0000" />
+
+<meta property="article:section" content="ArduinoIoTProgrammingTutorials" />
+
+<meta name="description" content="Today I've set up an Adafruit Huzzah ESP8266 Breakout board and played around with it. My thoughts on this board and ones like it, and what it could &hellip;" />
+<meta property="og:description" content="Today I've set up an Adafruit Huzzah ESP8266 Breakout board and played around with it. My thoughts on this board and ones like it, and what it could &hellip;" />
+<meta itemprop="description" content="Today I've set up an Adafruit Huzzah ESP8266 Breakout board and played around with it. My thoughts on this board and ones like it, and what it could &hellip;" />
+<meta name="twitter:description" content="Today I've set up an Adafruit Huzzah ESP8266 Breakout board and played around with it. My thoughts on this board and ones like it, and what it could &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/huzzah-esp8266/adafruit-huzzah-ESP8266-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/huzzah-esp8266/adafruit-huzzah-ESP8266-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/huzzah-esp8266/adafruit-huzzah-ESP8266-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/internet-of-things/arduino-projects/huzzah-ESP8266-breakout/">
+<meta property="og:url" content="https://www.jeremymorgan.com/internet-of-things/arduino-projects/huzzah-ESP8266-breakout/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/internet-of-things/arduino-projects/huzzah-ESP8266-breakout/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Setting Up the Adafruit Huzzah ESP8266 Breakout</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2016-01-12T21:16:00+00:00" pubdate data-updated="true">Jan 12<span>th</span>, 2016</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>Recently I showed a friend of mine some of the projects I&#8217;ve working on with Arduino and Wifi, and he introduced me to the <a href="http://www.esp8266.com/">ESP8266 chip</a>. I found them all over the internet ranging from $1.50 US to $20, with a variety of configurations and manufacturers. I decided to go with a company I trust, Adafruit Industries, and see what their offering is like.</p>
+
+<!-- more -->
+
+
+<p>Full disclosure: I was not paid or compensated by Adafruit, I purchased this product. You can <a href="https://www.adafruit.com/products/2471">grab one for $9.95 here</a>.</p>
+
+<h2>Assembly</h2>
+
+<p>With Adafruit products you can expect a few things:</p>
+
+<ul>
+<li>A good design</li>
+<li>Software for devices</li>
+<li>Lots of instructions</li>
+<li>Soldering</li>
+</ul>
+
+
+<p>As I&#8217;ve said before I think soldering components is a good thing, even for beginners. It gives you more freedom with how you set up your boards, and it forces you to get good at soldering. This kit comes to you looking like this:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-01.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Its a board, with some pins (extras) and that&#8217;s it. I generally like to place them in the breadboard when soldering to keep everything straight. Some have warned against this because you might damage your breadboard. If you are getting the pins that hot or slopping that much solder you&#8217;re doing it wrong. Practice on some old electronic stuff!</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-02.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>In a few minutes you should have something that looks like this:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-03.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>It&#8217;s ready to program!</p>
+
+<h2>Setting up the Software</h2>
+
+<p>I should note there are a few ways to connect to this device to program it. I chose the easy way, and got a <a href="http://www.adafruit.com/products/70">FTDI Serial USB cable</a> to do this. I figure it won&#8217;t be the last time I program a serial device, and I freely admit I am NOT an electronic engineer so this route worked well for me.</p>
+
+<p>The first thing I thought I&#8217;d do, is the &#8220;hello world&#8221; of electronics and blink an LED.</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-04.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>To get the software you need, head on over to <a href="https://github.com/esp8266/Arduino">this GitHub repo</a> and download the .zip file and save it in your libraries folder.</p>
+
+<p>Start Arduino and open Preferences window.</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-05.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Enter http://arduino.esp8266.com/stable/package_esp8266com_index.json into Additional Board Manager URLs field. You can add multiple URLs, separating them with commas. Click OK.</p>
+
+<p>Open Boards Manager from Tools > Board menu and install ESP8266 platform (and don&#8217;t forget to select your ESP8266 board from Tools > Board menu after installation).</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-06.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-07.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Note, you may need to change your port also:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-08.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<h3>Write the Code</h3>
+
+<p>The code to blink an LED is super simple. Create in the already familiar Arduino IDE:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-09.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Here&#8217;s the actual code:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// initialize digital pin 14 as an output.</span>
+</span><span class='line'>  <span class="n">pinMode</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// the loop function runs over and over again forever</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>   <span class="c1">// turn the LED on (HIGH is the voltage level)</span>
+</span><span class='line'>  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>              <span class="c1">// wait for a second</span>
+</span><span class='line'>  <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>    <span class="c1">// turn the LED off by making the voltage LOW</span>
+</span><span class='line'>  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>              <span class="c1">// wait for a second</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In order to push the code to the ESP8266, you must hold down GPIO0 then press and release reset:</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-10.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Once you see the red light dim, it&#8217;s ready to flash.</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-11.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Once complete, you&#8217;ll have a blinking LED!</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-12.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<h3>Playing with Sensors</h3>
+
+<p>I decided to get a little more creative and hook a couple sensors up to this. I am not going to go into great detail, if you want to do this <a href="https://github.com/IoT-Projects/IoT-home-temp-tracking">head over to this repo</a> and get code for turning your ESP8266 into a home temperature tracker. But it was super easy to set up.</p>
+
+<p><img src="/images/huzzah-esp8266/adafruit-huzzah-ESP8266-13.jpg" alt="Adafruit Huzzah ESP8266" /></p>
+
+<p>Using the <a href="https://github.com/adafruit/DHT-sensor-library">Adafruit DHT Libraries</a> and some code from the IoT home temp repo I was able to get it running in minutes. Very easy!</p>
+
+<p>I even ended up sending the data to Sparkfun, you can see the live feed here &#8211;> <a href="https://data.sparkfun.com/streams/n1L3R6yql5I3WYrxKXK7">data.sparkfun.com</a> (it may go down at any time).</p>
+
+<h2>Conclusion</h2>
+
+<p>I really enjoyed the <a href="https://www.jeremymorgan.com/internet-of-things/arduino-projects/how-to-wifi-arduino/">CC3000 Arduino Wifi breakout</a> and would still use it if I needed additional data pins. With the ESP2866 product I have a much smaller footprint, it doesn&#8217;t even require an Arduino, and it is super easy to set up. Here&#8217;s how to know if you should use an ESP2866:</p>
+
+<ul>
+<li>You don&#8217;t need a full OS</li>
+<li>You have a few sensors</li>
+<li>You want to simply grab data and push it</li>
+</ul>
+
+
+<p>This is where the ESP8266 really shines. It&#8217;s dead simple and does one thing and does it well. I can&#8217;t wait to start building more projects with this, and at $10 you really should too.</p>
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled &#8221;<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>&#8221; which is intended to be a course for people who want to get started with IoT. I&#8217;ll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I&#8217;m offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div>
+
+
+<br />
+
+
+<p><a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br /></p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/arduino/'>Arduino</a>, <a class='category' href='/blog/iot/'>IoT</a>, <a class='category' href='/blog/programming/'>Programming</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/iis-devops/failed-request-tracing-iis/" title="Previous Post: Failed Request Tracing with IIS">&laquo; Failed Request Tracing with IIS</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/programming/how-to-dapper-web-api/" title="Next Post: Easy CRUD for your Web API with Dapper">Easy CRUD for your Web API with Dapper &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

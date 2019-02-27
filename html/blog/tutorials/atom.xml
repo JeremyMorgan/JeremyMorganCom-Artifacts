@@ -1,0 +1,1172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Tutorials | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/tutorials/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Unit Testing with dotnet core]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-net-core-unit-test/"/>
+    <updated>2018-03-29T23:48:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/c-sharp/unit-testing-with-dotnet-core</id>
+    <content type="html"><![CDATA[<p>So you've just started building .Net Core applications and really starting to gain some traction. You quickly learn how mature and thorough the .Net Core framework is becoming and think "I need to start writing some unit tests for this!". As it turns out, it's super easy and very intuitive, especially for C# developers.</p>
+
+<!-- more -->
+
+
+<blockquote><p>Note: I cover this topic and many others in my course, <a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOMTUTORIAL" target="_blank"><strong>Hands on .Net Core</strong></a> at Udemy. Check it out!</p></blockquote>
+
+<p>So let's walk through building Unit Tests for .Net core apps.</p>
+
+<h2>Let's Build a Class Library</h2>
+
+<p>For this tutorial we'll build a simple class library called "string modifier". As the name suggests, it will be used to modify strings. We'll use the .NET Core CLI to create a new class library.</p>
+
+<p><code>
+dotnet new classlib -o stringModifier
+</code></p>
+
+<p>You should see something that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-01.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>This uses the dotnet CLI to create a new class library in the folder named stringModifier. It creates an application that is essentially just a basic class. We're going to name this something a bit more useful though.</p>
+
+<p>rename your class to ChangeMyString. It should look like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">namespace</span> <span class="n">stringModifier</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">public</span> <span class="n">class</span> <span class="n">ChangeMyString</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We're going to create a library that modifies strings for us, so let's add a couple methods to our string modifier library.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="n">string</span> <span class="nf">makeAllUppercase</span><span class="p">(</span><span class="n">string</span> <span class="n">inputString</span><span class="p">){</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="n">inputString</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This method will make any string you send it all uppercase.</p>
+
+<p>The next method will reverse a string:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="n">string</span> <span class="nf">makeReverse</span><span class="p">(</span><span class="n">string</span> <span class="n">inputString</span><span class="p">){</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">char</span><span class="p">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">inputString</span><span class="p">.</span><span class="n">ToCharArray</span><span class="p">();</span>
+</span><span class='line'><span class="n">Array</span><span class="p">.</span><span class="n">Reverse</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
+</span><span class='line'><span class="k">return</span> <span class="n">new</span> <span class="n">string</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now these are obviously for demo purposes and easy to see what they do, but let's do a quick smoke test with them.</p>
+
+<p>Let's make sure the application builds. Run the following in the folder your project is located in:</p>
+
+<p><code>
+dotnet build
+</code>
+It should look like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-02.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>And we can go into our BIN folder and verify the artifacts were generated:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-03.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>Now you're ready to go.</p>
+
+<h2>Smoke Test</h2>
+
+<p>Let's build a quick console application that calls the class library just to do a quick visual test of functionality. Exit out of the project folder, and we want to use the dotnet CLI to create a runner for this.</p>
+
+<p><code>
+dotnet new console - smrunner
+</code></p>
+
+<p>This will create a simple "hello world" application for us. Open up Project.cs and add the following using:</p>
+
+<p><code>
+using stringModifier;
+</code></p>
+
+<p>then add the following into the Main method:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">));</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The entire method should look this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">stringModifier</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">namespace</span> <span class="n">smrunner</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">(</span><span class="n">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">));</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, back at the command line, let's add a reference to our class library:</p>
+
+<p><code>
+dotnet add reference "../stringModifer/stringModifier.csproj"
+</code></p>
+
+<p>This will add the reference to the class library automatically. You could also manually put in the following in the .csproj file:</p>
+
+<p>```
+<ItemGroup></p>
+
+<pre><code>&lt;ProjectReference Include="..\stringModifier\stringModifier.csproj" /&gt;
+</code></pre>
+
+<p></ItemGroup>
+```
+Either way is fine. Now we're ready to run it:</p>
+
+<p><code>
+dotnet run
+</code></p>
+
+<p>You should see something that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-04.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>Now we can verify that the methods work as we expect them to. But we'll add some unit tests to be sure.</p>
+
+<blockquote><p>Remember: Unit tests are not just to check the individual functionality of a method. They also check the functionality does not change when other parts of the application change. This is part of what makes them so important.</p></blockquote>
+
+<h2>Building the Unit Tests</h2>
+
+<p>Let's build a separate project for the unit tests. This is the project you'll run after a build, or preferably automatically on a build server every time you deploy.</p>
+
+<p>Exit out of the directory you were just in and let's use the dotnet CLI to create yet another project. This will be an MSTEST Unit Test project.</p>
+
+<p><code>
+dotnet new mstest -o libraryTester
+</code></p>
+
+<p>This creates a unit test project in the libraryTester directory. Now we open up UnitTest1.cs, and this should look really familiar to you if you've built unit tests before. This looks identical to tests in conventional .Net.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-05.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>So let's add a couple tests.</p>
+
+<p>First we need to add a using statement to include the library.</p>
+
+<p><code>
+using stringModifier;
+</code></p>
+
+<p>The first tests we want to run are to make sure the test method returns a string. Now we know the return type of these methods, but we want to make a test to catch it if everyone ever changes that:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="kt">void</span> <span class="n">TestMUCReturnsString</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">IsInstanceOfType</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">typeof</span><span class="p">(</span><span class="n">string</span><span class="p">));</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="kt">void</span> <span class="n">TestMRReturnsString</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">IsInstanceOfType</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">typeof</span><span class="p">(</span><span class="n">string</span><span class="p">));</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next we want to test the actual functionality of the methods. So we have a couple test cases here to do that.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="kt">void</span> <span class="n">TestMakeAllUppercase</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="s">&quot;TEST STRING&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="kt">void</span> <span class="n">TestMakeReverse</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="s">&quot;gnirtS tseT&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now what we are doing here is asserting what we expect the method to return, and then inserting test string in the method to see if it matches what we expect.</p>
+
+<p>This is what the final file should look like:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">VisualStudio</span><span class="p">.</span><span class="n">TestTools</span><span class="p">.</span><span class="n">UnitTesting</span><span class="p">;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">stringModifier</span><span class="p">;</span>
+</span><span class='line'><span class="n">namespace</span> <span class="n">libraryTester</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="n">TestClass</span><span class="p">]</span>
+</span><span class='line'><span class="n">public</span> <span class="n">class</span> <span class="n">UnitTest1</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">public</span> <span class="kt">void</span> <span class="n">TestMUCReturnsString</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">IsInstanceOfType</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">typeof</span><span class="p">(</span><span class="n">string</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">public</span> <span class="kt">void</span> <span class="n">TestMRReturnsString</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">IsInstanceOfType</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">typeof</span><span class="p">(</span><span class="n">string</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">public</span> <span class="kt">void</span> <span class="n">TestMakeAllUppercase</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeAllUppercase</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="s">&quot;TEST STRING&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">TestMethod</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">public</span> <span class="kt">void</span> <span class="n">TestMakeReverse</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">string</span> <span class="n">sample</span> <span class="o">=</span> <span class="s">&quot;Test String&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="n">ChangeMyString</span><span class="p">.</span><span class="n">makeReverse</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="s">&quot;gnirtS tseT&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>These are some pretty basic tests, but should be good for now. Let's try it out.</p>
+
+<p>Now we're in the library tester folder, and In order to build this, we'll have to add a reference again.</p>
+
+<p><code>
+dotnet add reference "../stringModifier/stringModifier.csproj"
+</code></p>
+
+<p>Now let's test the build.</p>
+
+<p><code>
+dotnet build
+</code></p>
+
+<p>It looks like we don't have any failures here so we should be good to go.</p>
+
+<p>To run the tests we'll type in</p>
+
+<p><code>
+dotnet test
+</code></p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-06.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>And our tests are successful! We can see that 4 tests were run and everything is green.</p>
+
+<p>Now, let's break a test just to see what that looks like.</p>
+
+<p>Let's go back to our original library. Change this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="n">string</span> <span class="nf">makeAllUppercase</span><span class="p">(</span><span class="n">string</span> <span class="n">inputString</span><span class="p">){</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="n">inputString</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>to this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">public</span> <span class="k">static</span> <span class="n">string</span> <span class="nf">makeAllUppercase</span><span class="p">(</span><span class="n">string</span> <span class="n">inputString</span><span class="p">){</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="n">inputString</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Let's refactor the method to pass through the string instead of making it upper case. Save it and build it.</p>
+
+<p><code>
+dotnet build
+</code></p>
+
+<p>And go back into our library tester folder, and run a test again:</p>
+
+<p><code>
+dotnet test
+</code></p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-unit-testing-net-core/how-to-unit-testing-net-core-07.jpg" alt="How to Unit Testing .Net Core" /></p>
+
+<p>And now we have a failure. As you can see by the splash of red on the screen it threw an error. It expected test string to be in all caps, and it's not.</p>
+
+<p>This is a great feature of unit tests, if some yahoo goes in and refactors something and breaks the functionality, your test will pick it up right away.</p>
+
+<p>This is how easy it is to build unit tests in .NET Core!!</p>
+
+<h2>Conclusion</h2>
+
+<p>Unit tests are super important. I'm not going to use this tutorial as a lecture, but they're well worth your time and too frequently overlooked. Just because you're developing .NET Core apps doesn't mean they can't be unit tested, MSTEST seems to work very well with everything I've done with it so far. So do it!!</p>
+
+<p>And as I mentioned I cover this and many other topics in my course, <a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOMTUTORIAL" target="_blank"><strong>Hands on .NET Core at Udemy</strong></a>. Click the link to check it out.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Set up easy file sharing with Samba]]></title>
+    <link href="https://www.jeremymorgan.com/blog/linux/how-to-file-sharing-samba/"/>
+    <updated>2018-03-18T14:43:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/linux/set-up-easy-file-sharing-with-samba</id>
+    <content type="html"><![CDATA[<p>In this tutorial, I'll show you how easy it is to setup file sharing on your network using SAMBA. You can easily share files between Linux and Windows machines with a pretty minimal amount of setup.</p>
+
+<!-- more -->
+
+
+<h3>How I'm Using SAMBA File Sharing</h3>
+
+<p>First, to give you little context, here's how I am using Samba file sharing, with something I recently set up for course development.</p>
+
+<p><img src="/images/how-to-file-sharing-samba/how-to-file-sharing-samba-01.jpg" alt="How to setup file sharing with SAMBA" /></p>
+
+<p>So I am developing courses and using a variety of Operating Systems for it. One course in progress is Windows related and I'm using Windows 2012 and 2016 Server machines. For another course I'm working on I'm using a variety of Linux machines. I'm spinning up multiple virtual machines with a fresh OS to demonstrate configuration and modification, then destroying them.</p>
+
+<h3>Workstation</h3>
+
+<p>I have my workstation that I record with (my trusted Mac Mini), and I use Windows or OSX and run things like Camtasia, Final Cut Pro, Audio Tools, Photoshop, PowerPoint etc. I have a dual monitor setup and I use RDP to connect to a server, and use a full screen on one Monitor and have my recording tools on the other.</p>
+
+<h3>Virtualization</h3>
+
+<p>I'm using a server to run headless virtual machines <a href="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/" target="_blank">that I described in this article</a>. The sole purpose of this machine is to run these virtual machines and I want to dedicate as many resources as I can to it, because it runs several at one time.</p>
+
+<p>I ran into an issue where i had a huge folder full of ISO images for each operating System. Combined with the disk space used by the virtual machines themselves, I decided I had to split it off.</p>
+
+<br />
+
+
+<p><img src="/images/how-to-file-sharing-samba/how-to-file-sharing-samba-02.jpg" alt="How to set up file sharing with SAMBA" /></p>
+
+<h3>File Server</h3>
+
+<p>I found an old machine I wasn't using and decided to drop a hard drive in it, and turn it into a file server. With an i3 and 4 gigs of RAM it's plenty fast. I decided to go with a minimal install of CENTOS an install SAMBA on it.</p>
+
+<h3>Workflow</h3>
+
+<p>So now I can ssh into my server and run commands to spin up the various virtual machines I need to run, and I have space to create many more. I have the installation ISOS residing on the file share server, which is mounted on the VM server. So to create a new virtual machine, I can just mount an ISO, run the installer and go, and create fresh new machines as needed.</p>
+
+<p>If I see some cool distribution of Linux I just have to try, I can download the installer ISO with my workstation to the shared folder, then build a vm to install from the ISO.</p>
+
+<p>It's not redundant or secured tightly, but it's all stuff I can download from MSDN or the internet to replace anyway. This is one of my uses for a Samba server.</p>
+
+<p>Now, let's get to the tutorial.</p>
+
+<h2>How to Set Up File Sharing with Samba</h2>
+
+<p>Here's how you can set up a file server with Samba. For this I am using <a href="https://www.centos.org/" target="_blank">CentOS</a> Linux, but it's very similar for most Linux distributions.</p>
+
+<p>I've created an account named jeremy that will be used for serving files. You never want to run this kind of stuff under the root account.  So I'll log in with the Jeremy account, and use sudo to run any commands that require administrative rights.</p>
+
+<p>In a fresh install of CentOS you will need to <a href="https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-centos-quickstart" target="_blank">add this account to the sudoers file</a>.</p>
+
+<h3>Install Samba</h3>
+
+<p>First we'll need to install Samba.</p>
+
+<p><code>
+sudo yum install samba samba-client samba-common
+</code></p>
+
+<p>Now we want to create a new folder for our file share. This is where the files will be stored that we're sharing.</p>
+
+<p>Then we'll change the permissions on this share</p>
+
+<p><code>
+mkdir -p /srv/samba/secure
+sudo chmod -R 0770 /srv/samba/secure
+sudo chown -R root:smbgrp /srv/samba/secure
+sudo chcon -t samba_share_t /srv/samba/secure
+</code></p>
+
+<h3>Add Samba User Group</h3>
+
+<p>Next we'll add the Samba user group. Then you'll want to add a user to that group.
+You want to make sure this is an existing user on your machine, for this I used the Jeremy account I created the folder with.</p>
+
+<p><code>
+groupadd smbgrp
+usermod jeremy -aG smbgrp
+</code></p>
+
+<p>Next, you want to add the Samba user, which should be the same as the account you're using (in my case, jeremy).</p>
+
+<p><code>
+sudo smbpasswd -a jeremy
+</code></p>
+
+<p>it will ask you for your password. This will be the password for the Samba share, and you can put in your existing user password here.</p>
+
+<h3>Edit Smb.conf</h3>
+
+<p>Next we want to edit our smb.conf. Make a quick backup of the file</p>
+
+<p><code>
+sudo cp /etc/samba/smb.conf /etc/samba/smb.bak
+</code></p>
+
+<p>Now, let's edit the file</p>
+
+<p><code>
+sudo vi /etc/samba/smb.conf
+</code></p>
+
+<p>First I'm going to change the name of my workgroup to WORKGROUP in all caps. this is the name of my windows workgroup.</p>
+
+<p>Here we have homes which are home folders for each user if you'd like to use those</p>
+
+<p>Let's create a share that points to where we just created a folder.</p>
+
+<p>```
+[fileshare]</p>
+
+<pre><code>comment= my file share
+path = /srv/samba/secure
+valid users = jeremy
+public = no
+writable = yes
+browsable = yes
+printable = no
+create mask = 0765
+</code></pre>
+
+<p>```</p>
+
+<h3>Start Service</h3>
+
+<p>You want to test your configuration changes to make sure everything is correct.</p>
+
+<p><code>
+testparm
+</code></p>
+
+<p>Then, it's time to restart the smb and nmb services:</p>
+
+<p><code>
+sudo systemctl restart smb.service
+sudo systemctl restart nmb.service
+</code></p>
+
+<h3>Firewall</h3>
+
+<p>We'll have to add an entry to the firewall to allow the samba service to be accessible from outside the network:</p>
+
+<p><code>
+firewall-cmd --permanent --zone=public --add-service=samba
+firewall-cmd --reload
+</code></p>
+
+<h3>Browsing</h3>
+
+<p>Now, we can browse to the server from a Windows machine:<br /></p>
+
+<div style="display: block; margin-left: auto; margin-right: auto;">
+
+<img src="https://www.jeremymorgan.com/images/how-to-file-sharing-samba/how-to-file-sharing-samba-03.jpg" alt="How to file sharing with Samba" />
+
+</div>
+
+
+<br />
+
+
+<p>You can even mount it as a mapped drive, or <a href="https://wiki.samba.org/index.php/Mounting_samba_shares_from_a_unix_client" target="_blank">mount it on a linux machine</a>. Samba setup is super easy, and great to use.</p>
+
+<h2>Conclusion</h2>
+
+<p>Setting up Samba is easy, and something to consider if you want easy file sharing between Linux and Windows machines, or even Linux and Linux machines. I gave some context of how to set it up, but there are tons of use cases for Samba. You can also tie it in to different authentication/authorization schemes if you'd like an use it with Active Directory as well. Check out <a href="https://www.samba.org/" target="_blank">Samba.org</a> for more information.</p>
+
+<p>I also created a video tutorial for this:</p>
+
+<br />
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JT0Y0VUP7T4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+<br />
+
+
+<p>Subscribe to <a href="https://www.youtube.com/channel/UCAR4QD5vqpn4LFrrBiDe7lQ" target="_blank">my channel on YouTube</a> for more tutorials!</p>
+
+<br />
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My Latest Virtualization Setup]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/"/>
+    <updated>2018-02-10T13:28:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/devops/my-virtualization-setup</id>
+    <content type="html"><![CDATA[<p>Like many geeks of the time I spent the 90s and 2000s with at least 2 or 3 old computers in a closet, connected by a switch running various operating systems with various services running on them. Giant, loud, clunky machines whirring away.</p>
+
+<!-- more -->
+
+
+<div style="float: right; padding: 15px;">
+
+<img src= "https://www.jeremymorgan.com/images/my-virtual-box-setup/jeremy-old.jpg" alt="Jeremy Morgan, about 2003 or so" />
+
+</div>
+
+
+<p>This very website was hosted for years on an old Pentium Machine running FreeBSD connected to my DSL line in my bedroom. It was just the way you did things then.</p>
+
+<p>I had stacks of hard drives with labels on them. Ebay specials I'd purchased for the sole purpose of putting different operating systems on them. Everything from Redhat, Gentoo, FreeBSD or various versions of Windows, I would just swap the drive and go.</p>
+
+<p>For years I lived in a condo that had a coat closet near the front door with an electrical outlet in it. I ran Ethernet through the ceiling and filled it to the top with machines. All for development, file servers, and web hosting purposes. It all seems a little silly now.</p>
+
+<h3>2018 is a little different...</h3>
+
+<p>These days I have an Azure Account, AWS, and <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4" target="_blank">Digital Ocean</a>. Virtualization has made progress even the most die hard geeks didn't expect. Even development itself is a bit abstracted from the bare metal these days, at least for most people. Things like Docker will make the OS and it's configuration almost irrelevant.</p>
+
+<p>Yet I still have a server in my house, and I want to show you guys the setup.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/intel-xw8400-server.jpg" alt="HP xv8600 Xeon Server" /></p>
+
+<p>This is an old HP Xeon Workstation I picked up that was going to use for course production, but even with 2 Xeons and 32 gig of RAM it fails to outperform my Mac Mini for video and audio rendering. So I decided to use it for some remote virtualization stuff, and stuffed it in a corner of our daylight basement.</p>
+
+<h3>Why do I need this?</h3>
+
+<p>Lately I've been doing a lot of random software development and building courses online. For those courses I need a fresh operating system and development environment. Obviously I could record some of these things on my desktop, but with the frequent configuration changes and software installs I could mess up the accuracy of my courses. So I want a machine with a dedicated operating system for each course. That motivated me to set this up.</p>
+
+<h2>Getting the server setup</h2>
+
+<p>To start this out, I originally had Windows 10 on this server. It ran well, <a href="http://browser.geekbench.com/v4/cpu/6882166" target="_blank">the performance was not too bad</a>. But if I were to use this as only a Virtualization machine, the overhead wasn't that great.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/windows-memory.jpg" alt="Window 10 Memory Usage " /></p>
+
+<p>This is with the machine "at an idle". I was using up 2 gigs of memory just loading up a desktop with nothing else. Surely I could do better than that.</p>
+
+<p>It should come as a surprise to nobody I decided to go with Linux base, and I installed Debian 9 on it. Why Debian? It's the same OS that powers jeremymorgan.com and I like it because it's lean, simple and well supported. It doesn't have the bleeding edge packages (I use Arch on the Desktop for that) but it's stable. Incredibly stable. I wanted something I could install and forget about. So Debian was my choice.</p>
+
+<p>I went with a barebones Linux installation, custom kernel and no window manager, and found that the idle was significantly better:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/linux-memory-usage.jpg" alt="Linux Memory Usage" /></p>
+
+<p>This gives me a little more headroom and CPU cycles to work with.</p>
+
+<p>I ended up installing LXDE because it's easier to configure and manage VMs with a window system. But I needed to set my server to boot to just a console, that way I can start and stop the windowing environment when I wanted to.</p>
+
+<p>To do that, I had to set my runlevel, which is a little different these days than in the past. If you want your server/desktop to boot to a prompt, do this:</p>
+
+<p><code>
+systemctl get-default
+</code>
+In my case, it said</p>
+
+<blockquote><p>graphical.target</p></blockquote>
+
+<p>Which is not what I want. So I then type in:</p>
+
+<p><code>
+systemctl set-default multi-user.target
+</code></p>
+
+<p>that way I can just fire up the server at a prompt and not have to have the windowing system loaded in memory. Yep, it's that easy.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/default-runlevel-target.jpg" alt="Default Runlevel Target for Debian" /></p>
+
+<p>So now I had a nice lean and stable OS base to start with.</p>
+
+<p>Then I installed LXDE and then used <a href="http://networkstatic.net/xrdp-an-easy-remote-desktop-setup-for-your-ubuntu-servers/" target="_blank">xrdp to set up a remote desktop</a> so I never have to walk over to the server to do anything. I just remote in from my office.</p>
+
+<h3>Setting up virtual machines</h3>
+
+<p>For the Virtualization, I chose <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Virtual Box</a>. I've worked with Hyper-V and VMWare in the past and they each have their merits, but for this application this works best for me. I originally attempted to setup Hyper-V server but my machine was too old and didn't support it fully. So this worked out.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtualbox.jpg" alt="Virtual Box Setup" /></p>
+
+<p>Now one thing about Virtual Box that's awesome is you can virtual machines "headless" from the command line. This is a great feature if you want to spin up a bunch of them. I can run 3 to 4 servers at a time without a blip in performance (ok 32 gigs of RAM and Xeons help with that).</p>
+
+<p>Installing the machines is super easy. You can choose to allocate as much hardware as you'd like, or don't like to the mix:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtual-box-memory.jpg" alt="Virtual Box Memory" /></p>
+
+<p>And CPU usage is handled nicely:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtual-box-cpu.jpg" alt="Virtual Box CPU Setup" /></p>
+
+<p>For networking, I set up one bridged adapter to communicate with the outside world, and another adapter for an internal network to communicate with other servers:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/bridged.jpg" alt="Bridged Network Adapter VirtualBox" /></p>
+
+<p>It can't be beat. So now I have several VMs set up and ready to go.</p>
+
+<h2>Running the Virtual Machines</h2>
+
+<p>So now I have my server booted at just a prompt, and I can list all my available virtual machines:</p>
+
+<p><code>
+VBoxManage list vms
+</code></p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtualbox-list-vms.jpg" alt="Virtual Box List VMs" /></p>
+
+<p>This is pretty handy. I can start them up here, then RDP into them from my office machine. Virtualbox uses VRDP to provide the headless interface to the outside world. I've used it extensively the last few weeks with zero problems.</p>
+
+<p>I can start up a VM with the following command:</p>
+
+<p><code>
+VBoxManage startvm "&lt;VM NAME&gt;" --type headless
+</code></p>
+
+<p>I even have some shell scripts to start up clusters or sets of machines at once.</p>
+
+<p>Then, I can just check to see the machine are running:</p>
+
+<p><code>
+VBoxManage list runningvms
+</code>
+ <img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/show-running-vms.jpg" alt="Show running VMs in Virtual Box Command line headless" /></p>
+
+<p>And it's that easy!</p>
+
+<p>Here's one thing that's not so easy... finding an IP address. The only real reliable way to get it is by going into my router and looking for them. Some machines I have statically assigned an IP for ease of use. If you don't do that though, you can always just show the VM from the Windowing interface:</p>
+
+<p> <img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/show-desktop-ip.jpg" alt="Show Desktop Virtual Box" /></p>
+
+<p>And then type in ipconfig, ifconfig, ip a, etc to get the IP.</p>
+
+<p>I can RDP into any of these machines, do development, record courses, whatever I need.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/desktop-view.jpg" alt="RDP into Debian Virtual Machine" /></p>
+
+<p>It works out great. Since it's on my local network it feels and performs like I'm on the desktop.</p>
+
+<h2>Conclusion</h2>
+
+<p>So I just wanted to show my setup and how I've been running things lately. This works really well for course production, because I can RDP in, full screen it on one window and record it as I go through the steps. I can also develop stuff and run/test it out. I've put in a replica of this website in, with the identical configuration for testing/development.</p>
+
+<p>It works great. I'll probably find a better way to do it, or you may know a better way, feel free to leave it in the comments or <a href="https://www.twitter.com/JeremyCMorgan">yell at me on Twitter</a>. If you have any questions, feel free to contact me about it.</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Load Testing Your IIS Web Server]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/IIS/how-to-load-test-iis-web-server/"/>
+    <updated>2017-07-01T02:27:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/IIS/load-testing-your-iis-web-server</id>
+    <content type="html"><![CDATA[<p>All the theory, calculations, and estimations in the world aren't going to tell you how your website will truly perform under a load. If you're deploying a new server, or doing any kind of performance enhancements you don't want to test your results in production. It's always a good idea to see how your system behaves before your visitors do. To do that, you can use a load testing tool, and here are a few I use quite frequently.</p>
+
+<p><strong>Update:</strong> I've featured these tools is my latest IIS course on Pluralsight, <a href="http://pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth" target="_blank">IIS Administration in Depth</a>, check it out!</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<h3>Netling</h3>
+
+<p><img src="/images/load-testing-iis-web-server/load-test-iis-web-server-01.jpg" alt="Load Testing IIS Web Server" /></p>
+
+<p><strong><a href="https://github.com/hallatore/Netling">Download Netling Here </a></strong></p>
+
+<p>One of the "quick and dirty" applications I use is Netling. This is a super simple tester written in C#. You will need to compile this with Visual Studio, but you don't necessarily have to be a developer to do it. I've been able to load it up, and select build to create it with no modifications with many versions of Visual Studio.</p>
+
+<p>Netling is super simple to operate and about as easy as it gets.</p>
+
+<p>You select how many threads you want to run. This is entirely up to you, more threads will put more load on your machine, and depending on how many cores your CPU has, more may not necessarily be better. Experiment with it and see what works best for you.</p>
+
+<p>It has a feature for "Pipelining". This is when multiple requests go through a single socket without waiting for a response. Setting this higher will generate a higher load but again this something to adjust for best results.  There will be a physical limit to pipelining depending on your hardware and connection speed.</p>
+
+<p>This is a handy tool and is extremely simple to use. One issue I've had with Netling is it sends raw requests that aren't much like a real browser. To emulate real traffic more accurately I have another tool I like to use.</p>
+
+<h3>Netling Pros</h3>
+
+<ul>
+<li>Free</li>
+<li>Open Source, can be easily modified</li>
+<li>Extremely Simple</li>
+</ul>
+
+
+<h3>Netling Cons</h3>
+
+<ul>
+<li>Doesn't simulate real transactions well</li>
+<li>Can't do authentication or other simulations</li>
+<li>Only tests one URL at a time</li>
+</ul>
+
+
+<h3>Web Surge</h3>
+
+<p><img src="/images/load-testing-iis-web-server/load-test-iis-web-server-02.jpg" alt="Load Testing IIS Web Server" /></p>
+
+<p><strong><a href="https://websurge.west-wind.com/">Download Web Surge Here</a></strong></p>
+
+<p>Web surge is by far one of my favorites. It's a great application that simulates a load on your server in a very realistic fashion.</p>
+
+<p>With this program you create sessions, which means you can use more than one URL for the test. Each of the URLs will be run in the session, which can make it more random and realistic. It has a ton of great options as well:</p>
+
+<p><img src="/images/load-testing-iis-web-server/load-test-iis-web-server-03.jpg" alt="Load Testing IIS Web Server" /></p>
+
+<p>It gives you quick results, and you can "drill down" to get more detailed data.</p>
+
+<p><img src="/images/load-testing-iis-web-server/load-test-iis-web-server-04.jpg" alt="Load Testing IIS Web Server" /></p>
+
+<p>You can also export these results in several formats. There's the Websurge proprietary format, as well as XML or JSON. You could parse these results for future analysis work.</p>
+
+<p>Overall Websurge is among my favorites for load testing because it's closer to real world traffic. If you put in a list of all your pages and randomize the test, it can provide some solid information.</p>
+
+<h3>Web Surge Pros</h3>
+
+<ul>
+<li>Free (for personal use)</li>
+<li>Professional Version reasonably priced</li>
+<li>Fast and generates a large load</li>
+<li>Simple to use, yet powerful</li>
+<li>Simulates "real world" traffic very well</li>
+<li>Extremely configurable</li>
+</ul>
+
+
+<h3>Web Surge Cons</h3>
+
+<ul>
+<li>None than I can think of</li>
+</ul>
+
+
+<h2>Apache JMeter</h2>
+
+<p><img src="/images/load-testing-iis-web-server/load-test-iis-web-server-05.jpg" alt="Load Testing IIS Web Server" /></p>
+
+<p><strong><a href="https://jmeter.apache.org/">Download JMeter Here </a></strong></p>
+
+<p>The Next application we'll look at is Jmeter. This is an extremely powerful program and can do very thorough testing in addition to generating a load. In fact load testing with Jmeter is just a very small part of it's overall functionality.</p>
+
+<p>With JMeter you have scenarios to run out, because it's more of a testing oriented application you can run through a longer set of steps and processes as a part of your test.</p>
+
+<p>I would encourage you to really dig into this application and learn as much as you can about it to get the full benefits of it.</p>
+
+<h3>Apache JMeter Pros</h3>
+
+<ul>
+<li>Free</li>
+<li>Very Powerful</li>
+<li>Detailed tests can be set up</li>
+<li>Minimal setup</li>
+</ul>
+
+
+<h3>Apache JMeter Cons</h3>
+
+<ul>
+<li>Steeper learning curve</li>
+<li>Can be fairly complicated</li>
+<li>May be overkill for what you need</li>
+</ul>
+
+
+<h2>Conclusion</h2>
+
+<p>There are many tools out there for load generation, but these are the ones I use the most. I like to set up various different tests to accurately gauge performance of your website and it's reaction to a load.</p>
+
+<p>In fact, the reaction to a heavy load is the most important thing I'm looking for. When doing performance measurements it's difficult to really nail down all the variables and prove a change has increased performance. But sending a heavy load to your server and seeing how it reacts is pretty conclusive.</p>
+
+<p>I cover some performance and stability enhancements in my <strong><a href="http://pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals">Pluralsight Course - IIS Administration Fundamentals</a></strong>.</p>
+
+<p>I cover load testing in detail in my new course <strong><a href="http://pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth">IIS Administration In Depth</a></strong>.</p>
+
+<p>Check it out if you want to learn more about administering IIS Servers. If you don't have a Pluralsight account yet, you can <a href="http://pluralsight.pxf.io/c/1221983/424552/7490">start a free trial by clicking here</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/"/>
+    <updated>2016-12-06T21:13:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/linux/how-to-install-microsoft-sql-server-on-ubuntu-linux</id>
+    <content type="html"><![CDATA[<p>I must admit I was surprised when I learned that Microsoft SQL Server would be availble in Linux. They've been pushing the open source initiative hard, but I didn't expect something this big. Oh yeah, Visual Studio is now available for Mac as well. I just saw a pig flying by.</p>
+
+<p>While MS-SQL is not open source they have made it available to run on open source platforms such as Linux and OSX, which I can imagine took a ton of work. So I decided to take advantage of this new option and try it out. It works great! It took 5 minutes to install. Here's how you can do it too. Note that you will need a server with 3.5 gigs of RAM for this.</p>
+
+<!-- more -->
+
+
+<p>
+The first thing I always do on an Ubuntu machine is update it</p>
+
+<p><code>
+sudo apt-get update
+sudo apt-get upgrade
+</code></p>
+
+<p>Next we need to import the public repository GPG keys</p>
+
+<p><code>
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/16.04/mssql-server.list | sudo tee /etc/apt/sources.list.d/mssql-server.list
+</code></p>
+
+<p>Next we'll install SQL Server.</p>
+
+<p><code>
+sudo apt-get update
+sudo apt-get install -y mssql-server
+</code></p>
+
+<p><img src="/images/sql-server-linux/how-to-install-sql-server-linux-1.jpg" title="&#34;How to Install SQL Server in Linux&#34;" alt="&#34;How to Install SQL Server in Linux&#34;"></p>
+
+<p>Now we need to run a configuration script to set up the server:</p>
+
+<p>```
+sudo /opt/mssql/bin/sqlservr-setup
+````
+It will ask if you want to start the service and if you'd like to start it on boot.</p>
+
+<p>Here's how you can check if the service is running:</p>
+
+<p><code>
+systemctl status mssql-server
+</code></p>
+
+<p><img src="/images/sql-server-linux/how-to-install-sql-server-linux-2.jpg" title="&#34;How to Install SQL Server in Linux&#34;" alt="&#34;How to Install SQL Server in Linux&#34;"></p>
+
+<h3>Install the MSSQL Tools for Linux</h3>
+
+<p>To test this out a little, install the MSSQL tools on Ubuntu.</p>
+
+<p>Add in a new repository:</p>
+
+<p>```
+curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list</p>
+
+<p>sudo apt-get update
+sudo apt-get install mssql-tools
+```</p>
+
+<p>Now, Let's try to connect!</p>
+
+<p><code>
+sqlcmd -S localhost -U SA -P '&lt;YourPassword&gt;'
+</code></p>
+
+<p>You can run this command to view all your databases:</p>
+
+<p><code>
+SELECT Name from sys.Databases;
+GO
+</code></p>
+
+<p><img src="/images/sql-server-linux/how-to-install-sql-server-linux-3.jpg" title="&#34;How to Install SQL Server in Linux&#34;" alt="&#34;How to Install SQL Server in Linux&#34;"></p>
+
+<p>This should look pretty familiar to you if you've worked with SQL in the past.</p>
+
+<p><code>
+CREATE DATABASE acmewidgets;
+GO
+</code></p>
+
+<p>Now we need to select that database:</p>
+
+<p><code>
+USE acmewidgets;
+GO
+</code></p>
+
+<p>As a test. let's create a customer table</p>
+
+<p><code>
+CREATE TABLE customer (id INT, firstname NVARCHAR(50), lastname NVARCHAR(50));
+GO
+</code></p>
+
+<p>Now, let's put some customers in there:</p>
+
+<p><code>
+INSERT INTO customer VALUES (1, 'Lloyd', 'Christmas');
+INSERT INTO customer VALUES (2, 'Harry', 'Dunn');
+INSERT INTO customer VALUES (3, 'Mary', 'Swanson');
+GO
+</code></p>
+
+<p>Now, let's take a look at those customers:</p>
+
+<p><code>
+SELECT * FROM customer
+GO
+</code></p>
+
+<p><img src="/images/sql-server-linux/how-to-install-sql-server-linux-4.jpg" title="&#34;How to Install SQL Server in Linux&#34;" alt="&#34;How to Install SQL Server in Linux&#34;"></p>
+
+<p>And it's that easy! You can run SQL scripts here, or connect to it from SSMS, a traditional ASP site, or a .Net Core site/app. I'll be doing a lot of ASP.Net core work in the coming months, so be sure to check back here.</p>
+
+<p>To quit from SQL server, type in</p>
+
+<p><code>
+QUIT
+</code></p>
+
+<p>And you're done!</p>
+
+<p>I'll be messing with this some more in the coming weeks and really putting it to the test, and I'll share my results.</p>
+
+<p>-Jeremy</p>
+
+<p>I also did a YouTube tutorial for this article:</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OqsOdUNsO4g" frameborder="0" allowfullscreen></iframe>
+
+
+
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+]]></content>
+  </entry>
+  
+</feed>

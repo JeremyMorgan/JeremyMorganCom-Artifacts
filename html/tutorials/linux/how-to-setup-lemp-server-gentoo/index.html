@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How to Setup a LEMP Server in Gentoo - Linux Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How to Setup a LEMP Server in Gentoo" /><meta itemprop="name" content="How to Setup a LEMP Server in Gentoo" /><meta name="twitter:title" content="How to Setup a LEMP Server in Gentoo">
+
+<meta property="article:published_time" content="2013-06-20 17:59:00 +0000" />
+
+<meta property="article:section" content="LinuxTutorials" />
+
+<meta name="description" content="In this tutorial I layout the steps to build a LEMP ( Linux NginX MariaDB PHP) server in Gentoo Linux. It's a long one, but you'll have a fast server &hellip;" />
+<meta property="og:description" content="In this tutorial I layout the steps to build a LEMP ( Linux NginX MariaDB PHP) server in Gentoo Linux. It's a long one, but you'll have a fast server &hellip;" />
+<meta itemprop="description" content="In this tutorial I layout the steps to build a LEMP ( Linux NginX MariaDB PHP) server in Gentoo Linux. It's a long one, but you'll have a fast server &hellip;" />
+<meta name="twitter:description" content="In this tutorial I layout the steps to build a LEMP ( Linux NginX MariaDB PHP) server in Gentoo Linux. It's a long one, but you'll have a fast server &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/gentoo-lemp-server-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/gentoo-lemp-server-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/gentoo-lemp-server-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/linux/how-to-setup-lemp-server-gentoo/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/linux/how-to-setup-lemp-server-gentoo/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/linux/how-to-setup-lemp-server-gentoo/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How to Setup a LEMP Server in Gentoo</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2013-06-20T17:59:00+00:00" pubdate data-updated="true">Jun 20<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+
+<p>You reach a certain point as a developer when a plain old web hosting account just isn&#8217;t enough. Whether you build a project that gets wildly popular or you just start finding custom stuff to do eventually want to run your own Web Server. Today I&#8217;m going to show you how to set up a screaming fast LEMP server you can use to host your projects or websites.</p>
+
+<!-- more -->
+
+
+<p>To start this tutorial, I started with a fresh install of Gentoo Linux. You can get one too for about <a href="http://www.linode.com/?r=4ce22489efcec5edefb7af7e815c55675b59120c">$20 USD a month here</a>. I have nothing but praise for this company as they provide fast Virtual servers for a very reasonable price. Check em out!</p>
+
+<h3>The Gameplan</h3>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/gentoo-lemp-server-og.jpg" title="&#34;How to set up a LEMP server in Gentoo&#34;" alt="&#34;How to set up a LEMP server in Gentoo&#34;">
+We&#8217;re going to be setting up a nice fast web server. It&#8217;s going to use:</p>
+
+<ul>
+<li>NginX</li>
+<li>Google PageSpeed Module</li>
+<li>SPDY</li>
+<li>PHP 5.4</li>
+<li>MariaDb</li>
+</ul>
+
+
+<p>This combination will make for a smoking fast server, but it isn&#8217;t easy. We&#8217;ll be compiling Nginx by hand as well to include everything. Don&#8217;t worry it&#8217;s not as bad as it sounds.</p>
+
+<h2>1. Update Gentoo</h2>
+
+<p>Whether you&#8217;re starting from scratch or working with an existing server you&#8217;ll want to make sure your sources are all up to date.</p>
+
+<pre>
+emerge --sync
+emerge portage
+etc-update ( I usually choose -3 )
+emerge --update --deep --with-bdeps=y world
+</pre>
+
+
+<p>Go get a cold glass of Orange soda, because this will take a while.</p>
+
+<pre>
+etc-update (again)
+eselect profile set default/linux/amd64/13.0 (* optional - My linode server profile)
+</pre>
+
+
+<p>Once that&#8217;s done you&#8217;re ready to start building.</p>
+
+<h2>2. Get our Software</h2>
+
+<p>We&#8217;re going to be doing some compiling here so we need to get some sources and put it together.</p>
+
+<pre>
+cd ~
+mkdir build
+cd build
+</pre>
+
+
+<h4>Get Nginx</h4>
+
+<pre>
+cd ~
+wget http://nginx.org/download/nginx-1.5.1.tar.gz
+tar -xvzf nginx-1.5.1.tar.gz
+</pre>
+
+
+<p>We are going to build this scratch, but not yet.</p>
+
+<h4>Get the PageSpeed Module</h4>
+
+<pre>
+cd ~
+wget https://github.com/pagespeed/ngx_pagespeed/archive/release-1.5.27.3-beta.zip
+unzip release-1.5.27.3-beta.zip
+cd ngx_pagespeed-release-1.5.27.3-beta/
+wget https://dl.google.com/dl/page-speed/psol/1.5.27.3.tar.gz
+tar -xzvf 1.5.27.3.tar.gz
+</pre>
+
+
+<h4>Install PHP + FPM</h4>
+
+<p>This is the best way to install PHP on your system. We&#8217;re also going to add in GD and MySQLi, as well as the Geo-IP plugin. These are all optional depending on your needs.</p>
+
+<pre>
+echo "dev-lang/php ~amd64" >> /etc/package.keywords
+echo "dev-lang/php" >> /etc/package.unmask
+echo "dev-lang/php fpm" >> /etc/package.use
+echo "dev-lang/php gd" >> /etc/package.use
+echo "dev-lang/php mysqli" >> /etc/package.useemerge dev-lang/php
+emerge Geo-IP
+emerge media-libs/gd 
+emerge -av php
+</pre>
+
+
+<p>This will give you PHP with the options we&#8217;ll need for our server.</p>
+
+<h3>Configure and Build Nginx</h3>
+
+<p>For the configuration we&#8217;re going to add in the page speed model, as well as SPDY, GeoIP, gzip static and and an image filter module. This will give us a nice set of options for our web server.</p>
+
+<pre>
+./configure --with-http_ssl_module --conf-path=/etc/nginx/nginx.conf \
+  --error-log-path=/var/log/nginx_error.log \
+  --http-log-path=/var/log/nginx_access.log \
+  --pid-path=/usr/local/nginx/nginx.pid \
+  --add-module=$HOME/build/ngx_pagespeed-release-1.5.27.3-beta \
+  --with-http_spdy_module \
+  --with-http_geoip_module \
+  --with-http_gzip_static_module \
+  --with-http_image_filter_module  \
+  --user=nobody \
+  --group=nobody \
+  --prefix=/usr
+</pre>
+
+
+<p>If you don&#8217;t receive any errors, you&#8217;re ready to make:</p>
+
+<pre>
+make && make install
+</pre>
+
+
+<p>Now comes the fun stuff!</p>
+
+<h2>3.Configure NginX</h2>
+
+<p>Now we have to configure Nginx by editing the nginx.conf file.</p>
+
+<pre>
+sudo nano /etc/nginx/nginx.conf
+</pre>
+
+
+<p>Note that you can create multiple configuration files and load nginx with them, like profiles but that&#8217;s for another time. Just remember it is an option if you want to try different configs. You can load a file per server, or per website.</p>
+
+<p>For now we&#8217;re going to do it globally throughout the server.</p>
+
+<h4>Tip: Download your Nginx conf file</h4>
+
+<p>This is optional, but it makes life easier. Download your nginx.conf on to your desktop so you can edit it in on your desktop. In OSX or Linux/Unix you can simply type the following at a command prompt:</p>
+
+<pre>
+scp root@[your domain or ip address]:/etc/nginx/nginx.conf .
+</pre>
+
+
+<p>This will copy it to whatever directory you&#8217;re in, so you can edit it in GEdit or SublimeText or whatever. If you&#8217;re using Windows you can use something like <a href="http://winscp.net/eng/index.php" rel="nofollow">WinSCP</a> to do same thing.</p>
+
+<p>When you&#8217;re ready to send it back:</p>
+
+<pre>
+scp nginx.conf root@[your domain or ip address]:/etc/nginx/nginx.conf
+</pre>
+
+
+<p><strong>Note</strong>
+It&#8217;s always good to match your processes to the amount of cores/CPUs your server has. A good way to find out is run this command:</p>
+
+<pre>
+cat /proc/cpuinfo | grep processor | wc -l
+</pre>
+
+
+<p>Note this as the amount of worker processes you should set in Nginx.</p>
+
+<h4>Start Configuring</h4>
+
+<p>You will want to create a folder /var/ngx_pagespeed_cache and make it writeable by nginx.</p>
+
+<pre>
+mkdir /var/ngx_pagespeed_cache
+chown -R nobody:nobody /var/ngx_pagespeed_cache
+</pre>
+
+
+<p>You will also want to create your web folder. For me I chose the /var/www convention:</p>
+
+<pre>
+mkdir -p /var/www/innovatsiya.com/public_html
+chown -R nobody /var/www/innovatsiya.com/
+</pre>
+
+
+
+
+<pre>
+ulimit -n 200000
+
+# add the following to keep on reboot:
+vim /etc/security/limits.conf
+*        -              nofile                  200000
+</pre>
+
+
+<p>Add the following to your nginx.conf</p>
+
+<pre>
+user  nobody;
+</pre>
+
+
+<p>Change your worker processes to the number you get from the command below. For my linode it is:</p>
+
+<pre>
+worker_processes  8;
+</pre>
+
+
+<h3>nginx.conf</h3>
+
+<p>For my NginX config, I decided to borrow the <a href="http://www.6tech.org/2013/02/nginx-tuning-with-php-fpm-and-memcached/">optimized nginx.conf</a> found on 6tech and do some modifications. Here is what mine looks like:</p>
+
+<pre>
+#----------------------------------------------------------------------
+# Main Module - directives that cover basic functionality
+#
+#   http://wiki.nginx.org/NginxHttpMainModule
+#
+#----------------------------------------------------------------------
+ 
+user nobody;
+worker_processes  8;
+worker_rlimit_nofile 200000;
+ 
+error_log  /var/log/nginx_error.log;
+#error_log  /var/log/nginx/error.log  notice;
+#error_log  /var/log/nginx/error.log  info;
+ 
+pid        /var/run/nginx.pid;
+ 
+#----------------------------------------------------------------------
+# Events Module
+#
+#   http://wiki.nginx.org/NginxHttpEventsModule
+#
+#----------------------------------------------------------------------
+ 
+events {
+      worker_connections  4000;
+        use epoll;
+        multi_accept on;
+}
+
+#----------------------------------------------------------------------
+# HTTP Core Module
+#
+#   http://wiki.nginx.org/NginxHttpCoreModule
+#
+#----------------------------------------------------------------------
+ 
+http {
+
+#----------------------------------------------------------------------
+# Google PageSpeed Module
+#
+#   https://github.com/pagespeed/ngx_pagespeed
+#
+#----------------------------------------------------------------------
+
+    pagespeed on;
+    pagespeed FileCachePath /var/ngx_pagespeed_cache;
+
+    include         /etc/nginx/mime.types;
+    include     /etc/nginx/sites-enabled/*;
+    default_type  application/octet-stream;
+ 
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+ 
+    access_log  off;
+ 
+    sendfile    on;
+    open_file_cache max=200000 inactive=20s;
+    open_file_cache_valid 30s;
+    open_file_cache_min_uses 2;
+    open_file_cache_errors on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 30;
+    keepalive_requests 100000;
+    reset_timedout_connection on;
+    client_body_timeout 10;
+    send_timeout 2;
+ 
+    # Load config files from the /etc/nginx/conf.d directory
+    # The default server is in conf.d/default.conf
+    include /etc/nginx/conf.d/*.conf;
+ 
+    gzip on;
+    gzip_min_length 10240;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml;
+    gzip_disable "MSIE [1-6]\.";
+ 
+}
+
+</pre>
+
+
+<p>Notice we&#8217;ve added in some gzip stuff, set some file cache options and added in google PageSpeed.</p>
+
+<h4>Your Site Config</h4>
+
+<p>Create a folder in your /etc/nginx folder:</p>
+
+<pre>
+mkdir /etc/nginx/sites-enabled
+</pre>
+
+
+<p>and create a file in there for your server. I named mine innovatsiya.com but obviously you&#8217;ll need to replace it with your own domain.</p>
+
+<p>Here is what mine looks like:</p>
+
+<pre>
+server {
+
+  listen *:80;
+  server_name *.innovatsiya.com innovatsiya.com;
+
+  #pagespeed stuff
+  location ~ "\.pagespeed\.([a-z]\.)?[a-z]{2}\.[^.]{10}\.[^.]+" { add_header "" ""; }
+  location ~ "^/ngx_pagespeed_static/" { }
+  location ~ "^/ngx_pagespeed_beacon$" { }
+  location /ngx_pagespeed_statistics { allow 127.0.0.1; deny all; }
+  location /ngx_pagespeed_message { allow 127.0.0.1; deny all; }
+
+  #root files
+  $location / {
+      autoindex  on;
+      root   /var/www/innovatsiya.com/public_html/;
+      index index.html index.php index.htm;
+  }
+
+  #PHP files
+  location ~ \.php$ {
+    include /etc/nginx/fastcgi_params;
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME /var/www/innovatsiya.com/public_html$fastcgi_script_name;
+  }
+}
+</pre>
+
+
+<p>You&#8217;ll notice how I set up a listener, and added in the proper PageSpeed directives, and set up the fastCGI for PHP Scripts.</p>
+
+<p>You may also note that I do not have SPDY configured here. I was having some issues getting proper output, so I have saved that for another time.</p>
+
+<h2>4. Set up MariaDb</h2>
+
+<p>Now we&#8217;re going to set up our database. You might be asking &#8220;Hey, isn&#8217;t the M in LEMP supposed to be for MySQL?&#8221; and the answer is yes and no.</p>
+
+<p>MariaDB has been a better drop in replacement for MySQL for quite a while now. The reasons are outside the scope of this article. If you really want it you can install MySQL, but I wouldn&#8217;t recommend it.</p>
+
+<pre>
+echo "dev-db/mariadb" >> /etc/portage/package.keywords
+emerge -va dev-db/mariadb
+dispatch-conf
+./usr/share/mysql/scripts/mysql_install_db --basedir=/usr
+/etc/init.d/mysql start
+</pre>
+
+
+<p>You will need to set a password for the root user:</p>
+
+<pre>
+/usr/bin/mysql_secure_installation
+</pre>
+
+
+<p>Follow the prompts, and enter your root password. Remove the test and anonymous access stuff for security.</p>
+
+<p>Now type in:</p>
+
+<pre>
+mysql -u root -p
+</pre>
+
+
+<p>You should see a screen that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/gentoo-lemp-server-2.jpg" title="&#34;Lemp server in Gentoo&#34;" alt="&#34;Lemp server in Gentoo&#34;"></p>
+
+<p>If so, you&#8217;re ready to go!</p>
+
+<h2>5. Startup the Server</h2>
+
+<p>Check your config file to make sure there aren&#8217;t any errors:</p>
+
+<pre>
+nginx -t
+</pre>
+
+
+<p>If there aren&#8217;t any, start it up:</p>
+
+<pre>
+nginx
+/etc/init.d/php-fpm start
+</pre>
+
+
+<p>To test your server and make sure it&#8217;s output is what you expect, run</p>
+
+<pre>
+curl -i http://localhost
+</pre>
+
+
+<p>and you should see something like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/gentoo-lemp-server.jpg" title="&#34;Lemp server in Gentoo&#34;" alt="&#34;Lemp server in Gentoo&#34;"></p>
+
+<p>Note the header <strong>X-Page-Speed: 1.5.27.3-3005</strong>. This will show the PageSpeed module installed correctly.</p>
+
+<p>Create some test files in your web root, and after that you should be ready to go!!</p>
+
+<p>You now have a super fast server, dialed in to really handle traffic quickly.</p>
+
+<h3>Conclusion</h3>
+
+<p>Setting up a server this way is a long, tedious process. But you know you&#8217;re getting the best software compiled exactly how you like it. You can make a lot of changes to this configuration and really nitpick every part till it&#8217;s exactly how you want.</p>
+
+<p>Is it for everyone? Definitely not. You can just as easily build an Ubuntu machine and run a bunch of apt-get commands and get the same thing. The performance difference is pretty negligible. But, that being said if you&#8217;re running a very high traffic site, having a bunch of &#8220;dialed in&#8221; Gentoo linodes will make a difference. The choice is up to you.</p>
+
+<p>This will be an ongoing document, so keep an eye out for changes, and I welcome any feedback you might have in the comments.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/linux/'>Linux</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/programming/dont-build-el-caminos/" title="Previous Post: Dont Build El Caminos">&laquo; Dont Build El Caminos</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/linux/how-to-setup-lemp-server-gentoo/" title="Next Post: How to Setup a LEMP Server in Gentoo">How to Setup a LEMP Server in Gentoo &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Does Dry Ice Really Cool Five Times Better Than Regular Ice? - Raspberry Pi Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Does Dry Ice Really Cool Five Times Better Than Regular Ice?" /><meta itemprop="name" content="Does Dry Ice Really Cool Five Times Better Than Regular Ice?" /><meta name="twitter:title" content="Does Dry Ice Really Cool Five Times Better Than Regular Ice?">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-07-31 00:58:00 +0000" />
+
+<meta property="article:section" content="Raspberry PiTutorials" />
+
+<meta name="description" content="I saw an advertisement for dry ice claiming it cools 5 times better than wet ice. Out of curiosity I had to know if this were true, or at the very &hellip;" />
+<meta property="og:description" content="I saw an advertisement for dry ice claiming it cools 5 times better than wet ice. Out of curiosity I had to know if this were true, or at the very &hellip;" />
+<meta itemprop="description" content="I saw an advertisement for dry ice claiming it cools 5 times better than wet ice. Out of curiosity I had to know if this were true, or at the very &hellip;" />
+<meta name="twitter:description" content="I saw an advertisement for dry ice claiming it cools 5 times better than wet ice. Out of curiosity I had to know if this were true, or at the very &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/dry-ice-vs-wet-ice/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/raspberry-pi/dry-ice-vs-wet-ice/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2016-07-31T00:58:00+00:00" pubdate data-updated="true">Jul 31<span>st</span>, 2016</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>I saw an advertisement for dry ice claiming it cools 5 times better than wet ice. Out of curiosity I had to know if this were true, or at the very least see how much better dry ice performs. I thought I&#8217;d gather up a Raspberry Pi and some sensors and find out, using some techniques from my <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JEREMYMORGANDOTCOM"><strong>Hands on Internet of Things course</strong></a> released recently.</p>
+
+<!-- more -->
+
+
+<p>
+I&#8217;m sharing what I found here and showing how you can replicate the experiment.</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-00.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<h3>What Does 5 Times the Cooling Power Mean?</h3>
+
+<p>This is the first thing I wondered. Does it keep it 5 times colder? Does it keep it cool 5 times longer? The claim is still a bit unclear, but based on my results it appears it keeps it close to 5 times colder, for about the same amount of time.</p>
+
+<p>What I did was take a couple coolers, filled one with Dry Ice and one with wet ice, sealed them up and measured them for a few days.</p>
+
+<p>Take a look at our graph:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-01.jpg" alt="Dry Ice ws Wet Ice" />
+<a href="https://plot.ly/~JeremyMorgan/14/dry-ice-vs-wet-ice/">Click here for a detailed view</a></p>
+
+<p>I did a minute by minute sampling, and perhaps unsurprisingly the first minute was the coldest. at that point:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-02.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>Our dry ice was at -111.775 degrees Fahrenheit, and the wet ice was at 26.2634. This is closer to around 4 times colder. But does it keep it cold longer? Not really. Actually if you look at the drop off wet ice actually kept it colder than the room temperature for a while longer, but the difference is small:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-03.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>This was over the course of a few days, and as you can see they converge toward the end but the wet ice still keeps cool a bit longer. I&#8217;m assuming this is because the dry ice disappears. Here are some basic conclusions I derive from this data:</p>
+
+<ul>
+<li><strong>Dry Ice Keeps Items Significantly Colder</strong> For a couple days, the temperature was around 4 times colder in the Dry Ice cooler.</li>
+<li><strong>Dry Ice Has a Pretty Significant Drop Off.</strong> From -80 to 0 degrees in about 8 hours. Wet ice only got 1.5 degrees warmer in this same amount of time.</li>
+<li><strong>Both Methods Cool for Roughly the Same Amount of Time</strong> - I expected the wet ice to stay cool for hours, not days. Although it is much warmer by comparison it lasted just as long.</li>
+<li><strong>Dry Ice Is Probably Overkill</strong> - Most of the things people put in a cooler dont need to be -90 degrees. Soda, beer or sandwiches are probably just fine at 32 degrees.</li>
+</ul>
+
+
+<p>When I started this project I assumed that dry ice would be much colder, for much longer. I can&#8217;t draw a ton of conclusions from this experiment just yet. I&#8217;m definitely going to run a few more just like it.</p>
+
+<p>I measured the air temperature as well, but since one of the sensors was faulty the data is bad.</p>
+
+<p>If you want access to the data <a href="https://data.sparkfun.com/streams/XGlZ2D0X26cZ9XYX3bVl">here is the dataset</a>. I&#8217;ll surely do more with it in the future. Now, here are the details for how I set it up.</p>
+
+<h2>Setting up the Project</h2>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-04.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>To set this up you&#8217;ll need:</p>
+
+<ul>
+<li>5 Waterproof DS18B20 Sensors  ( <a href="https://www.adafruit.com/products/381">https://www.adafruit.com/products/381</a>)</li>
+<li>2 Styrofoam Coolers</li>
+<li>Raspberry Pi ( I used a 3, but 1 or 2 will work)</li>
+<li>Equal parts dry ice and standard ice</li>
+</ul>
+
+
+<p>I wired these sensors together in a somewhat crude fashion, but you may want to do something nicer like a junction block or something.</p>
+
+<p>What I did for each sensor was grab the serial number and label it so I knew which sensors I was reading:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-05.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>And placed each of them in the cooler. I had one at the top of each cooler, and one at the bottom, and one sensor out in the open air to measure room temperature.</p>
+
+<h3>Setup the Pi with the DSB1820 Sensors</h3>
+
+<p>First we need to get the pi ready for the DSB1820 sensors. To do that we will set up our one wire support.</p>
+
+<p>Open up your boot config (by typing sudo nano /boot/config.txt) and add the following line:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dtoverlay=w1-gpio</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then reboot the pi (sudo reboot). After rebooting, type the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo modprobe w1-gpio
+</span><span class='line'>sudo modprobe w1-therm
+</span><span class='line'>cd /sys/bus/w1/devices
+</span><span class='line'>ls</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It should look like this:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-06.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>Now what you&#8217;re seeing here is a set of directories, one for each sensor. To make sure they all work, cd into each directory and check them with the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd 28-XXXXXXX (your serial number)
+</span><span class='line'>cat w1_slave</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It should look like this:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-06-b.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>the YES means it works. If you&#8217;re following along and just want to check all 5 really quick use this script :</p>
+
+<p><a href="https://github.com/IoT-Projects/SuperCool/blob/master/checksensors.sh">https://github.com/IoT-Projects/SuperCool/blob/master/checksensors.sh</a></p>
+
+<p>It will go through all your sensors and check them.</p>
+
+<p>Now, let&#8217;s write a script to grab the values.</p>
+
+<h3>Script to Read Temperature Values</h3>
+
+<p>For this we will use Python, and this script will read the values from the sensors that come out of that folder we were in earlier.</p>
+
+<p>For a lot of this first part we will lift some code from Adafruit and make it our own. Put this at the top of your script:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">glob</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">subprocess</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;modprobe w1-gpio&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;modprobe w1-therm&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">base_dir</span> <span class="o">=</span> <span class="s">&#39;/sys/bus/w1/devices/&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is what you&#8217;ll need to get started reading the sensors.</p>
+
+<p>Next, you&#8217;ll need to create a list of serial numbers from your devices. Yours will be different from mine.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">sensor</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;28-0115649279ff&#39;</span><span class="p">,</span><span class="s">&#39;28-011564966aff&#39;</span><span class="p">,</span><span class="s">&#39;28-011564d991ff&#39;</span><span class="p">,</span><span class="s">&#39;28-01156492b9ff&#39;</span><span class="p">,</span><span class="s">&#39;28-011564c7a9ff&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, we&#8217;ll create a function to read the temp in raw mode:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">read_temp_raw</span><span class="p">(</span><span class="n">sensor</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">device_folder</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="n">sensor</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">device_file</span> <span class="o">=</span> <span class="n">device_folder</span> <span class="o">+</span> <span class="s">&#39;/w1_slave&#39;</span>
+</span><span class='line'>    <span class="n">catdata</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">&#39;cat&#39;</span><span class="p">,</span><span class="n">device_file</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">out</span><span class="p">,</span><span class="n">err</span> <span class="o">=</span> <span class="n">catdata</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">out_decode</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">lines</span> <span class="o">=</span> <span class="n">out_decode</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">lines</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This function will be called by our read_temp function, that reads that raw data into a string array and parses it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">read_temp</span><span class="p">(</span><span class="n">sensorid</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">lines</span> <span class="o">=</span> <span class="n">read_temp_raw</span><span class="p">(</span><span class="n">sensor</span><span class="p">[</span><span class="n">sensorid</span><span class="p">])</span>
+</span><span class='line'>    <span class="k">while</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">!=</span> <span class="s">&#39;YES&#39;</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">lines</span> <span class="o">=</span> <span class="n">read_temp_raw</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">equals_pos</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;t=&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">equals_pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">temp_string</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">equals_pos</span><span class="o">+</span><span class="mi">2</span><span class="p">:]</span>
+</span><span class='line'>        <span class="n">temp_c</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">temp_string</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.0</span>
+</span><span class='line'>        <span class="n">temp_f</span> <span class="o">=</span> <span class="n">temp_c</span> <span class="o">*</span> <span class="mf">9.0</span> <span class="o">/</span> <span class="mf">5.0</span> <span class="o">+</span> <span class="mf">32.0</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">temp_f</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This next part is tricky. I plugged in each sensor individually to get the serial number of each. Now, we must match the serial number with the position of the sensor.</p>
+
+<p>For this experiment I attach one sensor to the lid (top) and one to the bottom of the container. This way the top one will measure the air temperature and the other will be submerged in water for the wet ice, and covered with dry ice. This is just my initial thoughts on this experiment, feel free to try some other configurations. Here&#8217;s how we gather the readings:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># Get readings</span>
+</span><span class='line'><span class="n">outside</span> <span class="o">=</span> <span class="n">read_temp</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="n">weticetop</span> <span class="o">=</span> <span class="n">read_temp</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="n">weticebot</span> <span class="o">=</span> <span class="n">read_temp</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="n">dryicetop</span> <span class="o">=</span> <span class="n">read_temp</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'><span class="n">dryicebot</span> <span class="o">=</span> <span class="n">read_temp</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">## get averages</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">weticeavg</span> <span class="o">=</span> <span class="p">(</span><span class="n">weticebot</span> <span class="o">+</span> <span class="n">weticetop</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</span><span class='line'><span class="n">dryiceavg</span> <span class="o">=</span> <span class="p">(</span><span class="n">dryicebot</span> <span class="o">+</span> <span class="n">dryicetop</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So basically we arrange the serials in a string array and address them. The read_temp function takes in this argument and then passes it to read_temp_raw which then extracts the information from the sensor and sends it back to read_temp which parses the information and sends back a number.</p>
+
+<p>I added an average to the mix, which as you can see is just an average between the top and bottom sensor. I don&#8217;t know if it will provide value or not, but decided to throw it in.</p>
+
+<h3>Storing the Data on Adafruit.IO</h3>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-07.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>I love using Adafruit.IO for their cool visualizations. I&#8217;m not going to go into setting up a dashboard in this article, but If you want to know how to set up your own Adafruit.IO dashboard <a href="https://www.jeremymorgan.com/internet-of-things/how-to-adafruit-io/">check out this article for instructions</a> or you can follow <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JEREMYMORGANDOTCOM">lecture 15 of my IoT course.</a></p>
+
+<p>To connect to my dashboard, I added the following code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">send_to_adafruit</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">values</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">ourvalue</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;value&#39;</span> <span class="p">:</span> <span class="n">values</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">ourvalue</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">req</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s">&#39;Content-Type&#39;</span><span class="p">,</span><span class="s">&#39;application/x-www-form-urlencoded; charset=UTF-8&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">req</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s">&#39;x-aio-key&#39;</span><span class="p">,</span><span class="n">aiokey</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">response</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a function to connect to Adafruit, you will need to include urllib and urllib2, as well as use your own aiokey.</p>
+
+<p>Then to send the data (each field is sent one at a time with Adafruit)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">## Sending data to Adafruit.IO </span>
+</span><span class='line'><span class="n">send_to_adafruit</span><span class="p">(</span><span class="n">outsideUrl</span><span class="p">,</span><span class="n">outside</span><span class="p">)</span>
+</span><span class='line'><span class="n">send_to_adafruit</span><span class="p">(</span><span class="n">weticetopUrl</span><span class="p">,</span><span class="n">weticetop</span><span class="p">)</span>
+</span><span class='line'><span class="n">send_to_adafruit</span><span class="p">(</span><span class="n">weticebottomUrl</span><span class="p">,</span><span class="n">weticebot</span><span class="p">)</span>
+</span><span class='line'><span class="n">send_to_adafruit</span><span class="p">(</span><span class="n">dryicetopUrl</span><span class="p">,</span><span class="n">dryicetop</span><span class="p">)</span>
+</span><span class='line'><span class="n">send_to_adafruit</span><span class="p">(</span><span class="n">dryicebottomUrl</span><span class="p">,</span><span class="n">dryicebot</span><span class="p">)</span>
+</span><span class='line'><span class="n">send_to_adafruit</span><span class="p">(</span><span class="n">dryiceavgUrl</span><span class="p">,</span><span class="n">dryiceavg</span><span class="p">)</span>
+</span><span class='line'><span class="n">send_to_adafruit</span><span class="p">(</span><span class="n">weticeavgUrl</span><span class="p">,</span><span class="n">weticebot</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This sends our data out to a nice dashboard.</p>
+
+<h3>Sending Data to Sparkfun</h3>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-08.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>I decided to send some data to Sparkfun for the heck of it. You can get instructions for doing that here or <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JEREMYMORGANDOTCOM">check out lecture 13 of my IoT course</a>.</p>
+
+<p>Since Sparkfun uses values passed in the URL, we build a long URL string like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">oururl</span> <span class="o">=</span> <span class="n">sparkfunprojecturl</span> <span class="o">+</span> <span class="s">&#39;?private_key=&#39;</span> <span class="o">+</span> <span class="n">sparkfunprivatekey</span> <span class="o">+</span>  <span class="s">&#39;&amp;dryiceavg=&#39;</span> <span class="o">+</span> <span class="n">dryiceavg</span> <span class="o">+</span> <span class="s">&#39;&amp;dryicebottom=&#39;</span> <span class="o">+</span> <span class="n">dryicebot</span> <span class="o">+</span> <span class="s">&#39;&amp;dryicetop=&#39;</span> <span class="o">+</span> <span class="n">dryicetop</span> <span class="o">+</span> <span class="s">&#39;&amp;outside=&#39;</span> <span class="o">+</span> <span class="n">outside</span> <span class="o">+</span> <span class="s">&#39;&amp;weticeavg=&#39;</span> <span class="o">+</span> <span class="n">weticeavg</span> <span class="o">+</span> <span class="s">&#39;&amp;weticebottom=&#39;</span> <span class="o">+</span> <span class="n">weticebot</span> <span class="o">+</span> <span class="s">&#39;&amp;weticetop=&#39;</span> <span class="o">+</span> <span class="n">weticetop</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The variables sparkfunprojecturl and sparkfunprivatekey are defined at the top of the script and you&#8217;ll need to get your own.</p>
+
+<p>Then we call it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">content</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">oururl</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We don&#8217;t do anything with the content returned, but you can if you choose to. This will put send our data to the sparkfun feed found here.</p>
+
+<h3>Update every minute</h3>
+
+<p>Next, I want to call this script once a minute, so I&#8217;ll use crontab to do that:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">crontab</span> <span class="o">-</span><span class="n">e</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I want to call my script once a minute, so I add the following line to my crontab:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">supercool</span><span class="o">/</span><span class="n">readtemps</span><span class="o">.</span><span class="n">py</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Your filename will be different. This simply calls the script once a minute and sends the data to our endpoints. <a href="http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/">For more information on cron, click here. </a></p>
+
+<p>After this, the script started running and gathering data!</p>
+
+<h2>Summary</h2>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-09.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>So I was curious about this claim and decided to tackle it. I didn&#8217;t learn much from this, other than the fact that wet ice in a sealed cooler lasts longer than I would have thought. There were a lot of variables here outside my control, but I think it&#8217;s a fun project and I will build on it some more. I hope one of you decides to take this on and improve on it. If so please share it with me!</p>
+
+<h3>Important Links:</h3>
+
+<p>Here are some links relevant to this project, without these folks this wouldn&#8217;t have been possible (or at least this easy!)</p>
+
+<ul>
+<li><a href="https://www.adafruit.com/"><strong>Adafruit</strong></a></li>
+<li><a href="https://io.adafruit.com/JeremyMorgan"><strong>Adafruit.IO</strong> </a></li>
+<li><a href="https://data.sparkfun.com"><strong>Sparkfun</strong></a></li>
+<li><a href="https://plot.ly"><strong>Plot.Ly</strong></a></li>
+<li><a href="https://www.facebook.com/Lake-Stop-Grocery-181462005222622/"><strong>Lake Stop Grocery</strong></a></li>
+</ul>
+
+
+<p>And as I plugged several times in this article I created a course teaching you how to do experiments like this with a Raspberry Pi and you can <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JEREMYMORGANDOTCOM"><strong>get 50% off by using this link</strong></a>.</p>
+
+<br />
+
+
+<p><a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
+
+<br />
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/raspberry-pi/'>Raspberry Pi</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/iis-devops/what-is-an-application-pool/" title="Previous Post: Intro to Application Pools in IIS">&laquo; Intro to Application Pools in IIS</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/" title="Next Post: How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

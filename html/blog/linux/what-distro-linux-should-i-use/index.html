@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Which Distribution of Linux Should I Use? - Linux Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Which Distribution of Linux Should I Use?" /><meta itemprop="name" content="Which Distribution of Linux Should I Use?" /><meta name="twitter:title" content="Which Distribution of Linux Should I Use?">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-02-20 02:51:00 +0000" />
+
+<meta property="article:section" content="Linux" />
+
+<meta name="description" content="Want to try Linux for the first time? Not sure what to use? I can help you get answers with this comprehensive list" />
+<meta property="og:description" content="Want to try Linux for the first time? Not sure what to use? I can help you get answers with this comprehensive list" />
+<meta itemprop="description" content="Want to try Linux for the first time? Not sure what to use? I can help you get answers with this comprehensive list" />
+<meta name="twitter:description" content="Want to try Linux for the first time? Not sure what to use? I can help you get answers with this comprehensive list">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/which-linux-distro-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/which-linux-distro-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/which-linux-distro-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/linux/what-distro-linux-should-i-use/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/linux/what-distro-linux-should-i-use/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/linux/what-distro-linux-should-i-use/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Which Distribution of Linux Should I Use?</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-02-20T02:51:00+00:00" pubdate data-updated="true">Feb 20<span>th</span>, 2018</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>I&#8217;m often asked this question: &#8220;hey, you&#8217;re a Linux guy right? What Linux should I use? I have this friend who recommends _____ and I want to know what you think?&#8221; I usually reply with the same question: what do you want to do? So I decided to make a blog post about it that I can send people instead.</p>
+
+<!-- more -->
+
+
+<h2>My History with Linux</h2>
+
+<p>I should probably preface this article with a little bit of my history with Linux, in case you&#8217;re reading this and you don&#8217;t know me (very likely). You can probably skip this if you don&#8217;t care.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="/images/what-distro-of-linux-should-i-use/slackware-linux.jpg" alt="Slackware Linux" />
+</div>
+
+
+<p>I started out using Linux around 1996. My first Linux was Slackware 4, a set of CDs I purchased at Egghead Software (yep, I&#8217;m old). A friend of mine told me about this Unix like thing that was so great and I just had to try it and he thought I would love it.</p>
+
+<p>I read a lot about Unix, and was very curious about it. I had a shell account at my internet provider and I&#8217;d tinkered around, yet at first I was a bit hesitant. &#8220;Why would I need this?&#8221; His reply was simply: &#8220;Because you hate Windows 95 so much and love DOS, you&#8217;ll love this&#8221;. So I bought it. He was right.</p>
+
+<p>I took an old hard drive I had and installed it. I fought with it for hours, then days. I finally got a desktop up and running. I have no idea what drove me in this time, but I had to figure out how to make this system work, and it was difficult. I had to know so much about my hardware! Simple things were suddenly hard again. But I pushed through, and I got my desktop up. And I started building some silly scripts for fun. The system was fast, and I could change nearly everything about it.</p>
+
+<p>It had a built in C compiler? I just bought some really expensive Borland package for this I could barely figure out. But this OS had a compiler built in? A free Image editor? I was hooked!</p>
+
+<p>For years after that, I experimented with tons of Distributions. Even BSD Unix ones. My &#8220;main computer&#8221; was always a dual boot, and some of them were pure Linux. Most of the early 2000s, I avoided Windows completely. So by year, I can break it down to my &#8220;main machine&#8221;, it would be:</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="/images/what-distro-of-linux-should-i-use/redhat-linux.jpg" alt="Red Hat Linux" />
+</div>
+
+
+<ul>
+<li>1996-1999: Slackware</li>
+<li>1999-2002: Redhat (and FreeBSD)</li>
+<li>2003-2005: FreeBSD / Knoppix</li>
+<li>2005-2009: Gentoo</li>
+<li>2009-2011: Linux Mint</li>
+<li>2011-2018: Arch Linux / Debian</li>
+</ul>
+
+
+<p>So of course I used probably 50 or more distributions in my time, but this was what was running on my &#8220;main machine&#8221; I used for work, or browsing, or development or whatever. Obviously Arch had the longest run so far, mainly because I could just configure it and forget about it for long periods of time.</p>
+
+<p>But the main distro for my &#8220;real work&#8221; the last few years has been Debian.</p>
+
+<p>Enough about me though, let&#8217;s talk about what you should use.</p>
+
+<h2>So What Do You Want to Do?</h2>
+
+<p>I&#8217;m going to put these in categories based on common needs. There is some overlap here, and with enough work any of these Linux distributions will work for your desired needs. One of the great things about Linux is you can make it whatever you want. But some distributions do a lot of that work for you, or have a design that works better towards certain goals. I&#8217;ll present these in categories based on the easiest path to reach your goals.</p>
+
+<h2>I&#8217;m a Linux Newbie Just Getting Started</h2>
+
+<p>For a long time I recommended Ubuntu for this. As far as ease of use and compatibility it was great. But I pretty much hate Ubuntu now. I still use it for demos in my courses and articles because so many people use it, but I am not a fan of the way they run this distribution, the built in Amazon adware, and Unity is annoying.</p>
+
+<p><strong>So if you&#8217;re just starting out I recommend:</strong></p>
+
+<ul>
+<li><a href="https://linuxmint.com/download.php" target="_blank">Linux Mint Download</a></li>
+<li><a href="https://www.debian.org/distrib/" target="_blank">Debian Download</a></li>
+</ul>
+
+
+<p>It&#8217;s kind of a cheat because Linux Mint is built off Debian, but Mint looks prettier and has some nice cross platform stuff.</p>
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="/images/what-distro-of-linux-should-i-use/linux-mint.jpg" alt="Linux Mint" />
+</div>
+
+
+<ul>
+<li>A Windows-like experience</li>
+<li>Something simple to install</li>
+<li>Something reliable</li>
+<li>Something &#8220;Linux like&#8221; that doesn&#8217;t deviate from the norm</li>
+<li>Something that &#8220;just works&#8221;</li>
+</ul>
+
+
+<p>Ok so that last one is really important. It just works. Either of these distributions are plug and play. Set them up, and forget about it. I have become increasingly reliant on Debian for my development machines because at times <strong>I don&#8217;t care about the OS and I don&#8217;t want it to get in my way</strong>. When I&#8217;m in a mood where I just want to build things, it can&#8217;t be beat.</p>
+
+<h2>I Want to Learn More About Linux/Unix and My Hardware</h2>
+
+<p>Maybe you&#8217;re in the mood to play and experiment. You want to challenge yourself and force yourself to learn by doing. That&#8217;s great, it&#8217;s exactly what I did.</p>
+
+<p><strong>If you want to challenge yourself and learn I recommend:</strong></p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="/images/what-distro-of-linux-should-i-use/arch-linux.jpg" alt="ARCH Linux" />
+</div>
+
+
+<ul>
+<li><a href="http://www.slackware.com/getslack/" target="_blank">Slackware Linux</a></li>
+<li><a href="https://www.archlinux.org/download/" target="_blank">Arch Linux</a></li>
+<li><a href="https://www.gentoo.org/downloads/" target="_blank">Gentoo Linux</a></li>
+<li><a href="https://www.freebsd.org/where.html" target="_blank">FreeBSD </a>(Not Linux but fits in this category)</li>
+</ul>
+
+
+<p>Each of these distributions requires a lot of configuration, hardware discovery, and compiling of source. With Gentoo you have to compile everything. It&#8217;s a great way to have absolute full control over your operating system.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="/images/what-distro-of-linux-should-i-use/gentoo-linux.jpg" alt="Gentoo Linux" />
+</div>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Full control of your computer and OS</li>
+<li>To learn about Linux internals</li>
+<li>A lean and mean optimized system</li>
+</ul>
+
+
+<p>This comes at a cost: mainly your time. A full install of these can take hours. On the plus side, they tend to run forever.</p>
+
+<p>I had an Arch Install on a Lenovo that took the better part of a Saturday to configure, and let&#8217;s say another 10 hours or more spread out after that. It ran nearly effortlessly for 5 years (till the laptop hardware died). I only had to do a few updates once in a while, but I used it reliably every day for 5. Long. Years. So in a way you can look at it as investment.</p>
+
+<h2>I want Cutting Edge Stuff</h2>
+
+<p>Ok maybe you want the latest greatest software and you don&#8217;t care how stable it is. You want to do some kernel hacking or some other cool thing that some coder committed yesterday.</p>
+
+<p><strong>To hell with stability and security you want the newest thing now.</strong></p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="/images/what-distro-of-linux-should-i-use/opensuse-tumbleweed.jpg" alt="openSUSE Tumbleweed" />
+</div>
+
+
+<ul>
+<li><a href="https://www.archlinux.org/download/" target="_blank">Arch Linux</a></li>
+<li><a href="https://en.opensuse.org/Portal:Tumbleweed" target="_blank">OpenSuse Tumbleweed</a></li>
+<li><a href="https://fedoraproject.org/wiki/Releases/Rawhide" target="_blank">Fedora Rawhide</a></li>
+<li><a href="https://www.gentoo.org/downloads/" target="_blank">Gentoo Unstable</a></li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>To trade risk for the newest stuff</li>
+<li>The latest and greatest features always</li>
+<li>Fun configuring things to work with breaking changes</li>
+</ul>
+
+
+<p>To be fair I&#8217;ve personally used Arch and Gentoo without significant stability problems, but I was risking using the bleeding edge stuff on rolling releases.</p>
+
+<h2>I Just Want to Get Some Work Done</h2>
+
+<p>Ok maybe you don&#8217;t really care about the OS particulars and just want to GSD (Get Stuff Done). Maybe you have some Node or GoLang apps you want to build and heard Linux is the best for it.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="/images/what-distro-of-linux-should-i-use/debian-linux.jpg" alt="Debian Linux" />
+</div>
+
+
+<p><strong>These are great for getting work done:</strong></p>
+
+<ul>
+<li><a href="https://www.debian.org/distrib/" target="_blank">Debian Download</a></li>
+<li><a href="https://getfedora.org/" target="_blank">Fedora</a></li>
+<li><a href="https://software.opensuse.org/distributions/leap" target="_blank">openSuse Leap</a></li>
+<li><a href="https://ubuntustudio.org/" target="_blank">Ubuntu Studio </a> (Yes it&#8217;s Ubuntu but it&#8217;s put together nicely)</li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Smooth operation with low maintenance</li>
+<li>Minimal configuration</li>
+<li>Things that just work mostly automatically</li>
+<li>Compatibility with hardware and software</li>
+</ul>
+
+
+<p>As I said I often use Debian these days as I&#8217;m usually just making something and don&#8217;t really feel like tinkering around and optimizing. It&#8217;s stable, fast, and stays out of my way. I&#8217;m writing this article in Debian 9 right now.</p>
+
+<h2>I Want to Set Up a Server</h2>
+
+<p>Maybe you want to set up a web server or virtual host and don&#8217;t know what to use. The first one on this list is the dominant distribution for web hosting, so if you want something that mimics the site that&#8217;s hosting your software try CentOS (or learn Docker!)</p>
+
+<p><strong>These are solid and reliable for web hosting:</strong></p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="/images/what-distro-of-linux-should-i-use/centos-linux.jpg" alt="CentOS Linux" />
+</div>
+
+
+<ul>
+<li><a href="https://www.centos.org/download/" target="_blank">CentOS</a></li>
+<li><a href="https://developers.redhat.com/products/rhel/download/" target="_blank">Red Hat Enterprise Linux</a> (RHEL)</li>
+<li><a href="https://www.debian.org/distrib/" target="_blank">Debian 9 Download</a></li>
+<li><a href="https://www.freebsd.org/where.htmlhttps://www.freebsd.org/where.html" target="_blank">FreeBSD </a>(Not Linux but fits in this category)</li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Stability</li>
+<li>Security</li>
+<li>Support from other people using it for the same reason</li>
+</ul>
+
+
+<p>I believe any Linux distribution can be used for web hosting effectively, but some take more work than others.</p>
+
+<h2>I Want the Most Performance Possible</h2>
+
+<p>So if you&#8217;re one of those types who wants to squeeze out every ounce of performance (I&#8217;ve been there) these are great for you. Some of these require compiling all the source code to produce binaries optimized for your processor(s). Fun stuff!</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="/images/what-distro-of-linux-should-i-use/clear-linux.jpg" alt="Clear Linux from Intel" />
+</div>
+
+
+<ul>
+<li><a href="https://clearlinux.org/" target="_blank">Clear Linux </a> (For Intel CPUS, by Intel)</li>
+<li><a href="https://www.gentoo.org/downloads/" target="_blank">Gentoo Linux</a></li>
+<li><a href="https://www.archlinux.org/download/" target="_blank">Arch Linux</a></li>
+<li><a href="https://www.freebsd.org/where.htmlhttps://www.freebsd.org/where.html" target="_blank">FreeBSD </a>(Not Linux but fits in this category)</li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Fast performance</li>
+<li>High Load Computing</li>
+</ul>
+
+
+<p>Keep in mind that hardware has reached a performance point where these don&#8217;t matter quite as much as they used to. 15 years ago you could hack a kernel and dial in your services and see a big boost. These days, the difference is negligible. Any Linux will be pretty snappy.</p>
+
+<h2>I Want a Secure Desktop</h2>
+
+<p>Maybe you want to set up a system that&#8217;s hard to break into, for whatever reason. There are a couple distributions with security as a top focus. If you&#8217;re really concerned about locking down your main machine, these are great ones to look at.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="/images/what-distro-of-linux-should-i-use/tails-linux.jpg" alt="Tails Linux" />
+</div>
+
+
+<ul>
+<li><a href="https://tails.boum.org/" target="_blank">TAILS Linux</a></li>
+<li><a href="https://alpinelinux.org/" target="_blank">Alpine Linux</a></li>
+<li><a href="https://coreos.com/" target="_blank">CoreOS</a></li>
+<li><a href="https://www.spi.dod.mil/lipose.htm" target="_blank">TENS Linux</a> (DOD Project)</li>
+<li><a href="https://sourceforge.net/projects/tinhat/" target="_blank">Tin Hat Linux</a></li>
+<li><a href="https://www.openbsd.org/" target="_blank">OpenBSD</a> (Not Linux, but fits)</li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Security</li>
+<li>Anonymity</li>
+</ul>
+
+
+<h2>I Want a Minimal Computer System</h2>
+
+<p>Ok sometimes you just want something lean and mean that gets a certain job done. I definitely understand this. Maybe you have an old Pentium you want to re-purpose. Sometimes the OS is just a small part of your goal and you want the bare minimum.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="/images/what-distro-of-linux-should-i-use/lubuntu-linux.jpg" alt="Lubuntu Linux" />
+</div>
+
+
+<ul>
+<li><a href="https://sourceforge.net/projects/archbang/" target="_blank">ArchBang</a></li>
+<li><a href="https://lubuntu.net/" target="_blank">Lubuntu</a></li>
+<li><a href="https://distrowatch.com/table.php?distribution=puppy" target="_blank">Puppy Linux</a></li>
+<li><a href="http://distro.ibiblio.org/tinycorelinux/" target="_blank">Tiny Core Linux</a></li>
+<li><a href="http://www.bodhilinux.com/" target="_blank">Bodhi Linux</a></li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Something that will run on old hardware</li>
+<li>Something minimal as possible</li>
+</ul>
+
+
+<h2>Conclusion</h2>
+
+<p>I hate to sound like a broken record, but you could just pick out one of these Linux distributions and make it whatever you want. That&#8217;s the nature of Linux, its customizable to the furthest degree. But these are great distributions for getting started fast. If you think I&#8217;ve missed the mark or left out a distribution feel free to leave me a message in the comments, or <a href="https://twitter.com/JeremyCMorgan" target="_blank">yell at me on Twitter</a>.</p>
+
+<p>And whatever you do, if you reached this page because you&#8217;re curious about Linux, try it out!! Now! These days you can download something like <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">VirtualBox</a> (free of charge) and try it out before really committing to anything. It&#8217;s definitely worth your time to check it out!</p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/linux/'>Linux</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/devops/virtualization-with-virtual-box/" title="Previous Post: My Latest Virtualization Setup">&laquo; My Latest Virtualization Setup</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/devops/windows-to-go-usb-drive/" title="Next Post: Windows to Go with the Spyrus USB Drive">Windows to Go with the Spyrus USB Drive &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

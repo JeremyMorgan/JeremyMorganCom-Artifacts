@@ -1,0 +1,1172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Raspberry Pi | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/raspberry-pi/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Does Dry Ice Really Cool Five Times Better Than Regular Ice?]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/dry-ice-vs-wet-ice/"/>
+    <updated>2016-07-31T00:58:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/does-dry-ice-really-cool-five-times-better-than-regular-ice</id>
+    <content type="html"><![CDATA[<p>I saw an advertisement for dry ice claiming it cools 5 times better than wet ice. Out of curiosity I had to know if this were true, or at the very least see how much better dry ice performs. I thought I'd gather up a Raspberry Pi and some sensors and find out, using some techniques from my <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JEREMYMORGANDOTCOM"><strong>Hands on Internet of Things course</strong></a> released recently.</p>
+
+<!-- more -->
+
+
+<p>
+I'm sharing what I found here and showing how you can replicate the experiment.</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-00.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<h3>What Does 5 Times the Cooling Power Mean?</h3>
+
+<p>This is the first thing I wondered. Does it keep it 5 times colder? Does it keep it cool 5 times longer? The claim is still a bit unclear, but based on my results it appears it keeps it close to 5 times colder, for about the same amount of time.</p>
+
+<p>What I did was take a couple coolers, filled one with Dry Ice and one with wet ice, sealed them up and measured them for a few days.</p>
+
+<p>Take a look at our graph:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-01.jpg" alt="Dry Ice ws Wet Ice" />
+<a href="https://plot.ly/~JeremyMorgan/14/dry-ice-vs-wet-ice/">Click here for a detailed view</a></p>
+
+<p>I did a minute by minute sampling, and perhaps unsurprisingly the first minute was the coldest. at that point:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-02.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>Our dry ice was at -111.775 degrees Fahrenheit, and the wet ice was at 26.2634. This is closer to around 4 times colder. But does it keep it cold longer? Not really. Actually if you look at the drop off wet ice actually kept it colder than the room temperature for a while longer, but the difference is small:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-03.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>This was over the course of a few days, and as you can see they converge toward the end but the wet ice still keeps cool a bit longer. I'm assuming this is because the dry ice disappears. Here are some basic conclusions I derive from this data:</p>
+
+<ul>
+<li><strong>Dry Ice Keeps Items Significantly Colder</strong> For a couple days, the temperature was around 4 times colder in the Dry Ice cooler.</li>
+<li><strong>Dry Ice Has a Pretty Significant Drop Off.</strong> From -80 to 0 degrees in about 8 hours. Wet ice only got 1.5 degrees warmer in this same amount of time.</li>
+<li><strong>Both Methods Cool for Roughly the Same Amount of Time</strong> - I expected the wet ice to stay cool for hours, not days. Although it is much warmer by comparison it lasted just as long.</li>
+<li><strong>Dry Ice Is Probably Overkill</strong> - Most of the things people put in a cooler dont need to be -90 degrees. Soda, beer or sandwiches are probably just fine at 32 degrees.</li>
+</ul>
+
+
+<p>When I started this project I assumed that dry ice would be much colder, for much longer. I can't draw a ton of conclusions from this experiment just yet. I'm definitely going to run a few more just like it.</p>
+
+<p>I measured the air temperature as well, but since one of the sensors was faulty the data is bad.</p>
+
+<p>If you want access to the data <a href="https://data.sparkfun.com/streams/XGlZ2D0X26cZ9XYX3bVl">here is the dataset</a>. I'll surely do more with it in the future. Now, here are the details for how I set it up.</p>
+
+<h2>Setting up the Project</h2>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-04.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>To set this up you'll need:</p>
+
+<ul>
+<li>5 Waterproof DS18B20 Sensors  ( <a href="https://www.adafruit.com/products/381">https://www.adafruit.com/products/381</a>)</li>
+<li>2 Styrofoam Coolers</li>
+<li>Raspberry Pi ( I used a 3, but 1 or 2 will work)</li>
+<li>Equal parts dry ice and standard ice</li>
+</ul>
+
+
+<p>I wired these sensors together in a somewhat crude fashion, but you may want to do something nicer like a junction block or something.</p>
+
+<p>What I did for each sensor was grab the serial number and label it so I knew which sensors I was reading:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-05.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>And placed each of them in the cooler. I had one at the top of each cooler, and one at the bottom, and one sensor out in the open air to measure room temperature.</p>
+
+<h3>Setup the Pi with the DSB1820 Sensors</h3>
+
+<p>First we need to get the pi ready for the DSB1820 sensors. To do that we will set up our one wire support.</p>
+
+<p>Open up your boot config (by typing sudo nano /boot/config.txt) and add the following line:</p>
+
+<p><code>
+dtoverlay=w1-gpio
+</code></p>
+
+<p>Then reboot the pi (sudo reboot). After rebooting, type the following:</p>
+
+<p><code>
+sudo modprobe w1-gpio
+sudo modprobe w1-therm
+cd /sys/bus/w1/devices
+ls
+</code></p>
+
+<p>It should look like this:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-06.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>Now what you're seeing here is a set of directories, one for each sensor. To make sure they all work, cd into each directory and check them with the following command:</p>
+
+<p><code>
+cd 28-XXXXXXX (your serial number)
+cat w1_slave
+</code></p>
+
+<p>It should look like this:</p>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-06-b.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>the YES means it works. If you're following along and just want to check all 5 really quick use this script :</p>
+
+<p><a href="https://github.com/IoT-Projects/SuperCool/blob/master/checksensors.sh">https://github.com/IoT-Projects/SuperCool/blob/master/checksensors.sh</a></p>
+
+<p>It will go through all your sensors and check them.</p>
+
+<p>Now, let's write a script to grab the values.</p>
+
+<h3>Script to Read Temperature Values</h3>
+
+<p>For this we will use Python, and this script will read the values from the sensors that come out of that folder we were in earlier.</p>
+
+<p>For a lot of this first part we will lift some code from Adafruit and make it our own. Put this at the top of your script:</p>
+
+<p>```python
+import os
+import glob
+import time
+import subprocess</p>
+
+<p>os.system('modprobe w1-gpio')
+os.system('modprobe w1-therm')</p>
+
+<p>base_dir = '/sys/bus/w1/devices/'
+```</p>
+
+<p>This is what you'll need to get started reading the sensors.</p>
+
+<p>Next, you'll need to create a list of serial numbers from your devices. Yours will be different from mine.</p>
+
+<p><code>python
+sensor = ('28-0115649279ff','28-011564966aff','28-011564d991ff','28-01156492b9ff','28-011564c7a9ff')
+</code></p>
+
+<p>Next, we'll create a function to read the temp in raw mode:</p>
+
+<p>```python</p>
+
+<p>def read_temp_raw(sensor):</p>
+
+<pre><code>device_folder = glob.glob(base_dir + sensor)[0]
+device_file = device_folder + '/w1_slave'
+catdata = subprocess.Popen(['cat',device_file], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+out,err = catdata.communicate()
+out_decode = out.decode('utf-8')
+lines = out_decode.split('\n')
+return lines
+</code></pre>
+
+<p>```</p>
+
+<p>This function will be called by our read_temp function, that reads that raw data into a string array and parses it:</p>
+
+<p>```python</p>
+
+<p>def read_temp(sensorid):</p>
+
+<pre><code>lines = read_temp_raw(sensor[sensorid])
+while lines[0].strip()[-3:] != 'YES':
+    time.sleep(0.2)
+    lines = read_temp_raw()
+equals_pos = lines[1].find('t=')
+if equals_pos != -1:
+    temp_string = lines[1][equals_pos+2:]
+    temp_c = float(temp_string) / 1000.0
+    temp_f = temp_c * 9.0 / 5.0 + 32.0
+    return temp_f
+</code></pre>
+
+<p>```</p>
+
+<p>This next part is tricky. I plugged in each sensor individually to get the serial number of each. Now, we must match the serial number with the position of the sensor.</p>
+
+<p>For this experiment I attach one sensor to the lid (top) and one to the bottom of the container. This way the top one will measure the air temperature and the other will be submerged in water for the wet ice, and covered with dry ice. This is just my initial thoughts on this experiment, feel free to try some other configurations. Here's how we gather the readings:</p>
+
+<p>```python</p>
+
+<h1>Get readings</h1>
+
+<p>outside = read_temp(0)
+weticetop = read_temp(1)
+weticebot = read_temp(2)
+dryicetop = read_temp(3)
+dryicebot = read_temp(2)</p>
+
+<h2>get averages</h2>
+
+<p>weticeavg = (weticebot + weticetop) / 2
+dryiceavg = (dryicebot + dryicetop) / 2
+```</p>
+
+<p>So basically we arrange the serials in a string array and address them. The read_temp function takes in this argument and then passes it to read_temp_raw which then extracts the information from the sensor and sends it back to read_temp which parses the information and sends back a number.</p>
+
+<p>I added an average to the mix, which as you can see is just an average between the top and bottom sensor. I don't know if it will provide value or not, but decided to throw it in.</p>
+
+<h3>Storing the Data on Adafruit.IO</h3>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-07.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>I love using Adafruit.IO for their cool visualizations. I'm not going to go into setting up a dashboard in this article, but If you want to know how to set up your own Adafruit.IO dashboard <a href="https://www.jeremymorgan.com/internet-of-things/how-to-adafruit-io/">check out this article for instructions</a> or you can follow <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JEREMYMORGANDOTCOM">lecture 15 of my IoT course.</a></p>
+
+<p>To connect to my dashboard, I added the following code:</p>
+
+<p>```python
+def send_to_adafruit(url,values):</p>
+
+<pre><code>ourvalue = {'value' : values }
+data = urllib.urlencode(ourvalue)
+req = urllib2.Request(url, data)
+req.add_header('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
+req.add_header('x-aio-key',aiokey)
+
+response = urllib2.urlopen(req)
+
+return response
+</code></pre>
+
+<p>```</p>
+
+<p>This is a function to connect to Adafruit, you will need to include urllib and urllib2, as well as use your own aiokey.</p>
+
+<p>Then to send the data (each field is sent one at a time with Adafruit)</p>
+
+<p>```python</p>
+
+<h2>Sending data to Adafruit.IO</h2>
+
+<p>send_to_adafruit(outsideUrl,outside)
+send_to_adafruit(weticetopUrl,weticetop)
+send_to_adafruit(weticebottomUrl,weticebot)
+send_to_adafruit(dryicetopUrl,dryicetop)
+send_to_adafruit(dryicebottomUrl,dryicebot)
+send_to_adafruit(dryiceavgUrl,dryiceavg)
+send_to_adafruit(weticeavgUrl,weticebot)
+```
+This sends our data out to a nice dashboard.</p>
+
+<h3>Sending Data to Sparkfun</h3>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-08.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>I decided to send some data to Sparkfun for the heck of it. You can get instructions for doing that here or <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JEREMYMORGANDOTCOM">check out lecture 13 of my IoT course</a>.</p>
+
+<p>Since Sparkfun uses values passed in the URL, we build a long URL string like so:</p>
+
+<p><code>python
+oururl = sparkfunprojecturl + '?private_key=' + sparkfunprivatekey +  '&amp;dryiceavg=' + dryiceavg + '&amp;dryicebottom=' + dryicebot + '&amp;dryicetop=' + dryicetop + '&amp;outside=' + outside + '&amp;weticeavg=' + weticeavg + '&amp;weticebottom=' + weticebot + '&amp;weticetop=' + weticetop
+</code>
+The variables sparkfunprojecturl and sparkfunprivatekey are defined at the top of the script and you'll need to get your own.</p>
+
+<p>Then we call it:</p>
+
+<p><code>python
+content = urllib2.urlopen(oururl).read()
+</code></p>
+
+<p>We don't do anything with the content returned, but you can if you choose to. This will put send our data to the sparkfun feed found here.</p>
+
+<h3>Update every minute</h3>
+
+<p>Next, I want to call this script once a minute, so I'll use crontab to do that:</p>
+
+<p><code>
+crontab -e
+</code></p>
+
+<p>I want to call my script once a minute, so I add the following line to my crontab:</p>
+
+<p><code>
+* * * * * /usr/bin/python /home/pi/projects/supercool/readtemps.py
+</code></p>
+
+<p>Your filename will be different. This simply calls the script once a minute and sends the data to our endpoints. <a href="http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/">For more information on cron, click here. </a></p>
+
+<p>After this, the script started running and gathering data!</p>
+
+<h2>Summary</h2>
+
+<p><img src="/images/dry-ice-vs-wet-ice/dry-ice-vs-wet-ice-09.jpg" alt="Dry Ice ws Wet Ice" /></p>
+
+<p>So I was curious about this claim and decided to tackle it. I didn't learn much from this, other than the fact that wet ice in a sealed cooler lasts longer than I would have thought. There were a lot of variables here outside my control, but I think it's a fun project and I will build on it some more. I hope one of you decides to take this on and improve on it. If so please share it with me!</p>
+
+<h3>Important Links:</h3>
+
+<p>Here are some links relevant to this project, without these folks this wouldn't have been possible (or at least this easy!)</p>
+
+<ul>
+<li><a href="https://www.adafruit.com/"><strong>Adafruit</strong></a></li>
+<li><a href="https://io.adafruit.com/JeremyMorgan"><strong>Adafruit.IO</strong> </a></li>
+<li><a href="https://data.sparkfun.com"><strong>Sparkfun</strong></a></li>
+<li><a href="https://plot.ly"><strong>Plot.Ly</strong></a></li>
+<li><a href="https://www.facebook.com/Lake-Stop-Grocery-181462005222622/"><strong>Lake Stop Grocery</strong></a></li>
+</ul>
+
+
+<p>And as I plugged several times in this article I created a course teaching you how to do experiments like this with a Raspberry Pi and you can <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JEREMYMORGANDOTCOM"><strong>get 50% off by using this link</strong></a>.</p>
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hands on IoT with the Raspberry Pi]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/hands-on-internet-of-things/"/>
+    <updated>2016-06-01T21:07:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/hands-on-internet-of-things-with-the-raspberry-pi</id>
+    <content type="html"><![CDATA[<p>Great news! I finally got my IoT course done! It took a long time to develop, and a lot of learning but totally worth it. This is not really a post advertising it but just a quick talk about the process.</p>
+
+<!-- more -->
+
+
+<h2>Hands on Internet of Things</h2>
+
+<p><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/hands-on-iot/hands-on-iot-00.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></a></p>
+
+<p>If you're interested in taking the course, you can <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">redeem a 50% off coupon by clicking here!</a> It's already dirt cheap at $20, but why not get it for $10?</p>
+
+<p>In this course, I cover the basics, such as how to connect to the Pi, blink an LED, etc. Then we get into reading sensors and gathering the data. Then we walk through ways to send it to endpoints on the internet. Finally we create our OWN endpoint and start sending data there. Finally we build a dashboard for our data. Sound fun? Sign up!!</p>
+
+<h2>What I learned here</h2>
+
+<p>I learned a few things over the months. I started out not knowing much about video or sound editing. I also knew next to nothing about course design. I'm not an expert at any of those things now but I have learned a lot. Some key points I learned:</p>
+
+<ul>
+<li>Course design is hard.</li>
+<li>Video editing is hard.</li>
+<li>Audio editing is hard.</li>
+<li>Every sound within 10 miles comes in very loudly on your microphone.</li>
+</ul>
+
+
+<p>So I set off with my Yeti Blue microphone, and purchased some software to help out:</p>
+
+<ul>
+<li>Camtasia for Mac</li>
+<li>Camtasia for PC</li>
+<li>Reaper Audio</li>
+<li>ACON Audio plugins</li>
+</ul>
+
+
+<p>I read through countless tutorials and and watched videos to learn as much as I could. Then I started to record random stuff and chop it up, clean it etc. Lots of trial by fire, and my early work was terrible.</p>
+
+<h3>Sound: My Biggest Obstacle</h3>
+
+<p>One thing I learned quickly: The world is loud. The Yeti Blue microphone is AMAZING and the sound quality is great. Unfortunately it picks up sounds everwhere. I had many fruitless hours recording and re-recording when a dog barked, or someone drove one of those obnoxious import cars by my house. Also nobody could be home, you can hear everything. Rather than try to silence the world I decided to improviss</p>
+
+<p>First I took a box and stuffed it with insulation like so:</p>
+
+<p><img src="/images/hands-on-iot/hands-on-iot-02.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></p>
+
+<p>This cut down noise considerably. It also gave a much clearer, deeper sound that's difficult to explain. If it looks stupid but it works, it isn't stupid.</p>
+
+<p>I still had way too much neighborhood noise, so my final recording area looked like this:</p>
+
+<p><img src="/images/hands-on-iot/hands-on-iot-03.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></p>
+
+<p>Yup, that's a supply closet! I managed to remove the echo and background noise from here fairly well.</p>
+
+<p>This was my biggest obstacle by far and I worked through it.</p>
+
+<h3>Why do I find this fun?</h3>
+
+<p>So I spent hours writing out scripts, recording and re-recording. I set up goofy stages and filmed things with my webcam. It was a ton of work. But it was.... fun.</p>
+
+<p><img src="/images/hands-on-iot/hands-on-iot-04.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></p>
+
+<p>Teaching people is a huge passion of mine, and I love doing these courses. I am bitten by the bug and this will be the first of many courses from me. Got a few laid out in the queue for this year.</p>
+
+<p>During the process of building this I auditioned for <a href="http://www.pluralsight.com">Pluralsight</a> and got signed (yes!), so I'm now working on a course for them. Pluralsight has some exacting standards as well as branding and other style preferences so it's a bit more work. On the flipside of that they have people with tons of knowledge helping you out and cheering you on. It's pushing me to be a better instructor fast and I love it! But that's for another article.</p>
+
+<h3>Do you want to do this?</h3>
+
+<p><img src="/images/hands-on-iot/hands-on-iot-01.jpg" title="&#34;Hands on Internet of Things Udemy&#34;" alt="&#34;Hands on Internet of Things Udemy&#34;"></p>
+
+<p>If you are itching to become an instructor, contact me. I have learned a TON over the last few months, and will gladly share. I'm going to do a series of articles soon detailing how to get started and tricks I've learned. Stay tuned or <a href="http://eepurl.com/b3Y9Wz">sign up for my newsletter</a>.</p>
+
+<p>More to come soon!!!</p>
+
+<p>-Jeremy</p>
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Install A Wireless USB Network Card on Raspberry Pi]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-how-to-wireless-usb/"/>
+    <updated>2016-04-03T19:28:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-install-wireless-network-card-on-raspberry-pi</id>
+    <content type="html"><![CDATA[<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+
+<p>Today I'm going to show you how to install a wireless networking card on your Raspberry Pi. I'm using the ultra cheap Ralink wireless card, but the instructions are similar for any Wireless Device.</p>
+
+<!-- more -->
+
+
+<h3>Update Your System</h3>
+
+<p>For this tutorial I'm using Raspian. This is a great beginner OS for the Pi and quite easy to use.</p>
+
+<p>You'll want to make sure you're at least wired in so you can do an update:</p>
+
+<pre>
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get autoremove
+</pre>
+
+
+<h3>Get Started</h3>
+
+<p>We're going to do this from SSH, though it's easier to do from the desktop. But you got a Raspberry Pi to learn didn't you? Many people use their pi strictly over SSH and don't run a desktop at all. I have decided to include those kinds of instructions rather than do it the graphical way.</p>
+
+<h4>1. Plug in your USB device and find it</h4>
+
+<p>Once plugged in, again we'll look at our USB devices:</p>
+
+<pre>
+lsusb
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-07.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>It looks like in my case it's installed, so now we'll make a copy of the WPA supplicant file:</p>
+
+<pre>
+sudo cp /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
+</pre>
+
+
+<p>Now open up the file:</p>
+
+<pre>
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+</pre>
+
+
+<p>And add the following:</p>
+
+<pre>
+network={
+    ssid="[YOUR NETWORK SSID]"
+    psk="[YOUR NETWORK PASSWORD]"
+}
+</pre>
+
+
+<p>It should look like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-06.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>Now, save the file. CTRL + X - Save "Y"</p>
+
+<h4>Start up Your Adapter</h4>
+
+<p>Now we need to stop the wlan service:</p>
+
+<pre>
+sudo wpa_action wlan0 stop
+</pre>
+
+
+<p>Then bring it back up:</p>
+
+<pre>
+sudo ifup wlan0
+</pre>
+
+
+<h4>Test Connectivity</h4>
+
+<pre>
+sudo wpa_cli status
+</pre>
+
+
+<p>You should see something like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-05.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>If not, double check your network SSID and Password, that's the most common problem. You may have a card that isn't supported by the Raspberry Pi, if not get a new one! They're super cheap and well worth it.</p>
+
+<h3>(Optional) - If You End up Needing a Driver</h3>
+
+<p>Sometimes there are issues that prevent you from loading the drivers for your card. Much of the firmware comes with raspian, but if not you'll have to find the drivers for it. You'll need a Windows machine to get the drivers you'll need (at least for Ralink).</p>
+
+<p>Insert the device and run the driver disk provided. Then after successfully installing it, open up your control panel, and select the properties of the device:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-04.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>Click on "driver details"</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-08.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>This will show you the location of the driver files to copy off the machine, you can put them on a USB stick and put them on your Pi from there.</p>
+
+<h4>Get The Drivers off the USB Stick The Hard Way</h4>
+
+<p>I put the driver files on a USB stick. Getting them from the desktop is really easy, but what if you only have SSH access? Don't fret. With Raspian it should automount just fine, you only need to find it.</p>
+
+<p>Run the following command to list your USB devices:</p>
+
+<pre>
+lsusb
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-03.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>Now, you want to see all the disks that are attached to your system:</p>
+
+<pre>
+sudo fdisk -l
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-02.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>As you can see in my case, my USB stick is mounted at /dev/sda1 so the device is connected to my pi. But where is it?</p>
+
+<pre>
+mount
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-03.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>There it is! Under /media/MYLINUXLIVE but that probably won't be your folder, it will show the drive label you gave it when you formatted it. (I happen to use and love the LinuxLive program whenever I can).</p>
+
+<p>Now I can just look for the drivers on the disk and copy them to a folder in my home directory:</p>
+
+<pre>
+cd ~
+mkdir usbdriver
+cp -r /media/MYLINUXLIVE/driver/* usbdriver/
+</pre>
+
+
+<p>Now the files are copied, safely unmount the drive:</p>
+
+<pre>
+sudo udisks --unmount /dev/sda1
+sudo udisks --detach /dev/sda
+</pre>
+
+
+<p>Now you'll have the drivers you need, but keep in mind the device may not be supported at all.</p>
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+
+<h3>Conclusion</h3>
+
+<p>I hope this has helped to show you how to install a wireless USB card on the Raspberry Pi. Raspian has a lot of firmware already built in and a lot of USB Wifi adapters are supported right out of the box. Wpa_supplicant makes things really easy. I decided to show how to do it from the prompt for those who want to learn more about the prompt, or install from SSH.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-01.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>The Raspberry Pi is all about learning so I encourage you to experiment with this stuff as much as possible. The worst that will happen is you'll need to reinstall the OS. Remember, you're learning Linux at the same time which opens a lot of doors for your projects. Enjoy!</p>
+
+<p><br />
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled "<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>" which is intended to be a course for people who want to get started with IoT. I'll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I'm offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div><br />
+
+<a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br />
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to set up the Raspberry Pi 7 Touchscreen]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-raspberry-pi-7-touchscreen/"/>
+    <updated>2015-10-17T17:50:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-set-up-raspberry-pi-touchscreen</id>
+    <content type="html"><![CDATA[<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+
+<p>I recently purchased the <a href="http://www.element14.com/community/docs/DOC-78156/l/raspberry-pi-7-touchscreen-display">7" touch screen for the Raspberry Pi</a> and thought I'd put something together to show how it's set up and share my thoughts on it so far. This has been a really popular item and I had to check it out.</p>
+
+<!-- more -->
+
+
+<h3>The Kit</h3>
+
+<p>The Raspberry Pi 7" Touchscreen kit came from <a href="http://www.newark.com"> Newark element14 </a>, and it's boxed with everything you need (except of course a Raspberry Pi). It comes with an interface boards and everything to mount a pi to the back of it, which can be pretty nice.</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-01.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<blockquote><p>Tip:Leave the plastic coating on the touchscreen while assembling it so you don't damage anything.</p></blockquote>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-02.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<h3>Video Interface Cables</h3>
+
+<p>These are delicate pieces so you should be careful hooking these up.</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-03.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<p>These connections work by sliding out the black piece, then pushing the ribbon inside and pushing the black piece back in. Start by applying pressure in the middle of the black piece first, and if you encounter resistance, try resetting the ribbon in it. Don't try to ram it in, if it breaks it won't work at all.</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-04.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<p>Set this large connection first then turn the board over to insert the smaller one and connect it in the same fashion.</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-05.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<p>Now that it's turned over it's ready to mount using the supplied standoff screws:</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-06.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<h3>Connecting to the Pi</h3>
+
+<p>Now is a good time to hook up the RPI-Display ribbon:</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-07.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<p>And hook up the GPIO as follows:</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-08.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<ul>
+<li>Red to 5v</li>
+<li>Green to SDA</li>
+<li>Yellow to SDL</li>
+<li>Black to Ground</li>
+</ul>
+
+
+<p>Now mount the Raspberry Pi to the standoffs. Plug in the RPI-Display cable:</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-09.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<p>And wire the GPIO as follows:</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-10.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<ul>
+<li>Red to 5v (Pin 2)</li>
+<li>Green to GPIO2 SDA (Pin 3)</li>
+<li>Yellow to GPIO3 SCL (Pin 5)</li>
+<li>Black to Ground (Pin 6)</li>
+</ul>
+
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-11.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<h3>Power up and Install Software</h3>
+
+<p>Now you can power up the screen. If you have a good power supply, you can just put the power into the outlet on the display board and it will power both the Pi and the screen. Alternatively you can power both independently if needed.</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-12.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<p>You will need to install some software to get it running:</p>
+
+<p><code>
+sudo apt-get update
+sudo apt-get upgrade
+</code></p>
+
+<p>To install the virtual keyboard:</p>
+
+<p><code>
+sudo apt-get install matchbox-keyboard
+</code></p>
+
+<p>You're ready to go!</p>
+
+<h3>My Thoughts</h3>
+
+<p>Honestly I was a bit skeptical when ordering this thing. I was wondering how good the quality would be at $60. I was pleasantly surprised right away. Here are some of the features I noticed:</p>
+
+<p><strong>Sturdy and Strong</strong> - Just feeling it in your hands tells you the kind of quality it has. Does not feel like a cheap or flimsy screen. You can actually use this for stuff.</p>
+
+<p><strong>Picture Quality is amazing</strong> - The colors and clarity of this screen are great. It looks like a high quality tablet.</p>
+
+<p><strong>Responsive Touch</strong> - It has ten finger touch though I never pushed that limit, it's definitely responsive and works great popping through windows. It's also great for drawing things. It's very reactive and great.</p>
+
+<p>Overall I was very pleased with it, and I think it's well worth the money. I plan on getting a few and doing some cool projects with it. Overall I would recommend getting one. You can get<a href="http://www.element14.com/community/docs/DOC-78156/l/raspberry-pi-7-touchscreen-display"> this touchscreen for $60 here</a>.</p>
+
+<p><img src="/images/raspberry-pi-7-touchscreen/how-to-raspberry-pi-7-touchscreen-13.jpg" alt="How to Raspberry Pi Touchscreen" /></p>
+
+<h3>Why not just get a tablet?</h3>
+
+<p>This was the question posed to me on Twitter and I've seen the comment elsewhere. And realistically this screen + a Raspberry Pi, Power Supply and Wifi Dongle and you're looking at over $100. And the profile isn't very thin plus you'd need an additional case to make it truly like a tablet. Considering you can pick up a cheap Android tablet for under $100, this doesn't seem like the greatest replacement for a tablet.</p>
+
+<p>I think the overall purpose of this goes beyond a tablet though. For one Raspian is far more powerful and advanced than Android, and arguably more hackable. I would see this as being great for:</p>
+
+<p><strong>Kiosks</strong> - Under $100 is a steal for POS interfaces and customer info Kiosks of all types.</p>
+
+<p><strong>In Dash Car Computer</strong> - You could control a sound system with your Pi, do GPS, engine monitoring etc.</p>
+
+<p><strong>Wall Mounted Awesomeness</strong> - Get the weather, latest news, control your thermostat, open garage door, etc.</p>
+
+<p>The possibilities are endless here. I don't think folks buying this will be looking for a tablet, the projects will likely be more complex than that. If you make a cool project shoot me an email or let me know in the comments!</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled "<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>" which is intended to be a course for people who want to get started with IoT. I'll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I'm offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div><br />
+
+<a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br />
+ /></p>
+
+<br />
+
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Make a Weather Station with a Raspberry Pi 2]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-weather-station-raspberry-pi/"/>
+    <updated>2015-09-17T22:50:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-make-a-weather-station-with-a-raspberry-pi</id>
+    <content type="html"><![CDATA[<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+
+<p>Today I'm going to show you how to make sort of a mini weather station with a Raspberry Pi. This is an ongoing project of mine that I've been tinkering with so I'll share my learnings with you. It started with <a href="/tutorials/raspberry-pi/monitor-room-temperature-raspberry-pi/">a project I wrote about last month</a>, and is an improvement on it.</p>
+
+<!-- more -->
+
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-00.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&repo=Raspberry_Pi_Weather_Station&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+
+
+<p>A core part of the "Internet of Things" movement is the idea of devices that gather data and send it to the Internet. That data is then acted on or observed for later. It's a simple concept and has been going on for a while but lately it's been getting cheaper and easier to do. This project is a great example of that.</p>
+
+<p>While this seems like a long tutorial, it only takes about 30 minutes to complete. Let's get started.</p>
+
+<p>Once you complete this your Raspberry Pi will measure:</p>
+
+<ul>
+<li>Temperature</li>
+<li>Humidity</li>
+<li>Atmospheric Pressure</li>
+<li>Lux</li>
+</ul>
+
+
+<p>You can send your results to:</p>
+
+<ul>
+<li>Google Spreadsheet on your Google Drive</li>
+<li>ASP.Net Web API on your website</li>
+</ul>
+
+
+<h3>What you'll need</h3>
+
+<p>For this project you will need:</p>
+
+<ul>
+<li>Raspberry Pi 2 or Model B - (<a href="http://www.element14.com/community/community/raspberry-pi/raspberrypi2"><strong>Get one here for $35!</strong></a>)</li>
+<li><a href="http://www.adafruit.com/products/393"><strong>AM2302</strong></a> Temperature / Humidity Sensor</li>
+<li><a href="http://www.adafruit.com/products/1603"><strong>BMP180</strong></a> Temperature / Barometric Pressure Sensor</li>
+<li><a href="http://www.adafruit.com/products/374"><strong>DS18B20</strong></a> Waterproof Temperature Sensor</li>
+<li><a href="http://www.adafruit.com/products/439"><strong>TSL2561</strong></a> Digital Lumosity Sensor</li>
+</ul>
+
+
+<p>Optional:</p>
+
+<ul>
+<li>Breadboard and jumpers (<a href="http://www.element14.com/community/search.jspa?q=breadboard"><strong>Get a kit here</strong></a>)</li>
+</ul>
+
+
+<p>None of this stuff would be anywhere near as easy if it weren't for companies like <a href="http://www.adafruit.com/">Adafruit</a>. I recommend getting your sensors from them to support their innovation in this space. <a href="http://www.element14.com">Newark</a> is one of the original distributors of the Raspberry Pi, they are fast and very reputable.</p>
+
+<h2>Wiring</h2>
+
+<p>The wiring for this project is shown below:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-diagram.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<p>While this may look confusing at first, it's a pretty standard setup for each sensor. Here's some additional information on how to wire up each one if the diagram isn't helpful.</p>
+
+<ul>
+<li><a href="https://learn.adafruit.com/downloads/pdf/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging.pdf">How to wire up AM2302</a></li>
+<li><a href="https://learn.adafruit.com/using-the-bmp085-with-raspberry-pi/overview">How to wire up BMP180</a></li>
+<li><a href="https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/hardware">How to wire up DS18B20</a></li>
+<li><a href="https://learn.adafruit.com/tsl2561/wiring">How to wire up TSL2561</a></li>
+</ul>
+
+
+<h2>Installing the software</h2>
+
+<p>This tutorial has been tested with a fresh install of Raspian. The instructions should be fairly accurate for other Linux distributions as well.</p>
+
+<p>SSH into the pi (or open a command window) and get's start out in your home directory and make a folder for your sources.</p>
+
+<p><code>
+cd ~
+mkdir sources
+cd sources
+</code></p>
+
+<p>Now we can start installing sensors.</p>
+
+<h3>Setup the AM2302</h3>
+
+<p>The AM2302 is a temperature humidity sensor. It is a DHT22 sensor that's wired with a pullup resistor and casing. I found it easier to use this one than just the DHT22 kit.</p>
+
+<p>For this sensor we'll be using the Adafruit Python DHT library:</p>
+
+<p>```
+git clone https://github.com/adafruit/Adafruit_Python_DHT.git</p>
+
+<p>cd Adafruit_Python_DHT</p>
+
+<p>sudo apt-get update</p>
+
+<p>sudo apt-get install build-essential python-dev python-openssl</p>
+
+<p>sudo python setup.py install
+```</p>
+
+<p>This will install the software necessary to interact with the AM2302</p>
+
+<h3>Test the AM2302</h3>
+
+<p>There is a test script you can use to verify the sensor is working. Run AdafruitDHT.py and "2302" is the sensor, and "22" is the pin you're using. Change it if you hooked it to a different pin.</p>
+
+<p><code>
+cd examples
+sudo ./AdafruitDHT.py 2302 22
+</code></p>
+
+<p>You should see something that looks like this:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-01.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<h3>DSB18B20</h3>
+
+<p>The DSB18B20 is a digital one wire (Dallas one wire protocol) thermometer. If you get it "with extras" it comes with a cord and waterproof casing which is what I went with.</p>
+
+<p>You will need to add one wire Support. Open up your boot config:</p>
+
+<p><code>
+sudo nano /boot/config.txt
+</code></p>
+
+<p>Add the following text to that file:
+<code>
+dtoverlay=w1-gpio
+</code></p>
+
+<p>Save the file and reboot:
+<code>
+sudo reboot
+</code></p>
+
+<h3>Testing the DSB18B20</h3>
+
+<p>To test it you'll need to load the following modules into your kernel:
+<code>
+sudo modprobe w1-gpio
+sudo modprobe w1-therm
+</code></p>
+
+<p>Note: you can do the following to add them to your kernel on boot:</p>
+
+<p><code>
+sudo nano /etc/modules
+</code></p>
+
+<p>add the following lines:
+<code>
+w1-gpio
+w1-therm
+</code>
+Save the file and the next time you start they will be loaded automatically.</p>
+
+<p>To check your device:</p>
+
+<p><code>
+cd /sys/bus/w1/devices
+ls -la
+</code>
+You will see a folder starting with 28- this is your device based on the serial number.</p>
+
+<p><code>
+cd 28-xxxx (change this to match what serial number pops up)
+cat w1_slave
+</code>
+You should see something like the following:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-02.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<p>If it says "YES" it's working. If not, you may need to check your wiring.</p>
+
+<h2>Configuring I2C</h2>
+
+<p>Next you will need to configure I2C for your system:</p>
+
+<p><code>
+sudo apt-get install python-smbus
+sudo apt-get install i2c-tools
+</code>
+You may get "already installed" messages from this, depending on how your system is setup.</p>
+
+<p>Add the modules to your kernel on startup. Open up /etc/modules
+<code>
+sudo nano /etc/modules
+</code>
+Add the following to it:</p>
+
+<p><code>
+i2c-bcm2708
+i2c-dev
+</code></p>
+
+<p>Now you will need to modify your boot config:</p>
+
+<p><code>
+sudo nano /boot/config.txt
+</code></p>
+
+<p>Add the following:</p>
+
+<p><code>
+dtparam=i2c1=on
+dtparam=i2c_arm=on
+</code>
+Reboot your Pi:</p>
+
+<p><code>
+sudo reboot
+</code></p>
+
+<h3>Testing I2C</h3>
+
+<p>You can see what devices are connected to your I2C bus by running the following command:</p>
+
+<p><code>
+sudo i2cdetect -y 1
+</code></p>
+
+<p>You should see something like this:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-03.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<p>You're ready to go!</p>
+
+<h3>TSL2561 Sensor</h3>
+
+<p>The TSL2561 is a Lux Sensor, it measures the amount of light it detects, useful to see how bright the sky is that day.</p>
+
+<p>Let's grab some sources to help out with this:</p>
+
+<p><code>
+cd ~/sources
+wget https://raw.githubusercontent.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/master/Adafruit_I2C/Adafruit_I2C.py
+wget https://raw.githubusercontent.com/seanbechhofer/raspberrypi/master/python/TSL2561.py
+</code></p>
+
+<h3>Testing the TSL2561</h3>
+
+<p>To test out your sensor run the following:</p>
+
+<p><code>
+sudo python Adafruit_I2C.py
+sudo python TSL2561.py
+</code>
+You should see something that looks like this:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-04.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<p>Its up!</p>
+
+<h3>BMP180</h3>
+
+<p>The BMP180 is a barometric pressure sensor with a thermometer. It's also really easy to get working. Once again we'll be using some Adafruit libraries:</p>
+
+<p><code>
+git clone https://github.com/adafruit/Adafruit_Python_BMP.git
+cd Adafruit_Python_BMP
+sudo python setup.py install
+</code></p>
+
+<h3>Testing the BMP180</h3>
+
+<p>To test it:
+<code>
+cd examples
+sudo python simpletest.py
+</code>
+It should look like this:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-05.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<h2>Gather data from all the sensors</h2>
+
+<p>Here we will gather the data from all the sensors using an application I wrote. This reader will gather all the information and display it to the console, or send it out to the internet.</p>
+
+<p><code>
+cd ~
+git clone https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station.git reader
+</code>
+This will copy the scripts into a folder called "reader". To test them out, type in:</p>
+
+<p><code>
+sudo python readings.py dryrun
+</code></p>
+
+<p>This does a "dry run" that does not send the data anywhere, but displays it on your screen:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-06.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<p>You're ready to go! If you run it without the "dryrun" parameter it will build a JSON object and attempt to send to a web endpoint, which I will show you how to build later in the tutorial.</p>
+
+<h3>Optional: Google Spreadsheets</h3>
+
+<p>You can output data to a Google Spreadsheet using my application you downloaded from GitHub. You will need to setup OAuth with Google, and create a JSON file. Instructions are here:</p>
+
+<p><a href="http://gspread.readthedocs.org/en/latest/oauth2.html">http://gspread.readthedocs.org/en/latest/oauth2.html</a></p>
+
+<p>You will want to store the generated JSON file in the /home/pi/reader/ folder.</p>
+
+<p>One thing you will need to is open up that OAuth JSON file and look for "client_email". It should look like this:</p>
+
+<p>"client_email": "1233453343244-asdlkjried8ss98eeEic@developer.gserviceaccount.com",</p>
+
+<p>After you create your spreadsheet, you will need to add that email address as one who can access the sheet under sharing settings:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-07.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<p>Next, open up the following script in the folder:</p>
+
+<p><code>
+sudo nano google.py
+</code></p>
+
+<p>Replace the GDOCS_OOAUTH_JSON value with the name of your JSON file you downloaded.
+Set the GDOCS_SPREADSHEET_NAME with the name of your sheet. Save it.</p>
+
+<p>Type in</p>
+
+<p><code>
+sudo python google.py
+</code></p>
+
+<p>if all your information is correct, it will start running and adding rows to your spreadsheet every 30 seconds:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-08.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<p>Congratulations! You can now send your data to a Google Spreadsheet. You can run this as a service if you want and store all your data on a Google Drive.</p>
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+
+<h3>Send it to the cloud</h3>
+
+<p>One thing I did with my setup was create a Microsoft Azure website to act as an endpoint for my setup. You could also run this on any ASP.Net website with a host that supports Web API, <a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage">like Arvixe</a>.</p>
+
+<h4>Setup the API</h4>
+
+<p>You can clone the following repository and open it up in Visual Studio (Should work in 2012 and up)</p>
+
+<p><a href="https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station_API.git">https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station_API.git</a></p>
+
+<p>You will need to create a database, the creation script is in /Install SQL folder. Then plug those values into your Web.config and set the folder as an application and start it up!</p>
+
+<p>At this point, you will want to open up readings.py and change the "url" field at the bottom of your endpoint, for example:</p>
+
+<p><code>
+url = "http://mysite.com/api/readings
+</code></p>
+
+<p>I have found it's really easy to just create a site on Microsoft Azure for this, and you get 5 free websites, so why not? You can always point it at a different SQL server if you choose.</p>
+
+<h4>Setup the Web UI</h4>
+
+<p>I built a cool little UI for this that uses AngularJS to and some plugins to create some cool visualization:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-09.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<p>If you'd like to run this, you can download it from Github and run it on any website that supports HTML.</p>
+
+<p><a href="https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station">https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station</a></p>
+
+<p>Make sure and change the settings in home.services.js to reflect your website:</p>
+
+<p><img src="/images/raspberry-pi-2-weather-station/raspberry-pi-weather-station-10.jpg" title="How to build a Weather Station Raspberry Pi 2" alt="How to build a Weather Station Raspberry Pi 2" /></p>
+
+<p>I'll be making some changes to it soon, but for now it's a cool little visualization for your setup.</p>
+
+<h3>Summary</h3>
+
+<p>Well I hope you made it through all the way to the end and got this set up. Gathering data is one of the cool parts of IoT, but what are you going to do with it? The possibilities are endless. You could put this in your house to make thermostat adjustments, or put it in a storage area to make sure something valuable is safe. I hope this project inspires you to build more stuff.</p>
+
+<p>To keep up on the progress of this project, <a href="https://github.com/JeremyMorgan">follow me on GitHub</a> or check my <a href="https://twitter.com/JeremyMorgan">Twitter updates</a> to see what's next. I have a lot of cool things in store.</p>
+
+<h4>Stay updated on this project:</h4>
+
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&repo=Raspberry_Pi_Weather_Station&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+
+
+<br />
+
+
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+
+
+<p><br />
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled "<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>" which is intended to be a course for people who want to get started with IoT. I'll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I'm offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div><br />
+
+<a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br />
+</p>
+
+<p><br />
+<a href="https://eepurl.com/bMxQr5"><img src="/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a>
+<br /></p>
+]]></content>
+  </entry>
+  
+</feed>

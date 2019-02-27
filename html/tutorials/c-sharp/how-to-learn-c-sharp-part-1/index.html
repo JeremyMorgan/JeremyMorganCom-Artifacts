@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>C# .Net Tutorials - How to learn C# Part 1 - Introduction - CSharp Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="C# .Net Tutorials - How to learn C# Part 1 - Introduction" /><meta itemprop="name" content="C# .Net Tutorials - How to learn C# Part 1 - Introduction" /><meta name="twitter:title" content="C# .Net Tutorials - How to learn C# Part 1 - Introduction">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-11-13 18:19:00 +0000" />
+
+<meta property="article:section" content="CSharpDotNetTutorials" />
+
+<meta name="description" content="Part 1 of my tutorial series on learning C# .Net, a thorough look at the language and .Net Framework." />
+<meta property="og:description" content="Part 1 of my tutorial series on learning C# .Net, a thorough look at the language and .Net Framework." />
+<meta itemprop="description" content="Part 1 of my tutorial series on learning C# .Net, a thorough look at the language and .Net Framework." />
+<meta name="twitter:description" content="Part 1 of my tutorial series on learning C# .Net, a thorough look at the language and .Net Framework.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-1/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-1/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-1/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">C# .Net Tutorials - How to Learn C# Part 1 - Introduction</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2012-11-13T18:19:00+00:00" pubdate data-updated="true">Nov 13<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><br />
+
+
+<p><a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a></p>
+
+<br />
+
+
+<p>Ok so a few months ago I posted an intro to C# and the .Net framework and talked about a set of tutorials, and here they are. I&#8217;m going to jump right into coding and explore a working application. C# is my favorite language, and after a while of using it you&#8217;ll see why.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<div class="tutorialbox">
+<h3>C# Tutorials: How to Learn C#</h3>
+<ol>
+<li>C# Introduction</li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/" rel="next">C# Namespaces</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-3-coding-basics/">C# Coding Basics</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/">C# Variables and Types</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/">C# Selection Statements</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-6-iteration-statements/">C# Iteration Statements</a></li>
+</ol>
+<a href="https://feedburner.google.com/fb/a/mailverify?uri=JeremyMorganTutorials&amp;loc=en_US" rel="nofollow"><strong>Get notified when new C# tutorials are released!</strong></a>
+</div>
+
+
+<p>The previous article was basically an intro and reasoning behind why you should use C#, this is more practical hands on stuff. We&#8217;ll start with hands-on code and move on to how to use it.</p>
+
+<p>Note that this tutorial is for the absolute beginner, if you&#8217;ve had experience with other Object Oriented Languages you may want to skim this one and move on the to the next.</p>
+
+<h3>What you need to get started.</h3>
+
+<p>To get started you won&#8217;t need much. All the tools we&#8217;re using here are free of charge, but if you have a pro copy of Visual Studio that&#8217;s great.</p>
+
+<p>You will need:</p>
+
+<ul>
+<li>Microsoft .Net Framework 4.0 or greater - <a href="http://www.microsoft.com/en-us/download/details.aspx?id=17851">Download it here</a></li>
+<li>Visual Studio Express 2012 - <a href="http://www.microsoft.com/visualstudio/eng/products/visual-studio-express-products">Download it Here</a></li>
+<li>A text editor. You can use any editor you like, I prefer Notepad++ - <a href="http://notepad-plus-plus.org/download/v6.2.1.html">Download it Here</a></li>
+</ul>
+
+
+<p>All of these downloads are 100% free - no trial or anything like that so you can really take off and run with this stuff. As you become a professional developer or build commercial products you&#8217;ll want the professional version of Visual Studio, but for now this works great.</p>
+
+<h3>Get Set Up</h3>
+
+<p>For these tutorials we&#8217;re going to doing it the hard way. We&#8217;re going to code everything by hand in a text editor then compile it. The reason for this is we want to learn how the code actually works, for professional development you need an IDE, but your foundation will be much stronger if you know how everything works intimately.</p>
+
+<p><strong>Step 1</strong> - Create a folder to put your files in. This can be anything you like, such as C:\csharp whatever&#8217;s easiest for you.</p>
+
+<p><strong>Step 2</strong> - Create a path to compiler (or choose the Visual Studio Command Prompt). You have two options here, you can either:</p>
+
+<p>Select Start->Programs->Microsoft Visual Studio Express 2012->Visual Studio Tools -> Developer Command Prompt (the easy away)</p>
+
+<p>Or, you can find the path to CSC, it&#8217;s located in</p>
+
+<p>C:\Windows\Microsoft.NET\Framework[version]</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/c-sharp-dot-net-tutorials-1.jpg" title="C# .Net Tutorials" ></p>
+
+<p>So to set your path, you should type in:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set PATH=%PATH%;C:\Windows\Microsoft.NET\Framework\v4.0.30319</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The version may change but that one corresponds to the image above. You should be able to type in &#8220;csc&#8221; anywhere and see something like the following:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/c-sharp-dot-net-tutorials-2.jpg" title="C# .Net Tutorials" ></p>
+
+<p>Now you&#8217;re ready to get started</p>
+
+<h3>Let&#8217;s Write Some Code!</h3>
+
+<p>I hate to be cliche&#8217; but this really is the best way to start any programming tutorial, so we&#8217;re gonna do a &#8220;hello world&#8221; app. Create a file called helloworld.cs and type in the following:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, save the file and type:</p>
+
+<blockquote><p>csc helloworld.cs</p></blockquote>
+
+<p>You should get a message that looks like:</p>
+
+<blockquote><p>Microsoft (R) Visual C# Compiler version 4.0.30319.17929</p>
+
+<p>for Microsoft (R) .NET Framework 4.5
+Copyright (C) Microsoft Corporation. All rights reserved.</p></blockquote>
+
+<p>This creates an executable called helloworld.exe that you should output the text you&#8217;ve specified.</p>
+
+<p>Type in:</p>
+
+<blockquote><p>helloworld</p></blockquote>
+
+<p>and you&#8217;ll see the output. Easy right? Now I&#8217;ll explain a little more about what this app is doing.</p>
+
+<h3>How it works</h3>
+
+<p>The first thing you&#8217;ll notice the program starts with this:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A namespace is a keyword that declares the scope of your types. Scope is basically a fenced off area where your data resides. This associates your variables and other data types with your program and controls access to them.</p>
+
+<p>HelloWorldApp is your namespace for your program, but the .Net Framework also uses namespaces to organize code as well. For example the System.IO namespace contains code pertaining to input and output. Your applications can utilize many namespaces, in fact they will always utilize more than one.</p>
+
+<p>If you&#8217;d like to read more about namespaces <a href="http://msdn.microsoft.com/en-us/library/z2kcy19k(v=vs.80).aspx">See the namespace reference on MSDN</a>. We&#8217;ll be talking about them more later too.</p>
+
+<p>The next part of the program is:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="n">class</span> <span class="n">Program</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This also contains a set of brackets and everything within them belongs to the class &#8220;Program&#8221;. A class is a contruct that acts as a template for objects. It defines a set of functions and is used for organizing your code in an efficient way.</p>
+
+<p>A class creates an instance of itself for a given purpose. Think of it as a blueprint for data, it specifies what data goes in, what goes out (if anything) and what methods you can perform on the data. For information about the theory behind classes check out my <a href="/blog/programming/an-introduction-to-object-oriented-programming/">intro to object oriented programming</a>.</p>
+
+<p>Next we come to this statement:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This creates an entry point for our program. Main() is where every program starts, and is required for any C# application. The keyword static means this is a variable that is created statically mean it lives throughout the life of the program. Variables that are declared dynamically have a shorter life and are created and destroyed as needed. Since we need this data throughout the whole program we want it to be static. There are other uses for static datatypes we&#8217;ll get into later.</p>
+
+<p>The word &#8220;void&#8221; indicates no data will be returned by this method. Methods that process data will return data and this keyword specifies that format. Since all of our data is going to console output we don&#8217;t need to return anything.</p>
+
+<p>The next line is our actual output.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This uses the method WriteLine in the System.Console namespace (sound familiar) to output a string to the console. It works exactly the way you see it, by taking the string &#8220;Hello World&#8221; and passing it to the WriteLine function it displays as output.</p>
+
+<p>I call this method explicitly, but it&#8217;s not the only way to do it. We can include the System namespace with the &#8220;using&#8221; keyword and then call out the Console.WriteLine method directly. See the code below:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Do you see the difference? This is usually a cleaner way to do it, especially if you&#8217;re using multiple methods from the System namespace. When it comes to code, you should always optimize for readability.</p>
+
+<p>I hope this was a good explanation of our small application and you understand how everything works.</p>
+
+<h3>Let&#8217;s Change it Up: Ask For Input</h3>
+
+<p>Now we&#8217;re going to change our app a little to get some user input. Make a new copy of your app or change the existing one so it looks like this:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;Please Enter Your Name: &quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&quot;Hello there {0}! &quot;</span><span class="p">,</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">());</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now as you can see, we have two lines and the first one outputs a string asking for your name. The next line also outputs a string but as you can see we have some new stuff here. We create a placeholder ({0}) then make a call to the Console.ReadLine() method. This does exactly what you&#8217;d guess and reads the input from the console. The program will pause until you enter something at the prompt. Type csc <filename> and try it out.</p>
+
+<p>Type the following code into your app:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">(</span><span class="n">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You passed {0} as an argument&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can also take command line arguments as input, as this example does. Notice the difference in our Main() declaration</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">(</span><span class="n">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This tells the compiler that we expect an argument or arguments to be passed to the executable. When the Console.WriteLine method executes, it will display what you typed as an argument.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;You passed {0} as an argument&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Again we&#8217;re using {0} as a placeholder but at the end you see args[0]. This is because args is a string array, and we want the first element (remember computers start counting at zero) so we declare it there.</p>
+
+<p>Type in your executable with something after it, such as</p>
+
+<blockquote><p>helloworld test</p></blockquote>
+
+<p>and you should see some output like:</p>
+
+<blockquote><p>You passed test as an argument</p></blockquote>
+
+<p>It&#8217;s that easy. You can pass multiple arguments to the executable and they will be numbered args[0], args[1] and so forth.</p>
+
+<br />
+
+
+<p><a href="https://eepurl.com/b7W09b"><img src="/images/banners/c-sharp-newsletter.jpg" alt="C# Newsletter" /></a></p>
+
+<br />
+
+
+<h3>Conclusion</h3>
+
+<p>This was a tutorial to get your feet wet and write a little code. There&#8217;s lots more to go, but I hope this has at least covered some basics and given you a rough idea of how to build a console application in C#. There&#8217;s tons more and I&#8217;ll be digging deeper in the next tutorial.</p>
+
+<p>My aim for this tutorial and the ones following are to get people started programming, and hopefully build a foundation quickly so you can get coding. Since most of my audience is comprised of web developers we will be venturing into ASP.Net stuff but building this core knowledge will definitely help you be a better developer in the future.</p>
+
+<p>My best advice is always to learn the basics. One thing I&#8217;ve seen over the years is developers who learn just enough to get the task done they wanted and they start building on that. It&#8217;s a fine way to do it but if you don&#8217;t get a foundation of the basics built you&#8217;ll struggle the whole way. If you learn the deep basics and then start solving problems, you&#8217;ll be far better off.</p>
+
+<p>I hope this has helped, let me know in the comments what you think, I&#8217;ll repsond.</p>
+
+<p>Included file &#8216;custom/asides/dotnet-footer.html&#8217; not found in _includes directory</p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/csharp/'>CSharp</a>, <a class='category' href='/blog/dotnet/'>DotNet</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/seo/new-rpc-blog-ping-tool/" title="Previous Post: New RPC Blog Ping Tool">&laquo; New RPC Blog Ping Tool</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/c-sharp/how-to-learn-c-sharp-part-1/" title="Next Post: C# .Net Tutorials - How to learn C# Part 1 - Introduction">C# .Net Tutorials - How to learn C# Part 1 - Introduction &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

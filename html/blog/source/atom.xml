@@ -1,0 +1,1130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  source | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/source/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to Restore Arch Linux Boot after Installing Windows]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/linux/how-to-restore-arch-linux-after-installing-windows/"/>
+    <updated>2015-08-01T10:38:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/linux/how-to-restore-arch-linux-boot-after-installing-windows</id>
+    <content type="html"><![CDATA[<p>This week they released the RTM Version of Windows 10, and I decided to install it on my laptop. Most of my development is done on my desktop Mac at home, but the laptop is good for collaborating, coffee shop coding, etc. I decided Windows 10 and Visual Studio 2015 would be good for this. There's only one issue: I also have Arch Linux on this laptop, and it's dialed in very nice and I definitely don't want to remove it.</p>
+
+<p>I haven't upgraded Windows on this machine since I put Windows 8.1 on it over a year ago, so I never had to deal with the issue of fixing grub. It is slightly different from other distributions, and there is no "boot repair" yet. I decided to Google a few things and figure out how to restore it but didn't find a complete article on it, so I decided to write one. I installed Windows 10 on the machine without changing any of the partition data, and that's crucial. After doing that it would only boot into Windows 10, so here's what I did.</p>
+
+<h3>1. Download an Arch Linux ISO</h3>
+
+<p>Download a <a href="https://www.archlinux.org/download/">live ISO for Arch Linux here</a>. If you're using Windows, <a href="http://www.linuxliveusb.com/">LiLi is a great free tool</a> for creating bootable Linux USBs.</p>
+
+<p>boot to this USB drive and you'll be taken to a command prompt.</p>
+
+<h3>2. Restore Grub</h3>
+
+<p>This assumes of course that you were using GRUB to begin with, but here's how to restore it.</p>
+
+<p>Find the partition your linux is installed on:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cfdisk</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>You'll see something like this:</p>
+
+<p><img src="/images/restore-grub-arch-linux/restore-grub-arch-linux-01.jpg" alt="How to restore GRUB in Arch Linux" /></p>
+
+<p>In my case my Linux installation is at /dev/sda4. Note where yours is, then exit this application.</p>
+
+<p>So mount your Linux partition:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mount -t ext4 /dev/sda4 /mnt</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then, change root with this command (specific to Arch Linux)
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>arch-chroot /mnt</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and restore GRUB:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grub-install /dev/sda</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And yes, it does detect Windows 10 properly.</p>
+
+<p>After you reboot, you'll see your familiar boot screen again:</p>
+
+<p><img src="/images/restore-grub-arch-linux/restore-grub-arch-linux-02.jpg" alt="How to restore GRUB in Arch Linux" /></p>
+
+<p>And you can now boot into Linux (or Windows) again.</p>
+
+<h3>Configure Grub</h3>
+
+<p>Now if you're like me (which you probably are if you're reading this blog) you will be bothered that it incorrectly says "Windows 8" or whatever your previous version was. This is easy to fix by editing some entries in your Grub configuration:</p>
+
+<p>Make a backup of your grub.cnf</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /boot/grub/grub.cfg /boot/grub/grub.cfg.8.1</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Edit the file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /boot/grub/grub.cfg</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Look for the Windows 8 or Windows 7 entry in the file:</p>
+
+<p><img src="/images/restore-grub-arch-linux/restore-grub-arch-linux-03.jpg" alt="How to restore GRUB in Arch Linux" /></p>
+
+<p>and change it to whatever you want. Then reboot. Now it should look like this:</p>
+
+<p><img src="/images/restore-grub-arch-linux/restore-grub-arch-linux-04.jpg" alt="How to restore GRUB in Arch Linux" /></p>
+
+<p>This is how I have mine set up. If you'd like to learn more about <a href="https://wiki.archlinux.org/index.php/GRUB/Tips_and_tricks" target="_blank">GRUB menu options click here</a>.</p>
+
+<h3>Summary</h3>
+
+<p>This is how you can restore your dual boot options if you reinstall or upgrade Windows on a dual boot Arch Linux system. I have heard of people just reinstalling Linux afterword, and it's a terrible idea unless you were going to change it anyway. It only takes a few minutes to fix.</p>
+
+<h4>A note about Arch Linux:</h4>
+
+<p>As I said in the article I have Arch Linux installed and it's "dialed in" meaning I have a nice system compiled with only what I need, lean custom kernel, and my development environment is all set up. I wouldn't advise an Arch install to everyone, but it has been fantastic for me personally. It runs very fast and reliably and it's easy to update everything.</p>
+
+<p>If you're looking for a new disto, or just want to escape the Ubuntu crowd, you should give it a try. IT has a steep learning curve as you'll need to know Linux really well, or be able to follow the directions explicitly, but if you do you'll find a nice solid system that's fast and lean.</p>
+
+<p><a href="https://www.archlinux.org/download/" target="_blank"><strong>Get Arch Linux Now</strong></a></p>
+
+<p>-Jeremy</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How To Monitor Room Temperature with a Raspberry Pi]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/monitor-room-temperature-raspberry-pi/"/>
+    <updated>2015-07-26T19:38:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/monitor-room-temperature-with-a-raspberry-pi</id>
+    <content type="html"><![CDATA[<p>Today I’m going to show you how to monitor ambient room temperature with a Raspberry Pi. We’re going to wire up a temperature sensor, gather temperature values and send them to Firebase. This could be the start of a weather station or other crazy experiments. In my case we’re going to check the temperature of a room to make sure our newborn puppies don’t get too hot or cold during the day.</p>
+
+<h3>What you'll need:</h3>
+
+<ul>
+<li>Raspberry Pi (I am using a Raspberry Pi 2, but you don't have to)</li>
+<li>Breadboard</li>
+<li>Temperature Sensor</li>
+<li>A <a href="https://www.firebase.com/signup/" target="_blank">Firebase account</a> (optional)</li>
+</ul>
+
+
+<p><strong>Notice:</strong> I have updated the <a href="https://github.com/JeremyMorgan/Raspberry_Pi_Temperature">source code for this article</a> and built <a href="https://github.com/JeremyMorgan/Raspberry_Pi_Temperature_API">an ASP.Net Web API</a> for this project. Watch them on GitHub to get notified when it's updated.</p>
+
+<h3>Hooking up the Hardware</h3>
+
+<p>I ordered the DS18B20 Waterproof Digital temperature sensor + extras from Adafruit (
+<a href="http://www.adafruit.com/products/381" target="_blank">Get it here</a> ) which is an excellent value at $10.</p>
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-1.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>Out of the box the wires are stripped, but since I'm putting this in a bread board, I decided to solder them. I quickly learned my last roll of solder is rather poor quality, but it will work:</p>
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-2.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>I then wired it up to the breadboard. There are plenty of diagrams online for wiring this up, I hooked</p>
+
+<ul>
+<li>Red: +3v</li>
+<li>Yellow: GPIO 4</li>
+<li>Blue: Ground</li>
+</ul>
+
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-3.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>The kit comes with a 4.7k resistor which you place between the red and yellow. The breadboard I use is from the <a href="http://www.amazon.com/gp/offer-listing/B008XVAVAW/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B008XVAVAW&linkCode=am2&tag=webfootcentra-20&linkId=VF3GTBAGOAKMKG2S" target="_new">Canakit for Raspberry Pi</a>. This is connected to a Raspberry Pi 2, although a Raspberry Pi B would work just the same.</p>
+
+<h3>Testing the Sensor</h3>
+
+<p>The support for the DS18B20 on the Pi makes this part really trivial. First you need to edit /boot/config.txt:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /boot/config.txt</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and add the following line:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dtoverlay=w1-gpio</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-4.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>Then save and reboot the Pi.</p>
+
+<p>To test the functionality, load in the kernel modules:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo modprobe w1-gpio
+</span><span class='line'>sudo modprobe w1-therm</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Run the following to find your device:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /sys/bus/w1/devices
+</span><span class='line'>ls -la</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This will show you the directory your device is in, based on your serial number. It should start with 28x:</p>
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-5.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>cd into that directory, then type:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat w1_slave</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and it should look like this:</p>
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-6.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>Look for crc=da YES. The YES means it's working, and the t=n is the celcius*1000. This verifies the sensor is functioning.</p>
+
+<h3>Writing the Temp Gathering Script.</h3>
+
+<p>For this step, you will be creating a Python script to read the sensor. You can use Nano on the Pi, or use an IDE on your desktop and copy the file up to the Pi. I used <a href="https://www.jetbrains.com/pycharm/" target="_blank">PyCharm</a> in Linux to write the script then copied it up to my Pi with each iteration with the following command:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>scp readtemp.py pi@192.168.1.12:/home/pi</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This can be a little more fluid when developing.</p>
+
+<p>The initial file we'll create is some code lifted from the Adafruit tutorials:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">glob</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;modprobe w1-gpio&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;modprobe w1-therm&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">base_dir</span> <span class="o">=</span> <span class="s">&#39;/sys/bus/w1/devices/&#39;</span>
+</span><span class='line'><span class="n">device_folder</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s">&#39;28*&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">device_file</span> <span class="o">=</span> <span class="n">device_folder</span> <span class="o">+</span> <span class="s">&#39;/w1_slave&#39;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">read_temp_raw</span><span class="p">():</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">device_file</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+</span><span class='line'><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'><span class="k">return</span> <span class="n">lines</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">read_temp</span><span class="p">():</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">lines</span> <span class="o">=</span> <span class="n">read_temp_raw</span><span class="p">()</span>
+</span><span class='line'><span class="k">while</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">!=</span> <span class="s">&#39;YES&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">lines</span> <span class="o">=</span> <span class="n">read_temp_raw</span><span class="p">()</span>
+</span><span class='line'><span class="n">equals_pos</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;t=&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="n">equals_pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">temp_string</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">equals_pos</span><span class="o">+</span><span class="mi">2</span><span class="p">:]</span>
+</span><span class='line'>    <span class="n">temp_c</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">temp_string</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.0</span>
+</span><span class='line'>    <span class="n">temp_f</span> <span class="o">=</span> <span class="n">temp_c</span> <span class="o">*</span> <span class="mf">9.0</span> <span class="o">/</span> <span class="mf">5.0</span> <span class="o">+</span> <span class="mf">32.0</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">temp_c</span><span class="p">,</span> <span class="n">temp_f</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">while</span> <span class="bp">True</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">print</span><span class="p">(</span><span class="n">read_temp</span><span class="p">())</span>
+</span><span class='line'><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is a super simple script that loads in the kernel modules and reads the device. The function read_temp() opens the device and reads it by parsing through the lines and spitting out Celsius and Fahrenheit values. Then at the bottom we have a loop to do this every second.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>python readtemp.py</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Your output should look like this:</p>
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-7.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>This is great, but we can't do much with it. At this point you could just write these values to a file and parse them out later. But we're going to store these values in a datastore.</p>
+
+<p>In readtemp.py, let's make some changes.</p>
+
+<p>Remove the loop:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">while</span> <span class="bp">True</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">print</span><span class="p">(</span><span class="n">read_temp</span><span class="p">())</span>
+</span><span class='line'><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and replace it with this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">()))</span> <span class="o">+</span> <span class="s">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">read_temp</span><span class="p">())</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then add the following lines to the top:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">calendar</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Run the file again and you should see this:</p>
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-8.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>We're getting closer! Here is what the final script should look like:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">os</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">glob</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">subprocess</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">calendar</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">urllib2</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">json</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">initialize</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;modprobe w1-gpio&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;modprobe w1-therm&#39;</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">device</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">base_dir</span> <span class="o">=</span> <span class="s">&#39;/sys/bus/w1/devices/&#39;</span>
+</span><span class='line'><span class="n">device_folder</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">base_dir</span> <span class="o">+</span> <span class="s">&#39;28*&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">device_file</span> <span class="o">=</span> <span class="n">device_folder</span> <span class="o">+</span> <span class="s">&#39;/w1_slave&#39;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Opens</span> <span class="n">raw</span> <span class="n">device</span><span class="p">,</span> <span class="n">code</span> <span class="n">changed</span> <span class="n">to</span> <span class="n">reflect</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">Raspian</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">read_temp_raw</span><span class="p">():</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">catdata</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">&#39;cat&#39;</span><span class="p">,</span><span class="n">device_file</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+</span><span class='line'><span class="n">out</span><span class="p">,</span><span class="n">err</span> <span class="o">=</span> <span class="n">catdata</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+</span><span class='line'><span class="n">out_decode</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">lines</span> <span class="o">=</span> <span class="n">out_decode</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">return</span> <span class="n">lines</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Reads</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">outputs</span> <span class="n">farenhiet</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">read_temp</span><span class="p">():</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">lines</span> <span class="o">=</span> <span class="n">read_temp_raw</span><span class="p">()</span>
+</span><span class='line'><span class="k">while</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">!=</span> <span class="s">&#39;YES&#39;</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">lines</span> <span class="o">=</span> <span class="n">read_temp_raw</span><span class="p">()</span>
+</span><span class='line'><span class="n">equals_pos</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;t=&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="n">equals_pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">temp_string</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">equals_pos</span><span class="o">+</span><span class="mi">2</span><span class="p">:]</span>
+</span><span class='line'>    <span class="n">temp_c</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">temp_string</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.0</span>
+</span><span class='line'>    <span class="n">temp_f</span> <span class="o">=</span> <span class="n">temp_c</span> <span class="o">*</span> <span class="mf">9.0</span> <span class="o">/</span> <span class="mf">5.0</span> <span class="o">+</span> <span class="mf">32.0</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">temp_f</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="n">Please</span> <span class="n">add</span> <span class="n">some</span> <span class="n">authentication</span> <span class="ow">or</span> <span class="n">a</span> <span class="n">secret</span> <span class="n">here</span><span class="err">!</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://yourfirebaseapp.firebaseio.com/readings.json&#39;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">postdata</span> <span class="o">=</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&#39;date&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">())),</span>
+</span><span class='line'><span class="s">&#39;temp&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">read_temp</span><span class="p">())</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'><span class="n">req</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s">&#39;Content-Type&#39;</span><span class="p">,</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">postdata</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Pushing the results to Firebase</h3>
+
+<p>This is an optional step, but here we are going to push the results up to <a href="https://www.firebase.com/features.html" target="_blank">Firebase</a>. You can <a href="https://www.firebase.com/signup/" target="_blank">create an account for free</a>, and I would encourage you to check it out. The URL will be the url of the project you create and the name of a JSON file to use for storage. For example:</p>
+
+<blockquote><p>https://mycooltemperatureapp.firebaseio.com/readings.json</p></blockquote>
+
+<p> You can replace with Firebase with any API call at this point, and it's easy to make a POST in Python:</p>
+
+<p>Add the following includes:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">urllib2</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">json</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then add the following to the bottom:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://mycooltemperatureapp.firebaseio.com/readings.json&#39;</span>
+</span><span class='line'><span class="n">postdata</span> <span class="o">=</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&#39;date&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">timegm</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">())),</span>
+</span><span class='line'><span class="s">&#39;temp&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">read_temp</span><span class="p">())</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class='line'><span class="n">req</span><span class="o">.</span><span class="n">add_header</span><span class="p">(</span><span class="s">&#39;Content-Type&#39;</span><span class="p">,</span><span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">postdata</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">you</span> <span class="n">don</span><span class="s">&#39;t have to do anything with response&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now run the file a few times, and open up your Firebase console, and you should see something that looks like this:</p>
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-9.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>Congrats! you're now storing data. You can export this to a CSV or create a JavaScript application to display it. I'll be covering what we do with this data in a future tutorial.</p>
+
+<p><strong>NOTE</strong>: You really should add some authentication to your Firebase database if you care about the data.</p>
+
+<h3>Create a CRON Job to Automatically gather data</h3>
+
+<p>There's two ways we can run this script automatically. We can add the loop back in, and just run the Python script and keep it running. You can use something like <a href="http://linux.101hacks.com/unix/nohup-command/" target="_blank">nohup</a> to run it as a service but that's a little shaky. I'd rather just run the script once a minute with a CRON job. To do this, type in</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>crontab -e</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>to run the cron editor. Add an entry like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>* * * * * /usr/bin/python /home/pi/readtemp.py</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><img src="/images/monitor-room-temp-raspberry-pi/monitor-room-temperature-raspberry-pi-10.jpg" alt="Monitor room temperature with Raspberry Pi" /></p>
+
+<p>And save the file. CRON will automatically update and start running this command every minute (or whatever you set it to).</p>
+
+<p>This will ensure that your script is run at regular intervals. You can set it to run every minute, hourly, daily or whatever you'd like. Here's some more information <a href="http://code.tutsplus.com/tutorials/scheduling-tasks-with-cron-jobs--net-8800" target="_blank">about scheduling cron jobs.</a></p>
+
+<h3>Summary</h3>
+
+<p>I hope this tutorial has helped show you how to monitor ambient air temperature with a Raspberry Pi. If you purchase this same sensor it's waterproof which means there is much more you can do with it. You can also hook up multiple sensors to the Pi, separated by serial numbers.</p>
+
+<p>There are tons of neat things you can do with this information, and I encourage you to experiment. In a future tutorial we'll take some of this data I've gathered and do something with it. Thanks for reading.</p>
+
+<p>You can <strong><a href="https://github.com/JeremyMorgan/Raspberry_Pi_Temperature">download the source code for this article</a></strong> at GitHub.</p>
+
+<p><br />
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled "<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>" which is intended to be a course for people who want to get started with IoT. I'll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I'm offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div><br />
+
+<a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br />
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Two Awesome Tools You Need Right Now]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/nimbletext-and-postman-two-great-tools/"/>
+    <updated>2015-07-19T11:49:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/two-awesome-tools-you-need-right-now</id>
+    <content type="html"><![CDATA[<p>I have recently been using a couple of tools every day, in both my professional and and personal work and feel like sharing them here today. These tools will help you tremendously as a developer and they just happen to be free.</p>
+
+<!-- more -->
+
+
+<h3>NimbleText and Postman: A Must have for Developers</h3>
+
+<p>The standard disclaimer: I am not being compensated in any way for this review, and have not been approached by the creators of these applications, in fact I have purchased the premium versions of both of them and they are unaware I'm writing this.</p>
+
+<p>Here's where to get them:</p>
+
+<ul>
+<li><strong><a href="http://nimbletext.com/" title="Nimble Text">NimbleText Download</a></strong></li>
+<li><strong><a href="https://www.getpostman.com/" title="Get Postman">Postman Download</a></strong></li>
+</ul>
+
+
+<p>NimbleText only runs in Windows, but Postman is a Chrome App that's kind of evolved to a standalone. Let's dig in and check them out.</p>
+
+<h2>NimbleText</h2>
+
+<p><img src="/images/nimbletext-postman/nimbletext-01.jpg" alt="NimbleText download" /></p>
+
+<p>When you first open NimbleText it shows you a sample usage that shows how it works at a high level. It's simply variable replacement from a CSV and should be instantly intuitive for any programmer. You load in a CSV and then use the columns as a variable wherever you want them, and it works very well. But that's just the beginning. Here's one way I have used it.</p>
+
+<p>Scenario: you have a list of fields you will be working with in C#/.Net. It is a long list and you want to build a type to store it:</p>
+
+<ul>
+<li>firstname</li>
+<li>middlename</li>
+<li>lastname</li>
+<li>prefix</li>
+<li>suffix</li>
+<li>gender</li>
+<li>address1</li>
+<li>address2</li>
+<li>city</li>
+<li>state</li>
+<li>zip</li>
+<li>phone</li>
+<li>socialsecurity</li>
+<li>notes</li>
+</ul>
+
+
+<p>Given this list, you can of course create your object by hand but dump this list into NimbleText and within a couple steps you can have a nice list of properties. Use the string:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public string $0 { get; set; }</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and you get this output:</p>
+
+<p><img src="/images/nimbletext-postman/nimbletext-02.jpg" alt="NimbleText download" /></p>
+
+<p>There's a nice set of properties. But we can do more. What if we want to change the formatting of the fields? You can change the casing very easily:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public string &lt;% $0.toPascalCase() %> { get; set; }</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now it looks like this:</p>
+
+<p><img src="/images/nimbletext-postman/nimbletext-03.jpg" alt="NimbleText download" /></p>
+
+<p>Want to assign fields to those properties later?</p>
+
+<p><img src="/images/nimbletext-postman/nimbletext-05.jpg" alt="NimbleText download" /></p>
+
+<p>You can use it to create SQL parameters:</p>
+
+<p><img src="/images/nimbletext-postman/nimbletext-04.jpg" alt="NimbleText download" /></p>
+
+<p>Speaking of SQL, you can simplify your CREATE statements:</p>
+
+<p><img src="/images/nimbletext-postman/nimbletext-06.jpg" alt="NimbleText download" /></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cmd.Parameters.AddWithValue("@&lt;% $0.toPascalCase() %>", &lt;% $0.toPascalCase() %>);</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is just using the zero index, you can also use a CSV for creating other SQL statements with ease. Let's create an INSERT statement:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ONCE
+</span><span class='line'>INSERT INTO Person ($0, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+</span><span class='line'>VALUES
+</span><span class='line'>$EACH+ ('$0', '$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9', '$10', '$11', '$12', '$13')&lt;% if ($rownumOne != $numrows) {','} %></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>after dumping in our CSV:</p>
+
+<p><img src="/images/nimbletext-postman/nimbletext-07.jpg" alt="NimbleText download" /></p>
+
+<p>There are a variety of scripting options that really make this a powerful tool for anyone working with large amounts of text.</p>
+
+<p>This can save you hours of time over the course of a large project.</p>
+
+<p><strong><a href="http://nimbletext.com/" title="Nimble Text">Get NimbleText Here</a></strong></p>
+
+<p>It's free, but you can unlock a ton of "pro" features for only $19.95. It has been well worth it for me.</p>
+
+<h2>POSTMan - Awesome tool for developing APIs</h2>
+
+<p>Another awesome tool I've been using a lot is <a href="https://www.getpostman.com/" title="Get Postman">Postman</a>. It's a must have for API developers. One thing it does well is send a variety of commands to your API, from common GET,POST,PUT,DELETE and many others:</p>
+
+<p> <img src="/images/nimbletext-postman/postman-01.jpg" alt="Postman download" /></p>
+
+<p>There are other tools for sending REST commands, but this one stands out mostly because of the organization. There are sets of "collections" so you can build sets of REST commands for a project:</p>
+
+<p> <img src="/images/nimbletext-postman/postman-02.jpg" alt="Postman download" /></p>
+
+<p>This has been useful for me for organizing multiple projects (My work related ones are hidden here) and keeping track of URLS for different purposes.</p>
+
+<p>Another awesome feature is "environments". You may have URLs like this:</p>
+
+<ul>
+<li>http://dev.yoursite.com/api/person/1</li>
+<li>http://stage.yoursite.com/api/person/1</li>
+<li>http://uat.yoursite.com/api/person/1</li>
+<li>http://prod.yoursite.com/api/person/1</li>
+</ul>
+
+
+<p>(if you don't you really should). Rather than duplicating each of those urls you can create environments and use placeholders for the URL:</p>
+
+<p>
+{{server}}/api/person/1
+
+and switch easily between them:</p>
+
+<p><img src="/images/nimbletext-postman/postman-03.jpg" alt="Postman download" /></p>
+
+<p><img src="/images/nimbletext-postman/postman-04.jpg" alt="Postman download" /></p>
+
+<p>This has been great for moving between environments.</p>
+
+<p>Also the ability to fully customize requests in Postman is unmatched:</p>
+
+<p><img src="/images/nimbletext-postman/postman-05.jpg" alt="Postman download" /></p>
+
+<p>No matter what kind of API/REST service you're working with Postman will help you out and save you time tremendously.</p>
+
+<p>This is another free utility, but with a premium version you can save collections and run tests, as well as other features. Well worth it.</p>
+
+<p><a href="https://www.getpostman.com/" title="Get Postman">Get Postman Here</a></p>
+
+<h2>Summary</h2>
+
+<p>These two tools have recently been added to my toolbox and I've used them like crazy so I thought I'd share them with you. They are huge time savers, and decrease iteration time as well as save you from performing mundane activities, giving you more time to innovate. I'll be sharing more utilities like this in the future.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Brief Introduction to REST]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/intro-restful-web-services/"/>
+    <updated>2015-05-21T21:25:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/brief-introduction-to-rest</id>
+    <content type="html"><![CDATA[<p>Perhaps you've seen the term REST being thrown around lately and have been a little curious what it's all about. If that's the case, or you know a little about it but never used it, this article is for you. Today I'm going to give a small overview of what REST services are, and why it's awesome.</p>
+
+<!-- more -->
+
+
+<h2>So long RPC, hello REST</h2>
+
+<p>If you've been in the web game a while, you may remember when RPC took over the web about 10 years ago. I myself remember it being one of the most exciting things of it's time. Although the pattern has been around since the 80s it started popping up on the web in the early 2000s, and for it's time RPC was a great solution. In fact it's still in use all over the place.</p>
+
+<p>RPC stands for Remote Procedure Call, and it is a way to execute a method on a separate address space such as a server, and consume the output if needed. Here's a rough diagram of what that looks like:</p>
+
+<p><img src="/images/rest-services/intro-rest-services-1.jpg" title="&#34;Intro to REST Services&#34;" alt="&#34;Intro to REST Services&#34;"></p>
+
+<p>As you can see the web server at www.yoursite.com submits and retrieves information from other servers, and uses that data to assemble a web page. RPC calls can provide services for just about anything, from messaging protocols, to stock quotes, weather reports, etc. WordPress uses it extensively for pinging other blogs and a multitude of communication services.</p>
+
+<h3>XML RPC and SOAP</h3>
+
+<p>There are generally two ways to perform RPC calls, with XML and SOAP. There are advantages to each, but back when I was building a lot of this stuff I preferred the XML-RPC methods which was an RPC call made to a server that returned XML. It's very simple and straightforward, and didn't require a lot of ceremony.</p>
+
+<p><a href="http://tldp.org/HOWTO/XML-RPC-HOWTO/xmlrpc-howto-intro.html">How XML-RPC Works</a></p>
+
+<p>SOAP (Simple Object Access Protocol) also uses XML for messaging, but provides an extensible and powerful messaging system. It requires a bit more work in exchange for more powerful features.</p>
+
+<p><a href="https://msdn.microsoft.com/en-us/library/ms995800.aspx">How SOAP-RPC works</a></p>
+
+<p>Neither of these systems were inherently bad and provided great solutions for the time. It's still prevalent all over the web and doing well. In 2008 Leonard Richardson introduced a model that's much more useful today.</p>
+
+<p>If you want a more detailed explanation, check out this <a href="https://technet.microsoft.com/en-us/library/cc738291(v=ws.10).aspx" target="_new">Microsoft TechNet article on RPC.</a></p>
+
+<h2>Key REST Principles</h2>
+
+<p>In short, Rest is a set of principles to be adhered to when communicating from point to point. Here are some of those guidelines</p>
+
+<ul>
+<li>Deals with objects (resources) that have IDs</li>
+<li>Links servers together</li>
+<li>Provides an interface between spaces</li>
+<li>Uses standard methods</li>
+<li>is stateless</li>
+</ul>
+
+
+<p>These are some of the basic things that a make a service RESTful in nature. One of the important principles is that they are to be objects with an ID. These IDs will used in a URI to identify which resource we're reading or modifying.</p>
+
+<blockquote><p>http://www.yoursite.com/api/products/1234</p></blockquote>
+
+<p>Next we'll look at the model for determining if an API is "RESTful" and what level it conforms to.</p>
+
+<h2>REST Maturity Model</h2>
+
+<p>Richardson created the REST Maturity model which specifies whether an API is "fully RESTful". Most are not, and don't necessarily have to be. But here is a rundown:</p>
+
+<h3>Level 0 - XML-RPC / SOAP</h3>
+
+<ul>
+<li>One URI</li>
+<li>One HTTP Method</li>
+</ul>
+
+
+<p>Level 0 is a very basic model where you simply sent an RPI (Remote Procedure Invocation) at a web site and it returns some data. It can be in XML, JSON, or any format with key-value pairs.</p>
+
+<h3>Level 1 - Add URIs</h3>
+
+<ul>
+<li>Many URIs / Resources</li>
+<li>One HTTP Method</li>
+</ul>
+
+
+<p>Level 1 is similar except now there are multiple resources in use:</p>
+
+<blockquote><p>http://www.yoursite.com/api/products/1234</p>
+
+<p>http://www.yoursite.com/api/customers/0037</p></blockquote>
+
+<h3>Level 2 - Add HTTP</h3>
+
+<ul>
+<li>Many URIs/Resources</li>
+<li>Use of HTTP Verbs</li>
+</ul>
+
+
+<p>In level 2 we add HTTP verbs: GET,POST,PUT,DELETE. There are others, but these four I will describe later.</p>
+
+<h3>Level 3 - Add HATEOAS</h3>
+
+<ul>
+<li>Many URIs/Resources</li>
+<li>Use of HTTP verbs</li>
+<li>Hypermedia</li>
+</ul>
+
+
+<p>In this level we add HATEOAS: Hypertext As The Engine Of Application State. This is how we send objects, but also some instructions in the reply describing what we can do next. For example, it may return something like this:</p>
+
+<pre><code>&lt;?xml version="1.0"?&gt;
+&lt;account&gt;
+   &lt;account_number&gt;12345&lt;/account_number&gt;
+   &lt;balance currency="usd"&gt;100.00&lt;/balance&gt;
+   &lt;link rel="deposit" href="https://www.jeremymorgan.com/account/12345/deposit" /&gt;
+   &lt;link rel="withdraw" href="https://www.jeremymorgan.com/account/12345/withdraw" /&gt; 
+   &lt;link rel="transfer" href="https://www.jeremymorgan.com/account/12345/transfer" /&gt;
+   &lt;link rel="close" href="https://www.jeremymorgan.com/account/12345/close" /&gt;
+ &lt;/account&gt;
+</code></pre>
+
+<p>(from Wikipedia)</p>
+
+<p>These hypermedia controls mean the REST client does not need to know how to use the service and instead can be guided by the responses. This is what is considered a "fully RESTful" service.</p>
+
+<h2>HTTP Verbs</h2>
+
+<p>The HTTP verbs are a standard interface for communicating via a REST service. There is "createobject" verb, or "modifyobject" so these actions are completed with a set of verbs:</p>
+
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>PUT</li>
+<li>DELETE</li>
+</ul>
+
+
+<p>I'll try to explain these in the simplest way possible. Here we are working with "resources" that are similar to records in SQL (or may directly correlate with a record).</p>
+
+<p><strong>GET</strong> - This retrieves a list of resources, and does not modify them. Equivalent to an SQL SELECT</p>
+
+<p><strong>POST</strong> - Generally used to create a new resource. Equivalent to an SQL INSERT</p>
+
+<p><strong>PUT</strong> - Replaces a resource with updated information. Equivalent to an SQL UPDATE</p>
+
+<p><strong>DELETE</strong> - Removes a resource. Equivalent to an SQL DELETE</p>
+
+<p>All of this is done through HTTP. There are more HTTP Verbs in use, but I mention these as they are the most commonly used for REST. In fact, some engineers only use GET and POST for all operations. Theoretically you can do everything with GET if you overload requests in the URIs, but generally it's good practice to use these verbs for your actions.</p>
+
+<h3>Everything needs an ID</h3>
+
+<p>All of these resources need to have an ID. This is especially true with PUT and DELETE as we need to know which resources to modify behind the scenes. The ID is generally passed in the URI:</p>
+
+<blockquote><p>http://www.yoursite.com/api/customers/0037</p></blockquote>
+
+<p>If we send a PUT to this URI, it will update the customer resource with an ID of 0037. If we send a DELETE to this URI, it will remove it.</p>
+
+<h3>Verbs that must be Idempotent</h3>
+
+<p>In theory the GET, PUT, and DELETE verbs should be idempotent, meaning you can call them over an over without any additional side effect. For example, you should be able to send a delete to a URI over and over without breaking the system. Even if the resource has been deleted you should send back a code, but not throw an exception or crash.</p>
+
+<p>Often times when designing REST interfaces, I will send a 200(OK) when a resource is deleted. Then on subsequent deletes I will send a 204 or 404 so the caller knows the resource is no longer present. I don't do this with a PUT, however. Even if the caller sends a PUT with the same information over and over they'll get the same response because I'm not going to be checking if the data submitted is actually different. Instead I'll just blindly update the resource with whatever information is sent. We don't really care if the data is truly different and don't want to waste cycles checking for it unless we are doing some form of auditing.</p>
+
+<h2>REST API Example</h2>
+
+<p>Here's an example of a simple REST API using the information we've learned about above. We want to create an API to modify our customer information.</p>
+
+<p><img src="/images/rest-services/intro-rest-services-2.png" title="&#34;Intro to REST Services&#34;" alt="&#34;Intro to REST Services&#34;"></p>
+
+<p>As you can see sometimes the URI is the same but the verb being sent is different. This is crucial to know when building your application, because getting your verbs mixed up can give unexpected results. You may intend to update a resource and instead delete it.</p>
+
+<h3>Communication between endpoints</h3>
+
+<p>There are several ways you can communicate over REST and there is no right answer. The most common ways are XML and JSON. Here is a light comparison between the two.</p>
+
+<p><strong>XML:</strong></p>
+
+<p>Pros:</p>
+
+<ul>
+<li>Generalized markup, so you can create multiple formats and styles for custom purposes.</li>
+<li>You can define Schema for custom datatypes and perform structure validation.</li>
+<li>can use XPATH to extract information much easier than JSON</li>
+</ul>
+
+
+<p>Cons:</p>
+
+<ul>
+<li>Much more verbose than JSON, more data is being transferred and can be slower</li>
+</ul>
+
+
+<p><strong>JSON</strong></p>
+
+<p>Pros:</p>
+
+<ul>
+<li>Easy integration with JavaScript (which is commonly used to interface with REST services)</li>
+<li>Simple, easy to understand syntax</li>
+<li>Less overhead, smaller sizes and better performance</li>
+</ul>
+
+
+<p>Cons:</p>
+
+<ul>
+<li>Less powerful and flexible, especially with different data types</li>
+</ul>
+
+
+<h2>Summary</h2>
+
+<p>I hope this has provided a good overview of what REST services are and how they're structured. The trends in web technology have moved away from the common middleware web services that generate HTML for browsers and today people access the web from a variety of different devices, including phones, tablets and watches. REST is well suited for this as it gives a common interface to your data, giving you the freedom to use that data on a variety of platforms.</p>
+
+<p>The same REST service can power a web page, mobile application or anything you can imagine. You can have synchronization between a web page and mobile device (think of Spotify) with ease. REST is the future of the web and something you should be using for your next project, if you aren't already.</p>
+
+<p>I'd like to give a shout out to <a href="https://www.getpostman.com/" target="_blank">POSTman</a> which is an awesome interface for testing REST services. You can use it while designing your REST backend or your front end application. It's indispensable.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to install ASP.Net 5 on Ubuntu Linux]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/how-to-asp-5-linux/"/>
+    <updated>2015-04-10T07:50:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/how-to-install-asp-dot-net-5-with-docker</id>
+    <content type="html"><![CDATA[<p>One of the primary goals of the ASP.Net 5 (codenamed vNext) project is cross platform development, and it's become easier than ever to develop ASP.Net applications on Linux and OSX. Today we're going to take a look at how to do this with Ubuntu Linux server.</p>
+
+<!-- more -->
+
+
+<h3>1. Get Your System Ready</h3>
+
+<p>Let's get our system started. For this tutorial I'm using a Digital Ocean droplet. These are only $5 per month, and <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4" target="_new">if you click this link to sign up</a> you'll get a $10 credit.</p>
+
+<p>I installed a blank Ubuntu 14.04 64 bit server. First, run the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update&amp;&amp;sudo apt-get dist-upgrade</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This will make sure we have the newest package lists and upgrade packages if they are available.</p>
+
+<p>Next we'll need to install Mono. The current stable version for Ubuntu is 3.2.8, which won't run ASP.Net, so we will have to pull it directly from the Mono repositories:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+</span><span class='line'>echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
+</span><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install mono-complete</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>To make sure it installed correctly, type in</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mono -V</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><img src="https://www.jeremymorgan.com/images/asp-5-linux/how-to-asp-5-linux-1.jpg" title="how to install ASP.Net 5 on Docker" ></p>
+
+<p>Next, we'll install some prerequisites that we'll need to fetch and build some items from source:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install -y autoconf build-essential git-core libtool unzip curl</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Also, to run web services we'll need to install libuv. We'll have to build it from source and link it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /opt
+</span><span class='line'>sudo git clone https://github.com/libuv/libuv.git
+</span><span class='line'>cd libuv
+</span><span class='line'>sudo ./autogen.sh
+</span><span class='line'>sudo ./configure
+</span><span class='line'>sudo make
+</span><span class='line'>sudo make install
+</span><span class='line'>sudo ln -s /usr/local/lib/libuv.so /usr/lib/libuv.so.1</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now our system should be ready for ASP.Net 5.</p>
+
+<h3>2. Set up ASP.Net 5</h3>
+
+<p>Now that we've got that set up, let's put ASP.Net 5 on here. First we'll install KVM:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -sSL https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.sh | sh &amp;&amp; source ~/.k/kvm/kvm.sh</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><b>Note:</b> if you want to go real bleeding edge, you can install DNVM instead, shich is the replacement for KVM:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh &amp;&amp; source ~/.dnx/dnvm/dnvm.sh</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, let's install DNX (the .Net execution environment)</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kvm upgrade</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you downloaded DNVM above instead, run:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dnvm upgrade</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>3. Clone an ASP.Net Sample</h3>
+
+<p>Now we'll clone the sample repositories:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir ~/aspnet
+</span><span class='line'>cd ~/aspnet
+</span><span class='line'>git clone https://github.com/aspnet/Home.git
+</span><span class='line'>cd ~/aspnet/Home/samples/HelloMvc</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is the sample we'll choose to build. Type in the following to build the packages for it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kpm restore</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we can start it up:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>k kestrel</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>You should see a screen that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/asp-5-linux/how-to-asp-5-linux-2.jpg" title="how to install ASP.Net 5 on Docker" ></p>
+
+<p>Congrats! You now have ASP.Net 5 running on Ubuntu Linux!</p>
+
+<p>If you would like to run this as a background process, type in</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nohup k kestrel &amp;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Note that this should not yet be used for production servers!</p>
+
+<h3>Conclusion</h3>
+
+<p>I have found several articles online about how to do this, but many of them seemed innaccurate, missing peices or out of date. This is common with bleeding edge stuff. I'll try to update this as much as possible.</p>
+
+<p>This is a good way to set up cheap instances of ASP.Net for your projects. At only $5 a month you could have several application servers running for your project for very little. As I stated before you can <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4" target="_new">get a $10 credit from Digital Ocean by using this link</a> to sign up, or you can use some of the other low cost Linux hosts out there to set up some low cost, fast ASP.Net 5 servers.</p>
+
+<p>Enjoy!</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+]]></content>
+  </entry>
+  
+</feed>

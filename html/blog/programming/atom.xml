@@ -1,0 +1,1544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Programming | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/programming/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Set up easy file sharing with Samba]]></title>
+    <link href="https://www.jeremymorgan.com/blog/linux/how-to-file-sharing-samba/"/>
+    <updated>2018-03-18T14:43:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/linux/set-up-easy-file-sharing-with-samba</id>
+    <content type="html"><![CDATA[<p>In this tutorial, I'll show you how easy it is to setup file sharing on your network using SAMBA. You can easily share files between Linux and Windows machines with a pretty minimal amount of setup.</p>
+
+<!-- more -->
+
+
+<h3>How I'm Using SAMBA File Sharing</h3>
+
+<p>First, to give you little context, here's how I am using Samba file sharing, with something I recently set up for course development.</p>
+
+<p><img src="/images/how-to-file-sharing-samba/how-to-file-sharing-samba-01.jpg" alt="How to setup file sharing with SAMBA" /></p>
+
+<p>So I am developing courses and using a variety of Operating Systems for it. One course in progress is Windows related and I'm using Windows 2012 and 2016 Server machines. For another course I'm working on I'm using a variety of Linux machines. I'm spinning up multiple virtual machines with a fresh OS to demonstrate configuration and modification, then destroying them.</p>
+
+<h3>Workstation</h3>
+
+<p>I have my workstation that I record with (my trusted Mac Mini), and I use Windows or OSX and run things like Camtasia, Final Cut Pro, Audio Tools, Photoshop, PowerPoint etc. I have a dual monitor setup and I use RDP to connect to a server, and use a full screen on one Monitor and have my recording tools on the other.</p>
+
+<h3>Virtualization</h3>
+
+<p>I'm using a server to run headless virtual machines <a href="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/" target="_blank">that I described in this article</a>. The sole purpose of this machine is to run these virtual machines and I want to dedicate as many resources as I can to it, because it runs several at one time.</p>
+
+<p>I ran into an issue where i had a huge folder full of ISO images for each operating System. Combined with the disk space used by the virtual machines themselves, I decided I had to split it off.</p>
+
+<br />
+
+
+<p><img src="/images/how-to-file-sharing-samba/how-to-file-sharing-samba-02.jpg" alt="How to set up file sharing with SAMBA" /></p>
+
+<h3>File Server</h3>
+
+<p>I found an old machine I wasn't using and decided to drop a hard drive in it, and turn it into a file server. With an i3 and 4 gigs of RAM it's plenty fast. I decided to go with a minimal install of CENTOS an install SAMBA on it.</p>
+
+<h3>Workflow</h3>
+
+<p>So now I can ssh into my server and run commands to spin up the various virtual machines I need to run, and I have space to create many more. I have the installation ISOS residing on the file share server, which is mounted on the VM server. So to create a new virtual machine, I can just mount an ISO, run the installer and go, and create fresh new machines as needed.</p>
+
+<p>If I see some cool distribution of Linux I just have to try, I can download the installer ISO with my workstation to the shared folder, then build a vm to install from the ISO.</p>
+
+<p>It's not redundant or secured tightly, but it's all stuff I can download from MSDN or the internet to replace anyway. This is one of my uses for a Samba server.</p>
+
+<p>Now, let's get to the tutorial.</p>
+
+<h2>How to Set Up File Sharing with Samba</h2>
+
+<p>Here's how you can set up a file server with Samba. For this I am using <a href="https://www.centos.org/" target="_blank">CentOS</a> Linux, but it's very similar for most Linux distributions.</p>
+
+<p>I've created an account named jeremy that will be used for serving files. You never want to run this kind of stuff under the root account.  So I'll log in with the Jeremy account, and use sudo to run any commands that require administrative rights.</p>
+
+<p>In a fresh install of CentOS you will need to <a href="https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-centos-quickstart" target="_blank">add this account to the sudoers file</a>.</p>
+
+<h3>Install Samba</h3>
+
+<p>First we'll need to install Samba.</p>
+
+<p><code>
+sudo yum install samba samba-client samba-common
+</code></p>
+
+<p>Now we want to create a new folder for our file share. This is where the files will be stored that we're sharing.</p>
+
+<p>Then we'll change the permissions on this share</p>
+
+<p><code>
+mkdir -p /srv/samba/secure
+sudo chmod -R 0770 /srv/samba/secure
+sudo chown -R root:smbgrp /srv/samba/secure
+sudo chcon -t samba_share_t /srv/samba/secure
+</code></p>
+
+<h3>Add Samba User Group</h3>
+
+<p>Next we'll add the Samba user group. Then you'll want to add a user to that group.
+You want to make sure this is an existing user on your machine, for this I used the Jeremy account I created the folder with.</p>
+
+<p><code>
+groupadd smbgrp
+usermod jeremy -aG smbgrp
+</code></p>
+
+<p>Next, you want to add the Samba user, which should be the same as the account you're using (in my case, jeremy).</p>
+
+<p><code>
+sudo smbpasswd -a jeremy
+</code></p>
+
+<p>it will ask you for your password. This will be the password for the Samba share, and you can put in your existing user password here.</p>
+
+<h3>Edit Smb.conf</h3>
+
+<p>Next we want to edit our smb.conf. Make a quick backup of the file</p>
+
+<p><code>
+sudo cp /etc/samba/smb.conf /etc/samba/smb.bak
+</code></p>
+
+<p>Now, let's edit the file</p>
+
+<p><code>
+sudo vi /etc/samba/smb.conf
+</code></p>
+
+<p>First I'm going to change the name of my workgroup to WORKGROUP in all caps. this is the name of my windows workgroup.</p>
+
+<p>Here we have homes which are home folders for each user if you'd like to use those</p>
+
+<p>Let's create a share that points to where we just created a folder.</p>
+
+<p>```
+[fileshare]</p>
+
+<pre><code>comment= my file share
+path = /srv/samba/secure
+valid users = jeremy
+public = no
+writable = yes
+browsable = yes
+printable = no
+create mask = 0765
+</code></pre>
+
+<p>```</p>
+
+<h3>Start Service</h3>
+
+<p>You want to test your configuration changes to make sure everything is correct.</p>
+
+<p><code>
+testparm
+</code></p>
+
+<p>Then, it's time to restart the smb and nmb services:</p>
+
+<p><code>
+sudo systemctl restart smb.service
+sudo systemctl restart nmb.service
+</code></p>
+
+<h3>Firewall</h3>
+
+<p>We'll have to add an entry to the firewall to allow the samba service to be accessible from outside the network:</p>
+
+<p><code>
+firewall-cmd --permanent --zone=public --add-service=samba
+firewall-cmd --reload
+</code></p>
+
+<h3>Browsing</h3>
+
+<p>Now, we can browse to the server from a Windows machine:<br /></p>
+
+<div style="display: block; margin-left: auto; margin-right: auto;">
+
+<img src="https://www.jeremymorgan.com/images/how-to-file-sharing-samba/how-to-file-sharing-samba-03.jpg" alt="How to file sharing with Samba" />
+
+</div>
+
+
+<br />
+
+
+<p>You can even mount it as a mapped drive, or <a href="https://wiki.samba.org/index.php/Mounting_samba_shares_from_a_unix_client" target="_blank">mount it on a linux machine</a>. Samba setup is super easy, and great to use.</p>
+
+<h2>Conclusion</h2>
+
+<p>Setting up Samba is easy, and something to consider if you want easy file sharing between Linux and Windows machines, or even Linux and Linux machines. I gave some context of how to set it up, but there are tons of use cases for Samba. You can also tie it in to different authentication/authorization schemes if you'd like an use it with Active Directory as well. Check out <a href="https://www.samba.org/" target="_blank">Samba.org</a> for more information.</p>
+
+<p>I also created a video tutorial for this:</p>
+
+<br />
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JT0Y0VUP7T4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+<br />
+
+
+<p>Subscribe to <a href="https://www.youtube.com/channel/UCAR4QD5vqpn4LFrrBiDe7lQ" target="_blank">my channel on YouTube</a> for more tutorials!</p>
+
+<br />
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My Latest Virtualization Setup]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/"/>
+    <updated>2018-02-10T13:28:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/devops/my-virtualization-setup</id>
+    <content type="html"><![CDATA[<p>Like many geeks of the time I spent the 90s and 2000s with at least 2 or 3 old computers in a closet, connected by a switch running various operating systems with various services running on them. Giant, loud, clunky machines whirring away.</p>
+
+<!-- more -->
+
+
+<div style="float: right; padding: 15px;">
+
+<img src= "https://www.jeremymorgan.com/images/my-virtual-box-setup/jeremy-old.jpg" alt="Jeremy Morgan, about 2003 or so" />
+
+</div>
+
+
+<p>This very website was hosted for years on an old Pentium Machine running FreeBSD connected to my DSL line in my bedroom. It was just the way you did things then.</p>
+
+<p>I had stacks of hard drives with labels on them. Ebay specials I'd purchased for the sole purpose of putting different operating systems on them. Everything from Redhat, Gentoo, FreeBSD or various versions of Windows, I would just swap the drive and go.</p>
+
+<p>For years I lived in a condo that had a coat closet near the front door with an electrical outlet in it. I ran Ethernet through the ceiling and filled it to the top with machines. All for development, file servers, and web hosting purposes. It all seems a little silly now.</p>
+
+<h3>2018 is a little different...</h3>
+
+<p>These days I have an Azure Account, AWS, and <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4" target="_blank">Digital Ocean</a>. Virtualization has made progress even the most die hard geeks didn't expect. Even development itself is a bit abstracted from the bare metal these days, at least for most people. Things like Docker will make the OS and it's configuration almost irrelevant.</p>
+
+<p>Yet I still have a server in my house, and I want to show you guys the setup.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/intel-xw8400-server.jpg" alt="HP xv8600 Xeon Server" /></p>
+
+<p>This is an old HP Xeon Workstation I picked up that was going to use for course production, but even with 2 Xeons and 32 gig of RAM it fails to outperform my Mac Mini for video and audio rendering. So I decided to use it for some remote virtualization stuff, and stuffed it in a corner of our daylight basement.</p>
+
+<h3>Why do I need this?</h3>
+
+<p>Lately I've been doing a lot of random software development and building courses online. For those courses I need a fresh operating system and development environment. Obviously I could record some of these things on my desktop, but with the frequent configuration changes and software installs I could mess up the accuracy of my courses. So I want a machine with a dedicated operating system for each course. That motivated me to set this up.</p>
+
+<h2>Getting the server setup</h2>
+
+<p>To start this out, I originally had Windows 10 on this server. It ran well, <a href="http://browser.geekbench.com/v4/cpu/6882166" target="_blank">the performance was not too bad</a>. But if I were to use this as only a Virtualization machine, the overhead wasn't that great.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/windows-memory.jpg" alt="Window 10 Memory Usage " /></p>
+
+<p>This is with the machine "at an idle". I was using up 2 gigs of memory just loading up a desktop with nothing else. Surely I could do better than that.</p>
+
+<p>It should come as a surprise to nobody I decided to go with Linux base, and I installed Debian 9 on it. Why Debian? It's the same OS that powers jeremymorgan.com and I like it because it's lean, simple and well supported. It doesn't have the bleeding edge packages (I use Arch on the Desktop for that) but it's stable. Incredibly stable. I wanted something I could install and forget about. So Debian was my choice.</p>
+
+<p>I went with a barebones Linux installation, custom kernel and no window manager, and found that the idle was significantly better:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/linux-memory-usage.jpg" alt="Linux Memory Usage" /></p>
+
+<p>This gives me a little more headroom and CPU cycles to work with.</p>
+
+<p>I ended up installing LXDE because it's easier to configure and manage VMs with a window system. But I needed to set my server to boot to just a console, that way I can start and stop the windowing environment when I wanted to.</p>
+
+<p>To do that, I had to set my runlevel, which is a little different these days than in the past. If you want your server/desktop to boot to a prompt, do this:</p>
+
+<p><code>
+systemctl get-default
+</code>
+In my case, it said</p>
+
+<blockquote><p>graphical.target</p></blockquote>
+
+<p>Which is not what I want. So I then type in:</p>
+
+<p><code>
+systemctl set-default multi-user.target
+</code></p>
+
+<p>that way I can just fire up the server at a prompt and not have to have the windowing system loaded in memory. Yep, it's that easy.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/default-runlevel-target.jpg" alt="Default Runlevel Target for Debian" /></p>
+
+<p>So now I had a nice lean and stable OS base to start with.</p>
+
+<p>Then I installed LXDE and then used <a href="http://networkstatic.net/xrdp-an-easy-remote-desktop-setup-for-your-ubuntu-servers/" target="_blank">xrdp to set up a remote desktop</a> so I never have to walk over to the server to do anything. I just remote in from my office.</p>
+
+<h3>Setting up virtual machines</h3>
+
+<p>For the Virtualization, I chose <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Virtual Box</a>. I've worked with Hyper-V and VMWare in the past and they each have their merits, but for this application this works best for me. I originally attempted to setup Hyper-V server but my machine was too old and didn't support it fully. So this worked out.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtualbox.jpg" alt="Virtual Box Setup" /></p>
+
+<p>Now one thing about Virtual Box that's awesome is you can virtual machines "headless" from the command line. This is a great feature if you want to spin up a bunch of them. I can run 3 to 4 servers at a time without a blip in performance (ok 32 gigs of RAM and Xeons help with that).</p>
+
+<p>Installing the machines is super easy. You can choose to allocate as much hardware as you'd like, or don't like to the mix:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtual-box-memory.jpg" alt="Virtual Box Memory" /></p>
+
+<p>And CPU usage is handled nicely:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtual-box-cpu.jpg" alt="Virtual Box CPU Setup" /></p>
+
+<p>For networking, I set up one bridged adapter to communicate with the outside world, and another adapter for an internal network to communicate with other servers:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/bridged.jpg" alt="Bridged Network Adapter VirtualBox" /></p>
+
+<p>It can't be beat. So now I have several VMs set up and ready to go.</p>
+
+<h2>Running the Virtual Machines</h2>
+
+<p>So now I have my server booted at just a prompt, and I can list all my available virtual machines:</p>
+
+<p><code>
+VBoxManage list vms
+</code></p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtualbox-list-vms.jpg" alt="Virtual Box List VMs" /></p>
+
+<p>This is pretty handy. I can start them up here, then RDP into them from my office machine. Virtualbox uses VRDP to provide the headless interface to the outside world. I've used it extensively the last few weeks with zero problems.</p>
+
+<p>I can start up a VM with the following command:</p>
+
+<p><code>
+VBoxManage startvm "&lt;VM NAME&gt;" --type headless
+</code></p>
+
+<p>I even have some shell scripts to start up clusters or sets of machines at once.</p>
+
+<p>Then, I can just check to see the machine are running:</p>
+
+<p><code>
+VBoxManage list runningvms
+</code>
+ <img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/show-running-vms.jpg" alt="Show running VMs in Virtual Box Command line headless" /></p>
+
+<p>And it's that easy!</p>
+
+<p>Here's one thing that's not so easy... finding an IP address. The only real reliable way to get it is by going into my router and looking for them. Some machines I have statically assigned an IP for ease of use. If you don't do that though, you can always just show the VM from the Windowing interface:</p>
+
+<p> <img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/show-desktop-ip.jpg" alt="Show Desktop Virtual Box" /></p>
+
+<p>And then type in ipconfig, ifconfig, ip a, etc to get the IP.</p>
+
+<p>I can RDP into any of these machines, do development, record courses, whatever I need.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/desktop-view.jpg" alt="RDP into Debian Virtual Machine" /></p>
+
+<p>It works out great. Since it's on my local network it feels and performs like I'm on the desktop.</p>
+
+<h2>Conclusion</h2>
+
+<p>So I just wanted to show my setup and how I've been running things lately. This works really well for course production, because I can RDP in, full screen it on one window and record it as I go through the steps. I can also develop stuff and run/test it out. I've put in a replica of this website in, with the identical configuration for testing/development.</p>
+
+<p>It works great. I'll probably find a better way to do it, or you may know a better way, feel free to leave it in the comments or <a href="https://www.twitter.com/JeremyCMorgan">yell at me on Twitter</a>. If you have any questions, feel free to contact me about it.</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Intro to Application Pools in IIS]]></title>
+    <link href="https://www.jeremymorgan.com/blog/iis-devops/what-is-an-application-pool/"/>
+    <updated>2016-07-09T02:56:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/iis-devops/intro-to-application-pools-in-iis</id>
+    <content type="html"><![CDATA[<p>Application Pools in IIS can be somewhat of a mystery. Since they're created for you automatically many times Administrators don't give them a second thought. But understanding application pools is crucial to having a good running IIS server.</p>
+
+<p>I cover this and other IIS Administration topics in my <a href="http://www.pluralsight.com/courses/iis-administration-fundamentals">IIS Administration Fundamentals</a> course at Pluralsight. Check it out!</p>
+
+<!-- more -->
+
+
+<h3>What Is an Application Pool?</h3>
+
+<p>To understand Application Pools, we must first understand applications, as far as IIS is concerned.</p>
+
+<p>An <strong>application</strong> is a set of files and folders that deliver content. Any website will have a default application assigned to it, even if it's just HTML and images. The diagram below shows the web server / web site / application relationship:</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-01.jpg" alt="What is an Application Pool" /></p>
+
+<p>An <strong>Application Pool</strong> is a container for your applications. It serves to isolate your application from other applications on the server. Each application in an application pool shares a worker process (w3wp.exe). You can have several applications share the same worker process, or have one for each application.</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-00.jpg" alt="What is an Application Pool" /></p>
+
+<p>When setting up Application Pools, you have a few options. Let's compare a couple patterns.</p>
+
+<h4>Multiple Applications in Single Pool</h4>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-02.jpg" alt="What is an Application Pool" /></p>
+
+<p>With this setup every application shares the same pool/process. Some reasons you may want to do this:</p>
+
+<ul>
+<li>Simpler Design</li>
+<li>When making changes you only have to do it once.</li>
+<li>Caching is improved, code can be shared and cached between applications</li>
+</ul>
+
+
+<p>Some reasons you may not want to:</p>
+
+<ul>
+<li>One crash takes down every application</li>
+<li>An application with high load will slow the others</li>
+<li>All applications share the same security profile</li>
+<li>One applications required setting may break another application.</li>
+</ul>
+
+
+<h4>Each application has its own application pool</h4>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-03.jpg" alt="What is an Application Pool" /></p>
+
+<p>With this setup each application has it's own unique process.</p>
+
+<p>Some reasons you may want to do this:</p>
+
+<ul>
+<li>Isolated operations - if one application fails it doesn't affect the others.</li>
+<li>Isolated performance - a higher load application (most likely) will not slow the other applications down.</li>
+<li>Security can be configured for each application individually.</li>
+</ul>
+
+
+<p>Some reasons you may not want to do this:</p>
+
+<ul>
+<li>Settings cannot be changed globally, must do one by one.</li>
+<li>Common code caching advantage not present.</li>
+<li>Could create more overhead than a single pool.</li>
+</ul>
+
+
+<p>There is no "magic bullet" for this, it will depend on your website and the needs of your organization. It's definitely something you want to experiment with for best results.</p>
+
+<h3>Application Pool Settings</h3>
+
+<p>There are some important settings to consider with Application Pools. If you choose the basic settings you don't get much:</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-04.jpg" alt="What is an Application Pool" /></p>
+
+<p>This only allows you to change your CLR version and Managed pipeline mode. But choose advanced settings and you get far more options:</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-05.jpg" alt="What is an Application Pool" /></p>
+
+<p>Here are some ones I've often seen changed:</p>
+
+<ul>
+<li><p><strong>.Net CLR</strong>- Although there isn't a great reason to run a lower version of .Net it does happen. Usually I find myself setting this when the default app pool framework is 2.0.</p></li>
+<li><p><strong>Enable 32 Bit applications</strong> - This is a common one for backwards compatibility. For instance the last application I worked on that required this used 32 bit DLLs written in C++, and the application would not function without this setting.</p></li>
+<li><p><strong>Managed Pipeline Mode</strong> - This is another one used for backwards compatibility. You may need classic mode for some older ASP applications.</p></li>
+<li><p><strong>Queue Length</strong> - this is a throttling setting and it's pretty rough but useful. What we're saying here is we can have 1000 requests in the queue, and above that visitors will get a 503 error.</p></li>
+<li><p><strong>Limit</strong> - This is another throttling measure that controls the maximum percentage of CPU time you want this application pool to consume.</p></li>
+<li><p><strong>Limit Action</strong> specifies what to do when that limit is hit. You can kill the process, throttle it, or do nothing.</p></li>
+<li><p><strong>Limit interval</strong> is for fine tuning throttling. After the limit above is hit, this setting controls how many minutes we can stay in that state until recycling. If it's too long you may have throttling on after it's no longer needed. Too short and of an interval will just keep it throttling.</p></li>
+<li><p><strong>Identity</strong> - This is important because this is the user your application pool is impersonating. Most of the time application pool identity is your best choice, but there are times when you will need a specific user to run a process. In that case you can have this app pool run under that user's account and it's given their permissions. Don't do this unless you absolutely need to. It's something I've seen a lot in the field especially in high security applications.</p></li>
+</ul>
+
+
+<p>As I've said before, there is no silver bullet for tuning either. It really depends on your organization and how your website is used. A great tune on one website could be bad for another.</p>
+
+<h3>How to Create an Application Pool</h3>
+
+<p>Creating Application Pools in IIS is easy. You can go into IIS Manager in the <strong>Application Pools</strong> feature pane, right click and create a new one:</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-06.jpg" alt="What is an Application Pool" /></p>
+
+<p>Or you could create one with PowerShell (my preferred option):</p>
+
+<p>```
+$appPoolName = 'jeremyscoolapp'</p>
+
+<p>if(!(Test-Path IIS:\AppPools\$appPoolName))
+{</p>
+
+<pre><code>$appPool = New-Item $appPoolName
+$appPool | Set-ItemProperty -Name "managedRuntimeVersion" -Value 'v4.0'
+</code></pre>
+
+<p>}</p>
+
+<p>Set-ItemProperty iis:\Sites\WebsiteName -Name applicationpool -Value $appPoolName
+```</p>
+
+<p>In this script you can see that I define a name for my Application Pool. Then, I test to see if it already exists. If it doesn't I create a new Application pool. Then I use Set-ItemProperty to change my runtime version to 4.0. You can set any of the application pool settings this way.</p>
+
+<p>To see the options you can change type the following at a PowerShell prompt:</p>
+
+<p><code>
+Get-Item IIS:\AppPools\DefaultAppPool  | Select-Object *
+</code>
+Replace DefaultAppPool with the name of your application pool if it's different.</p>
+
+<h3>Conclusion</h3>
+
+<p>I hope this has given you a good introduction to application pools in IIS. Because these are created automatically often times administrators don't give a lot of thought to setting them up. Many websites run just fine with default settings. If you find yourself needing a custom configuration or you have some load issues, you now have a good understand of application pools and where to look to change them.</p>
+
+<p>I cover this and many more IIS topics in my new Pluralsight Course <a href="http://www.pluralsight.com/courses/iis-administration-fundamentals">IIS Administration Fundamentals</a>. Check it out if you're interested in learning more about IIS Administration.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to set up Free SSL for your Website]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/how-to-set-up-free-ssl/"/>
+    <updated>2016-04-22T20:54:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/how-to-set-up-free-ssl</id>
+    <content type="html"><![CDATA[<p>If you're reading this then welcome to the new server! Due to my web host taking a huge nose dive, I had to scramble to find new hosting. In doing so I explored SSL solutions and a friend suggested Let's Encrypt. I liked the experience so much I thought I'd share it.</p>
+
+<!-- more -->
+
+
+<h2>My Predicament</h2>
+
+<p>So my old host (unnamed) just imploded. What started as a nice little company with fast servers and great support, got bought out. The new company did what many big companies tend to do, which is cut costs and lower the quality of the product. They did this by giving us all a "server upgrade" which turned out to be a terrible service. The traffic from my site was crashing the cheap server quite frequently. I would call and get no answer, and emails were answered by outsourced support personnel who were just copying and pasting text into emails to me. 3 years of solid service vanished overnight.</p>
+
+<p>So, I needed to move my site fast, and since I have SSL and all my pages are spidered in Google with SSL, it would be wise to continue using it. I didn't want to even attempt to ask these support people to export my cert to move it here so I started looking at options. So I looked at <a href="https://letsencrypt.org/">LetsEncrypt</a>. Since I moved my site to a nice <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">new Linux server</a> I knew this would be an option for me, and decided to give it a try.</p>
+
+<h2>How to Install Free SSL/TLS</h2>
+
+<p>So I had my nice little NginX server set up and all I had to do was the following:</p>
+
+<p><code>
+sudo apt-get install git
+git clone https://github.com/letsencrypt/letsencrypt
+cd letsencrypt
+./letsencrypt-auto --help
+</code></p>
+
+<p>This installed the per-requisites and the LetsEncrypt app. They have two options for installing the certs, one is a standalone method, and the other is a "webroot" plugin. The standalone method requires you to stop your server, while the webroot option will do it with the server running. I wasn't too worried about stopping things so I simply ran:</p>
+
+<p><code>
+sudo /home/web/.local/share/letsencrypt/bin/letsencrypt certonly --webroot -w /var/www/html -d jeremymorgan.com -d www.jeremymorgan.com
+</code></p>
+
+<p><img src="https://www.jeremymorgan.com/images/free-ssl-website/free-ssl-website-01.jpg" "Free SSL Website"></p>
+
+<p>And that created my certs. I wanted to strengthen things up a bit, and I'll show what I did</p>
+
+<h3>Generate Strong Diffie-Hellman Group</h3>
+
+<p>To generate a strong Diffie-Hellman group, I ran the following command:</p>
+
+<p><code>
+sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+</code></p>
+
+<p>Note the location of the cert, I'll be adding that to my default config. Here is everything I added to it:</p>
+
+<p>```
+listen [::]:443 default_server;
+listen 443 ssl default_server;</p>
+
+<pre><code>server_name         www.jeremymorgan.com jeremymorgan.com;
+ssl_certificate     /etc/letsencrypt/live/jeremymorgan.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/jeremymorgan.com/privkey.pem;
+ssl_trusted_certificate /etc/letsencrypt/live/jeremymorgan.com/chain.pem;
+
+ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+ssl_prefer_server_ciphers on;
+ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
+ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+
+ssl_session_timeout 1d;
+ssl_session_cache shared:SSL:50m;
+ssl_stapling on;
+ssl_stapling_verify on;
+add_header Strict-Transport-Security max-age=15768000;
+</code></pre>
+
+<p>```</p>
+
+<p>After that, save the file and restart Nginx:</p>
+
+<p><code>
+sudo service nginx reload
+</code></p>
+
+<p>Is that it? Yes that really is it.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/free-ssl-website/free-ssl-website-02.jpg" "Free SSL Website"></p>
+
+<p>Now I have a nice little green lock there. Not much different than the last cert I had:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/free-ssl-website/free-ssl-website-03.jpg" "Free SSL Website"></p>
+
+<p>Not too bad huh?</p>
+
+<h2>Conclusion</h2>
+
+<p>I shared this so you can see exactly how easy it is to use LetsEncrypt to set up free SSL certs for your site. The aim of this project is to encrypt everything, which is a fantastic idea.</p>
+
+<p>So go grab a <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">$5 server</a> put a <a href="https://letsencrypt.org/">Free SSL cert on it</a> and you're good to go!</p>
+
+<p>What do you think? Share it in the comments.</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Easy CRUD for your Web API with Dapper]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/how-to-dapper-web-api/"/>
+    <updated>2016-02-13T15:51:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/easy-crud-for-your-web-api-with-dapper</id>
+    <content type="html"><![CDATA[<p>Full disclosure here: I don't like ORMs. If you're building an enormous enterprise project, you should absolutely use an ORM. If you have data you really care about and a complex, monstrous system using something like Entity Framework can save you a lot of frustration. If you're building a simple application, or some home project it's really unnecessary.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p>Recently I found an ORM that I really like: <a href="https://www.nuget.org/packages/Dapper">Dapper</a>. It's small, simple, and fast. It can be useful on even the smallest of projects. Dapper is a simple object mapper for .Net that extends the IDbConnection interface. It contains helpers that execute queries and map results in a very elegant way. The best part is the performance is close enough to plain old SQL that it's well worth it. It will reduce the amount of code you write as well, by a long shot.</p>
+
+<h2>Dapper Quick Start - Console Application</h2>
+
+<p>Just to show you how easy it is to use, let's do a quick exercise.</p>
+
+<p>Open up Visual Studio, and create a new Console Application</p>
+
+<p><em>File -> New Project -> Templates -> Visual C# -> Windows -> Console Application</em></p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-01.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>Now, let's create a MS-SQL database to connect to. Create a database, and make a note of the dbname, user and password for this.</p>
+
+<p>Let's create a quick table on the database using this code:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Creation SQL </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">USE</span> <span class="p">[</span> <span class="p">(</span><span class="n">Your</span> <span class="k">database</span> <span class="n">name</span><span class="p">)</span> <span class="p">]</span>
+</span><span class='line'><span class="k">GO</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;/&lt;</span><span class="n">strong</span><span class="o">&gt;&lt;</span><span class="n">strong</span><span class="o">&gt;&lt;</span><span class="n">strong</span><span class="o">&gt;</span> <span class="k">Object</span><span class="p">:</span>  <span class="k">Table</span> <span class="p">[</span><span class="n">Customer</span><span class="p">]</span>  <span class="o">&lt;/</span><span class="n">strong</span><span class="o">&gt;&lt;/</span><span class="n">strong</span><span class="o">&gt;&lt;/</span><span class="n">strong</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="k">SET</span> <span class="n">ANSI_NULLS</span> <span class="k">ON</span>
+</span><span class='line'><span class="k">GO</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">SET</span> <span class="n">QUOTED_IDENTIFIER</span> <span class="k">ON</span>
+</span><span class='line'><span class="k">GO</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">SET</span> <span class="n">ANSI_PADDING</span> <span class="k">ON</span>
+</span><span class='line'><span class="k">GO</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="p">[</span><span class="n">Customer</span><span class="p">](</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="n">CustomerID</span><span class="p">]</span> <span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="k">IDENTITY</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'><span class="p">[</span><span class="n">CustomerFirstName</span><span class="p">]</span> <span class="p">[</span><span class="nb">varchar</span><span class="p">](</span><span class="mi">50</span><span class="p">)</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'><span class="p">[</span><span class="n">CustomerLastName</span><span class="p">]</span> <span class="p">[</span><span class="nb">varchar</span><span class="p">](</span><span class="mi">50</span><span class="p">)</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'><span class="p">[</span><span class="n">IsActive</span><span class="p">]</span> <span class="p">[</span><span class="nb">bit</span><span class="p">]</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span> <span class="k">CONSTRAINT</span> <span class="p">[</span><span class="n">PK_Customer</span><span class="p">]</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">CLUSTERED</span>
+</span><span class='line'><span class="p">(</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="n">CustomerID</span><span class="p">]</span> <span class="k">ASC</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">)</span><span class="k">WITH</span> <span class="p">(</span><span class="n">PAD_INDEX</span> <span class="o">=</span> <span class="k">OFF</span><span class="p">,</span> <span class="n">STATISTICS_NORECOMPUTE</span> <span class="o">=</span> <span class="k">OFF</span><span class="p">,</span> <span class="n">IGNORE_DUP_KEY</span> <span class="o">=</span> <span class="k">OFF</span><span class="p">,</span> <span class="n">ALLOW_ROW_LOCKS</span> <span class="o">=</span> <span class="k">ON</span><span class="p">,</span> <span class="n">ALLOW_PAGE_LOCKS</span> <span class="o">=</span> <span class="k">ON</span><span class="p">)</span> <span class="k">ON</span> <span class="p">[</span><span class="k">PRIMARY</span><span class="p">]</span>
+</span><span class='line'><span class="p">)</span> <span class="k">ON</span> <span class="p">[</span><span class="k">PRIMARY</span><span class="p">]</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">GO</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">SET</span> <span class="n">ANSI_PADDING</span> <span class="k">OFF</span>
+</span><span class='line'><span class="k">GO</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now let's add a few records to it:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-02.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>We will grab these later.</p>
+
+<p>Back in Visual Studio, open up your App.config file:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-03.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>and add an SQL connection string:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Add this to App.config </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>   <span class="nt">&lt;connectionStrings&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span>  <span class="ni">&amp;lt;</span>add name=&quot;DefaultConnection&quot; providerName=&quot;System.Data.SqlClient&quot;
+</span><span class='line'>        connectionString=&quot;Server=server.com;Database=DapperDemo;User Id=userid; Password=mypassword;&quot; /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>   <span class="nt">&lt;/connectionStrings&gt;</span> <span class="nt">&lt;br/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Obviously you would want to replace this with your information. Save the file.</p>
+
+<p>Next, create a class called "Customer" that looks like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Customer.cs </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">class</span> <span class="nc">Customer</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">CustomerID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">string</span> <span class="n">CustomerFirstName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">string</span> <span class="n">CustomerLastName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">bool</span> <span class="n">IsActive</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Save this file into your project's namespace.</p>
+
+<p>Install Dapper from your Package Manager Console:</p>
+
+<blockquote><p>Install-Package Dapper</p></blockquote>
+
+<p>Now open up Program.cs and add the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Add to Program.cs </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="n">IDbConnection</span> <span class="n">db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlConnection</span><span class="p">(</span><span class="n">ConfigurationManager</span><span class="p">.</span><span class="n">ConnectionStrings</span><span class="p">[</span><span class="s">&quot;DefaultConnection&quot;</span><span class="p">].</span><span class="n">ConnectionString</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This sets up a connection to your database using the IDbConnection interface.</p>
+
+<p>Add an SQL string:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">string</span> <span class="n">SqlString</span> <span class="o">=</span> <span class="ss">&quot;SELECT TOP 100 [CustomerID],[CustomerFirstName],[CustomerLastName],[IsActive] FROM [Customer]&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next, we're going to use Dapper to bring our records into an object:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">ourCustomers</span> <span class="p">=</span> <span class="p">(</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;)</span><span class="n">db</span><span class="p">.</span><span class="n">Query</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;(</span><span class="n">SqlString</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>What this does is pulls the values from the SQL query into a list of Customer objects. Now, some code to iterate through the results:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">Customer</span> <span class="k">in</span> <span class="n">ourCustomers</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="k">new</span> <span class="kt">string</span><span class="p">(</span><span class="sc">&#39;*&#39;</span><span class="p">,</span> <span class="m">20</span><span class="p">));</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\nCustomer ID: &quot;</span> <span class="p">+</span> <span class="n">Customer</span><span class="p">.</span><span class="n">CustomerID</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;First Name: &quot;</span> <span class="p">+</span> <span class="n">Customer</span><span class="p">.</span><span class="n">CustomerFirstName</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Last Name: &quot;</span> <span class="p">+</span> <span class="n">Customer</span><span class="p">.</span><span class="n">CustomerLastName</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Is Active? &quot;</span> <span class="p">+</span> <span class="n">Customer</span><span class="p">.</span><span class="n">IsActive</span> <span class="p">+</span> <span class="s">&quot;\n&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="k">new</span> <span class="kt">string</span><span class="p">(</span><span class="sc">&#39;*&#39;</span><span class="p">,</span> <span class="m">20</span><span class="p">));</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, run the application and you'll see this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-04.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>Yes, it's really that easy! You now have a console application reading from a database with very minimal code! Pretty Amazing stuff, but let's take it further.</p>
+
+<p><a href="https://github.com/JeremyMorgan/Dapper-Demo-ConsoleApp">Download this code on GitHub</a></p>
+
+<h2>Set up a Web API using Dapper</h2>
+
+<p>Ok, here's where we can really let Dapper flex it's muscles. We'll set up an ASP.Net Web Api. First we need to set up a repository</p>
+
+<blockquote><p>Disclaimer: This is not the best design, and I certainly wouldn't use this for a production application, but it does serve as a good demonstration of how to use Dapper.</p></blockquote>
+
+<h3>Setting up Repository</h3>
+
+<p>Create a new project in Visual Studio:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-05.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>We want to create a new ASP.Net Web API project. Select "Empty" then check the "Web API" box like so:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-06.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>Next, right click on the "Models" folder and select "Add -> New Item". We want to add a plain class (Visual C# -> Code -> Class) like we did in the last exercize. Name it "Customer.cs" and save it.</p>
+
+<p>Our class is going to look the same as it did before:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">public</span> <span class="k">class</span> <span class="nc">Customer</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">CustomerID</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">string</span> <span class="n">CustomerFirstName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">string</span> <span class="n">CustomerLastName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">bool</span> <span class="n">IsActive</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This will be our model for this application.</p>
+
+<p>Next, create a folder named "DAL" (Data Access Layer) and let's create a repository. Add an interface (add -> New Item -> Visual C# -> Code -> Interface) and call it "ICustomerRepository".</p>
+
+<p>In here we'll add the methods for our interface:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">internal</span> <span class="k">interface</span> <span class="n">ICustomerRespository</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">List</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Customer</span><span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">GetCustomers</span><span class="p">(</span><span class="kt">int</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">string</span> <span class="n">sort</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">Customer</span> <span class="nf">GetSingleCustomer</span><span class="p">(</span><span class="kt">int</span> <span class="n">customerId</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">bool</span> <span class="nf">InsertCustomer</span><span class="p">(</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">bool</span> <span class="nf">DeleteCustomer</span><span class="p">(</span><span class="kt">int</span> <span class="n">customerId</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">bool</span> <span class="nf">UpdateCustomer</span><span class="p">(</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>These will cover our CRUD (Create, Read, Update, Delete) operations, plus a list operation.</p>
+
+<p>Now we'll create a CustomerRepository class that implements this interface: (add -> New Item -> Visual C# -> Code -> Class) and call it CustomerRespository.cs.</p>
+
+<p>This class should implement the interface and it's members, to start out let's make it look like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">private</span> <span class="n">IDbConnection</span> <span class="n">_db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlConnection</span><span class="p">(</span><span class="n">ConfigurationManager</span><span class="p">.</span><span class="n">ConnectionStrings</span><span class="p">[</span><span class="s">&quot;DefaultConnection&quot;</span><span class="p">].</span><span class="n">ConnectionString</span><span class="p">);&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">public</span> <span class="k">class</span> <span class="nc">CustomerRespository</span> <span class="p">:</span> <span class="n">ICustomerRespository</span><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="n">List</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Customer</span><span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">GetCustomers</span><span class="p">(</span><span class="kt">int</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">string</span> <span class="n">sort</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotImplementedException</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="n">Customer</span> <span class="nf">GetSingleCustomer</span><span class="p">(</span><span class="kt">int</span> <span class="n">customerId</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotImplementedException</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">InsertCustomer</span><span class="p">(</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotImplementedException</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">DeleteCustomer</span><span class="p">(</span><span class="kt">int</span> <span class="n">customerId</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotImplementedException</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">UpdateCustomer</span><span class="p">(</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotImplementedException</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We will now fill out these methods for our repository, following the CRUD pattern.</p>
+
+<h3>CREATE Customer entries with InsertCustomer</h3>
+
+<p>In this method we'll insert a new customer:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="kt">bool</span> <span class="nf">InsertCustomer</span><span class="p">(</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="kt">int</span> <span class="n">rowsAffected</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">_db</span><span class="p">.</span><span class="n">Execute</span><span class="p">(</span><span class="s">@&quot;INSERT Customer([CustomerFirstName],[CustomerLastName],[IsActive]) values (@CustomerFirstName, @CustomerLastName, @IsActive)&quot;</span><span class="p">,</span><span class="k">new</span> <span class="p">{</span> <span class="n">CustomerFirstName</span> <span class="p">=</span> <span class="n">ourCustomer</span><span class="p">.</span><span class="n">CustomerFirstName</span><span class="p">,</span> <span class="n">CustomerLastName</span> <span class="p">=</span> <span class="n">ourCustomer</span><span class="p">.</span><span class="n">CustomerLastName</span><span class="p">,</span> <span class="n">IsActive</span> <span class="p">=</span> <span class="k">true</span><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">rowsAffected</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">0</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you look closely, we are using a parameterized query here. Then you pass in an object containing those parameters, taken from the object we passed in. This is pretty straightforward.</p>
+
+<h3>READ Customer entries with GetSingleCustomer</h3>
+
+<p>With this method we'll retrieve a single customer by CustomerID:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">public</span> <span class="n">Customer</span> <span class="n">GetSingleCustomer</span><span class="p">(</span><span class="kt">int</span> <span class="n">customerId</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">_db</span><span class="p">.</span><span class="n">Query</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Customer</span><span class="p">&amp;</span><span class="n">gt</span><span class="p">;(</span><span class="s">&quot;SELECT[CustomerID],[CustomerFirstName],[CustomerLastName],[IsActive] FROM [Customer] WHERE CustomerID =@CustomerID&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">CustomerID</span> <span class="p">=</span> <span class="n">customerId</span> <span class="p">}).</span><span class="n">SingleOrDefault</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Simple stuff. Since this is an iDisposable, a using statement should be used here. But for demo purposes this works.</p>
+
+<h3>UPDATE Customer entries with UpdateCustomer</h3>
+
+<p>To update a customer we'll need to pass in a Customer object, and we'll update the record based on what's in that object.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="kt">bool</span> <span class="nf">UpdateCustomer</span><span class="p">(</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="kt">int</span> <span class="n">rowsAffected</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">_db</span><span class="p">.</span><span class="n">Execute</span><span class="p">(</span><span class="s">&quot;UPDATE [Customer] SET [CustomerFirstName] = @CustomerFirstName ,[CustomerLastName] = @CustomerLastName, [IsActive] = @IsActive WHERE CustomerID = &quot;</span> <span class="p">+</span> <span class="n">ourCustomer</span><span class="p">.</span><span class="n">CustomerID</span><span class="p">,</span> <span class="n">ourCustomer</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">rowsAffected</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">0</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In this statement we send an update with parameterized queries and map the ourCustomer object to the record to be updated. We'll change the values in this object in our controller previous to this action.</p>
+
+<h3>DELETE Item with DeleteCustomer Method</h3>
+
+<p>In this method we'll send a simple parameterized delete command based on the integer we pass in:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="kt">bool</span> <span class="nf">DeleteCustomer</span><span class="p">(</span><span class="kt">int</span> <span class="n">customerId</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="kt">int</span> <span class="n">rowsAffected</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">_db</span><span class="p">.</span><span class="n">Execute</span><span class="p">(</span><span class="s">@&quot;DELETE FROM [jeremy].[Customer] WHERE CustomerID = @CustomerID&quot;</span><span class="p">,</span><span class="k">new</span><span class="p">{</span> <span class="n">CustomerID</span> <span class="p">=</span> <span class="n">customerId</span> <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">rowsAffected</span> <span class="p">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="m">0</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Like similar methods we pass a true/false based on the number of records affected, if it's not zero we'll assume it was successful.</p>
+
+<h3>LIST Items with GetCustomers Method</h3>
+
+<p>In this method we are going to get a list of items. You can select how many items, and how you want to sort them.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;</span> <span class="n">GetCustomers</span><span class="p">(</span><span class="kt">int</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">string</span> <span class="n">sort</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">_db</span><span class="p">.</span><span class="n">Query</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Customer</span><span class="p">&amp;</span><span class="n">gt</span><span class="p">;(</span><span class="s">&quot;SELECT TOP &quot;</span><span class="p">+</span> <span class="n">amount</span> <span class="p">+</span> <span class="s">&quot; [CustomerID],[CustomerFirstName],[CustomerLastName],[IsActive] FROM [Customer] ORDER BY CustomerID &quot;</span> <span class="p">+</span> <span class="n">sort</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<blockquote><p>Disclaimer (again): If you insist on using this code for a real project, please add exception handling at the very least.</p></blockquote>
+
+<p>Dapper's Query method takes the query results, maps it to the Customer object and adds it to a list. In this one line of code. Good stuff.</p>
+
+<p>Now we have our simple repository set up, so now we need to create a controller and wire things up.</p>
+
+<p>One last thing, like we did with our console application, you will need to open up Web.Config and add your connection string:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>lang </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;connectionStrings>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  &lt;add name="DefaultConnection" providerName="System.Data.SqlClient"
+</span><span class='line'>        connectionString="Server=server.com;Database=DapperDemo;User Id=userid; Password=mypassword;" /&gt;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   &lt;/connectionStrings></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We will be using this for our Web API connection.</p>
+
+<h2>Create a Web API Controller</h2>
+
+<p>Now we're going to create a Web API to connect to our data. One thing I would definitely suggest is <a href="https://www.getpostman.com">downloading POSTman</a>. This is a Chrome extension that makes testing and developing REST APIs a breeze.</p>
+
+<p>For the first step, add the repository to your class, by adding the following to it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">private</span> <span class="n">CustomerRespository</span> <span class="n">_ourCustomerRespository</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CustomerRespository</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This will be the instance of our repository to work with. We will need a controller to interact with this repository.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-07.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>Let's call this "CustomerController".</p>
+
+<p>You'll see a set of methods listed in the code that will interact with our repository.</p>
+
+<ul>
+<li>IEnumerable<string> Get() = <strong>LIST</strong></li>
+<li>string Get(int id) = <strong>READ</strong></li>
+<li>void Post([FromBody]string value) = <strong>CREATE</strong></li>
+<li>void Put(int id, [FromBody]string value) = <strong>UPDATE</strong></li>
+<li>void Delete(int id) = <strong>DELETE</strong></li>
+</ul>
+
+
+<p>With this controller we can perform all the methods we need to start working with our customers.</p>
+
+<h3>Create Method</h3>
+
+<p>Let's start with creating a record. The first thing we'll want to do is create a "response" to let us know whether the object was created or not. For this exercise we'll just use a true/false value.</p>
+
+<p>Let's now refactor our method to make it behave how we'd like.</p>
+
+<p>To do this, we'll want to start with the Post method on line 25. I'm a huge fan of <a href="http://www.asp.net/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2">attribute routing</a> in Web API, so let's decorate this method a bit. Add the following before the method on the controller:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Route(&quot;Customers&quot;)]</span>
+</span><span class='line'><span class="na">[HttpPost]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And then let's refactor the method signature:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="kt">bool</span> <span class="nf">Post</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This way it will return a boolean result based on whether the record was inserted or not.</p>
+
+<p>Inside the method, let's just return the InsertCustomer call:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">return</span> <span class="n">_ourCustomerRespository</span><span class="p">.</span><span class="n">InsertCustomer</span><span class="p">(</span><span class="n">ourCustomer</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This will be our method of inserting (sans any form of sanitization or exception handling).</p>
+
+<p>In Postman, create a POST request to your URL that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-08.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>Here we are sending a JSON object in a POST that matches our model.</p>
+
+<p>If successful it should look like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-09.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>And when you open up SSMS and select all records you should see this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-10.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>You've just inserted a new record! Here's what the final method looks like:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Route(&quot;Customers&quot;)]</span>
+</span><span class='line'><span class="na">[HttpPost]</span>
+</span><span class='line'><span class="k">public</span> <span class="kt">bool</span> <span class="nf">Post</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">return</span> <span class="n">_ourCustomerRespository</span><span class="p">.</span><span class="n">InsertCustomer</span><span class="p">(</span><span class="n">ourCustomer</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is about as bare bones as you can get with ASP.Net.</p>
+
+<h3>Read Method</h3>
+
+<p>Now that we've created some records we are going to want to read a record. For this we'll use the get method that takes an id as a parameter. Let's add the routes for that:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Route(&quot;Customers/{id}&quot;)]</span>
+</span><span class='line'><span class="na">[HttpGet]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This tells our controller to route any GET request with a parameter to this method, and our parameter name is "id".</p>
+
+<p>Next we'll call our repository using that id:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">return</span> <span class="n">_ourCustomerRespository</span><span class="p">.</span><span class="n">GetSingleCustomer</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, send a GET request with postman, and append a CustomerId to the URL, and you should see this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-11.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>This is a pretty easy way to grab a single record. Now let's update that record.</p>
+
+<h3>Update Method</h3>
+
+<p>In this method we are going to update an id. We'll do this by sending a JSON object representing the customer record. Whatever is contained in that record is what we'll want to update it to, so if Freda and Lloyd get married, we want to send this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;CustomerID&quot;</span><span class="o">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;CustomerFirstName&quot;</span><span class="o">:</span> <span class="s2">&quot;Freda&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;CustomerLastName&quot;</span><span class="o">:</span> <span class="s2">&quot;Christmas&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;IsActive&quot;</span><span class="o">:</span> <span class="s2">&quot;True&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>to our PUT method. Since the last name is now different our repository will update the record with all the information in this object, and change the last name. We are making a PUT request to /Customers and sending the new object.</p>
+
+<p>We start with the decorators to add to the method:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Route(&quot;Customers&quot;)]</span>
+</span><span class='line'><span class="na">[HttpPut]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then we'll need to change the signature:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="kt">bool</span> <span class="nf">Put</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This makes it so the method takes in the new object and updates the record accordingly. If it's successful it will return true. Add the following to the method body:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">return</span> <span class="n">_ourCustomerRespository</span><span class="p">.</span><span class="n">UpdateCustomer</span><span class="p">(</span><span class="n">ourCustomer</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now prepare your command in POSTman, it should look like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-12.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>And send it. If successful it should return true, and your record should be updated:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-13.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>Congratulations LLoyd and Freda!</p>
+
+<p>The final method in your controller should look like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Route(&quot;Customers&quot;)]</span>
+</span><span class='line'><span class="na">[HttpPut]</span>
+</span><span class='line'><span class="k">public</span> <span class="kt">bool</span> <span class="nf">Put</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span><span class="n">Customer</span> <span class="n">ourCustomer</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">return</span> <span class="n">_ourCustomerRespository</span><span class="p">.</span><span class="n">UpdateCustomer</span><span class="p">(</span><span class="n">ourCustomer</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Delete Method</h3>
+
+<p>In this method we're going to delete a record by it's ID. This will be done by sending a DELETE command to a url with an id as a parameter. The decorators look like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Route(&quot;Customers/{id}&quot;)]</span>
+</span><span class='line'><span class="na">[HttpDelete]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and we'll change the return type on the method to a boolean:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">public</span> <span class="kt">bool</span> <span class="nf">Delete</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and add the call to our repository in our method:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="k">return</span> <span class="n">_ourCustomerRespository</span><span class="p">.</span><span class="n">DeleteCustomer</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And we're ready to go. Let's create the command in POSTman:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-14.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>Send the DELETE to the url of /Customers/2. Sorry Harry, but you gotta go.</p>
+
+<p>Afterwards it should look like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-15.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>You've now deleted a record!</p>
+
+<h3>List Method</h3>
+
+<p>Ok for the last one, we want to make a list of every customer in the database. Or maybe a few customers. Remember we put some parameters into the GetCustomers method so we could select an amount of customers and sort them by ID. So for the default Get method let's just grab 10 customers (if available) and sort them ascending:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Route(&quot;Customers&quot;)]</span>
+</span><span class='line'><span class="na">[HttpGet]</span>
+</span><span class='line'><span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;</span> <span class="n">Get</span><span class="p">()</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">return</span> <span class="n">_ourCustomerRespository</span><span class="p">.</span><span class="n">GetCustomers</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="s">&quot;ASC&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In POSTMan, send a get to the url of /Customers. It should look like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-16.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>Pretty easy right? But lets make it so we can choose the number and sort of the output also. Create another method that looks like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="na">[Route(&quot;Customers/{amount}/{sort}&quot;)]</span>
+</span><span class='line'><span class="na">[HttpGet]</span>
+</span><span class='line'><span class="k">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Customer</span><span class="p">&gt;</span> <span class="n">Get</span><span class="p">(</span><span class="kt">int</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">string</span> <span class="n">sort</span><span class="p">)</span>
+</span><span class='line'><span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="k">return</span> <span class="n">_ourCustomerRespository</span><span class="p">.</span><span class="n">GetCustomers</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span> <span class="n">sort</span><span class="p">);</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we're overloading the Get method and sending additional parameters. As we've seen before, we set up a decorator to take the amount and sort from the URL. These are passed into the method and then passed to the repository. If you send a GET to /Customers/3/desc it should look like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dapper-how-to/dapper-how-to-17.jpg" alt="Dapper How To" title="Dapper How To"></p>
+
+<p>Pretty powerful stuff! That concludes the API Methods, of course you can add many more and build complex queries and methods that go beyond this.</p>
+
+<p><a href="https://github.com/JeremyMorgan/Dapper-Demo-Web-API">Download this code on GitHub</a></p>
+
+<p><a href="https://github.com/JeremyMorgan/Dapper-Demo-Web-API/tree/master/Postman">Get the POSTMan collection here</a></p>
+
+<h2>Summary</h2>
+
+<p>Though this was a fairly long tutorial, you can see how much time and code you can save using Dapper. It's only slightly different performance wise from doing raw SQL Connections. <a href="https://github.com/StackExchange/dapper-dot-net#performance">There's a good performance comparison here</a>.</p>
+
+<p>For a long time I would choose to write out SQL by hand for the extra performance and power, especially with small projects. Entity Framework always seemed like overkill for most stuff. But after discovering Dapper it's far easier and faster than writing it out, without the extra overhead of EF. It's a solid win.</p>
+
+<p>I hope this has helped you explore Dapper and inspire you to make something with it. You'll find it's pretty great. If you have any questions or have something to say leave it in the comments or <a href="https://twitter.com/JeremyCMorgan">bug me on Twitter</a>.</p>
+
+<p>-Jeremy</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+]]></content>
+  </entry>
+  
+</feed>

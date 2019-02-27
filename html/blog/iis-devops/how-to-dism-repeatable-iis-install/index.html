@@ -1,0 +1,536 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Using DISM to Create a Repeatable IIS Installation - Devops Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Using DISM to Create a Repeatable IIS Installation" /><meta itemprop="name" content="Using DISM to Create a Repeatable IIS Installation" /><meta name="twitter:title" content="Using DISM to Create a Repeatable IIS Installation">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-09-28 23:20:00 +0000" />
+
+<meta property="article:section" content="DevopsIIS" />
+
+<meta name="description" content="Repeatable installs are all the rage in Devops these days. As developers we have this "automate everything" mentality, and for good reason. In this &hellip;" />
+<meta property="og:description" content="Repeatable installs are all the rage in Devops these days. As developers we have this "automate everything" mentality, and for good reason. In this &hellip;" />
+<meta itemprop="description" content="Repeatable installs are all the rage in Devops these days. As developers we have this "automate everything" mentality, and for good reason. In this &hellip;" />
+<meta name="twitter:description" content="Repeatable installs are all the rage in Devops these days. As developers we have this "automate everything" mentality, and for good reason. In this &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/repeatable-iis-devops/repeatable-iis-devops-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/repeatable-iis-devops/repeatable-iis-devops-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/repeatable-iis-devops/repeatable-iis-devops-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/iis-devops/how-to-dism-repeatable-iis-install/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/iis-devops/how-to-dism-repeatable-iis-install/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/iis-devops/how-to-dism-repeatable-iis-install/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Using DISM to Create a Repeatable IIS Installation</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-09-28T23:20:00+00:00" pubdate data-updated="true">Sep 28<span>th</span>, 2018</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>Repeatable installs are all the rage in Devops these days. As developers we have this &#8220;automate everything&#8221; mentality, and for good reason. In this article I&#8217;ll show you how you can do that with IIS installation as well. There&#8217;s no reason to go hunting and pecking around the GUI every time you need to do this. This is the just one of many ways to automate IIS installs, which I&#8217;ll be covering in the next few weeks.</p>
+
+<p>I also cover this in depth in <a href="https://pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis" target="_blank">my latest Pluralsight course</a> on Installing IIS.</p>
+
+<h3>Why would I ever need to do this?</h3>
+
+<p><img class="right" src="/images/repeatable-iis-devops/repeatable-iis-devops.jpg" title="&#34;How To Create Repeatable Installs in IIS&#34;" alt="&#34;How To Create Repeatable Installs in IIS&#34;"></p>
+
+<p>Most of the time administrators probably have a task like &#8220;throw IIS on the server and make sure the application works&#8221; and they do just that. That&#8217;s how I used to do it too. I was working on a project many years ago that required us to spin up VM servers on a virtual network as a &#8220;stack&#8221;.</p>
+
+<p>This stack was a small snapshot of our production network, so to make sure our software worked with everyone&#8217;s updates, we had to build a new stack a few times a week.</p>
+
+<p>A few times a week, we&#8217;d have to click through the GUI install and remember each box to check. Yeah, you can get good at it but it&#8217;s a waste of time.</p>
+
+<p>Naturally I had to find a way to automate it, and break out some PowerShell. You do this, because you save time that can be spent doing fun stuff. So let&#8217;s learn how to create automated, repeatable IIS installations.</p>
+
+<h3>Getting Started</h3>
+
+<p>So you&#8217;re an administrator for ACME Widgets and you want to create a custom install of IIS and make it automated. You create a new server and are ready to go.</p>
+
+<p>To find out if IIS is installed, we&#8217;ll run a command called <a href="https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/what-is-dism" target="_blank">DISM</a>. DISM is a tool to build and service Windows images, it&#8217;s mostly used to create and maintain images for Virtual Machines, it&#8217;s extremely powerful, but we&#8217;ll cover that in a future article. For now we&#8217;ll use it to check features on the machine.</p>
+
+<p>Open up a command prompt, and run the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dism /online /get-featureinfo /featurename:IIS-WebServer </span></code></pre></td></tr></table></div></figure>
+
+
+<p>As I run it on my virtual machine, I can see that IIS is not yet installed.</p>
+
+<p><img src="/images/repeatable-iis-devops/repeatable-iis-devops-01.jpg" alt="Repeatable Installs in IIS" /></p>
+
+<p>You can also find a list of everything that&#8217;s enabled with this command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>DISM /online /get-features /format:table | find "Enabled"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And you&#8217;ll see something like this:</p>
+
+<p><img src="/images/repeatable-iis-devops/repeatable-iis-devops-02.jpg" alt="Repeatable Installs in IIS" /></p>
+
+<p>by piping the output into find and searching for enabled we can get a full list of features that are already enabled on the server.</p>
+
+<p>We can also quickly see if a single feature is enabled like we did before, but piping the results into find and checking the state:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dism /online /get-featureinfo /featurename:IIS-WebServer | find "State"</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/repeatable-iis-devops/repeatable-iis-devops-03.jpg" alt="Repeatable Installs in IIS" /></p>
+
+<p>Here we can quickly and clearly see IIS is not installed.</p>
+
+<h3>Creating a Batch File</h3>
+
+<p>So now that we know we can get this type of output, we&#8217;re going to build a little batch file to do it, and we&#8217;ll run the command a little different this time. This is pretty light programming, but it will be a set of tests to see if particular items are installed.</p>
+
+<p>Type in notepad webinstall.bat and let&#8217;s create a batch file. Add the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@ECHO OFF
+</span><span class='line'>dism /online /get-featureinfo /featurename:IIS-WebServer | find "State : Disabled" &gt; nul</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We&#8217;re typing in dism, online, get-featureinfo, featurename, then piping that to find. We&#8217;ll look for state saying disabled, and if that phrase is found, that means IIS is disabled, or not installed. That will change our error level, which we&#8217;ll add next.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if %ERRORLEVEL% == 0 (
+</span><span class='line'>echo "IIS Web Server is not installed"
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If our error level is set to zero, that means the phrase state enabled was found in our output. Let&#8217;s test it out.</p>
+
+<p><img src="/images/repeatable-iis-devops/repeatable-iis-devops-04.jpg" alt="Repeatable Installs in IIS" /></p>
+
+<p>Now in our batch file we can see that IIS is not installed, and we have a block inside the statement to install IIS.</p>
+
+<p>We could do that with a block of code like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if %ERRORLEVEL% == 0 (
+</span><span class='line'>echo "IIS Web Server is not installed"
+</span><span class='line'>dism /online /enable-feature /featurename:IIS-WebServer /all
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is the first basic IIS install script. At the end we can put a check to see if it&#8217;s installed:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dism /online /get-featureinfo /featurename:IIS-WebServer | find "State"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The finished batch file <a href="https://gist.github.com/JeremyMorgan/5f5ca70db82bd645d891c1aedd4e1d2b" target="_blank">is available here</a>.</p>
+
+<h3>Running the Script</h3>
+
+<p>Now after we run the file, it should do the following set of steps:</p>
+
+<ul>
+<li>Check to see if IIS is installed</li>
+<li>If it&#8217;s not installed, install it</li>
+<li>Check again to see if it&#8217;s installed.</li>
+</ul>
+
+
+<p>So the end result is, if IIS is installed it does nothing, if it&#8217;s not installed then adds it, and looks like this:</p>
+
+<p><img src="/images/repeatable-iis-devops/repeatable-iis-devops-05.jpg" alt="Repeatable Installs in IIS" /></p>
+
+<p>This small, simple script can make sure IIS is installed on the machine. And it&#8217;s repeatable.</p>
+
+<h3>Customizing the Install</h3>
+
+<p>Of course as you&#8217;re building your script, you may need to install other IIS modules, chances are it won&#8217;t be just a plain IIS install.</p>
+
+<p>If you run the following command, you can see everything related to IIS that can be installed here:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dism /online /get-features | find "IIS"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a good way to get a list of IIS features available:</p>
+
+<p><img src="/images/repeatable-iis-devops/repeatable-iis-devops-06.jpg" alt="Repeatable Installs in IIS" /></p>
+
+<p>So, if you&#8217;d like to add more IIS features, it&#8217;s as easy as making more loops to check for them:</p>
+
+<p>ASP.NET:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dism /online /get-featureinfo /featurename:IIS-ASPNET45 | find "State : Disabled" &gt; nul
+</span><span class='line'>
+</span><span class='line'>if %ERRORLEVEL% == 0 (
+</span><span class='line'>echo "ASPNET is not installed. We should install it."
+</span><span class='line'>dism /online /enable-feature /featurename:IIS-ASPNET45 /all
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>HTTP Redirect:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dism /online /get-featureinfo /featurename:IIS-HttpRedirect | find "State : Disabled" &gt; nul
+</span><span class='line'>
+</span><span class='line'>if %ERRORLEVEL% == 0 (
+</span><span class='line'>echo "HTTP Redirect is not installed . We should install it."
+</span><span class='line'>dism /online /enable-feature /featurename:IIS-HttpRedirect /all
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>HTTP Logging:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>dism /online /get-featureinfo /featurename:IIS-HttpLogging | find "State : Disabled" &gt; nul
+</span><span class='line'>
+</span><span class='line'>if %ERRORLEVEL% == 0 (
+</span><span class='line'>echo "HTTP Logging is not installed . We should install it."
+</span><span class='line'>dism /online /enable-feature /featurename:IIS-HttpLogging /all
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You get the idea. You can build a custom installation that can be run from a batch file, quickly and easily.</p>
+
+<h3>Conclusion</h3>
+
+<p>So now you&#8217;re set to create a neat little batch file you can run on any machine to install IIS to 100 different VMs if you want to. You can put this on an Azure stack, or run it on a development machine. As I stated I cover this and many other repeatable installations in <a href="https://pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis" target="_blank">my latest course on Pluralsight</a>. It covers ways to effectively install IIS at a large scale.</p>
+
+<p>You can even run DISM remotely or on VM Images that aren&#8217;t even booted. It&#8217;s a great tool to get to know.</p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-09-28T23:20:00+00:00" pubdate data-updated="true">Sep 28<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/devops/'>Devops</a>, <a class='category' href='/blog/iis/'>IIS</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/c-sharp/how-to-net-core-unit-test/" title="Previous Post: Unit Testing with dotnet core">&laquo; Unit Testing with dotnet core</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

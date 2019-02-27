@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  General | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/general/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Review: Netgear WAC730 Wireless Access Point]]></title>
+    <link href="https://www.jeremymorgan.com/blog/reviews/netgear-wac730-prosafe-wap-review/"/>
+    <updated>2016-04-30T16:39:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/reviews/the-netgear-wac730-wireless-access-point</id>
+    <content type="html"><![CDATA[<p>In this article I'll be reviewing the Netgear Prosafe WAC730 Wireless Access Point. This is a WAP geared towards small to medium sized businesses, and is designed to compliment your existing network. I received this product for free in exchange for my honest opinion as part of the Netgear Ambassador Program. They sent me this unit to try out, and after extensive evaluation here's what I think.</p>
+
+<!-- more -->
+
+
+<h2>The Netgear Prosafe WAC730</h2>
+
+<p>The WAC730 is a high performance dual band wireless access point. This is a device you add on to your network to expand your wireless access. It would typically be added to an office to expand wireless coverage or improve it in certain areas of the building.</p>
+
+<p>A good use case for this would be if you have a router or modem with a wireless access point on one side of your office, and you wanted a stronger signal on the other side of the building, you would purchase this device and plug it into the wall somewhere in that area so wireless devices could connect to it there.</p>
+
+<p>Here is how it was hooked up on my home network:</p>
+
+<p><a href="https://www.jeremymorgan.com/images/netgear-wac730/netgear-wac730-review-large-00.jpg"><img src="/images/netgear-wac730/netgear-wac730-review-00.jpg" title="Netgear WAC730 Review" ></a></p>
+
+<p>(Click the image for a larger view)</p>
+
+<p>As you can see I have a ton of devices and computers on our network. This is the first place I decided to try this out, by routing our wireless devices through the WAC730.</p>
+
+<h2>Setup</h2>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-01.jpg" title="Netgear WAC730 Review" ></p>
+
+<p>The setup for this device was incredibly easy. Although I have an extensive background with networking I still try to put myself in the shoes of a less technical person with reviews.</p>
+
+<p>With the documentation provided I was able to plug in the device to my switch, then I found the IP and logged in. If you don't know how to find the IP and you don't have a DHCP server, it will automatically go to 192.168.0.100 which can be pretty handy.</p>
+
+<p>The instructions give you a login and password for the web based admin panel. Those who know me well know I love to critique documentation. Bad documentation is everywhere and I'm quite vocal about it. NetGEAR gets it right in this case. It comes with two small pamphlets:</p>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-02.jpg" title="Netgear WAC730 Review" ></p>
+
+<p>One to install the mounting hardware, and one to set up the access point. They are 5 pages each and only contain the information you need to get it set up, with handy diagrams and troubleshooting instructions if things go wrong. I went through the instructions to set it up as if it were my first time working with something like this, and I found it to be brief, complete and easy.</p>
+
+<p>Here's a shot of the admin panel:</p>
+
+<p><a href="https://www.jeremymorgan.com/images/netgear-wac730/netgear-wac730-review-large-03.jpg"><img src="/images/netgear-wac730/netgear-wac730-review-03.jpg" title="Netgear WAC730 Review" ></a></p>
+
+<p>(Click the image for a larger view)</p>
+
+<p>The admin panel is fairly intuitive. The documentation doesn't dive really deep into this, but it does guide you through the important task of getting an access point set up and securing it, which is probably where most people would stop anyway. The panel shows you configuration options, monitoring, maintenance and support. It's a clean interface, and I didn't feel like I had to search really deep to find anything. I like an interface like this.</p>
+
+<p>Some cool things to note that would probably only interest you if you're a geek:</p>
+
+<p><strong> Dashboard</strong> - I like the dashboard that monitors traffic. Visually appealing and pretty neat.</p>
+
+<p><strong>Packet Capture</strong> - There is a packet capture utility that exports to a .pcap file. Super useful if you need to do some troubleshooting.</p>
+
+<p><strong>Statistics</strong> - I love statistics of any type due to curiosity. But these could be very useful in a business setting.</p>
+
+<p><strong>Firmware Upgrade</strong> - You can do this through the panel. Pretty awesome.</p>
+
+<p>There are more features in the admin panel that help you set up some of the features I'll cover in the next section.</p>
+
+<h3>Verdict</h3>
+
+<p>The setup of this device was intuitive and easy. If you're an office person without an IT department you can get this set up just by following the instructions, and it takes 10-15 minutes. That's extremely important because small to medium businesses don't always have a fully staffed IT department.</p>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-06.jpg" title="Netgear WAC730 Review" ></p>
+
+<h2>Features</h2>
+
+<p>This access point comes with a range of good features.</p>
+
+<p>It's dual band 801.11 AC, and 802.11n. It supports 2.4 GHz and 5GHz simultaneously. Since I have both types of devices in my home I was able to setup a point for each and connect the devices simply and easily. It's backwards compatible with some pretty old devices, including 802.11a!</p>
+
+<p>It operates in a standalone mode, or "ensemble mode" with 10 other WAPs without a controller. Judging by the range of this device that would cover a very large building well.</p>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-04.jpg" title="Netgear WAC730 Review" ></p>
+
+<p>It has integrated PoE (Power over Ethernet). I cannot stress how great this is. If you have a PoE switch you just plug in the network cable and it's ready. This means you aren't limited to putting it close to a power outlet, and you can punch a small hole in the ceiling and mount this very cleanly.</p>
+
+<p>It supports WPA, WPA2, Rouge AP detection and RADIUS. This covers a lot of ground.</p>
+
+<p>Internal antennas that work really well, plus you can add external ones if you like.</p>
+
+<h3>Verdict</h3>
+
+<p>This is a full featured product that will meet some pretty demanding needs. It can be set up in a simple mode just to access the internet or take on a more complex role depending on what you need. What I really like is the coverage of different protocols. I was trying to find a device that's really old and obscure to trip it up and couldn't. This WAP will give you coverage for most anything that someone will bring into your office.</p>
+
+<h2>Performance</h2>
+
+<p>It supports an aggregate throughput of 1.7 Gbps ( 450Mbps for 2.4, 1.3 Gbps for 5 GHz). This is plenty of performance for most people. I started streaming Netflix and copying ISOs from my internal servers and it didn't miss a beat. From a performance standpoint this would serve an office very well.</p>
+
+<p>But stats are kind of useless without putting it to the test. So I started walking around the house checking the Wifi coverage. Entire house, and front yard is covered completely. Score! I decided to see how far out I could get:</p>
+
+<p><img src="/images/netgear-wac730/netgear-wac730-review-05.jpg" title="Netgear WAC730 Review" ></p>
+
+<p>It was pretty off and on, mostly because this is situated in a room upstairs, and I went down the hill, so the line of sight was definitely off, but at around 50 feet away I was still able to get decent connectivity. If this were mounted on a ceiling in an office I have no doubts it would have some impressive coverage.</p>
+
+<p>As a side note, one of my biggest pet peeves with WAPs is when they randomly disconnect. Yes, it's only a few seconds to connect again but it can be frustrating... a real first world problem. But in using this I have not noticed any intermittent issues at all. It seems to be extremely solid in that regard.</p>
+
+<h3>Verdict</h3>
+
+<p>Great performance, better than expected in some cases. It gives me full coverage all over with lots of devices, it performs extremely well. I have yet to throw any external antennas on it, but when I do I will update this article and do another distance test.</p>
+
+<h2>Conclusion</h2>
+
+<p>I am extremely pleased with this device. You're really getting your money's worth for this device. It's solid, reliable and fast. Within minutes you can set it up and forget it about it. I've used Netgear products for a very long time so I knew what to expect but this product still exceeded my expectations. I was surprised at the performance and the ability to configure this device to meet your needs. It can definitely be simple and easy or more powerful depending on how you want to use it. I would highly recommend this device to anyone considering it.</p>
+
+<p>You should purchase this device if you're in a small or medium sized business environment and want to extend your wireless range. I could see this doing well in offices, hospitals, schools, etc, and even home use. If you have a large house, this will cover it well. You don't need an IT person to set it up and it can plug into the wall and go. It brings fast, solid access to a range of devices, old and new. If you happened upon this article searching for reviews on it my vote is to purchase it. You won't be sorry.</p>
+
+<p>-Jeremy</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Where to Find a Cheap Computer in Oregon]]></title>
+    <link href="https://www.jeremymorgan.com/blog/portland/cheap-computers-oregon/"/>
+    <updated>2013-04-21T14:39:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/portland/where-to-find-a-cheap-computer-in-oregon</id>
+    <content type="html"><![CDATA[<p>This post isn't going to be much use for the majority of my audience, but I am creating this post because I am often referring people to these places, and wanted to create a nice page to send them to.</p>
+
+<p>This is a small list of computer recyclers in my area that I'll be updating and spreading around. I'm a huge fan of computer recycling and low cost computing, if you're curious you should look around in your area for some similar non profit recyclers!</p>
+
+<!-- more -->
+
+
+<h3>Can I use a recycled computer?</h3>
+
+<p>The answer to this isn't always yes. If you're looking for the latest and greatest, or you play games (real games not Facebook games) you won't be able to find what you need here. But mostly what I get asked about is: "I need a computer for school but don't want to pay a lot" and that's one area where recycled computers shine. Here's what you can use recycled computers for:</p>
+
+<p><strong>Schoolwork</strong> - High School, college etc. Creating documents and reports, etc. A cheap computer running <a href="http://www.openoffice.org/">OpenOffice</a> will work just fine.</p>
+
+<p><strong>Programming</strong> - A high end machine is nice for programming but not really necessary. You can do web development on just about anything for instance. I do most of the work for this website on a 2004 Powerbook, because it's basic text editing. My Windows stuff is done on a 2007 Toshiba Laptop.</p>
+
+<p><strong>Office Management</strong> - Again using a cheap older computer with <a href="http://www.openoffice.org/">OpenOffice</a> and you can do pretty much anything a high dollar new machine will do, only a bit slower. But if you're saving $1000 it might be worth the price.</p>
+
+<p><strong>Kid Computers</strong> - If you want a computer for your kids to browse the internet and play learning games an old computer works great. If you're ready for the challenge, you can install Linux on it where most versions have TONS of educational software for free. Take <a href="http://www.edubuntu.org/">Edubuntu</a> for a spin and check out all the awesome stuff they have.</p>
+
+<p>This list could be a lot longer but it's not the purpose of the article. Basically if you aren't playing online games, ripping videos or something of that sort you might notice that a new computer isn't a whole lot better than an older one.</p>
+
+<h3>Cheap Computer Recyclers in Oregon</h3>
+
+<p>Here is a list of people I've dealt with personally and really like. You can walk in with a couple hundred bucks and come out with a decent desktop or laptop that works great. They test their equipment, set it up and don't try to upsell your or rip you off.</p>
+
+<hr>
+
+
+<p><strong>Computer Drive Connection - Cornelius Oregon</strong></p>
+
+<p><a href="http://computerdriveconnection.com/">Their Website</a></p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/cheap-computer-oregon.jpg" title="Where to find a cheap computer in Oregon" ></p>
+
+<p>Since this one is closest to my hometown I've been sending a lot of people here. The guy running it is great, he's very knowledgeable and honest. Just tell him what you need to use a computer for and he'll steer you right. Great prices as well.</p>
+
+<p>For instance, I picked up a 20" LCD flatpanel monitor there recently for $100. Worked great, no scratches or dead pixels. It's the 3rd or 4th monitor I've picked up there that works great.</p>
+
+<p><a href="https://maps.google.com/maps?q=909+N.+Freemont+Lane+%C2%A0%C2%A0%C2%A0Cornelius,+Oregon+97113&amp;ie=UTF8&amp;ll=45.524397,-123.060812&amp;spn=0.002161,0.004823&amp;hnear=909+N+Fremont+Ln,+Cornelius,+Oregon+97113&amp;gl=us&amp;t=h&amp;z=18">Map to their location</a></p>
+
+<p><strong>Phone:</strong> (503) 992-0180</p>
+
+<hr>
+
+
+<p><strong>Eco Binary - Beaverton Oregon</strong></p>
+
+<p><a href="http://www.ecobinary.com/">Their Website</a></p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/cheap-computer-oregon-1.jpg" title="Where to find a cheap computer in Oregon" ></p>
+
+<p>I just recently discovered this place, and they treated me really well. I picked up a laptop for $100 (the Core2 Toshiba) and an old G4 machine for a server. The dusty old G4 had been sitting a while but he said "yes, it works if not bring it back". Great policy, but the machine did work exactly as advertised.</p>
+
+<p>Again it's a good place with knowledgeable people and no sales pressure. It's family run and they do a great service for the community and their customers.</p>
+
+<p><a href="https://maps.google.com/maps?q=8240+SW+Nimbus+Ave.+Beaverton,+OR+97008&amp;hnear=8240+SW+Nimbus+Ave,+Beaverton,+Oregon+97008&amp;gl=us&amp;t=h&amp;z=16">Map to their location</a></p>
+
+<p><strong>Phone:</strong> (503) 352-4991</p>
+
+<hr>
+
+
+<p><strong>Free Geek</strong></p>
+
+<p><a href="http://www.freegeek.org/">Their Website</a></p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/cheap-computer-oregon-2.jpg" title="Where to find a cheap computer in Oregon" ></p>
+
+<p>For those in the Portland Metro area this is another great service you gotta check out. They are a non profit that offers free computers (if you qualify) and free computer classes as well. But if you don't qualify for a free one or you feel like supporting them you can visit their <a href="http://www.freegeek.org/thrift-store/">thrift store</a> and purchase items at a great price. All purchases support their mission.</p>
+
+<p><a href="https://maps.google.com/maps?q=1731+SE+10th+Avenue,+Portland,+OR&amp;hnear=1731+SE+10th+Ave,+Portland,+Multnomah,+Oregon+97214&amp;gl=us&amp;t=h&amp;z=16">Map to their location</a></p>
+
+<p><strong>Phone:</strong> (503) 232-9350</p>
+
+<hr>
+
+
+<h3>Recycled computers are awesome!</h3>
+
+<p>I will be researching more of these types of companies locally and adding to this list. There's many reasons getting a recycled computer makes sense, you save money and help keep this stuff from hitting landfills. You support families and volunteers rather than giant corporations.</p>
+
+<p>If you're not from the Northwest Oregon area, search for some recyclers in your area! Even if you already have your dream machine it may be worth getting a machine to tinker with for projects, media servers etc. Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[We're here to put a dent in the universe]]></title>
+    <link href="https://www.jeremymorgan.com/blog/general/a-dent-in-the-universe/"/>
+    <updated>2013-02-04T22:29:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/general/were-here-to-put-a-dent-in-the-universe</id>
+    <content type="html"><![CDATA[<p>The famous words of Steve Jobs have been ringing in my head a lot since my Dad passed away last week. He and Steve Jobs were not very much alike, in fact probably complete opposites. Dad wasn't much of a dreamer or rock the boat kind of guy, and believed in treating everyone with respect. His style was not pushing people to be great but encouraging them to want it on their own. But they both shared one thing: wanting to make people's lives better. Steve wanted to help strangers, but Dad made sure he took care of those around him.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/russ-peckham-1.png" title="Russ Peckham" > I will definitely write more on this subject soon, as you might imagine I have more pressing matters going on right now than my blog. I have tried to use it as a distraction though, and maybe that's what this post is but the point I'd like to get across tonight is pretty simple: make your dent. Make a difference.</p>
+
+<p>If you're reading this blog it's probably because you're a programmer or an SEO to start with. That means you create things. And creating things is just a small part of making a dent. It's not the items you create, the software you build or the successful marketing campaigns that define you. It's what the things you build do for others that really matters. It's how you make the world better with what you do.</p>
+
+<h3>My Dad was a fixer</h3>
+
+<p>The way my Dad made his dent was helping others. He worked with his hands and his mind in way that's tough to replicate. He could look at any piece of machinery and figure out how it worked, fix it or make it better every time. And most of the time he was doing it for someone else. It was just what he did.</p>
+
+<p>The same hands that assembled a cackling top fuel dragster or pull an axle from his semi truck were the same hands he used to hug his wife, kids and grandkids. Whether it was welding a "stack of dimes" ten feet long or patting you on the back it was always heartfelt and done with purpose. While he wasn't always a man of many words he always meant what he said and always tried to build us up.</p>
+
+<h3>The greatest thing he ever built</h3>
+
+<p><img class="left" src="https://www.jeremymorgan.com/images/russ-peckham-3.png" title="Russ Peckham" > I don't have enough space on this website to list the machinery Dad built. From his 32 Ford to those top fuel dragsters to the custom part on my Mercedes that's still there ("damn German cars! he said) there are tons of things out there he built.</p>
+
+<p>These things will live on, the little outlaw cars he loved so much and helped build will be tearing up the tracks in the Northwest next summer. But they will rust away and become forgotten over time. Dad never will.</p>
+
+<p>What won't be forgotten was the things he built that really mattered. He gave almost 3 decades to my mom, treating her how her kids thought she should be treated, with respect and dignity. My mother is one of the greatest people I know, and truly special. Russ saw that right away. And he raised 4 kids with a set of values that are already carrying on to his grandchildren.</p>
+
+<p>The greatest thing he ever built was the people he touched. He always built us up in every way he could. Growing up all of us kids went through our phases and we all had dreams and aspirations, and when we shared them with Dad, he always told us we could do it, and encouraged us. I chose a path of technology and computers, which was something he never fully understood but he respected my goals and always tried to give advice with what he knew. His words will always ring in my head.</p>
+
+<h3>What really matters</h3>
+
+<p>He taught me early on that what really matters is gaining happiness by helping others around you. If you have a talent, use it. If you are dreaming of something, build it. This website where I put up all this free info helping people with SEO and Technology is here because he taught me when you know something you shouldn't keep it hidden away from others. Share what you know and if someone takes that and makes something better with it don't be jealous or envious be happy for them.</p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/russ-peckham-2.png" title="Russ Peckham" >And if you have something you love to do, follow it. He made his dent by building up everyone around him. So many people had a great amount of respect for him, not just because of his intelligence and talent but the fact that he had it and was willing to share it, and tempered it with humility like nobody I know. I try to emulate that in my daily life, and I still have a ways to go.</p>
+
+<p>I will miss that man for the rest of my life, just as we all will but I will honor him by carrying on his values and trying to do things the way he did.</p>
+
+<p>You should do the same. You probably didn't know my Dad but you know someone like him. Go out and make a difference and do something that matters. Life is not about chasing dollars and buying fancy toys it's about doing what you love and taking care of others. That can apply to building software or fancy websites just as much as it applies to fixing a leaky faucet for your Grandmother. Just do something meaningful and make your dent.</p>
+
+<p>One way I am going to honor him is by sharing what I learned from him over the last 27 years. I will be starting a series of articles and pages dedicated to these lessons, and I hope people steal it and copy it and use it for their own lives. Stay tuned.</p>
+
+<p>Rest in peace big guy, I'll continue to try to make you proud.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The Most Simple and Cheap Task Management Tool You'll See Today.]]></title>
+    <link href="https://www.jeremymorgan.com/blog/self-improvement/the-most-simple-and-cheap-task-management-tool-youll-see-today/"/>
+    <updated>2012-03-09T14:03:35+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/self-improvement/the-most-simple-and-cheap-task-management-tool-youll-see-today</id>
+    <content type="html"><![CDATA[<p><img class="right" src="https://s3.amazonaws.com/images.jeremymorgan.com/time-management-01.jpg" title="The Most Simple and Cheap Task Management Tool You''ll See Today" >
+The credit for this idea goes to <a href="http://www.scottbones.com">Scott Bones</a>, he introduced me to it way back in 2004 and I still use it to this day.  This is one of the greatest organizational techniques I use, and it's incredibly simple.</p>
+
+<p>Are you ready?</p>
+
+<ul>
+<li>Go get yourself a pad of paper and a pen/pencil.</li>
+<li>Draw a line down the middle of the page.</li>
+<li>Put today's date on the left, tomorrow on the right.</li>
+<li>Write down all the tasks on your plate today (left).</li>
+<li>As you get them done, cross them out.</li>
+<li>Tomorrow, copy over the tasks that aren't crossed out.</li>
+</ul>
+
+
+<p>I know it seems really simple right? Well it is, and it only costs you about 2 bucks. I started doing this when my boss at the time (Scott) introduced me to it. At first it was hard to get in the habit of it, but he kept on me to maintain this list. As time went on I found myself staying on task better and having less things "fall through the cracks".</p>
+
+<p>To this day I have tried software solutions, apps on my phone, etc. and personally nothing works better than this pad of paper. In previous jobs I have been forced to use software to do the same thing, and found that the amount of overhead that was involved with dealing with this software, spreadsheets, etc was simply not worth it. It takes a few seconds to grab your pad and jot something down.</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/time-management-02.jpg" title="The Most Simple and Cheap Task Management Tool You''ll See Today" ></p>
+
+<p>Remember don't get too specific with it, just put a short phrase that's a reminder, because essentially that's what this is. These are not detailed notes about each task, but rather a daily reminder of the stuff you have to do. Try it out for a week or two and see if it helps you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Geek's Trip Down Memory Lane - The BBS (Bulletin Board System)]]></title>
+    <link href="https://www.jeremymorgan.com/blog/tech/a-geeks-trip-down-memory-lane/"/>
+    <updated>2009-07-27T02:31:06+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/tech/a-geeks-trip-down-memory-lane</id>
+    <content type="html"><![CDATA[<p>While browsing a forum recently, I found a thread that really made me reminisce. Someone has asked about browsing the internet before it was popular, and what it was like. Before the internet was in every home, before we were tweeting or facebooking, instant messaging or watching videos, the internet was a much simpler place.</p>
+
+<p>In 1988 or 89, I remember seeing the "internet" for the first time. It was at my buddy Ryan's house (RIP) and we were both budding computer nerds, who loved learning about the latest technologies. He had somehow "acquired" access to telenet, and we used it to browse bulletin boards all over the country, without paying long distance fees.</p>
+
+<p>There were no graphics, no sound, and no cool videos. There was no "tweeting" with your phone, or instantly talking with someone online. It was much simpler, and seems very primitive now. You had to post a message, and wait a couple days for someone to respond. It was a different time for sure.</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/bbs1.png" title="BBS days" ></p>
+
+<p>I would give nearly anything to relive those days sitting in Ryan's house, browsing all over the world reading those crazy text files about telephone switching systems and UNIX servers, drinking mountain dew and eventually going to sleep because the sun had come up, and we knew we'd be in big trouble if his mom woke up and found us in front of that computer, hacking away.</p>
+
+<p><strong>My First Bulletin Board System (BBS): Distant Realms Online</strong></p>
+
+<p>In the mid 90s, when I was in high school I had decided I was tired of being a spectator, and I wanted to create my own BBS. For those who are unfamiliar, a <a href="http://en.wikipedia.org/wiki/Bulletin_board_system">BBS</a> was a computer other people could dial into and download files, chat with others, or upload files to. Most of the time a BBS was just a computer in some guy's house, and you would find the latest video games, images or whatever you wanted on it. It was not that different from the internet. But most of us didn't have internet. So we dialed in over phone lines and connected directly with other computers.</p>
+
+<p>My friend Derrick had introduced me to BBS systems, and showed me a lot about configuring modems (remember init strings and AT commands?) and really got me hooked on these fancy bulletin boards.</p>
+
+<p>Boy, I at 31 I now feel like an old man.</p>
+
+<p>Anyway, at some point I decided to build my own BBS. I saved up my money and bought a 386 16mhz computer (no that's not a typo. The computer you're reading this page on is probably at least 2,000 mhz, but back then things were much slower) and I built it with the sole purpose of running a bulletin board. I downloaded a shareware copy of "<a href="http://en.wikipedia.org/wiki/Spitfire_(BBS">Spitfire</a>)" BBS software, and spent HOURS reading the manual so I could set it up. I purchased a phone line that was dedicated to it, and set it free.</p>
+
+<p>When talking with Ryan, we were trying to come up with a name. I wanted something "space like" and cool. Ryan suggested "Distant Realms" because it was a place that was far away from normal, and offered something different from the other BBS at the time. Even as a 16 year old kid I knew you had to be different to succeed, and wanted to copy nobody. So we named it "Distant Realms Online".</p>
+
+<p><strong>The birth of Distant Realms Online</strong></p>
+
+<p>I scoured other boards and downloaded their informational text files on programming, hacking and cracking, and got every shareware video game I could think of. I even hit telenet to see what the East Coast guys had. I stopped at nothing to have the latest and greatest stuff on my board. Remember these?</p>
+
+<ul>
+<li>Jazz Jackrabbit</li>
+<li>Arctic Adventure</li>
+<li>Castle Wolfenstien</li>
+<li>Beyond the Titanic</li>
+<li>Bio-Menace</li>
+<li>Commander Keen</li>
+<li>Blake Stone</li>
+<li>Crystal Caves</li>
+<li>Dark Ages</li>
+</ul>
+
+
+<p>I could go on an on. Long story short, I made sure I was the ONLY board in the Portland, Oregon area that had the latest and greatest games, all the time. I really spent a lot of time finding this stuff. I got really competitive with the local boards, and started creating original content just to beat them out. I read about AT&T; Phone systems from tech manuals in the library (hey, the statute of limitations is up I'll admit it) and wrote files on how to exploit it. I bought a book on C from Egghead for 40 bucks, learned it and wrote tutorials on it for hours. I wanted to be the best.</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/Monochrome_BBS.png" title="BBS Bulleting Board System" ></p>
+
+<p>Within a month or so, I had 50 members of my BBS. I sent out a system message, saying if every one of them donated at least a couple bucks, I could buy the professional version of the software and it would have more features. I ended up with over $120 being sent to me, so I bought the full version of the software.</p>
+
+<p>After that, the member base started building up. Soon I had 300 people coming on to my bulletin board, and I was swamped. I would turn the ringer off on my parent's phone and use it as a second phone line. I remember getting bombarded with messages from people saying the lines were always busy. At one point, I had to limit a person's time online to 30 minutes, (unless they paid $10 a month for a premium account) just so other people could get in. It was a wildly popular board.</p>
+
+<p><strong>My first lesson in Marketing</strong></p>
+
+<p>That bulletin board taught me a lot. I was a stupid 16 year old kid with a freakish passion for technology, and I was employing good marketing techniques before I even realized what I was doing. I constantly browsed other boards to see if they had something I didn't. If they did, I would add it. I still remember spending countless hours trying to compile some neat C program, just so I could could add it to my board and have something nobody else did. Yes, I'll admit that much of that stuff was "hacking" related, but I was young, dumb and really engaged.</p>
+
+<p><strong>Distant Realms "blows up"</strong></p>
+
+<p>After a while, my BBS started getting really popular. I had donations coming in like crazy. For a while I thought my measly McDonald's salary would have to pay for this weird hobby that nobody understood, but donations would come in the mail nearly every other day. I ended up using those funds to purchase software for my board members, like <a href="http://en.wikipedia.org/wiki/Legend_of_the_Red_Dragon">Legend of the Red Dragon</a> and other cool software people would use. I had someone on my BBS nearly every hour of the day, and I had so many downloads it wasn't funny. It was a blast.</p>
+
+<p><strong>Distant Realms Online at it's peak.</strong></p>
+
+<p>Around 1993, Distant Realms had hundreds of members. People from all over the country were coming to download the latest shareware video games, Hacking and cracking files, and custom C programs I had written for others. People would use the "chat" module and exchange information. People would play LORD deep into the hours of the night. Donations ended up purchasing very expensive hard drives, so I had more room to have more stuff.</p>
+
+<p>I remember going into Portland to buy a 28.8 Modem from a computer store for $400. All paid for by donations from my BBS. At the time, that was about 2 weeks salary for me, but I resisted temptation to keep it for myself, and instead buy something to make the BBS cooler. I was one of the first bulletin boards in the Portland Metro area to feature "Super fast" 28.8 access. (Hint: Most "SLOW" modems now that people rarely use are 56k access).</p>
+
+<p><strong>Who is this kid? </strong></p>
+
+<p>I remember one night getting an invitation to join some other BBS owners in the Portland Area to hang out and get to know each other at the Portland Hilton, in downtown Portland. I decided to go. I dressed up somewhat nice, and took my girlfriend at the time (who had no idea what the hell I was doing with these computers) down there to meet everyone. They were shocked to learn that the owner of one of the biggest and most popular BBS systems in Portland was a pimply-faced teenage kid who drove a POS chevy nova in to meet them. It was really fun talking shop with the other owners, who were in their 20s or 30s, and working in IT.</p>
+
+<p>I'll never forget how some of those people reacted to the fact that person they were trying so hard to compete with was just some dumb kid. But they were really nice, and I had a lot of fun. I told them how I spent countless hours learning stuff, just so I could put it up on my board for other people to learn.</p>
+
+<p><strong>The eventual death.</strong></p>
+
+<p>Around that time I decided to get a CompuServe account (my first real exposure to the internet). I remember having to beg my parents to put it on their credit card because they didn't allow people under 18 to sign up. I used CompuServe to find content to put on my BBS.</p>
+
+<p>But in 1994, I heard of this new way to access the internet, America Online. I signed up for this (I actually signed up so early, I had the email address of jmorgan@aol.com from 1994-1999). Once I discovered the Internet, I knew the BBS would die a slow death. The Internet was just way too cool for the BBS to ever compete, and I knew it. I even wrote an article on my board about "the death of the BBS is coming" and a few people didn't believe me.</p>
+
+<p>Sometime around the summer of 1996, I was deeply intrigued by the internet, and spent most of my time there. I had created my own cheesy webpage, and was deeply involved with UseNet and AOL groups, and had my attention shifted away from my BBS.</p>
+
+<p>I was 19 years old, and was no longer living at my parent's house, but left the computer and phone line there. One day, I decided I wanted the computer that ran Distant Realms Online to try out this new "Linux" thing, and decided to go check the spitfire logs. Only about 5 people a day were visiting the BBS (which hadn't been updated in months) so I figured it would be a good time to pull the plug. I created a "goodbye" message, and came back about a week later and yanked the machine, and shut off the phone line. Distant Realms Online was dead.</p>
+
+<p><strong>I miss the BBS.</strong></p>
+
+<p>Times were much simpler back then. I remember asking my mom to print out the <a href="http://en.wikipedia.org/wiki/Spitfire_(BBS">SpitFire</a>) manual at work, so I could read through and practically memorize the documentation. I remember the hours I spent building the "perfect article" to explain buffer overflows in C. I remember dialing into the Library computers (even though I wasn't supposed to) and cracking out of the shell just so I could compile and try some new goofy program, ad it was the only way I could find access to a UNIX System V system.</p>
+
+<p>I remember the days fondly of spending hours downloading something, starting it at night, and waking up the next morning to find it, and publish it on my BBS. I remember how nobody in my small town had a clue what I was doing, and how my "computer class" teacher used to ask me stuff about what I was doing, out of sheer curiosity. I remember talking with people on my BBS and sending them code to do something, pretending I was an adult who knew what I was doing.</p>
+
+<p>And almost instantly, the internet came along and killed it all. But it was fun while it lasted, and about  year after closing Distant Realms I decided to buy JeremyMorgan.com, and it's still here. Still giving out programming advice and trying to help others, still enamored by technology. I miss the BBS, but I'm glad the Internet has progressed as much as it has. I would have taken me over a year to download Visual Studio Express over a 28.8 modem.</p>
+]]></content>
+  </entry>
+  
+</feed>

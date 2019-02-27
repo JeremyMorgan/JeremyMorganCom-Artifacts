@@ -1,0 +1,558 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Linux Tutorial: How to Build Apache, PHP5 and MySQL from Source ( The Hard Way) - Linux Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Linux Tutorial: How to Build Apache, PHP5 and MySQL from Source ( The Hard Way)" /><meta itemprop="name" content="Linux Tutorial: How to Build Apache, PHP5 and MySQL from Source ( The Hard Way)" /><meta name="twitter:title" content="Linux Tutorial: How to Build Apache, PHP5 and MySQL from Source ( The Hard Way)">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-05-20 15:49:56 +0000" />
+
+<meta property="article:section" content="LinuxTutorials" />
+
+<meta name="description" content="A step by step guide for building a LAMP stack from source for ultimate customization." />
+<meta property="og:description" content="A step by step guide for building a LAMP stack from source for ultimate customization." />
+<meta itemprop="description" content="A step by step guide for building a LAMP stack from source for ultimate customization." />
+<meta name="twitter:description" content="A step by step guide for building a LAMP stack from source for ultimate customization.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/php-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/php-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/php-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/linux/how-to-build-apache-php5-and-mysql-from-source-the-hard-way/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/linux/how-to-build-apache-php5-and-mysql-from-source-the-hard-way/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/linux/how-to-build-apache-php5-and-mysql-from-source-the-hard-way/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Linux Tutorial: How to Build Apache, PHP5 and MySQL From Source ( the Hard Way)</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2012-05-20T15:49:56+00:00" pubdate data-updated="true">May 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>My last article on this subject was about building the trinity (Apache, PHP, MySQL) the easy way using XAMPP. Now I&#8217;m going to show you how to do it the hard way, building everything from source, the way Linus intended. Let&#8217;s get started.</p>
+
+<h2>Step 1: Determine if it&#8217;s right for you.</h2>
+
+<p>This is not the only way to get a LAMP server going and not always the best way. You can get these files from your package manager in your favorite distribution or use something like XAMPP like I mentioned in previous articles. For most developers this a perfectly acceptable way to do it, and likely a better use of your time. Here are the reasons you would want to build from source:</p>
+
+<p><strong><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/tux-gangsta.png"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/tux-gangsta.png" alt="Gangsta Tux always builds from source." /></a>You should only build from source if:</strong></p>
+
+<ul>
+<li><p>You have a good idea of what you&#8217;re doing.</p></li>
+<li><p>You have time and patience.</p></li>
+<li><p>You want the latest and greatest stuff and your package manager doesn&#8217;t have it yet.</p></li>
+<li><p>You want to do something really custom and need to change crucial options.</p></li>
+<li><p>You want full control over the installation details.</p></li>
+<li><p>You need the maximum performance and stability possible.</p></li>
+<li><p>You want to learn something.</p></li>
+</ul>
+
+
+<p>If those don&#8217;t apply to you, then <a href="http://www.apachefriends.org/en/xampp.html">head over to this site</a> and get XAMPP, it&#8217;s an awesome project.</p>
+
+<h2>Step 2: Get Sources.</h2>
+
+<p>Here is all the stuff you&#8217;re going to need. I put asterisks next to the &#8220;maybe&#8221; stuff that you might not need depending on how updated your system is.</p>
+
+<p><strong>Apache:</strong></p>
+
+<p><a href="http://httpd.apache.org/download.cgi">http://httpd.apache.org/download.cgi</a></p>
+
+<p><strong>PHP:</strong></p>
+
+<p><a href="http://php.net/downloads.php">http://php.net/downloads.php</a></p>
+
+<p><strong>MySQL:</strong></p>
+
+<p><a href="http://dev.mysql.com/downloads/">http://dev.mysql.com/downloads/</a></p>
+
+<p><strong>Cmake: </strong>*</p>
+
+<p><a href="http://www.cmake.org/files/v2.8/cmake-2.8.8.tar.gz">http://www.cmake.org/files/v2.8/cmake-2.8.8.tar.gz</a></p>
+
+<p><strong>Mcrypt: </strong>*</p>
+
+<p><a href="http://sourceforge.net/projects/mcrypt/files/Libmcrypt/">http://sourceforge.net/projects/mcrypt/files/Libmcrypt/</a></p>
+
+<p><strong>APR:</strong></p>
+
+<p><a href="http://apr.apache.org/">http://apr.apache.org/</a></p>
+
+<p><strong>PCRE:</strong></p>
+
+<p><a href="http://www.pcre.org/">http://www.pcre.org/</a></p>
+
+<p>Additional reading about setting up an Apache server can be found here:</p>
+
+<p><a href="http://httpd.apache.org/docs/2.4/install.html">http://httpd.apache.org/docs/2.4/install.html</a></p>
+
+<p><strong>Verify your files!
+</strong></p>
+
+<p>Make sure and download the .asc file also and do a quick checksum on it. This extra few seconds is well worth the benefit. Here is how you do it with Apache:</p>
+
+<p><a href="http://www.apache.org/info/verification.html">http://www.apache.org/info/verification.html</a></p>
+
+<p>You should verify all your files before building, just to make sure you didn&#8217;t get a corrupt file.</p>
+
+<p>Notes before you start:</p>
+
+<p>You will see version numbers here, and those numbers are for the latest version of the software available when I wrote this. By the time you read this, they will have changed. If you want you can get these exact version numbers and build them exactly as in the article, but usually the newest version of the software is best.</p>
+
+<p>I use &#8220;nice -20&#8221; before running make to ensure it gets priority. You don&#8217;t have to do this, and usually its not even required as most kernels will prioritize it pretty well.</p>
+
+<p>You do not have to be root to build this stuff, in fact you shouldn&#8217;t be. You only need root privileges to install the software but you can build it with a regular user.</p>
+
+<h2>Step 3: Start Building</h2>
+
+<p><strong>Install cmake:</strong></p>
+
+<blockquote><p>./configure &#8211;prefix=/usr &#8211;mandir=/usr/share/man
+gmake</p></blockquote>
+
+<p><strong>Install MySql:</strong></p>
+
+<blockquote><p>groupadd mysql
+useradd -g mysql mysql</p></blockquote>
+
+<p>tar zxvf mysql-5.5.24.tar.gz (file name will differ)</p>
+
+<p>cd mysql-5.5.24
+./configure &#8211;prefix=/usr/local/mysql
+make
+make install
+cd /usr/local/mysql
+chown -R mysql .
+chgrp -R mysql .
+scripts/mysql_install_db &#8211;user=mysql
+chown -R root .
+chown -R mysql var
+cp support-files/my-medium.cnf /etc/my.cnf</p>
+
+<p>bin/mysqld_safe &#8211;user=mysql &amp;</p>
+
+<p>This will install your MySQL server. If you have issues getting it working, <a href="http://dev.mysql.com/doc/refman/5.5/en/installing-source-distribution.html">consult this page</a> and follow those instructions.</p>
+
+<p><strong>Install Mcrypt</strong></p>
+
+<blockquote><p>bunzip2 libmcrypt-2.5.8.tar.bz2
+tar xvf libmcrypt-2.5.8.tar
+cd libmcrypt-2.5.8
+./configure &#8211;prefix=/usr &#8211;mandir=/usr/share/man
+nice -20 make
+make install</p></blockquote>
+
+<p><strong>Install APR</strong></p>
+
+<blockquote><p>tar xvzf apr-1.4.6.tar.gz /usr/src/http-2.4.2/srclib
+cd apr-1.4.6
+./configure
+nice -20 make</p></blockquote>
+
+<p><strong>APR Utils:</strong></p>
+
+<blockquote><p>tar xvzf apr-util-0.9.19.tar.gz
+./buildconf &#8211;with-apr=/usr/src/apr-1.4.6/
+./configure</p></blockquote>
+
+<p><strong>Install PCRE</strong></p>
+
+<blockquote><p>tar xvzf pcre-8.30.tar.gz
+./configure
+nice -20 make
+make install</p></blockquote>
+
+<p><strong>Install Apache</strong></p>
+
+<blockquote><p>cd httpd-2.4.2
+CFLAGS=&#8221;-O2&#8221; ./buildconf &#8211;with-apr-util=/usr/src/httpd-2.4.2/srclib/apr-util-1.4.1 &#8211;with-apr=/usr/src/httpd-2.4.2/srclib/apr-1.4.6/ &#8211;enable-so &#8211;prefix=/usr/local/apache2
+CFLAGS=&#8221;-O2&#8221; ./configure
+nice -20 make
+make install</p></blockquote>
+
+<p><strong>Install PHP</strong></p>
+
+<p>We are going to install PHP 5.4.3 which was the most current at the time of this writing.</p>
+
+<blockquote><p>tar -xvzf php-5.4.3.tar.gz
+cd php-5.4.3</p></blockquote>
+
+<p><strong>Note:</strong> The configure paramaters are where you really customize your installation. The following is the one I used for my machine, but your needs may be different. I will show you two of them and if mine doesn&#8217;t work, you can use a failsafe one.</p>
+
+<p>My config:</p>
+
+<blockquote><p>./configure &#8211;with-apxs2=/usr/local/apache2/bin/apxs &#8211;with-mysql &#8211;with-curl=/usr/bin/curl &#8211;enable-bcmath &#8211;enable-calendar &#8211;with-curl=/usr/bin/curl &#8211;with-gdbm &#8211;enable-exif &#8211;enable-ftp &#8211;with-gd &#8211;with-freetype-dir=/usr &#8211;with-jpeg-dir=/usr &#8211;with-png-dir=/usr/bin/libpng-config &#8211;enable-gd-native-ttf &#8211;with-gettext &#8211;with-mcrypt=/usr/bin/libmcrypt-config &#8211;with-mhash &#8211;with-mysql=/usr/local/mysql/ &#8211;with-mysqli=/usr/bin/mysql_config &#8211;with-openssl &#8211;with-pdo-mysql=/usr &#8211;enable-soap &#8211;enable-wddx &#8211;with-xsl &#8211;with-zlib &#8211;enable-mbstring &#8211;enable-zip</p></blockquote>
+
+<p>Failsafe:</p>
+
+<blockquote><p>./configure &#8211;with-apxs2=/usr/local/apache2/bin/apxs &#8211;with-mysql</p></blockquote>
+
+<p>Make sure and get what you really need, but remember you can always recompile later. Now copy over a PHP.ini</p>
+
+<blockquote><p>cp php.ini-development /usr/local/apache2/php/php.ini</p></blockquote>
+
+<p>NOTE: Here&#8217;s an error you might run into:</p>
+
+<p>configure: error: Cannot find MySQL header files under /usr.
+Note that the MySQL client library is not bundled anymore!</p>
+
+<p>If you do install the mysql client libraries:</p>
+
+<blockquote><p>git clone git://github.com/Sannis/node-mysql-libmysqlclient.git
+cd node-mysql-libmysqlclient
+nice -20 make
+make test
+make clean
+sudo make install</p></blockquote>
+
+<p>After it&#8217;s built you&#8217;ll need to do a couple things:</p>
+
+<blockquote><p>vi /usr/local/apache2/conf/httpd.conf</p></blockquote>
+
+<p>Make sure this is here:</p>
+
+<blockquote><p>LoadModule php5_module modules/libphp5.so</p></blockquote>
+
+<p>And add this to the file also:</p>
+
+<p><FilesMatch "\.ph(p[2-6]?|tml)$">
+SetHandler application/x-httpd-php
+</FilesMatch></p>
+
+<p>Then restart Apache:</p>
+
+<blockquote><p>/usr/local/bin/apache2/apachectl restart</p></blockquote>
+
+<p>This will give you a nice running system! You will run into problems along the way, nothing that should be a showstopper. Good luck and if you have any questions, feel free to comment!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/linux/'>Linux</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/programming/why-i-love-using-old-hardware/" title="Previous Post: Why I love using old hardware">&laquo; Why I love using old hardware</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/linux/how-to-build-apache-php5-and-mysql-from-source-the-hard-way/" title="Next Post: Linux Tutorial: How to Build Apache, PHP5 and MySQL from Source ( The Hard Way)">Linux Tutorial: How to Build Apache, PHP5 and MySQL from Source ( The Hard Way) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

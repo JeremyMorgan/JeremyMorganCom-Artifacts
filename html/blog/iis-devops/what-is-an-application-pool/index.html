@@ -1,0 +1,491 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Intro to Application Pools in IIS - DevOps Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Intro to Application Pools in IIS" /><meta itemprop="name" content="Intro to Application Pools in IIS" /><meta name="twitter:title" content="Intro to Application Pools in IIS">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-07-09 02:56:00 +0000" />
+
+<meta property="article:section" content="DevOpsDotNetIISProgramming" />
+
+<meta name="description" content="Application Pools in IIS can be somewhat of a mystery. Since they're created for you automatically many times Administrators don't give them a second &hellip;" />
+<meta property="og:description" content="Application Pools in IIS can be somewhat of a mystery. Since they're created for you automatically many times Administrators don't give them a second &hellip;" />
+<meta itemprop="description" content="Application Pools in IIS can be somewhat of a mystery. Since they're created for you automatically many times Administrators don't give them a second &hellip;" />
+<meta name="twitter:description" content="Application Pools in IIS can be somewhat of a mystery. Since they're created for you automatically many times Administrators don't give them a second &hellip;">
+
+<meta property="og:image" content="/images/what-is-iis-app-pool/what-is-iis-app-pool-og.jpg" /><meta itemprop="image" content="/images/what-is-iis-app-pool/what-is-iis-app-pool-og.jpg" /><meta name="twitter:image" content="/images/what-is-iis-app-pool/what-is-iis-app-pool-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/iis-devops/what-is-an-application-pool/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/iis-devops/what-is-an-application-pool/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/iis-devops/what-is-an-application-pool/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Intro to Application Pools in IIS</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2016-07-09T02:56:00+00:00" pubdate data-updated="true">Jul 9<span>th</span>, 2016</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>Application Pools in IIS can be somewhat of a mystery. Since they&#8217;re created for you automatically many times Administrators don&#8217;t give them a second thought. But understanding application pools is crucial to having a good running IIS server.</p>
+
+<p>I cover this and other IIS Administration topics in my <a href="http://www.pluralsight.com/courses/iis-administration-fundamentals">IIS Administration Fundamentals</a> course at Pluralsight. Check it out!</p>
+
+<!-- more -->
+
+
+<h3>What Is an Application Pool?</h3>
+
+<p>To understand Application Pools, we must first understand applications, as far as IIS is concerned.</p>
+
+<p>An <strong>application</strong> is a set of files and folders that deliver content. Any website will have a default application assigned to it, even if it&#8217;s just HTML and images. The diagram below shows the web server / web site / application relationship:</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-01.jpg" alt="What is an Application Pool" /></p>
+
+<p>An <strong>Application Pool</strong> is a container for your applications. It serves to isolate your application from other applications on the server. Each application in an application pool shares a worker process (w3wp.exe). You can have several applications share the same worker process, or have one for each application.</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-00.jpg" alt="What is an Application Pool" /></p>
+
+<p>When setting up Application Pools, you have a few options. Let&#8217;s compare a couple patterns.</p>
+
+<h4>Multiple Applications in Single Pool</h4>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-02.jpg" alt="What is an Application Pool" /></p>
+
+<p>With this setup every application shares the same pool/process. Some reasons you may want to do this:</p>
+
+<ul>
+<li>Simpler Design</li>
+<li>When making changes you only have to do it once.</li>
+<li>Caching is improved, code can be shared and cached between applications</li>
+</ul>
+
+
+<p>Some reasons you may not want to:</p>
+
+<ul>
+<li>One crash takes down every application</li>
+<li>An application with high load will slow the others</li>
+<li>All applications share the same security profile</li>
+<li>One applications required setting may break another application.</li>
+</ul>
+
+
+<h4>Each application has its own application pool</h4>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-03.jpg" alt="What is an Application Pool" /></p>
+
+<p>With this setup each application has it&#8217;s own unique process.</p>
+
+<p>Some reasons you may want to do this:</p>
+
+<ul>
+<li>Isolated operations - if one application fails it doesn&#8217;t affect the others.</li>
+<li>Isolated performance - a higher load application (most likely) will not slow the other applications down.</li>
+<li>Security can be configured for each application individually.</li>
+</ul>
+
+
+<p>Some reasons you may not want to do this:</p>
+
+<ul>
+<li>Settings cannot be changed globally, must do one by one.</li>
+<li>Common code caching advantage not present.</li>
+<li>Could create more overhead than a single pool.</li>
+</ul>
+
+
+<p>There is no &#8220;magic bullet&#8221; for this, it will depend on your website and the needs of your organization. It&#8217;s definitely something you want to experiment with for best results.</p>
+
+<h3>Application Pool Settings</h3>
+
+<p>There are some important settings to consider with Application Pools. If you choose the basic settings you don&#8217;t get much:</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-04.jpg" alt="What is an Application Pool" /></p>
+
+<p>This only allows you to change your CLR version and Managed pipeline mode. But choose advanced settings and you get far more options:</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-05.jpg" alt="What is an Application Pool" /></p>
+
+<p>Here are some ones I&#8217;ve often seen changed:</p>
+
+<ul>
+<li><p><strong>.Net CLR</strong>- Although there isn&#8217;t a great reason to run a lower version of .Net it does happen. Usually I find myself setting this when the default app pool framework is 2.0.</p></li>
+<li><p><strong>Enable 32 Bit applications</strong> - This is a common one for backwards compatibility. For instance the last application I worked on that required this used 32 bit DLLs written in C++, and the application would not function without this setting.</p></li>
+<li><p><strong>Managed Pipeline Mode</strong> - This is another one used for backwards compatibility. You may need classic mode for some older ASP applications.</p></li>
+<li><p><strong>Queue Length</strong> - this is a throttling setting and it&#8217;s pretty rough but useful. What we&#8217;re saying here is we can have 1000 requests in the queue, and above that visitors will get a 503 error.</p></li>
+<li><p><strong>Limit</strong> - This is another throttling measure that controls the maximum percentage of CPU time you want this application pool to consume.</p></li>
+<li><p><strong>Limit Action</strong> specifies what to do when that limit is hit. You can kill the process, throttle it, or do nothing.</p></li>
+<li><p><strong>Limit interval</strong> is for fine tuning throttling. After the limit above is hit, this setting controls how many minutes we can stay in that state until recycling. If it&#8217;s too long you may have throttling on after it&#8217;s no longer needed. Too short and of an interval will just keep it throttling.</p></li>
+<li><p><strong>Identity</strong> - This is important because this is the user your application pool is impersonating. Most of the time application pool identity is your best choice, but there are times when you will need a specific user to run a process. In that case you can have this app pool run under that user&#8217;s account and it&#8217;s given their permissions. Don&#8217;t do this unless you absolutely need to. It&#8217;s something I&#8217;ve seen a lot in the field especially in high security applications.</p></li>
+</ul>
+
+
+<p>As I&#8217;ve said before, there is no silver bullet for tuning either. It really depends on your organization and how your website is used. A great tune on one website could be bad for another.</p>
+
+<h3>How to Create an Application Pool</h3>
+
+<p>Creating Application Pools in IIS is easy. You can go into IIS Manager in the <strong>Application Pools</strong> feature pane, right click and create a new one:</p>
+
+<p><img src="/images/what-is-iis-app-pool/what-is-iis-app-pool-06.jpg" alt="What is an Application Pool" /></p>
+
+<p>Or you could create one with PowerShell (my preferred option):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$appPoolName = 'jeremyscoolapp'
+</span><span class='line'>
+</span><span class='line'>if(!(Test-Path IIS:\AppPools\$appPoolName))
+</span><span class='line'>{
+</span><span class='line'>    $appPool = New-Item $appPoolName
+</span><span class='line'>    $appPool | Set-ItemProperty -Name "managedRuntimeVersion" -Value 'v4.0'
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>Set-ItemProperty iis:\Sites\WebsiteName -Name applicationpool -Value $appPoolName</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In this script you can see that I define a name for my Application Pool. Then, I test to see if it already exists. If it doesn&#8217;t I create a new Application pool. Then I use Set-ItemProperty to change my runtime version to 4.0. You can set any of the application pool settings this way.</p>
+
+<p>To see the options you can change type the following at a PowerShell prompt:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Get-Item IIS:\AppPools\DefaultAppPool  | Select-Object *</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Replace DefaultAppPool with the name of your application pool if it&#8217;s different.</p>
+
+<h3>Conclusion</h3>
+
+<p>I hope this has given you a good introduction to application pools in IIS. Because these are created automatically often times administrators don&#8217;t give a lot of thought to setting them up. Many websites run just fine with default settings. If you find yourself needing a custom configuration or you have some load issues, you now have a good understand of application pools and where to look to change them.</p>
+
+<p>I cover this and many more IIS topics in my new Pluralsight Course <a href="http://www.pluralsight.com/courses/iis-administration-fundamentals">IIS Administration Fundamentals</a>. Check it out if you&#8217;re interested in learning more about IIS Administration.</p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/devops/'>DevOps</a>, <a class='category' href='/blog/dotnet/'>DotNet</a>, <a class='category' href='/blog/iis/'>IIS</a>, <a class='category' href='/blog/programming/'>Programming</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/raspberry-pi/hands-on-internet-of-things/" title="Previous Post: Hands on IoT with the Raspberry Pi">&laquo; Hands on IoT with the Raspberry Pi</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/" title="Next Post: Does Dry Ice Really Cool Five Times Better Than Regular Ice?">Does Dry Ice Really Cool Five Times Better Than Regular Ice? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

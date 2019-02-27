@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Raspberry Pi Programming For Beginners - source Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Raspberry Pi Programming For Beginners" /><meta itemprop="name" content="Raspberry Pi Programming For Beginners" /><meta name="twitter:title" content="Raspberry Pi Programming For Beginners">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-02-26 19:09:00 +0000" />
+
+<meta property="article:section" content="source" />
+
+<meta name="description" content="Want to learn how to program on the Raspberry Pi? This is a beginners guide to getting started with Python." />
+<meta property="og:description" content="Want to learn how to program on the Raspberry Pi? This is a beginners guide to getting started with Python." />
+<meta itemprop="description" content="Want to learn how to program on the Raspberry Pi? This is a beginners guide to getting started with Python." />
+<meta name="twitter:description" content="Want to learn how to program on the Raspberry Pi? This is a beginners guide to getting started with Python.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-programming-python/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-programming-python/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-programming-python/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Raspberry Pi Programming for Beginners</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-26T19:09:00+00:00" pubdate data-updated="true">Feb 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>Want to learn how to write some apps for the Raspberry Pi? Today I&#8217;m going to kick off a new series of tutorials related to the Raspberry Pi and programming. This is a series that will be aimed at beginners, but seasoned programmers may want to take a look as well. The Raspberry Pi was created for education, tinkering and bringing technology to the far parts of the world. This is a mission I firmly stand behind, so I&#8217;m doing my part to throw some new stuff out there to get people excited about becoming a programmer with this awesome device.</p>
+
+<!-- more -->
+
+
+<h3>Why Python?</h3>
+
+<p>Python is arguably the biggest programming language on the Pi right now, for good reason. It has lots of tools, is well supported and development is really fast. Plus it&#8217;s easy to learn. It&#8217;s very powerful and you can even create simple games and graphics with it. I think it&#8217;s a great language to get started with as you&#8217;ll see some instant results.</p>
+
+<h3>Tools we&#8217;ll be using</h3>
+
+<p>We are going to be using Python and <a href="http://docs.python.org/2/library/idle.html" title="IDLE for Python">IDLE</a> for our first part of the tutorials, and these are already installed and present if you&#8217;re using the Raspian image. Here is what IDLE looks like:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-1.png" alt="Raspberry Pi Programming" /></p>
+
+<p>This is our Python console and editor. We&#8217;ll be using this extensively to create our programs. While there are many IDEs out there, it&#8217;s always good to start with the console, and learn a little how Python works. This is it! There&#8217;s no long list of tools to download, you can get started programming Python right away with the default Raspian image.</p>
+
+<h3>Let&#8217;s get started!</h3>
+
+<p>Let&#8217;s get comfortable with the Python environment. For this tutorial we&#8217;re only going to be covering some basics using Python version 3.2.3. We&#8217;ll run a few commands at the console to play with output, but we&#8217;ll want to create an file later to make programs that are actually useful.</p>
+
+<p>At the prompt (where it shows &gt;&gt;&gt;) you&#8217;ll want to type in the commands I show and press enter.</p>
+
+<h4>1. Using the prompt</h4>
+
+<p>At the prompt you saw how you could output text, but you can also do arithmetic at the prompt. Type in the following and press enter:</p>
+
+<pre>
+3 + 2
+</pre>
+
+
+<p>As you can see, it outputs the answer. But you can also use multiple operators and expressions.</p>
+
+<pre>
+((3 + 2) * 5) -3
+</pre>
+
+
+<p>and you&#8217;ll see 22. It&#8217;s not terribly useful at this time, but it&#8217;s nice to know it&#8217;s available.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-2.png" alt="Raspberry Pi Programming" /></p>
+
+<p>Most of the time you&#8217;ll use the prompt for setting configuration parameters. For any real useful programs you&#8217;ll want to create a file containing a list of commands.</p>
+
+<h4>2. Creating a file to run</h4>
+
+<p>Let&#8217;s create a file and run some stuff. In the IDLE 3 window, select File -&gt; New Window</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-3.png" alt="Raspberry Pi Programming" /></p>
+
+<p>You will see a new window that comes up, and that&#8217;s where you&#8217;re going to be putting your code. Then you can save it to a text file that Python can run.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-4.png" alt="Raspberry Pi Programming" /></p>
+
+<p>In this window, type in the following code:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># my first Python script</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>then, go to File -&gt; Save</p>
+
+<p>You should see a window that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-5.png" alt="Raspberry Pi Programming" /></p>
+
+<p>Type in a file name like &#8220;myfirstprogram.py&#8221; and click save. Now everything you put into this file will be saved and interpreted by Python.</p>
+
+<p>Python is an &#8220;interpreted&#8221; language, which means the Python program will read a text file line by line and act based on the commands you give it. This is different from a compiled language like C where you a compiler reads the code and creates a program. We&#8217;ll do some C programming later in the series and you&#8217;ll see the differences later.</p>
+
+<h3>Input and output</h3>
+
+<p>Now that you know how to create a file we can play with some input and output. First I should let you know that the file you just created won&#8217;t exactly do anything. That&#8217;s because all we did was put a comment in the file.</p>
+
+<p>A comment is something that&#8217;s ignored by the Python interpreter. The purpose of a comment is to leave yourself notes, or leave notes for other programmers. This makes your program easier to understand.</p>
+
+<p>Let&#8217;s make our file actually do something. Type in the following:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">print</span> <span class="s">&quot;this is output&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, go up to the Run menu, and select &#8220;Run Module&#8221;</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-6.png" alt="Raspberry Pi Programming" /></p>
+
+<p>Once you select this you&#8217;ll get the following message:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-7.png" alt="Raspberry Pi Programming" /></p>
+
+<p>This is a message telling you to save your file before running it. Click OK.</p>
+
+<p>Now this file will close, and back in your terminal window you&#8217;ll see the following:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-8.png" alt="Raspberry Pi Programming" /></p>
+
+<p>Congratulations! You&#8217;ve created output. But that&#8217;s just the start.</p>
+
+<h4>Ask for and display a name</h4>
+
+<p>Go back to your editor window (it&#8217;s still open) and erase everything. Put in the following lines:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&#39;What is your name? &#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span> <span class="p">(</span><span class="s">&#39;Hi&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;how are you?&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>now, click on Run-&gt; Run Module again.</p>
+
+<p>You will see a prompt that&#8217;s asking your name:</p>
+
+<pre>
+What is your name?
+</pre>
+
+
+<p>As you probably predicted, you should type in your name. Press enter.</p>
+
+<p>You should see this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-9.png" alt="Raspberry Pi Programming" /></p>
+
+<p>Pretty cool huh? So how does this work?</p>
+
+<ol>
+<li><p>You created a variable called &#8220;name&#8221;. A variable is a storage space for data. When you create a variable it sets aside some space for you to put things in and take them out, and gives this space a name so you can access it later.</p></li>
+<li><p>When you created name, you assigned it the value from the input() method. The primary job of Input is to collect data from the keyboard. Inside the parentheses is a space where you can &#8220;pass&#8221; data to input. This text is what it displays <em>before</em> input tries to accept data. This is generally used for prompts like this.</p></li>
+<li><p>You used print to output a string. When you &#8220;pass&#8221; data to print it gets output to the screen. So you passed in a string &#8216;Hi&#8217; which by itself would work. But by putting in a comma afterward you are adding to that string. You used something called concatenation.</p></li>
+<li><p>You then appended (added on) the name variable. Notice how it has no quotes around name. This is how you tell Python that it&#8217;s a variable. You have quotes about &#8216;hi&#8217; and &#8216;how are you?&#8217; to let Python know that&#8217;s a string, and then you added the three together.</p></li>
+<li><p>Lastly you output your newly built string.</p></li>
+</ol>
+
+
+<p>This is great example of input and output. Let&#8217;s do a little more, just for fun. Now type the following into your editor:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#my first python script</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&#39;What is your name? &#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">age</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&#39;How old are you? &#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">city</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&#39;What city do you live in? &#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="p">(</span><span class="s">&#39;The author of this program is &#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s">&#39;who is &#39;</span><span class="p">,</span><span class="n">age</span><span class="p">,</span> <span class="s">&#39;years old and lives in &#39;</span> <span class="n">city</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, go to Run -&gt; Run Module.</p>
+
+<p>You will see that it now asks you a series of questions, and once you fill it out, it will display a line back to you after putting all the data together:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-programming-python-10.png" alt="Programming Raspberry Pi" /></p>
+
+<p>It&#8217;s that easy!</p>
+
+<h3>Summary</h3>
+
+<p>While we really didn&#8217;t dive that deep into programming the Pi, or even Python I hope this will at least give beginners a general idea of how to get started. I will be adding some more detailed tutorials in the future, but if you can&#8217;t wait and really want to keep going check out the <a href="http://docs.python.org/3/tutorial/">Python 3 Tutorials</a> at Python.org.</p>
+
+<p>You don&#8217;t have to stick with Python 3 either. Python 2.6 is still in very active use and there are actually more packages available for it if that&#8217;s what you&#8217;d prefer. Both versions are very good and it doesn&#8217;t hurt to learn them both.</p>
+
+<p>In future tutorials we&#8217;ll explore python deeper, and even get into some other languages such as C++ and assembler. I&#8217;ll also show some more useful things you can do to get you really pumped about programming on the pi.</p>
+
+<p>If you have any questions, leave them in the comments!</p>
+
+<br />
+
+
+<div>
+<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
+<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
+<br /><br />
+<p>I have just released my new course titled &#8221;<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>&#8221; which is intended to be a course for people who want to get started with IoT. I&#8217;ll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I&#8217;m offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
+</div>
+
+
+<br />
+
+
+<p><a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br /></p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-26T19:09:00+00:00" pubdate data-updated="true">Feb 26<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/source/'>source</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/raspberry-pi/top-10-raspberry-pi-blogs/" title="Previous Post: The Top 10 Raspberry Pi Blogs">&laquo; The Top 10 Raspberry Pi Blogs</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/raspberry-pi/raspberry-pi-programming-python/" title="Next Post: Raspberry Pi Programming For Beginners">Raspberry Pi Programming For Beginners &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

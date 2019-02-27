@@ -1,0 +1,532 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>My Latest Virtualization Setup - Devops Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="My Latest Virtualization Setup" /><meta itemprop="name" content="My Latest Virtualization Setup" /><meta name="twitter:title" content="My Latest Virtualization Setup">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-02-10 13:28:00 +0000" />
+
+<meta property="article:section" content="DevopsLinuxProgrammingTutorials" />
+
+<meta name="description" content="A quick look at my virtualization setup, remotely accessed headless VMs on a Linux Server." />
+<meta property="og:description" content="A quick look at my virtualization setup, remotely accessed headless VMs on a Linux Server." />
+<meta itemprop="description" content="A quick look at my virtualization setup, remotely accessed headless VMs on a Linux Server." />
+<meta name="twitter:description" content="A quick look at my virtualization setup, remotely accessed headless VMs on a Linux Server.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/my-virtual-box-setup/home-virtualization-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/my-virtual-box-setup/home-virtualization-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/my-virtual-box-setup/home-virtualization-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">My Latest Virtualization Setup</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-02-10T13:28:00+00:00" pubdate data-updated="true">Feb 10<span>th</span>, 2018</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>Like many geeks of the time I spent the 90s and 2000s with at least 2 or 3 old computers in a closet, connected by a switch running various operating systems with various services running on them. Giant, loud, clunky machines whirring away.</p>
+
+<!-- more -->
+
+
+<div style="float: right; padding: 15px;">
+
+<img src= "https://www.jeremymorgan.com/images/my-virtual-box-setup/jeremy-old.jpg" alt="Jeremy Morgan, about 2003 or so" />
+
+</div>
+
+
+<p>This very website was hosted for years on an old Pentium Machine running FreeBSD connected to my DSL line in my bedroom. It was just the way you did things then.</p>
+
+<p>I had stacks of hard drives with labels on them. Ebay specials I&#8217;d purchased for the sole purpose of putting different operating systems on them. Everything from Redhat, Gentoo, FreeBSD or various versions of Windows, I would just swap the drive and go.</p>
+
+<p>For years I lived in a condo that had a coat closet near the front door with an electrical outlet in it. I ran Ethernet through the ceiling and filled it to the top with machines. All for development, file servers, and web hosting purposes. It all seems a little silly now.</p>
+
+<h3>2018 is a little different&#8230;</h3>
+
+<p>These days I have an Azure Account, AWS, and <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4" target="_blank">Digital Ocean</a>. Virtualization has made progress even the most die hard geeks didn&#8217;t expect. Even development itself is a bit abstracted from the bare metal these days, at least for most people. Things like Docker will make the OS and it&#8217;s configuration almost irrelevant.</p>
+
+<p>Yet I still have a server in my house, and I want to show you guys the setup.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/intel-xw8400-server.jpg" alt="HP xv8600 Xeon Server" /></p>
+
+<p>This is an old HP Xeon Workstation I picked up that was going to use for course production, but even with 2 Xeons and 32 gig of RAM it fails to outperform my Mac Mini for video and audio rendering. So I decided to use it for some remote virtualization stuff, and stuffed it in a corner of our daylight basement.</p>
+
+<h3>Why do I need this?</h3>
+
+<p>Lately I&#8217;ve been doing a lot of random software development and building courses online. For those courses I need a fresh operating system and development environment. Obviously I could record some of these things on my desktop, but with the frequent configuration changes and software installs I could mess up the accuracy of my courses. So I want a machine with a dedicated operating system for each course. That motivated me to set this up.</p>
+
+<h2>Getting the server setup</h2>
+
+<p>To start this out, I originally had Windows 10 on this server. It ran well, <a href="http://browser.geekbench.com/v4/cpu/6882166" target="_blank">the performance was not too bad</a>. But if I were to use this as only a Virtualization machine, the overhead wasn&#8217;t that great.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/windows-memory.jpg" alt="Window 10 Memory Usage " /></p>
+
+<p>This is with the machine &#8220;at an idle&#8221;. I was using up 2 gigs of memory just loading up a desktop with nothing else. Surely I could do better than that.</p>
+
+<p>It should come as a surprise to nobody I decided to go with Linux base, and I installed Debian 9 on it. Why Debian? It&#8217;s the same OS that powers jeremymorgan.com and I like it because it&#8217;s lean, simple and well supported. It doesn&#8217;t have the bleeding edge packages (I use Arch on the Desktop for that) but it&#8217;s stable. Incredibly stable. I wanted something I could install and forget about. So Debian was my choice.</p>
+
+<p>I went with a barebones Linux installation, custom kernel and no window manager, and found that the idle was significantly better:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/linux-memory-usage.jpg" alt="Linux Memory Usage" /></p>
+
+<p>This gives me a little more headroom and CPU cycles to work with.</p>
+
+<p>I ended up installing LXDE because it&#8217;s easier to configure and manage VMs with a window system. But I needed to set my server to boot to just a console, that way I can start and stop the windowing environment when I wanted to.</p>
+
+<p>To do that, I had to set my runlevel, which is a little different these days than in the past. If you want your server/desktop to boot to a prompt, do this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>systemctl get-default</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In my case, it said</p>
+
+<blockquote><p>graphical.target</p></blockquote>
+
+<p>Which is not what I want. So I then type in:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>systemctl set-default multi-user.target</span></code></pre></td></tr></table></div></figure>
+
+
+<p>that way I can just fire up the server at a prompt and not have to have the windowing system loaded in memory. Yep, it&#8217;s that easy.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/default-runlevel-target.jpg" alt="Default Runlevel Target for Debian" /></p>
+
+<p>So now I had a nice lean and stable OS base to start with.</p>
+
+<p>Then I installed LXDE and then used <a href="http://networkstatic.net/xrdp-an-easy-remote-desktop-setup-for-your-ubuntu-servers/" target="_blank">xrdp to set up a remote desktop</a> so I never have to walk over to the server to do anything. I just remote in from my office.</p>
+
+<h3>Setting up virtual machines</h3>
+
+<p>For the Virtualization, I chose <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Virtual Box</a>. I&#8217;ve worked with Hyper-V and VMWare in the past and they each have their merits, but for this application this works best for me. I originally attempted to setup Hyper-V server but my machine was too old and didn&#8217;t support it fully. So this worked out.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtualbox.jpg" alt="Virtual Box Setup" /></p>
+
+<p>Now one thing about Virtual Box that&#8217;s awesome is you can virtual machines &#8220;headless&#8221; from the command line. This is a great feature if you want to spin up a bunch of them. I can run 3 to 4 servers at a time without a blip in performance (ok 32 gigs of RAM and Xeons help with that).</p>
+
+<p>Installing the machines is super easy. You can choose to allocate as much hardware as you&#8217;d like, or don&#8217;t like to the mix:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtual-box-memory.jpg" alt="Virtual Box Memory" /></p>
+
+<p>And CPU usage is handled nicely:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtual-box-cpu.jpg" alt="Virtual Box CPU Setup" /></p>
+
+<p>For networking, I set up one bridged adapter to communicate with the outside world, and another adapter for an internal network to communicate with other servers:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/bridged.jpg" alt="Bridged Network Adapter VirtualBox" /></p>
+
+<p>It can&#8217;t be beat. So now I have several VMs set up and ready to go.</p>
+
+<h2>Running the Virtual Machines</h2>
+
+<p>So now I have my server booted at just a prompt, and I can list all my available virtual machines:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>VBoxManage list vms</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtualbox-list-vms.jpg" alt="Virtual Box List VMs" /></p>
+
+<p>This is pretty handy. I can start them up here, then RDP into them from my office machine. Virtualbox uses VRDP to provide the headless interface to the outside world. I&#8217;ve used it extensively the last few weeks with zero problems.</p>
+
+<p>I can start up a VM with the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>VBoxManage startvm "&lt;VM NAME&gt;" --type headless</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I even have some shell scripts to start up clusters or sets of machines at once.</p>
+
+<p>Then, I can just check to see the machine are running:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>VBoxManage list runningvms</span></code></pre></td></tr></table></div></figure>
+
+
+<p> <img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/show-running-vms.jpg" alt="Show running VMs in Virtual Box Command line headless" /></p>
+
+<p>And it&#8217;s that easy!</p>
+
+<p>Here&#8217;s one thing that&#8217;s not so easy&#8230; finding an IP address. The only real reliable way to get it is by going into my router and looking for them. Some machines I have statically assigned an IP for ease of use. If you don&#8217;t do that though, you can always just show the VM from the Windowing interface:</p>
+
+<p> <img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/show-desktop-ip.jpg" alt="Show Desktop Virtual Box" /></p>
+
+<p>And then type in ipconfig, ifconfig, ip a, etc to get the IP.</p>
+
+<p>I can RDP into any of these machines, do development, record courses, whatever I need.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/desktop-view.jpg" alt="RDP into Debian Virtual Machine" /></p>
+
+<p>It works out great. Since it&#8217;s on my local network it feels and performs like I&#8217;m on the desktop.</p>
+
+<h2>Conclusion</h2>
+
+<p>So I just wanted to show my setup and how I&#8217;ve been running things lately. This works really well for course production, because I can RDP in, full screen it on one window and record it as I go through the steps. I can also develop stuff and run/test it out. I&#8217;ve put in a replica of this website in, with the identical configuration for testing/development.</p>
+
+<p>It works great. I&#8217;ll probably find a better way to do it, or you may know a better way, feel free to leave it in the comments or <a href="https://www.twitter.com/JeremyCMorgan">yell at me on Twitter</a>. If you have any questions, feel free to contact me about it.</p>
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+
+
+<br />
+
+
+<br />
+
+
+<p><a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" /></p>
+
+<br />
+
+
+
+
+<br />
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/devops/'>Devops</a>, <a class='category' href='/blog/linux/'>Linux</a>, <a class='category' href='/blog/programming/'>Programming</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/IIS/how-to-load-test-iis-web-server/" title="Previous Post: Load Testing Your IIS Web Server">&laquo; Load Testing Your IIS Web Server</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/linux/what-distro-linux-should-i-use/" title="Next Post: Which Distribution of Linux Should I Use?">Which Distribution of Linux Should I Use? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

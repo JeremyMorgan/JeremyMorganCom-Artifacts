@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Set up easy file sharing with Samba - Devops Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Set up easy file sharing with Samba" /><meta itemprop="name" content="Set up easy file sharing with Samba" /><meta name="twitter:title" content="Set up easy file sharing with Samba">
+
+<meta property="article:published_time" content="2018-03-18 14:43:00 +0000" />
+
+<meta property="article:section" content="DevopsLinuxProgrammingTutorials" />
+
+<meta name="description" content="How to set up easy file sharing from a Linux machine to Windows with Samba. I'll show you how easy it is to setup file sharing on your network using &hellip;" />
+<meta property="og:description" content="How to set up easy file sharing from a Linux machine to Windows with Samba. I'll show you how easy it is to setup file sharing on your network using &hellip;" />
+<meta itemprop="description" content="How to set up easy file sharing from a Linux machine to Windows with Samba. I'll show you how easy it is to setup file sharing on your network using &hellip;" />
+<meta name="twitter:description" content="How to set up easy file sharing from a Linux machine to Windows with Samba. I'll show you how easy it is to setup file sharing on your network using &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/how-to-file-sharing-samba/how-to-file-sharing-samba-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/how-to-file-sharing-samba/how-to-file-sharing-samba-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/how-to-file-sharing-samba/how-to-file-sharing-samba-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/linux/how-to-file-sharing-samba/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/linux/how-to-file-sharing-samba/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/linux/how-to-file-sharing-samba/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Set Up Easy File Sharing With Samba</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-18T14:43:00+00:00" pubdate data-updated="true">Mar 18<span>th</span>, 2018</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>In this tutorial, I&#8217;ll show you how easy it is to setup file sharing on your network using SAMBA. You can easily share files between Linux and Windows machines with a pretty minimal amount of setup.</p>
+
+<!-- more -->
+
+
+<h3>How I&#8217;m Using SAMBA File Sharing</h3>
+
+<p>First, to give you little context, here&#8217;s how I am using Samba file sharing, with something I recently set up for course development.</p>
+
+<p><img src="/images/how-to-file-sharing-samba/how-to-file-sharing-samba-01.jpg" alt="How to setup file sharing with SAMBA" /></p>
+
+<p>So I am developing courses and using a variety of Operating Systems for it. One course in progress is Windows related and I&#8217;m using Windows 2012 and 2016 Server machines. For another course I&#8217;m working on I&#8217;m using a variety of Linux machines. I&#8217;m spinning up multiple virtual machines with a fresh OS to demonstrate configuration and modification, then destroying them.</p>
+
+<h3>Workstation</h3>
+
+<p>I have my workstation that I record with (my trusted Mac Mini), and I use Windows or OSX and run things like Camtasia, Final Cut Pro, Audio Tools, Photoshop, PowerPoint etc. I have a dual monitor setup and I use RDP to connect to a server, and use a full screen on one Monitor and have my recording tools on the other.</p>
+
+<h3>Virtualization</h3>
+
+<p>I&#8217;m using a server to run headless virtual machines <a href="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/" target="_blank">that I described in this article</a>. The sole purpose of this machine is to run these virtual machines and I want to dedicate as many resources as I can to it, because it runs several at one time.</p>
+
+<p>I ran into an issue where i had a huge folder full of ISO images for each operating System. Combined with the disk space used by the virtual machines themselves, I decided I had to split it off.</p>
+
+<br />
+
+
+<p><img src="/images/how-to-file-sharing-samba/how-to-file-sharing-samba-02.jpg" alt="How to set up file sharing with SAMBA" /></p>
+
+<h3>File Server</h3>
+
+<p>I found an old machine I wasn&#8217;t using and decided to drop a hard drive in it, and turn it into a file server. With an i3 and 4 gigs of RAM it&#8217;s plenty fast. I decided to go with a minimal install of CENTOS an install SAMBA on it.</p>
+
+<h3>Workflow</h3>
+
+<p>So now I can ssh into my server and run commands to spin up the various virtual machines I need to run, and I have space to create many more. I have the installation ISOS residing on the file share server, which is mounted on the VM server. So to create a new virtual machine, I can just mount an ISO, run the installer and go, and create fresh new machines as needed.</p>
+
+<p>If I see some cool distribution of Linux I just have to try, I can download the installer ISO with my workstation to the shared folder, then build a vm to install from the ISO.</p>
+
+<p>It&#8217;s not redundant or secured tightly, but it&#8217;s all stuff I can download from MSDN or the internet to replace anyway. This is one of my uses for a Samba server.</p>
+
+<p>Now, let&#8217;s get to the tutorial.</p>
+
+<h2>How to Set Up File Sharing with Samba</h2>
+
+<p>Here&#8217;s how you can set up a file server with Samba. For this I am using <a href="https://www.centos.org/" target="_blank">CentOS</a> Linux, but it&#8217;s very similar for most Linux distributions.</p>
+
+<p>I&#8217;ve created an account named jeremy that will be used for serving files. You never want to run this kind of stuff under the root account.  So I&#8217;ll log in with the Jeremy account, and use sudo to run any commands that require administrative rights.</p>
+
+<p>In a fresh install of CentOS you will need to <a href="https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-centos-quickstart" target="_blank">add this account to the sudoers file</a>.</p>
+
+<h3>Install Samba</h3>
+
+<p>First we&#8217;ll need to install Samba.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install samba samba-client samba-common</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we want to create a new folder for our file share. This is where the files will be stored that we&#8217;re sharing.</p>
+
+<p>Then we&#8217;ll change the permissions on this share</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /srv/samba/secure
+</span><span class='line'>sudo chmod -R 0770 /srv/samba/secure
+</span><span class='line'>sudo chown -R root:smbgrp /srv/samba/secure
+</span><span class='line'>sudo chcon -t samba_share_t /srv/samba/secure</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Add Samba User Group</h3>
+
+<p>Next we&#8217;ll add the Samba user group. Then you&#8217;ll want to add a user to that group.
+You want to make sure this is an existing user on your machine, for this I used the Jeremy account I created the folder with.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>groupadd smbgrp
+</span><span class='line'>usermod jeremy -aG smbgrp</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, you want to add the Samba user, which should be the same as the account you&#8217;re using (in my case, jeremy).</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo smbpasswd -a jeremy</span></code></pre></td></tr></table></div></figure>
+
+
+<p>it will ask you for your password. This will be the password for the Samba share, and you can put in your existing user password here.</p>
+
+<h3>Edit Smb.conf</h3>
+
+<p>Next we want to edit our smb.conf. Make a quick backup of the file</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/samba/smb.conf /etc/samba/smb.bak</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, let&#8217;s edit the file</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vi /etc/samba/smb.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First I&#8217;m going to change the name of my workgroup to WORKGROUP in all caps. this is the name of my windows workgroup.</p>
+
+<p>Here we have homes which are home folders for each user if you&#8217;d like to use those</p>
+
+<p>Let&#8217;s create a share that points to where we just created a folder.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[fileshare]
+</span><span class='line'>    comment= my file share
+</span><span class='line'>    path = /srv/samba/secure
+</span><span class='line'>    valid users = jeremy
+</span><span class='line'>    public = no
+</span><span class='line'>    writable = yes
+</span><span class='line'>    browsable = yes
+</span><span class='line'>    printable = no
+</span><span class='line'>    create mask = 0765</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Start Service</h3>
+
+<p>You want to test your configuration changes to make sure everything is correct.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>testparm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, it&#8217;s time to restart the smb and nmb services:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo systemctl restart smb.service
+</span><span class='line'>sudo systemctl restart nmb.service</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Firewall</h3>
+
+<p>We&#8217;ll have to add an entry to the firewall to allow the samba service to be accessible from outside the network:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>firewall-cmd --permanent --zone=public --add-service=samba
+</span><span class='line'>firewall-cmd --reload</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Browsing</h3>
+
+<p>Now, we can browse to the server from a Windows machine:<br /></p>
+
+<div style="display: block; margin-left: auto; margin-right: auto;">
+
+<img src="/images/how-to-file-sharing-samba/how-to-file-sharing-samba-03.jpg" alt="How to file sharing with Samba" />
+
+</div>
+
+
+<br />
+
+
+<p>You can even mount it as a mapped drive, or <a href="https://wiki.samba.org/index.php/Mounting_samba_shares_from_a_unix_client" target="_blank">mount it on a linux machine</a>. Samba setup is super easy, and great to use.</p>
+
+<h2>Conclusion</h2>
+
+<p>Setting up Samba is easy, and something to consider if you want easy file sharing between Linux and Windows machines, or even Linux and Linux machines. I gave some context of how to set it up, but there are tons of use cases for Samba. You can also tie it in to different authentication/authorization schemes if you&#8217;d like an use it with Active Directory as well. Check out <a href="https://www.samba.org/" target="_blank">Samba.org</a> for more information.</p>
+
+<p>I also created a video tutorial for this:</p>
+
+<br />
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JT0Y0VUP7T4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+<br />
+
+
+<p>Subscribe to <a href="https://www.youtube.com/channel/UCAR4QD5vqpn4LFrrBiDe7lQ" target="_blank">my channel on YouTube</a> for more tutorials!</p>
+
+<br />
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/devops/'>Devops</a>, <a class='category' href='/blog/linux/'>Linux</a>, <a class='category' href='/blog/programming/'>Programming</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/devops/windows-to-go-usb-drive/" title="Previous Post: Windows to Go with the Spyrus USB Drive">&laquo; Windows to Go with the Spyrus USB Drive</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/c-sharp/how-to-net-core-unit-test/" title="Next Post: Unit Testing with dotnet core">Unit Testing with dotnet core &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/">More about me</a></p>
+<ul>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+</ul>
+</section>
+<br />
+<section>
+	<h2>My Courses</h2>
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
+	  </li>
+	
+  </ul>
+</section>
+<section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+<br />
+</section>
+  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<h1>Great Deals!</h1>
+<br /><br />
+<div style="margin-left: auto;margin-right: auto; text-align: center;" >
+<!-- raspberry pi 3 --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br /><br /><br /><br />
+<!-- arduino -->
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+    </iframe>
+<br /><br /><br /><br />
+<!-- cracking the code interview --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
+</iframe>
+<br /><br /><br /><br />
+<!-- Python Crash course --> 
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+</iframe>
+<br />
+</div>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

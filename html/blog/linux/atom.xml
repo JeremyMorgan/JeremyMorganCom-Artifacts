@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Linux | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/linux/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2019-02-27T04:15:33+00:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="https://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Set up easy file sharing with Samba]]></title>
+    <link href="https://www.jeremymorgan.com/blog/linux/how-to-file-sharing-samba/"/>
+    <updated>2018-03-18T14:43:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/linux/set-up-easy-file-sharing-with-samba</id>
+    <content type="html"><![CDATA[<p>In this tutorial, I'll show you how easy it is to setup file sharing on your network using SAMBA. You can easily share files between Linux and Windows machines with a pretty minimal amount of setup.</p>
+
+<!-- more -->
+
+
+<h3>How I'm Using SAMBA File Sharing</h3>
+
+<p>First, to give you little context, here's how I am using Samba file sharing, with something I recently set up for course development.</p>
+
+<p><img src="/images/how-to-file-sharing-samba/how-to-file-sharing-samba-01.jpg" alt="How to setup file sharing with SAMBA" /></p>
+
+<p>So I am developing courses and using a variety of Operating Systems for it. One course in progress is Windows related and I'm using Windows 2012 and 2016 Server machines. For another course I'm working on I'm using a variety of Linux machines. I'm spinning up multiple virtual machines with a fresh OS to demonstrate configuration and modification, then destroying them.</p>
+
+<h3>Workstation</h3>
+
+<p>I have my workstation that I record with (my trusted Mac Mini), and I use Windows or OSX and run things like Camtasia, Final Cut Pro, Audio Tools, Photoshop, PowerPoint etc. I have a dual monitor setup and I use RDP to connect to a server, and use a full screen on one Monitor and have my recording tools on the other.</p>
+
+<h3>Virtualization</h3>
+
+<p>I'm using a server to run headless virtual machines <a href="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/" target="_blank">that I described in this article</a>. The sole purpose of this machine is to run these virtual machines and I want to dedicate as many resources as I can to it, because it runs several at one time.</p>
+
+<p>I ran into an issue where i had a huge folder full of ISO images for each operating System. Combined with the disk space used by the virtual machines themselves, I decided I had to split it off.</p>
+
+<br />
+
+
+<p><img src="/images/how-to-file-sharing-samba/how-to-file-sharing-samba-02.jpg" alt="How to set up file sharing with SAMBA" /></p>
+
+<h3>File Server</h3>
+
+<p>I found an old machine I wasn't using and decided to drop a hard drive in it, and turn it into a file server. With an i3 and 4 gigs of RAM it's plenty fast. I decided to go with a minimal install of CENTOS an install SAMBA on it.</p>
+
+<h3>Workflow</h3>
+
+<p>So now I can ssh into my server and run commands to spin up the various virtual machines I need to run, and I have space to create many more. I have the installation ISOS residing on the file share server, which is mounted on the VM server. So to create a new virtual machine, I can just mount an ISO, run the installer and go, and create fresh new machines as needed.</p>
+
+<p>If I see some cool distribution of Linux I just have to try, I can download the installer ISO with my workstation to the shared folder, then build a vm to install from the ISO.</p>
+
+<p>It's not redundant or secured tightly, but it's all stuff I can download from MSDN or the internet to replace anyway. This is one of my uses for a Samba server.</p>
+
+<p>Now, let's get to the tutorial.</p>
+
+<h2>How to Set Up File Sharing with Samba</h2>
+
+<p>Here's how you can set up a file server with Samba. For this I am using <a href="https://www.centos.org/" target="_blank">CentOS</a> Linux, but it's very similar for most Linux distributions.</p>
+
+<p>I've created an account named jeremy that will be used for serving files. You never want to run this kind of stuff under the root account.  So I'll log in with the Jeremy account, and use sudo to run any commands that require administrative rights.</p>
+
+<p>In a fresh install of CentOS you will need to <a href="https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-centos-quickstart" target="_blank">add this account to the sudoers file</a>.</p>
+
+<h3>Install Samba</h3>
+
+<p>First we'll need to install Samba.</p>
+
+<p><code>
+sudo yum install samba samba-client samba-common
+</code></p>
+
+<p>Now we want to create a new folder for our file share. This is where the files will be stored that we're sharing.</p>
+
+<p>Then we'll change the permissions on this share</p>
+
+<p><code>
+mkdir -p /srv/samba/secure
+sudo chmod -R 0770 /srv/samba/secure
+sudo chown -R root:smbgrp /srv/samba/secure
+sudo chcon -t samba_share_t /srv/samba/secure
+</code></p>
+
+<h3>Add Samba User Group</h3>
+
+<p>Next we'll add the Samba user group. Then you'll want to add a user to that group.
+You want to make sure this is an existing user on your machine, for this I used the Jeremy account I created the folder with.</p>
+
+<p><code>
+groupadd smbgrp
+usermod jeremy -aG smbgrp
+</code></p>
+
+<p>Next, you want to add the Samba user, which should be the same as the account you're using (in my case, jeremy).</p>
+
+<p><code>
+sudo smbpasswd -a jeremy
+</code></p>
+
+<p>it will ask you for your password. This will be the password for the Samba share, and you can put in your existing user password here.</p>
+
+<h3>Edit Smb.conf</h3>
+
+<p>Next we want to edit our smb.conf. Make a quick backup of the file</p>
+
+<p><code>
+sudo cp /etc/samba/smb.conf /etc/samba/smb.bak
+</code></p>
+
+<p>Now, let's edit the file</p>
+
+<p><code>
+sudo vi /etc/samba/smb.conf
+</code></p>
+
+<p>First I'm going to change the name of my workgroup to WORKGROUP in all caps. this is the name of my windows workgroup.</p>
+
+<p>Here we have homes which are home folders for each user if you'd like to use those</p>
+
+<p>Let's create a share that points to where we just created a folder.</p>
+
+<p>```
+[fileshare]</p>
+
+<pre><code>comment= my file share
+path = /srv/samba/secure
+valid users = jeremy
+public = no
+writable = yes
+browsable = yes
+printable = no
+create mask = 0765
+</code></pre>
+
+<p>```</p>
+
+<h3>Start Service</h3>
+
+<p>You want to test your configuration changes to make sure everything is correct.</p>
+
+<p><code>
+testparm
+</code></p>
+
+<p>Then, it's time to restart the smb and nmb services:</p>
+
+<p><code>
+sudo systemctl restart smb.service
+sudo systemctl restart nmb.service
+</code></p>
+
+<h3>Firewall</h3>
+
+<p>We'll have to add an entry to the firewall to allow the samba service to be accessible from outside the network:</p>
+
+<p><code>
+firewall-cmd --permanent --zone=public --add-service=samba
+firewall-cmd --reload
+</code></p>
+
+<h3>Browsing</h3>
+
+<p>Now, we can browse to the server from a Windows machine:<br /></p>
+
+<div style="display: block; margin-left: auto; margin-right: auto;">
+
+<img src="https://www.jeremymorgan.com/images/how-to-file-sharing-samba/how-to-file-sharing-samba-03.jpg" alt="How to file sharing with Samba" />
+
+</div>
+
+
+<br />
+
+
+<p>You can even mount it as a mapped drive, or <a href="https://wiki.samba.org/index.php/Mounting_samba_shares_from_a_unix_client" target="_blank">mount it on a linux machine</a>. Samba setup is super easy, and great to use.</p>
+
+<h2>Conclusion</h2>
+
+<p>Setting up Samba is easy, and something to consider if you want easy file sharing between Linux and Windows machines, or even Linux and Linux machines. I gave some context of how to set it up, but there are tons of use cases for Samba. You can also tie it in to different authentication/authorization schemes if you'd like an use it with Active Directory as well. Check out <a href="https://www.samba.org/" target="_blank">Samba.org</a> for more information.</p>
+
+<p>I also created a video tutorial for this:</p>
+
+<br />
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JT0Y0VUP7T4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+<br />
+
+
+<p>Subscribe to <a href="https://www.youtube.com/channel/UCAR4QD5vqpn4LFrrBiDe7lQ" target="_blank">my channel on YouTube</a> for more tutorials!</p>
+
+<br />
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Which Distribution of Linux Should I Use?]]></title>
+    <link href="https://www.jeremymorgan.com/blog/linux/what-distro-linux-should-i-use/"/>
+    <updated>2018-02-20T02:51:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/linux/what-distro-of-linux</id>
+    <content type="html"><![CDATA[<p>I'm often asked this question: "hey, you're a Linux guy right? What Linux should I use? I have this friend who recommends _____ and I want to know what you think?" I usually reply with the same question: what do you want to do? So I decided to make a blog post about it that I can send people instead.</p>
+
+<!-- more -->
+
+
+<h2>My History with Linux</h2>
+
+<p>I should probably preface this article with a little bit of my history with Linux, in case you're reading this and you don't know me (very likely). You can probably skip this if you don't care.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/slackware-linux.jpg" alt="Slackware Linux" />
+</div>
+
+
+<p>I started out using Linux around 1996. My first Linux was Slackware 4, a set of CDs I purchased at Egghead Software (yep, I'm old). A friend of mine told me about this Unix like thing that was so great and I just had to try it and he thought I would love it.</p>
+
+<p>I read a lot about Unix, and was very curious about it. I had a shell account at my internet provider and I'd tinkered around, yet at first I was a bit hesitant. "Why would I need this?" His reply was simply: "Because you hate Windows 95 so much and love DOS, you'll love this". So I bought it. He was right.</p>
+
+<p>I took an old hard drive I had and installed it. I fought with it for hours, then days. I finally got a desktop up and running. I have no idea what drove me in this time, but I had to figure out how to make this system work, and it was difficult. I had to know so much about my hardware! Simple things were suddenly hard again. But I pushed through, and I got my desktop up. And I started building some silly scripts for fun. The system was fast, and I could change nearly everything about it.</p>
+
+<p>It had a built in C compiler? I just bought some really expensive Borland package for this I could barely figure out. But this OS had a compiler built in? A free Image editor? I was hooked!</p>
+
+<p>For years after that, I experimented with tons of Distributions. Even BSD Unix ones. My "main computer" was always a dual boot, and some of them were pure Linux. Most of the early 2000s, I avoided Windows completely. So by year, I can break it down to my "main machine", it would be:</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/redhat-linux.jpg" alt="Red Hat Linux" />
+</div>
+
+
+<ul>
+<li>1996-1999: Slackware</li>
+<li>1999-2002: Redhat (and FreeBSD)</li>
+<li>2003-2005: FreeBSD / Knoppix</li>
+<li>2005-2009: Gentoo</li>
+<li>2009-2011: Linux Mint</li>
+<li>2011-2018: Arch Linux / Debian</li>
+</ul>
+
+
+<p>So of course I used probably 50 or more distributions in my time, but this was what was running on my "main machine" I used for work, or browsing, or development or whatever. Obviously Arch had the longest run so far, mainly because I could just configure it and forget about it for long periods of time.</p>
+
+<p>But the main distro for my "real work" the last few years has been Debian.</p>
+
+<p>Enough about me though, let's talk about what you should use.</p>
+
+<h2>So What Do You Want to Do?</h2>
+
+<p>I'm going to put these in categories based on common needs. There is some overlap here, and with enough work any of these Linux distributions will work for your desired needs. One of the great things about Linux is you can make it whatever you want. But some distributions do a lot of that work for you, or have a design that works better towards certain goals. I'll present these in categories based on the easiest path to reach your goals.</p>
+
+<h2>I'm a Linux Newbie Just Getting Started</h2>
+
+<p>For a long time I recommended Ubuntu for this. As far as ease of use and compatibility it was great. But I pretty much hate Ubuntu now. I still use it for demos in my courses and articles because so many people use it, but I am not a fan of the way they run this distribution, the built in Amazon adware, and Unity is annoying.</p>
+
+<p><strong>So if you're just starting out I recommend:</strong></p>
+
+<ul>
+<li><a href="https://linuxmint.com/download.php" target="_blank">Linux Mint Download</a></li>
+<li><a href="https://www.debian.org/distrib/" target="_blank">Debian Download</a></li>
+</ul>
+
+
+<p>It's kind of a cheat because Linux Mint is built off Debian, but Mint looks prettier and has some nice cross platform stuff.</p>
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/linux-mint.jpg" alt="Linux Mint" />
+</div>
+
+
+<ul>
+<li>A Windows-like experience</li>
+<li>Something simple to install</li>
+<li>Something reliable</li>
+<li>Something "Linux like" that doesn't deviate from the norm</li>
+<li>Something that "just works"</li>
+</ul>
+
+
+<p>Ok so that last one is really important. It just works. Either of these distributions are plug and play. Set them up, and forget about it. I have become increasingly reliant on Debian for my development machines because at times <strong>I don't care about the OS and I don't want it to get in my way</strong>. When I'm in a mood where I just want to build things, it can't be beat.</p>
+
+<h2>I Want to Learn More About Linux/Unix and My Hardware</h2>
+
+<p>Maybe you're in the mood to play and experiment. You want to challenge yourself and force yourself to learn by doing. That's great, it's exactly what I did.</p>
+
+<p><strong>If you want to challenge yourself and learn I recommend:</strong></p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/arch-linux.jpg" alt="ARCH Linux" />
+</div>
+
+
+<ul>
+<li><a href="http://www.slackware.com/getslack/" target="_blank">Slackware Linux</a></li>
+<li><a href="https://www.archlinux.org/download/" target="_blank">Arch Linux</a></li>
+<li><a href="https://www.gentoo.org/downloads/" target="_blank">Gentoo Linux</a></li>
+<li><a href="https://www.freebsd.org/where.html" target="_blank">FreeBSD </a>(Not Linux but fits in this category)</li>
+</ul>
+
+
+<p>Each of these distributions requires a lot of configuration, hardware discovery, and compiling of source. With Gentoo you have to compile everything. It's a great way to have absolute full control over your operating system.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+    <img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/gentoo-linux.jpg" alt="Gentoo Linux" />
+</div>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Full control of your computer and OS</li>
+<li>To learn about Linux internals</li>
+<li>A lean and mean optimized system</li>
+</ul>
+
+
+<p>This comes at a cost: mainly your time. A full install of these can take hours. On the plus side, they tend to run forever.</p>
+
+<p>I had an Arch Install on a Lenovo that took the better part of a Saturday to configure, and let's say another 10 hours or more spread out after that. It ran nearly effortlessly for 5 years (till the laptop hardware died). I only had to do a few updates once in a while, but I used it reliably every day for 5. Long. Years. So in a way you can look at it as investment.</p>
+
+<h2>I want Cutting Edge Stuff</h2>
+
+<p>Ok maybe you want the latest greatest software and you don't care how stable it is. You want to do some kernel hacking or some other cool thing that some coder committed yesterday.</p>
+
+<p><strong>To hell with stability and security you want the newest thing now.</strong></p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/opensuse-tumbleweed.jpg" alt="openSUSE Tumbleweed" />
+</div>
+
+
+<ul>
+<li><a href="https://www.archlinux.org/download/" target="_blank">Arch Linux</a></li>
+<li><a href="https://en.opensuse.org/Portal:Tumbleweed" target="_blank">OpenSuse Tumbleweed</a></li>
+<li><a href="https://fedoraproject.org/wiki/Releases/Rawhide" target="_blank">Fedora Rawhide</a></li>
+<li><a href="https://www.gentoo.org/downloads/" target="_blank">Gentoo Unstable</a></li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>To trade risk for the newest stuff</li>
+<li>The latest and greatest features always</li>
+<li>Fun configuring things to work with breaking changes</li>
+</ul>
+
+
+<p>To be fair I've personally used Arch and Gentoo without significant stability problems, but I was risking using the bleeding edge stuff on rolling releases.</p>
+
+<h2>I Just Want to Get Some Work Done</h2>
+
+<p>Ok maybe you don't really care about the OS particulars and just want to GSD (Get Stuff Done). Maybe you have some Node or GoLang apps you want to build and heard Linux is the best for it.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/debian-linux.jpg" alt="Debian Linux" />
+</div>
+
+
+<p><strong>These are great for getting work done:</strong></p>
+
+<ul>
+<li><a href="https://www.debian.org/distrib/" target="_blank">Debian Download</a></li>
+<li><a href="https://getfedora.org/" target="_blank">Fedora</a></li>
+<li><a href="https://software.opensuse.org/distributions/leap" target="_blank">openSuse Leap</a></li>
+<li><a href="https://ubuntustudio.org/" target="_blank">Ubuntu Studio </a> (Yes it's Ubuntu but it's put together nicely)</li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Smooth operation with low maintenance</li>
+<li>Minimal configuration</li>
+<li>Things that just work mostly automatically</li>
+<li>Compatibility with hardware and software</li>
+</ul>
+
+
+<p>As I said I often use Debian these days as I'm usually just making something and don't really feel like tinkering around and optimizing. It's stable, fast, and stays out of my way. I'm writing this article in Debian 9 right now.</p>
+
+<h2>I Want to Set Up a Server</h2>
+
+<p>Maybe you want to set up a web server or virtual host and don't know what to use. The first one on this list is the dominant distribution for web hosting, so if you want something that mimics the site that's hosting your software try CentOS (or learn Docker!)</p>
+
+<p><strong>These are solid and reliable for web hosting:</strong></p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/centos-linux.jpg" alt="CentOS Linux" />
+</div>
+
+
+<ul>
+<li><a href="https://www.centos.org/download/" target="_blank">CentOS</a></li>
+<li><a href="https://developers.redhat.com/products/rhel/download/" target="_blank">Red Hat Enterprise Linux</a> (RHEL)</li>
+<li><a href="https://www.debian.org/distrib/" target="_blank">Debian 9 Download</a></li>
+<li><a href="https://www.freebsd.org/where.htmlhttps://www.freebsd.org/where.html" target="_blank">FreeBSD </a>(Not Linux but fits in this category)</li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Stability</li>
+<li>Security</li>
+<li>Support from other people using it for the same reason</li>
+</ul>
+
+
+<p>I believe any Linux distribution can be used for web hosting effectively, but some take more work than others.</p>
+
+<h2>I Want the Most Performance Possible</h2>
+
+<p>So if you're one of those types who wants to squeeze out every ounce of performance (I've been there) these are great for you. Some of these require compiling all the source code to produce binaries optimized for your processor(s). Fun stuff!</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/clear-linux.jpg" alt="Clear Linux from Intel" />
+</div>
+
+
+<ul>
+<li><a href="https://clearlinux.org/" target="_blank">Clear Linux </a> (For Intel CPUS, by Intel)</li>
+<li><a href="https://www.gentoo.org/downloads/" target="_blank">Gentoo Linux</a></li>
+<li><a href="https://www.archlinux.org/download/" target="_blank">Arch Linux</a></li>
+<li><a href="https://www.freebsd.org/where.htmlhttps://www.freebsd.org/where.html" target="_blank">FreeBSD </a>(Not Linux but fits in this category)</li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Fast performance</li>
+<li>High Load Computing</li>
+</ul>
+
+
+<p>Keep in mind that hardware has reached a performance point where these don't matter quite as much as they used to. 15 years ago you could hack a kernel and dial in your services and see a big boost. These days, the difference is negligible. Any Linux will be pretty snappy.</p>
+
+<h2>I Want a Secure Desktop</h2>
+
+<p>Maybe you want to set up a system that's hard to break into, for whatever reason. There are a couple distributions with security as a top focus. If you're really concerned about locking down your main machine, these are great ones to look at.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/tails-linux.jpg" alt="Tails Linux" />
+</div>
+
+
+<ul>
+<li><a href="https://tails.boum.org/" target="_blank">TAILS Linux</a></li>
+<li><a href="https://alpinelinux.org/" target="_blank">Alpine Linux</a></li>
+<li><a href="https://coreos.com/" target="_blank">CoreOS</a></li>
+<li><a href="https://www.spi.dod.mil/lipose.htm" target="_blank">TENS Linux</a> (DOD Project)</li>
+<li><a href="https://sourceforge.net/projects/tinhat/" target="_blank">Tin Hat Linux</a></li>
+<li><a href="https://www.openbsd.org/" target="_blank">OpenBSD</a> (Not Linux, but fits)</li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Security</li>
+<li>Anonymity</li>
+</ul>
+
+
+<h2>I Want a Minimal Computer System</h2>
+
+<p>Ok sometimes you just want something lean and mean that gets a certain job done. I definitely understand this. Maybe you have an old Pentium you want to re-purpose. Sometimes the OS is just a small part of your goal and you want the bare minimum.</p>
+
+<div style="float: right; padding-top: 0px; padding-left: 20px; padding-right:10px; padding-bottom: 10px">
+<img src="https://www.jeremymorgan.com/images/what-distro-of-linux-should-i-use/lubuntu-linux.jpg" alt="Lubuntu Linux" />
+</div>
+
+
+<ul>
+<li><a href="https://sourceforge.net/projects/archbang/" target="_blank">ArchBang</a></li>
+<li><a href="https://lubuntu.net/" target="_blank">Lubuntu</a></li>
+<li><a href="https://distrowatch.com/table.php?distribution=puppy" target="_blank">Puppy Linux</a></li>
+<li><a href="http://distro.ibiblio.org/tinycorelinux/" target="_blank">Tiny Core Linux</a></li>
+<li><a href="http://www.bodhilinux.com/" target="_blank">Bodhi Linux</a></li>
+</ul>
+
+
+<p><strong>Use these distributions if you want:</strong></p>
+
+<ul>
+<li>Something that will run on old hardware</li>
+<li>Something minimal as possible</li>
+</ul>
+
+
+<h2>Conclusion</h2>
+
+<p>I hate to sound like a broken record, but you could just pick out one of these Linux distributions and make it whatever you want. That's the nature of Linux, its customizable to the furthest degree. But these are great distributions for getting started fast. If you think I've missed the mark or left out a distribution feel free to leave me a message in the comments, or <a href="https://twitter.com/JeremyCMorgan" target="_blank">yell at me on Twitter</a>.</p>
+
+<p>And whatever you do, if you reached this page because you're curious about Linux, try it out!! Now! These days you can download something like <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">VirtualBox</a> (free of charge) and try it out before really committing to anything. It's definitely worth your time to check it out!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My Latest Virtualization Setup]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/devops/virtualization-with-virtual-box/"/>
+    <updated>2018-02-10T13:28:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/devops/my-virtualization-setup</id>
+    <content type="html"><![CDATA[<p>Like many geeks of the time I spent the 90s and 2000s with at least 2 or 3 old computers in a closet, connected by a switch running various operating systems with various services running on them. Giant, loud, clunky machines whirring away.</p>
+
+<!-- more -->
+
+
+<div style="float: right; padding: 15px;">
+
+<img src= "https://www.jeremymorgan.com/images/my-virtual-box-setup/jeremy-old.jpg" alt="Jeremy Morgan, about 2003 or so" />
+
+</div>
+
+
+<p>This very website was hosted for years on an old Pentium Machine running FreeBSD connected to my DSL line in my bedroom. It was just the way you did things then.</p>
+
+<p>I had stacks of hard drives with labels on them. Ebay specials I'd purchased for the sole purpose of putting different operating systems on them. Everything from Redhat, Gentoo, FreeBSD or various versions of Windows, I would just swap the drive and go.</p>
+
+<p>For years I lived in a condo that had a coat closet near the front door with an electrical outlet in it. I ran Ethernet through the ceiling and filled it to the top with machines. All for development, file servers, and web hosting purposes. It all seems a little silly now.</p>
+
+<h3>2018 is a little different...</h3>
+
+<p>These days I have an Azure Account, AWS, and <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4" target="_blank">Digital Ocean</a>. Virtualization has made progress even the most die hard geeks didn't expect. Even development itself is a bit abstracted from the bare metal these days, at least for most people. Things like Docker will make the OS and it's configuration almost irrelevant.</p>
+
+<p>Yet I still have a server in my house, and I want to show you guys the setup.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/intel-xw8400-server.jpg" alt="HP xv8600 Xeon Server" /></p>
+
+<p>This is an old HP Xeon Workstation I picked up that was going to use for course production, but even with 2 Xeons and 32 gig of RAM it fails to outperform my Mac Mini for video and audio rendering. So I decided to use it for some remote virtualization stuff, and stuffed it in a corner of our daylight basement.</p>
+
+<h3>Why do I need this?</h3>
+
+<p>Lately I've been doing a lot of random software development and building courses online. For those courses I need a fresh operating system and development environment. Obviously I could record some of these things on my desktop, but with the frequent configuration changes and software installs I could mess up the accuracy of my courses. So I want a machine with a dedicated operating system for each course. That motivated me to set this up.</p>
+
+<h2>Getting the server setup</h2>
+
+<p>To start this out, I originally had Windows 10 on this server. It ran well, <a href="http://browser.geekbench.com/v4/cpu/6882166" target="_blank">the performance was not too bad</a>. But if I were to use this as only a Virtualization machine, the overhead wasn't that great.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/windows-memory.jpg" alt="Window 10 Memory Usage " /></p>
+
+<p>This is with the machine "at an idle". I was using up 2 gigs of memory just loading up a desktop with nothing else. Surely I could do better than that.</p>
+
+<p>It should come as a surprise to nobody I decided to go with Linux base, and I installed Debian 9 on it. Why Debian? It's the same OS that powers jeremymorgan.com and I like it because it's lean, simple and well supported. It doesn't have the bleeding edge packages (I use Arch on the Desktop for that) but it's stable. Incredibly stable. I wanted something I could install and forget about. So Debian was my choice.</p>
+
+<p>I went with a barebones Linux installation, custom kernel and no window manager, and found that the idle was significantly better:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/linux-memory-usage.jpg" alt="Linux Memory Usage" /></p>
+
+<p>This gives me a little more headroom and CPU cycles to work with.</p>
+
+<p>I ended up installing LXDE because it's easier to configure and manage VMs with a window system. But I needed to set my server to boot to just a console, that way I can start and stop the windowing environment when I wanted to.</p>
+
+<p>To do that, I had to set my runlevel, which is a little different these days than in the past. If you want your server/desktop to boot to a prompt, do this:</p>
+
+<p><code>
+systemctl get-default
+</code>
+In my case, it said</p>
+
+<blockquote><p>graphical.target</p></blockquote>
+
+<p>Which is not what I want. So I then type in:</p>
+
+<p><code>
+systemctl set-default multi-user.target
+</code></p>
+
+<p>that way I can just fire up the server at a prompt and not have to have the windowing system loaded in memory. Yep, it's that easy.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/default-runlevel-target.jpg" alt="Default Runlevel Target for Debian" /></p>
+
+<p>So now I had a nice lean and stable OS base to start with.</p>
+
+<p>Then I installed LXDE and then used <a href="http://networkstatic.net/xrdp-an-easy-remote-desktop-setup-for-your-ubuntu-servers/" target="_blank">xrdp to set up a remote desktop</a> so I never have to walk over to the server to do anything. I just remote in from my office.</p>
+
+<h3>Setting up virtual machines</h3>
+
+<p>For the Virtualization, I chose <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Virtual Box</a>. I've worked with Hyper-V and VMWare in the past and they each have their merits, but for this application this works best for me. I originally attempted to setup Hyper-V server but my machine was too old and didn't support it fully. So this worked out.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtualbox.jpg" alt="Virtual Box Setup" /></p>
+
+<p>Now one thing about Virtual Box that's awesome is you can virtual machines "headless" from the command line. This is a great feature if you want to spin up a bunch of them. I can run 3 to 4 servers at a time without a blip in performance (ok 32 gigs of RAM and Xeons help with that).</p>
+
+<p>Installing the machines is super easy. You can choose to allocate as much hardware as you'd like, or don't like to the mix:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtual-box-memory.jpg" alt="Virtual Box Memory" /></p>
+
+<p>And CPU usage is handled nicely:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtual-box-cpu.jpg" alt="Virtual Box CPU Setup" /></p>
+
+<p>For networking, I set up one bridged adapter to communicate with the outside world, and another adapter for an internal network to communicate with other servers:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/bridged.jpg" alt="Bridged Network Adapter VirtualBox" /></p>
+
+<p>It can't be beat. So now I have several VMs set up and ready to go.</p>
+
+<h2>Running the Virtual Machines</h2>
+
+<p>So now I have my server booted at just a prompt, and I can list all my available virtual machines:</p>
+
+<p><code>
+VBoxManage list vms
+</code></p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/virtualbox-list-vms.jpg" alt="Virtual Box List VMs" /></p>
+
+<p>This is pretty handy. I can start them up here, then RDP into them from my office machine. Virtualbox uses VRDP to provide the headless interface to the outside world. I've used it extensively the last few weeks with zero problems.</p>
+
+<p>I can start up a VM with the following command:</p>
+
+<p><code>
+VBoxManage startvm "&lt;VM NAME&gt;" --type headless
+</code></p>
+
+<p>I even have some shell scripts to start up clusters or sets of machines at once.</p>
+
+<p>Then, I can just check to see the machine are running:</p>
+
+<p><code>
+VBoxManage list runningvms
+</code>
+ <img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/show-running-vms.jpg" alt="Show running VMs in Virtual Box Command line headless" /></p>
+
+<p>And it's that easy!</p>
+
+<p>Here's one thing that's not so easy... finding an IP address. The only real reliable way to get it is by going into my router and looking for them. Some machines I have statically assigned an IP for ease of use. If you don't do that though, you can always just show the VM from the Windowing interface:</p>
+
+<p> <img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/show-desktop-ip.jpg" alt="Show Desktop Virtual Box" /></p>
+
+<p>And then type in ipconfig, ifconfig, ip a, etc to get the IP.</p>
+
+<p>I can RDP into any of these machines, do development, record courses, whatever I need.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/my-virtual-box-setup/desktop-view.jpg" alt="RDP into Debian Virtual Machine" /></p>
+
+<p>It works out great. Since it's on my local network it feels and performs like I'm on the desktop.</p>
+
+<h2>Conclusion</h2>
+
+<p>So I just wanted to show my setup and how I've been running things lately. This works really well for course production, because I can RDP in, full screen it on one window and record it as I go through the steps. I can also develop stuff and run/test it out. I've put in a replica of this website in, with the identical configuration for testing/development.</p>
+
+<p>It works great. I'll probably find a better way to do it, or you may know a better way, feel free to leave it in the comments or <a href="https://www.twitter.com/JeremyCMorgan">yell at me on Twitter</a>. If you have any questions, feel free to contact me about it.</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/"/>
+    <updated>2016-12-06T21:13:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/linux/how-to-install-microsoft-sql-server-on-ubuntu-linux</id>
+    <content type="html"><![CDATA[<p>I must admit I was surprised when I learned that Microsoft SQL Server would be availble in Linux. They've been pushing the open source initiative hard, but I didn't expect something this big. Oh yeah, Visual Studio is now available for Mac as well. I just saw a pig flying by.</p>
+
+<p>While MS-SQL is not open source they have made it available to run on open source platforms such as Linux and OSX, which I can imagine took a ton of work. So I decided to take advantage of this new option and try it out. It works great! It took 5 minutes to install. Here's how you can do it too. Note that you will need a server with 3.5 gigs of RAM for this.</p>
+
+<!-- more -->
+
+
+<p>
+The first thing I always do on an Ubuntu machine is update it</p>
+
+<p><code>
+sudo apt-get update
+sudo apt-get upgrade
+</code></p>
+
+<p>Next we need to import the public repository GPG keys</p>
+
+<p><code>
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/16.04/mssql-server.list | sudo tee /etc/apt/sources.list.d/mssql-server.list
+</code></p>
+
+<p>Next we'll install SQL Server.</p>
+
+<p><code>
+sudo apt-get update
+sudo apt-get install -y mssql-server
+</code></p>
+
+<p><img src="/images/sql-server-linux/how-to-install-sql-server-linux-1.jpg" title="&#34;How to Install SQL Server in Linux&#34;" alt="&#34;How to Install SQL Server in Linux&#34;"></p>
+
+<p>Now we need to run a configuration script to set up the server:</p>
+
+<p>```
+sudo /opt/mssql/bin/sqlservr-setup
+````
+It will ask if you want to start the service and if you'd like to start it on boot.</p>
+
+<p>Here's how you can check if the service is running:</p>
+
+<p><code>
+systemctl status mssql-server
+</code></p>
+
+<p><img src="/images/sql-server-linux/how-to-install-sql-server-linux-2.jpg" title="&#34;How to Install SQL Server in Linux&#34;" alt="&#34;How to Install SQL Server in Linux&#34;"></p>
+
+<h3>Install the MSSQL Tools for Linux</h3>
+
+<p>To test this out a little, install the MSSQL tools on Ubuntu.</p>
+
+<p>Add in a new repository:</p>
+
+<p>```
+curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list</p>
+
+<p>sudo apt-get update
+sudo apt-get install mssql-tools
+```</p>
+
+<p>Now, Let's try to connect!</p>
+
+<p><code>
+sqlcmd -S localhost -U SA -P '&lt;YourPassword&gt;'
+</code></p>
+
+<p>You can run this command to view all your databases:</p>
+
+<p><code>
+SELECT Name from sys.Databases;
+GO
+</code></p>
+
+<p><img src="/images/sql-server-linux/how-to-install-sql-server-linux-3.jpg" title="&#34;How to Install SQL Server in Linux&#34;" alt="&#34;How to Install SQL Server in Linux&#34;"></p>
+
+<p>This should look pretty familiar to you if you've worked with SQL in the past.</p>
+
+<p><code>
+CREATE DATABASE acmewidgets;
+GO
+</code></p>
+
+<p>Now we need to select that database:</p>
+
+<p><code>
+USE acmewidgets;
+GO
+</code></p>
+
+<p>As a test. let's create a customer table</p>
+
+<p><code>
+CREATE TABLE customer (id INT, firstname NVARCHAR(50), lastname NVARCHAR(50));
+GO
+</code></p>
+
+<p>Now, let's put some customers in there:</p>
+
+<p><code>
+INSERT INTO customer VALUES (1, 'Lloyd', 'Christmas');
+INSERT INTO customer VALUES (2, 'Harry', 'Dunn');
+INSERT INTO customer VALUES (3, 'Mary', 'Swanson');
+GO
+</code></p>
+
+<p>Now, let's take a look at those customers:</p>
+
+<p><code>
+SELECT * FROM customer
+GO
+</code></p>
+
+<p><img src="/images/sql-server-linux/how-to-install-sql-server-linux-4.jpg" title="&#34;How to Install SQL Server in Linux&#34;" alt="&#34;How to Install SQL Server in Linux&#34;"></p>
+
+<p>And it's that easy! You can run SQL scripts here, or connect to it from SSMS, a traditional ASP site, or a .Net Core site/app. I'll be doing a lot of ASP.Net core work in the coming months, so be sure to check back here.</p>
+
+<p>To quit from SQL server, type in</p>
+
+<p><code>
+QUIT
+</code></p>
+
+<p>And you're done!</p>
+
+<p>I'll be messing with this some more in the coming weeks and really putting it to the test, and I'll share my results.</p>
+
+<p>-Jeremy</p>
+
+<p>I also did a YouTube tutorial for this article:</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OqsOdUNsO4g" frameborder="0" allowfullscreen></iframe>
+
+
+
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Build a REST API with Python]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/python-tutorials/how-to-rest-api-python/"/>
+    <updated>2015-10-04T20:15:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/python-tutorials/building-a-rest-api-with-python</id>
+    <content type="html"><![CDATA[<p>In this article I will describe the process I used to create a new endpoint for my Raspberry Pi weather station, and how I set it up to to use Python and MariaDB for storage. I set this up as an endpoint for one of my IoT projects and thought I'd share the results.</p>
+
+<!-- more -->
+
+
+<h3>Background</h3>
+
+<p>If you've been following my Raspberry Pi Weather Station tutorials, I set the first one up to use Firebase as a data store. I found it somewhat clunky to work with and I wasn't very happy with my options. I'm not sure this is the type of data best suited for Firebase. So in the second iteration I used a .Net Web API on a Windows Azure website and had it store to a MS-SQL database. This was a really good solution.</p>
+
+<p>I started getting a flood of emails with people asking for a more open source endpoint. Granted ASP.Net is open source, but some complained about the cost of hosting it. If you wanted to keep the database in house you'd have to pay for windows license and a SQL server for instance. Another issue was some people were developing in Linux or Mac, which makes interfacing with ASP.Net difficult (though they are working on that). Long story short I decided to create a Linux friendly solution and decided upon Python/Flask with MariaDB.</p>
+
+<h3>Why Python? Why MariaDB?</h3>
+
+<p>I chose Python because I've always loved the language from my first line of code. It's simple, elegant and does a lot of things very well. I had never written a Web API with it, so I thought I'd give it a shot.</p>
+
+<p>MariaDB is a fork of MySQL that is maintained by the founder, and superior to the original in many ways. Since it's a drop in replacement I can still use the MySQL tools I'm familiar with. It seemed like a good fit.</p>
+
+<h3>Get Started</h3>
+
+<p>Get your Linux server ready. For this task I chose to use a <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Digital Ocean Server</a> running Debian. If you must use Ubuntu, put "sudo" in front of everything.</p>
+
+<p>The first thing you'll want to do is update everything:</p>
+
+<p><code>
+apt-get update
+apt-get upgrade
+</code></p>
+
+<p>Next we'll get the database set up.</p>
+
+<h3>1. Install MariaDB</h3>
+
+<p>As I mentioned, MariaDB is a drop in replacement (upgrade really) of MySQL. You'll need to add the repository:</p>
+
+<p><code>
+apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+</code></p>
+
+<p>Then add it to your sources:</p>
+
+<p><code>
+nano /etc/apt/sources.list
+</code></p>
+
+<p>And add the following to it:</p>
+
+<p>```</p>
+
+<pre><code># MariaDB 5.5 repository list
+deb http://ftp.osuosl.org/pub/mariadb/repo/5.5/debian wheezy main
+deb-src http://ftp.osuosl.org/pub/mariadb/repo/5.5/debian wheezy main
+</code></pre>
+
+<p>```
+save and close the file</p>
+
+<p>Now run the following:</p>
+
+<p><code>
+apt-get install mariadb-server
+</code>
+You will see a screen like this that will ask to set your root password:</p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-1.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<p>To add some additional security settings, run</p>
+
+<p><code>
+/usr/bin/mysql_secure_installation
+</code></p>
+
+<p>After that you can log into your MariaDB server:</p>
+
+<p><code>
+mysql -u root -p
+</code></p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-2.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<p>To make it accessible from outside the server, you'll need to make a change to my.cnf:</p>
+
+<p><code>
+nano /etc/mysql/my.cnf
+</code></p>
+
+<p>Look for "bind-address" and change it:</p>
+
+<p><code>
+bind-address = 0.0.0.0
+</code>
+Save the file and close it.</p>
+
+<p>Now restart the server:</p>
+
+<p><code>
+service mysql restart
+</code>
+You should now be able to connect to your server from the outside.</p>
+
+<h3>2. PYTHON / SQL Connection</h3>
+
+<p>In order to connect to MariaDB you'll need to install a couple things:</p>
+
+<p><code>
+apt-get install libmariadbclient-dev libssl-dev python-mysqldb
+</code>
+You'll also need to download the mysql connector.</p>
+
+<p>```
+wget http://ftp.kaist.ac.kr/mysql/Downloads/Connector-Python/mysql-connector-python_2.1.3-1debian8.2_all.deb</p>
+
+<p>dpkg -i mysql-connector-python_2.1.3-1debian8.2_all.deb
+```</p>
+
+<p>This will install it the proper files to use the MySQL connector module.</p>
+
+<h3>3. Set up Python Flask</h3>
+
+<p>Next, we're going to use Python Flask for the REST interface. Flask is written in Python and a very fast, powerful and stable way to connect.</p>
+
+<p>```
+mkdir source
+cd source</p>
+
+<p>apt-get install curl</p>
+
+<p>curl -O http://peak.telecommunity.com/dist/ez_setup.py</p>
+
+<p>python ez_setup.py</p>
+
+<p>easy_install pip</p>
+
+<p>pip install flask
+```</p>
+
+<p>This will set up Flask on your machine. Now let's build a sample API to test it out.</p>
+
+<h3>4. Set up a test endpoint</h3>
+
+<p>We will want to add a web user (or whatever you want to name it) to set up this application.</p>
+
+<p>I would like to give a shout to <a href="http://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask">Miguel Grinberg</a> for all the work that he's done setting this up! I learned a lot from his tutorials.</p>
+
+<p>```
+adduser web</p>
+
+<p>su web</p>
+
+<p>cd ~</p>
+
+<p>mkdir weather-api</p>
+
+<p>cd weather-api
+```</p>
+
+<p>Now we want to create a file called app.py and make it look like this:</p>
+
+<p>```</p>
+
+<pre><code>#!flask/bin/python
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Hello, World!"
+
+if __name__ == '__main__':
+
+    app.run(debug=True)
+</code></pre>
+
+<p>```</p>
+
+<p>Next, we'll want to set it to be executable, then execute it.</p>
+
+<p><code>
+chmod a+x app.py
+./app.py
+</code></p>
+
+<p>Now create a new SSH session and type the following:</p>
+
+<p><code>
+curl 127.0.0.1:5000
+</code></p>
+
+<p>You will see a hello world message:</p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-3.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<p>Next, change it to have some actions:</p>
+
+<p>```python</p>
+
+<pre><code>#!flask/bin/python
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+tasks = [
+    {
+        'id': 1,
+        'title': u'Buy groceries',
+        'description': u'Milk, Cheese, Pizza, Fruit, Tylenol',
+        'done': False
+    },
+    {
+        'id': 2,
+        'title': u'Learn Python',
+        'description': u'Need to find a good Python tutorial on the web',
+        'done': False
+    }
+]
+
+@app.route('/todo/api/v1.0/tasks', methods=['GET'])
+def get_tasks():
+    return jsonify({'tasks': tasks})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
+</code></pre>
+
+<p>```</p>
+
+<p>Notice at the bottom I put in</p>
+
+<p><code>
+app.run(host=0.0.0.0)
+</code></p>
+
+<p>This will allow your API to be accessed from the outside.</p>
+
+<p>Now, get POSTMAN or something similar and point it at your URL. Send it a GET:</p>
+
+<blockquote><p><strong>{YOUR IP}:5000/todo/api/v1.0/tasks</strong></p></blockquote>
+
+<p>and it should look like this:</p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-4.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<p>Congrats, you have Flask working. For security you should install and implement httpauth later down the road.</p>
+
+<p><code>
+pip install flask-httpauth
+</code></p>
+
+<h3>5. Set up MariaDB for the Weather Station</h3>
+
+<p>Now we will set up a database for the weather station endpoint.</p>
+
+<p>```sql
+CREATE DATABASE weather;
+GRANT ALL PRIVILEGES ON weather.* TO web@'%' IDENTIFIED BY 'secretpassword';
+FLUSH PRIVILEGES;
+quit</p>
+
+<p>```</p>
+
+<p>Log in as that web user:</p>
+
+<p><code>
+mysql -u web -p
+</code></p>
+
+<p>You will be created with an SQL prompt. Type the following:</p>
+
+<p>```sql
+use weather;</p>
+
+<p>CREATE TABLE <code>weather</code>.<code>reading</code> (
+  <code>readingID</code> INT NOT NULL AUTO_INCREMENT COMMENT '',
+  <code>TempSensor1</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>TempSensor2</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>TempSensor3</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>TempSensorAvg</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>Humidity</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>Pressure</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>Altitude</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>SeaLevelPressure</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>Lux</code> DECIMAL(20,10) NULL COMMENT '',
+  <code>TimeStamp</code> VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (<code>readingID</code>)  COMMENT '');</p>
+
+<p>```</p>
+
+<p>This creates your MariaDB database for storing items.</p>
+
+<h3>6. Set up Flask for the Weather Station</h3>
+
+<p>For this rather than dump the code on this page, just check out the endpoint from my github repo:</p>
+
+<p><code>
+git clone https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station_PY_API
+</code></p>
+
+<p>You'll need to change the values in datastore.py to match your credentials.</p>
+
+<p>start  it up as you did before:</p>
+
+<p><code>
+./app.py
+</code></p>
+
+<p>Note, if you want to run as a service in the background:</p>
+
+<p><code>
+nohup ./app.py &amp;
+</code></p>
+
+<p>()I've had mine up for about 2 weeks now without crashing)</p>
+
+<p>Now, you can add a new reading like this:</p>
+
+<p><code>
+curl -i -H "Content-Type: application/json" -X PUT -d '{"TempSensor1":"23"}' http://localhost:5000/weather/api/v1/readings
+</code></p>
+
+<p>But how do we add this as an endpoint for the <a href="https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station">Rasperry Pi Weather Station</a> project? Easy! Just point it to your Linux endpoint instead of the Azure/.Net one in readings.py:</p>
+
+<p><code>
+url = '[YOUR URL]'
+</code></p>
+
+<p>And you're set! All your results will be stored by the minute in a MariaDB database:</p>
+
+<p><img src="/images/how-to-python-rest-api/how-to-rest-python-api-5.jpg" title="How to build a REST API With Python" alt="How to build a REST API With Python" /></p>
+
+<h3>Conclusion</h3>
+
+<p>While this is specific to an endpoint I created for my project it's a good outline for building a REST API with Python in Linux. It's a very stable and performant way to collect data. The work on Flask has made it incredibly easy to get an API up and going quickly. I hope to do more cool stuff with it in the future and I hope you do too.</p>
+
+<br />
+
+
+<br />
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
+<br /><br />
+You can also follow my projects on GitHub:<br />
+<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
+</div>
+<br />
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" />
+<br />
+
+</p>
+
+<br />
+
+]]></content>
+  </entry>
+  
+</feed>
