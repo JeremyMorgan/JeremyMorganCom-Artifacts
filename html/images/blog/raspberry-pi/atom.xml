@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Raspberry Pi | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/raspberry-pi/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2015-05-30T12:51:07-07:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to Blink an LED on a Raspberry Pi 2]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/"/>
+    <updated>2015-03-17T18:55:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/blink-an-led-on-a-raspberry-pi-2-with-python</id>
+    <content type="html"><![CDATA[<p>The blinking LED is the "hello world" of the maker community, and today I'll show you how easy it is to do with the Raspberry Pi 2 (or Model B)! We're going to use Python and WiringPi for this project.</p>
+
+<!-- more -->
+
+
+<h3>What you'll need</h3>
+
+<p>For this article I'm using a Raspberry Pi 2, but you can also use a Raspberry Pi Model B. You will also need:</p>
+
+<p><img class="right" src="/images/blink-led-rpi-2-python/raspberry-pi-2-blink-led-1.jpg" title="&#34;Blink an LED Raspberry Pi 2&#34;" alt="&#34;Blink an LED Raspberry Pi 2&#34;"></p>
+
+<ul>
+<li>A GPIO Adapter</li>
+<li>Breadboard</li>
+<li>Resistor</li>
+<li>LED</li>
+</ul>
+
+
+<p>What I am using for this project is highly recommended the <a href="http://www.amazon.com/gp/offer-listing/B008XVAVAW/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B008XVAVAW&linkCode=am2&tag=webfootcentra-20&linkId=VF3GTBAGOAKMKG2S" target="_new">Canakit for Raspberry Pi</a> which contains everything in the list above. (This is an Amazon affiliate link).</p>
+
+<p>Any decent breadboard or even a set of jumpers will work for this project.</p>
+
+<h2>How to Blink an LED with Python</h2>
+
+<p>The quickest way to get that LED to blink is to take a look at the <a href="http://pi.gadgetoid.com/pinout" target="_new">pins of the GPIO</a> and decide which one to tie to. Then you can use Python and the <a href="https://pypi.python.org/pypi/RPi.GPIO" target="_blank" rel="nofollow">Raspberry Pi GPIO Library</a> to create a script to light it up.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">RPi.GPIO</span> <span class="kn">as</span> <span class="nn">GPIO</span>             <span class="c">## Import GPIO Library</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>                         <span class="c">## Import &#39;time&#39; library (for &#39;sleep&#39;)&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">blue</span> <span class="o">=</span> <span class="mi">7</span>                            <span class="c">## These are our LEDs</span>
+</span><span class='line'><span class="n">ourdelay</span> <span class="o">=</span> <span class="mi">1</span>                        <span class="c">## Delay&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">pins</span> <span class="mi">4</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">25</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">GPIO</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">GPIO</span><span class="o">.</span><span class="n">BOARD</span><span class="p">)</span>            <span class="c">## Use BOARD pin numbering</span>
+</span><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>        <span class="c">## set output&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="n">function</span> <span class="n">to</span> <span class="n">save</span> <span class="n">code</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">activateLED</span><span class="p">(</span> <span class="n">pin</span><span class="p">,</span> <span class="n">delay</span> <span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">HIGH</span><span class="p">)</span>      <span class="c">## set HIGH (LED ON)</span>
+</span><span class='line'><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>                <span class="c">## wait</span>
+</span><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">LOW</span><span class="p">)</span>       <span class="c">## set LOW (LED OFF)</span>
+</span><span class='line'><span class="k">return</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">activateLED</span><span class="p">(</span><span class="n">blue</span><span class="p">,</span><span class="n">ourdelay</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>                      <span class="c">## close down library</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>As you can see in the code above, it doesn't take much to get things working. But I'll explain the code a little deeper.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">RPi.GPIO</span> <span class="kn">as</span> <span class="nn">GPIO</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>       <span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The following code imports the Python GPIO library, and the time library. The GPIO library, as you probably guessed is the library for interacting with the GPIO in Python. It does an amazing job of simplifying the process. The time library is there so we can put a delay in, otherwise the blink might be too fast to notice.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">blue</span> <span class="o">=</span> <span class="mi">7</span>
+</span><span class='line'><span class="n">ourdelay</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Here I created a variable named "blue" (the color of the LED) and assigned it "7" which is the pin number we want. If I wanted to add multiple LEDs I could name it something like:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">blue</span> <span class="o">=</span> <span class="mi">7</span>
+</span><span class='line'><span class="n">red</span> <span class="o">=</span> <span class="mi">13</span>
+</span><span class='line'><span class="n">green</span> <span class="mi">14</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>I then created a "delay" variable of one second. This way I can change the delay of the lights blinking however I want.</p>
+
+<p>You can name the variables anything you want, but this was just to make it easy to see which LED is which if I wanted to do some fancy light show.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">GPIO</span><span class="o">.</span><span class="n">BOARD</span><span class="p">)</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then, we set the GPIO mode to "Board" which means we'll use the numbering of the pin by board instead of GPIO. This makes it a little easier to understand when using a bread board.</p>
+
+<p>With this line of code we set the pin to be an output:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">GPIO</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>There are 2 main commands to turn the LED on then off:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">HIGH</span><span class="p">)</span>
+</span><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">LOW</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you wanted to blink an LED twice you would have to repeat the last two lines each time. So I decided to put this in a function and put the pin and delay as parameters. This way making a particular LED blink is as simple as:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">activateLED</span><span class="p">(</span><span class="n">blue</span><span class="p">,</span><span class="n">ourdelay</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is repeatable and saves code when doing larger programs.</p>
+
+<p>To close everything down, we need to run the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>It's that easy! You could easily write a nice Python script that do some pretty cool stuff with just a few lines of code.</p>
+
+<h2>How to Blink an LED with WiringPi</h2>
+
+<p>For this step we'll install <a href="http://wiringpi.com/" target="_blank">WiringPi</a> for the libraries to interact with the GPIO. This allows us to do what we just did, but from the command line. We'll need to install WiringPi:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/sources
+</span><span class='line'>git clone git://git.drogon.net/wiringPi
+</span><span class='line'>cd wiringPi
+</span><span class='line'>git pull origin
+</span><span class='line'>./build</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If successful you should see a screen like this:</p>
+
+<p><img src="/images/blink-led-rpi-2-python/raspberry-pi-2-blink-led-2.jpg" title="&#34;Blink an LED Raspberry Pi 2&#34;" alt="&#34;Blink an LED Raspberry Pi 2&#34;"></p>
+
+<p>Now we can light up the LED from the command line. Remember the pin 7 in the example above? We can now light up like so:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpio mode 7 out
+</span><span class='line'>gpio mode 7 1</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This will light up the LED. You can turn it off by entering:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpio mode 7 0</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><img src="/images/blink-led-rpi-2-python/raspberry-pi-2-blink-led-3.jpg" title="&#34;Blink an LED Raspberry Pi 2&#34;" alt="&#34;Blink an LED Raspberry Pi 2&#34;"></p>
+
+<p>This makes it super easy to light up LEDs from the command line. You could create a pretty neat BASH script to do this, and do some neat things, or call this from other languages.</p>
+
+<h2>Summary</h2>
+
+<p>I hope this has helped in showing how easy it is to blink an LED on the Raspberry Pi 2/B. Of course as you progress on you'll want to do far more than just blink an LED, but the GPIO libraries make it very easy to create some neat stuff. If you've experimented with this and done something cool, leave me a comment!!</p>
+
+<p>Special Thanks to the folks in <a href="http://www.reddit.com/r/raspberry_pi/comments/30iiq7/for_beginners_how_to_blink_an_led_on_a_raspberry/" target="_new">this thread on Reddit</a> who helped with some corrections to this article.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Raspberry Pi 2 has arrived!]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/"/>
+    <updated>2015-03-01T00:01:00-08:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-2-introduced</id>
+    <content type="html"><![CDATA[<p>So my Raspberry Pi 2 has finally arrived, and I got to take a quick look at it. Pretty impressive so far, though I haven't done much with it. If you don't know what's so great about the Raspberry Pi 2 I'll give you a quick rundown by comparing it to the others.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<h2>Original Raspberry Pi (Model A/A+)</h2>
+
+<p>The original Model A Raspberry Pi models were pretty limited. They didn't have an ethernet chip, and were mostly used for robotics and similar experiments due to their low weight and power usage.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry/raspberry-pi-model-a.jpg" alt="Raspberry Pi Model A" /></p>
+
+<p>The model A+ had an Ethernet port at least, and this was the first model I used.
+It has:</p>
+
+<ul>
+<li>Broadcom BCM2835</li>
+<li>256MB SDRAM</li>
+<li>SoC full HD</li>
+<li>SDCard Port</li>
+<li>2x USB Ports</li>
+<li>26 Pin GPIO</li>
+</ul>
+
+
+<p>It wasn't a bad machine at all, and well worth the price at the time. It was a pioneer of the pocket computers and I had a lot of fun with it.</p>
+
+<h2>Raspberry Pi Model B+</h2>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry/raspberry-pi-model-b.jpg" alt="Raspberry Pi Model B+" /></p>
+
+<p>This was a vast improvement over the previous model. The biggest thing for me was:</p>
+
+<ul>
+<li>512MB SDRAM</li>
+<li>4x USB Ports</li>
+<li>MicroUSB Port</li>
+<li>40 Pin GPIO</li>
+</ul>
+
+
+<p>This model also draws more power, but performs very well. And if you want to use for an actual desktop machine the extra USB ports are helpful.</p>
+
+<h2>Raspberry Pi 2</h2>
+
+<p>This is a drastic change for the Pi. While the form factor is identical to the Raspberry Pi B+, it has a lot more power.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry/raspberry-pi-2.jpg" alt="Raspberry Pi 2" /></p>
+
+<ul>
+<li>Broadcom BCM2836 ARMv7 Quad Core Processor (900mhz)</li>
+<li>1024MB SDRAM</li>
+</ul>
+
+
+<p>This is rumored to be 6x faster. And in addition you'll be able to run Windows 10 on it. I am very excited about this. If you'd like to join the Microsoft IoT early adopter program, <a href="https://www.windowsondevices.com/signup.aspx">here is the signup form</a>.</p>
+
+<h2>Initial impressions</h2>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry/raspberry-pi-2-desktop.jpg" alt="Raspberry Pi Model B+" /></p>
+
+<p>I haven't been able to tinker with it much yet, but it is definitely faster. The Model A/B machines have been able to be a decent, usable Linux Desktop. Its not something you'd ever want to do real work on, but it's usable.</p>
+
+<p>The Raspberry Pi 2 on the other hand is quite snappy. It's enough to be a real internet machine. If you could get a decent browser it would be unstoppable.</p>
+
+<p>The real benefit of course isn't going to be using it as a desktop machine, but continuing to to use for IoT and other Maker Projects with increased memory and power. 900mhz and 1 Gig of Ram? I had a home computer with those specs not so long ago. It's exciting!</p>
+
+<h3>Ideas</h3>
+
+<p>I am batting around a few ideas of things to build with the Pi, including a stereo/GPS setup and a media center, and a robot. But maybe you have another better idea? Send me your ideas and maybe I'll set it up and write about it!</p>
+
+<p><a href="http://www.mcmelectronics.com/product/83-16530?green=46991FB6-EF99-5EAE-B725-4A375A3908DD">Want to buy a Raspberry Pi 2? Get it here! </a></p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Install A Wireless USB Network Card on Raspberry Pi]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-how-to-wireless-usb/"/>
+    <updated>2013-07-30T19:28:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-install-wireless-network-card-on-raspberry-pi</id>
+    <content type="html"><![CDATA[<p>Today I'm going to show you how to install a wireless networking card on your Raspberry Pi. I'm using the ultra cheap Ralink wireless card, but the instructions are similar for any Wireless Device.</p>
+
+<!-- more -->
+
+
+<h3>Update Your System</h3>
+
+<p>For this tutorial I'm using Raspian. This is a great beginner OS for the Pi and quite easy to use.</p>
+
+<p>You'll want to make sure you're at least wired in so you can do an update:</p>
+
+<pre>
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get autoremove
+</pre>
+
+
+<h3>Get Started</h3>
+
+<p>We're going to do this from SSH, though it's easier to do from the desktop. But you got a Raspberry Pi to learn didn't you? Many people use their pi strictly over SSH and don't run a desktop at all. I have decided to include those kinds of instructions rather than do it the graphical way.</p>
+
+<h4>1. Plug in your USB device and find it</h4>
+
+<p>Once plugged in, again we'll look at our USB devices:</p>
+
+<pre>
+lsusb
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-07.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>It looks like in my case it's installed, so now we'll make a copy of the WPA supplicant file:</p>
+
+<pre>
+sudo cp /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
+</pre>
+
+
+<p>Now open up the file:</p>
+
+<pre>
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+</pre>
+
+
+<p>And add the following:</p>
+
+<pre>
+network={
+    ssid="[YOUR NETWORK SSID]"
+    psk="[YOUR NETWORK PASSWORD]"
+}
+</pre>
+
+
+<p>It should look like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-06.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>Now, save the file. CTRL + X - Save "Y"</p>
+
+<h4>Start up Your Adapter</h4>
+
+<p>Now we need to stop the wlan service:</p>
+
+<pre>
+sudo wpa_action wlan0 stop
+</pre>
+
+
+<p>Then bring it back up:</p>
+
+<pre>
+sudo ifup wlan0
+</pre>
+
+
+<h4>Test Connectivity</h4>
+
+<pre>
+sudo wpa_cli status
+</pre>
+
+
+<p>You should see something like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-05.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>If not, double check your network SSID and Password, that's the most common problem. You may have a card that isn't supported by the Raspberry Pi, if not get a new one! They're super cheap and well worth it.</p>
+
+<h3>(Optional) - If You End up Needing a Driver</h3>
+
+<p>Sometimes there are issues that prevent you from loading the drivers for your card. Much of the firmware comes with raspian, but if not you'll have to find the drivers for it. You'll need a Windows machine to get the drivers you'll need (at least for Ralink).</p>
+
+<p>Insert the device and run the driver disk provided. Then after successfully installing it, open up your control panel, and select the properties of the device:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-04.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>Click on "driver details"</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-08.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>This will show you the location of the driver files to copy off the machine, you can put them on a USB stick and put them on your Pi from there.</p>
+
+<h4>Get The Drivers off the USB Stick The Hard Way</h4>
+
+<p>I put the driver files on a USB stick. Getting them from the desktop is really easy, but what if you only have SSH access? Don't fret. With Raspian it should automount just fine, you only need to find it.</p>
+
+<p>Run the following command to list your USB devices:</p>
+
+<pre>
+lsusb
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-03.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>Now, you want to see all the disks that are attached to your system:</p>
+
+<pre>
+sudo fdisk -l
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-02.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>As you can see in my case, my USB stick is mounted at /dev/sda1 so the device is connected to my pi. But where is it?</p>
+
+<pre>
+mount
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-03.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>There it is! Under /media/MYLINUXLIVE but that probably won't be your folder, it will show the drive label you gave it when you formatted it. (I happen to use and love the LinuxLive program whenever I can).</p>
+
+<p>Now I can just look for the drivers on the disk and copy them to a folder in my home directory:</p>
+
+<pre>
+cd ~
+mkdir usbdriver
+cp -r /media/MYLINUXLIVE/driver/* usbdriver/
+</pre>
+
+
+<p>Now the files are copied, safely unmount the drive:</p>
+
+<pre>
+sudo udisks --unmount /dev/sda1
+sudo udisks --detach /dev/sda
+</pre>
+
+
+<p>Now you'll have the drivers you need, but keep in mind the device may not be supported at all.</p>
+
+<h3>Conclusion</h3>
+
+<p>I hope this has helped to show you how to install a wireless USB card on the Raspberry Pi. Raspian has a lot of firmware already built in and a lot of USB Wifi adapters are supported right out of the box. Wpa_supplicant makes things really easy. I decided to show how to do it from the prompt for those who want to learn more about the prompt, or install from SSH.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-wireless-usb-01.jpg" title="How to Install A Wireless USB Network Card on Raspberry Pi" ></p>
+
+<p>The Raspberry Pi is all about learning so I encourage you to experiment with this stuff as much as possible. The worst that will happen is you'll need to reinstall the OS. Remember, you're learning Linux at the same time which opens a lot of doors for your projects. Enjoy!</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Raspberry Pi Cover Photos]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-cover-photos/"/>
+    <updated>2013-06-30T00:01:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-profile-images</id>
+    <content type="html"><![CDATA[<p>I took a picture of my Pi circuitboard for some cover photos, and decided to give them out for others to use. Feel free to download and use these, they are free of branding or watermarking and public domain for personal or commercial uses. Keep checking back as I will likely add more.</p>
+
+<!-- more -->
+
+
+<p>Remember to click on the image or link to open the image, not the low quality ones on this page!</p>
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<h3>Google+ Profile Cover Photo</h3>
+
+<p>Here is a cover photo for <a href="https://plus.google.com/+JeremyMorgan">Google Plus</a>. It is 2120px x 1192px.</p>
+
+<p><a href="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-google-plus.jpg" target="_blank"><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-google-plus-small.jpg" title="Raspberry Pi Google+ Cover Photo" ></a></p>
+
+<p><a href="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-google-plus.jpg">Click here to get it</a></p>
+
+<p><a href="https://plus.google.com/+JeremyMorgan/posts">Connect with me on Google+</a></p>
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<h3>Facebook Profile Cover Photo</h3>
+
+<p>Here is a cover photo for <a href="https://www.facebook.com/jeremycmorgan" target="_blank">Facebook</a>. It is 851px x 315px.</p>
+
+<p><a href="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-facebook-cover.jpg" target="_blank"><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-facebook-cover-small.jpg" title="Raspberry Pi Facebook Cover Photo" ></a></p>
+
+<p><a href="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-facebook-cover.jpg">Click here to get it</a></p>
+
+<p><a href="https://www.facebook.com/jeremycmorgan">Connect with me on Facebook</a></p>
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<h3>Twitter Profile Cover Photo</h3>
+
+<p>Here is a cover photo for <a href="https://twitter.com/JeremyCMorgan">Twitter</a>. It is 520px x 260px.</p>
+
+<p><a href="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-twitter-cover.jpg" target="_blank"><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-twitter-cover-small.jpg" title="Raspberry Pi Twitter Cover Photo" ></a></p>
+
+<p><a href="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-twitter-cover.jpg">Click here to get it</a></p>
+
+<p><a href="https://twitter.com/JeremyCMorgan" target="_blank">Connect with me on Twitter</a></p>
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<h3>App.Net Profile Cover Photo</h3>
+
+<p>Here is a cover photo for <a href="https://alpha.app.net/jeremymorgan" target="_blank">App.net</a>. It is 976px x 234px.</p>
+
+<p><a href="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-appnet-cover.jpg" target="_blank"><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-appnet-cover-small.jpg" title="Raspberry Pi Facebook Cover Photo" ></a></p>
+
+<p><a href="https://www.jeremymorgan.com/images/raspberry-pi/raspberry-pi-appnet-cover.jpg">Click here to get it</a></p>
+
+<p><a href="https://alpha.app.net/jeremymorgan" target="_blank">Connect with me on App.Net</a></p>
+
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<h3>Keep checking back here!</h3>
+
+<p>I will likely develop more of these in the coming months, so keep this page bookmarked and share this page! If you do something cool with this contact me and show me! Keep on hacking!</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Build C# apps on Your Raspberry Pi]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-c-sharp-raspberry-pi/"/>
+    <updated>2013-03-28T20:50:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-run-net-on-your-raspberry-pi</id>
+    <content type="html"><![CDATA[<p>Want to run and build .Net applications on your Raspberry Pi? In this article I'll show you how. With Mono you can develop and run .Net applications on your Raspberry Pi. I got a few emails about this, so I decided to create a quick tutorial.</p>
+
+<!-- more -->
+
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div></p>
+
+<h3>What's the Purpose here?</h3>
+
+<p>If you're thinking of running your favorite Windows .Net applications, or setup a fancy ASP.NET server, you may be disappointed. While Mono does a great job and the Raspberry Pi performs great for what it is, I wouldn't say this solution is ready for the big leagues, and definitely not something you want to do in a production or commercial environment.</p>
+
+<p>If you want to tinker around and learn C#, and maybe build a few cool apps this is a great way to do it. The Raspberry Pi is a great tool for learning, and that's the purpose of this project.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-raspberry-pi-net-1.jpg" title="How to run .Net on Raspberry Pi" ></p>
+
+<p>There are tons of MONO applications available in Raspbian but we're only going to cover some basics.</p>
+
+<h3>Install Mono</h3>
+
+<p>Mono is an awesome project that brings .Net to Linux. It's available for the Raspian image, and super easy to set up.</p>
+
+<p>Update your repos:</p>
+
+<pre>sudo apt-get update</pre>
+
+
+<p>And install the Mono Runtime:</p>
+
+<pre>sudo apt-get install mono-runtime</pre>
+
+
+<p>This one could take a while. It updated a lot of stuff on my system.</p>
+
+<pre>sudo apt-get install mono-mcs</pre>
+
+
+<p>Note about MonoDevelop: You can install this on a soft float install of Raspian or Arch but it's not the best performing application in these conditions. Mono still has a lot of problems with the Pi that need to be ironed out, and MonoDevelop is a long ways off.</p>
+
+<h3>Build a quick application.</h3>
+
+<p>Load up LeafPad (or whatever your favorite text editor is) and create a file called monotest.cs and save it somewhere where you'll find it.</p>
+
+<p>Enter the following code:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>using System;&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>namespace Test
+</span><span class='line'>{&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>class Program
+</span><span class='line'>{
+</span><span class='line'>    public static void Main()
+</span><span class='line'>    {
+</span><span class='line'>        Console.WriteLine("Hello! This is a Mono app running on {0}", Environment.OSVersion);
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, open up an LX Terminal and go to where this file is located (I just put it in a folder called monotest as well). Type in the following:</p>
+
+<pre>
+mcs monotest.cs
+</pre>
+
+
+<p>This should only take a couple seconds. Then list the files in your directory (using the ls command) you will see a new file:</p>
+
+<pre>
+monotest.cs
+monotest.exe
+</pre>
+
+
+<p>Now, you can run the monotest.exe by typing in:</p>
+
+<pre>
+mono monotest.exe
+</pre>
+
+
+<p>You will see something like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-raspberry-pi-net-3.jpg" title="How to run .Net on Raspberry Pi" ></p>
+
+<p>And you're ready to go! If you see this, that means it worked.</p>
+
+<h3>So what can you do now?</h3>
+
+<p>You can write basic C# console applications all day with this setup. You can build neat automation items, and even some GUI stuff if you really want to dig into it. You can write .Net 1.0 - 4.0 applications with varying success. The most valuable thing you do is learn some C# basics and experiment like crazy.</p>
+
+<p>C# is one of my favorite languages, so it's awesome to see options for playing with it without being forced to use Windows and Visual Studio, which are great tools but expensive for hobbyists. As I said this is nowhere near something for production use, but excellent for tinkering and learning which is of course what the Raspberry Pi is all about!</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div></p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Intro to ASP.NET MVC 4 - C# Tutorials Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Intro to ASP.NET MVC 4" /><meta itemprop="name" content="Intro to ASP.NET MVC 4" /><meta name="twitter:title" content="Intro to ASP.NET MVC 4">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-05-01 19:13:00 -0700" />
+
+<meta property="article:section" content="C# TutorialsTutorials" />
+
+<meta name="description" content="In this tutorial we'll explore ASP.Net MVC 4 and give you a taste of this awesome new package." />
+<meta property="og:description" content="In this tutorial we'll explore ASP.Net MVC 4 and give you a taste of this awesome new package." />
+<meta itemprop="description" content="In this tutorial we'll explore ASP.Net MVC 4 and give you a taste of this awesome new package." />
+<meta name="twitter:description" content="In this tutorial we'll explore ASP.Net MVC 4 and give you a taste of this awesome new package.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-asp-mvc/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-asp-mvc/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-asp-mvc/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Intro to ASP.NET MVC 4</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-01T19:13:00-07:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+
+<p>The ASP.Net MVC 4 framework was introduced in August of last year and it boasts tons of improvements over MVC 3. If you&#8217;re considering building a large application in .Net, you should consider MVC 4 for your project. Today we&#8217;re going to take a look at it and build a quick website in MVC 4.</p>
+
+<!-- more -->
+
+
+<h3>What you&#8217;ll need</h3>
+
+<p>In order to complete this tutorial you will need Visual Studio. I have decided to use Visual Studio Express 2012 for Web to do this tutorial. I made this choice because it&#8217;s a free download and not everyone can afford the professional version of Visual Studio, but if you&#8217;re using Visual Studio 2010 or 2012 you can still go along as well.</p>
+
+<h4>Software needed:</h4>
+
+<p><strong><a href="http://www.microsoft.com/visualstudio/eng/downloads#d-2012-express" title="Microsoft Visual Studio Express for Web">Microsoft Visual Studio Express 2012 for Web</a></strong> (or a licensed version of Visual Studio 2010/2012)</p>
+
+<p><strong><a href="http://www.microsoft.com/web/webmatrix/" title="Microsoft Web Matrix 2">Microsoft Web Matrix 2</a></strong> - This is a handy little stack to help organize your server and projects for development</p>
+
+<p><a href="http://www.asp.net/mvc/mvc4" title="Microsoft MVC download"><strong>Microsoft ASP.Net MVC 4</strong></a> - The package you&#8217;ll need to install to deploy this on your website.</p>
+
+<p>Keep in mind all of this is free! The MVC package is also Open Source. It&#8217;s nice to see Microsoft come around with stuff like this.</p>
+
+<h3>Let&#8217;s get set up</h3>
+
+<p>One of the things every Visual Studio has been raving about lately is the NuGet package manager, for good reason. It makes setting things up super easy. We want to make sure we have it installed for our project.</p>
+
+<p>Go to <strong><em>Tools -> Extensions and Updates</em></strong></p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<p>And make sure the <strong>NuGet Package Manager</strong> is installed:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4-2.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<p>This will enable you to install stuff into your website easily. They have a lot of great plugins and templates available.</p>
+
+<h3>Create the Project</h3>
+
+<p>Go to the start section and click &#8220;New Project&#8221; or select it from the File menu. You want make sure to select an ASP.NET MVC 4 Web Application.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4-3.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<p>On the next screen, select &#8220;Internet Application&#8221;. As you can see there are various options here, feel free to play around with them and see what you come up with.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4-4.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<p>Now you&#8217;ve created your new MVC application. Let&#8217;s take a look at it. If you press F5 you&#8217;ll see it&#8217;s already assembled into a site. But that doesn&#8217;t do much yet.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4-5.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<h3>The parts of your MVC application.</h3>
+
+<p>You&#8217;ll notice the controller is opened automatically. Let&#8217;s take a look at it and see what it does:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public class HomeController : Controller
+</span><span class='line'>    {
+</span><span class='line'>        public ActionResult Index()
+</span><span class='line'>        {
+</span><span class='line'>            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+</span><span class='line'>
+</span><span class='line'>            return View();
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        public ActionResult About()
+</span><span class='line'>        {
+</span><span class='line'>            ViewBag.Message = "Your app description page.";
+</span><span class='line'>
+</span><span class='line'>            return View();
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        public ActionResult Contact()
+</span><span class='line'>        {
+</span><span class='line'>            ViewBag.Message = "Your contact page.";
+</span><span class='line'>
+</span><span class='line'>            return View();
+</span><span class='line'>        }
+</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see this is the &#8220;Home&#8221; controller that extends the controller class. Since Home is your default route it will control what&#8217;s seen on your site root.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public ActionResult Index()
+</span><span class='line'>    {
+</span><span class='line'>        ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+</span><span class='line'>        return View();
+</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is the &#8220;Index&#8221; method, and it&#8217;s not too tough to guess it&#8217;s place. This is what shows up when you hit a root directory. Whatever you put in here gets shown on the page. But let&#8217;s look a little closer inside the method.</p>
+
+<pre>
+ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+</pre>
+
+
+<p>The ViewBag is a wrapper object used to store dynamic data for the ViewData dictionary object. There are some arguments circulating about which one to use, but since Visual Studio stuffs this in, we&#8217;ll use it. Let&#8217;s change it to something else:</p>
+
+<pre>
+ViewBag.Message = "This is my first MVC Project!";
+</pre>
+
+
+<p>Where does this data go? If you open up /Views/Home/Index.cshtml you&#8217;ll see where this object is used.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4-6.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<p>First, at the top you&#8217;ll see where the ViewBag.Title property is assigned a value:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@{
+</span><span class='line'>    ViewBag.Title = "Home Page";
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a part of the Razor engine and it&#8217;s how you change the title of the page when it loads. You can also change it later. Then further down the page you&#8217;ll see:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;h1>@ViewBag.Title.&lt;/h1>
+</span><span class='line'> &lt;h2>@ViewBag.Message&lt;/h2></span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see, this is where the ViewBag.Message you changed earlier will go.</p>
+
+<p>One advantage of this is you can make the text displayed dynamic, pulled from a database, object or other data source without touching the design. You can also use this for localization if needed. The Razor engine is pretty sweet, this is just scratching the surface of it.</p>
+
+<h3>Creating a New Page</h3>
+
+<p>By now you&#8217;ve probably figured out that the methods in the controller correlate with pages: Index(), About(), and Contact(). So let&#8217;s look at creating a new page. We will be creating a page located at &#8220;http://(your site url)/Home/Newpage&#8221;.</p>
+
+<p><strong>1. Create a new ActionResult Method</strong></p>
+
+<p>Inside your HomeController, create a new method:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public ActionResult Newpage()
+</span><span class='line'>{
+</span><span class='line'>  ViewBag.Message = "This is a new page! ";
+</span><span class='line'>  return View();
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The home controller is found in /Controllers/HomeController.cs</p>
+
+<p>What is this? The HomeController is the controller for your home directory and each ActionResult is a function of that controller or page. In our case the url would be</p>
+
+<p>Http://www.yoursite.com/home/newpage</p>
+
+<p>Each action must have a view, which we&#8217;ll create next.</p>
+
+<p><strong>2. Create a view page</strong></p>
+
+<p>A view is simply an HTML page that displays data and interacts with the controller. You create views for pages or parts of pages, such as menus.</p>
+
+<p>In the /Views/Home/ folder, create a new view by right-clicking on the /Views/Home folder and selecting &#8220;New View&#8221;:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4-7.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<p>You&#8217;ll see a dialog box that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4-8.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<p>As you can see, this dialog box has a few options. For the view engine, you can choose Razor or ASPX(C#). Choose Razor for this, and leave the rest of the options open. You can create a strongly typed view that&#8217;s based of an object, but we&#8217;ll leave that for another tutorial. Hit add.</p>
+
+<p>You&#8217;ll see the page now in your views folder.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4-9.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<p>Open up that page, and you&#8217;ll see the following code:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@{
+</span><span class='line'>    ViewBag.Title = "Newpage";
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>&lt;h2>Newpage&lt;/h2></span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add some html for fun in there. Also, add the following line:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Hi! Today is @DateTime.Now.DayOfWeek</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Save the file, and press F5 to run.</p>
+
+<h3>Your new MVC Page</h3>
+
+<p>To load the page you just created, type in</p>
+
+<p>/home/newpage</p>
+
+<p>after the URL. For instance my local URL is http://localhost:59312/home/newpage but yours may vary. You should see something like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-mvc-asp-4-10.jpg" alt="How to Program ASP.Net MVC 4" /></p>
+
+<p>This is your newly created view! Feel free to experiment with the views and the Razor view engine. The best way to learn is to break it!</p>
+
+<h2>Summary</h2>
+
+<p>In this tutorial we built a very basic MVC 4 page in ASP.Net. I hope it gets you excited enough to start really experimenting. The MVC package really does a lot of the work for you, you can actually create whole websites without a lot of code at all. But I do hope you will dig into the code, and get rid of some that atrocious HTML that&#8217;s generated and fiddle around.</p>
+
+<p>In a future tutorial I&#8217;ll cover the Entity Framework and show you how easy it is to add data to your MVC Pages. Sign up for my newsletter and you&#8217;ll know right when it&#8217;s posted!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-01T19:13:00-07:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/c-number-tutorials/'>C# Tutorials</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/portland/cheap-computers-oregon/" title="Previous Post: Where to Find a Cheap Computer in Oregon">&laquo; Where to Find a Cheap Computer in Oregon</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/programming/android-studio-sneak-peek/" title="Next Post: Sneak Peek at Android Studio">Sneak Peek at Android Studio &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/c-sharp/how-to-asp-mvc/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/c-sharp/how-to-asp-mvc/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

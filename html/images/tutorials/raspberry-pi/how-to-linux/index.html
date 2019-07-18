@@ -1,0 +1,873 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Raspberry Pi How to: Learning Linux Commands - Raspberry Pi Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Raspberry Pi How to: Learning Linux Commands" /><meta itemprop="name" content="Raspberry Pi How to: Learning Linux Commands" /><meta name="twitter:title" content="Raspberry Pi How to: Learning Linux Commands">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-01-22 17:59:00 -0800" />
+
+<meta property="article:section" content="Raspberry PiTutorials" />
+
+<meta name="description" content="A step by step guide to Linux command line basics for using your Raspberry Pi" />
+<meta property="og:description" content="A step by step guide to Linux command line basics for using your Raspberry Pi" />
+<meta itemprop="description" content="A step by step guide to Linux command line basics for using your Raspberry Pi" />
+<meta name="twitter:description" content="A step by step guide to Linux command line basics for using your Raspberry Pi">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-linux/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-linux/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-linux/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Raspberry Pi How to: Learning Linux Commands</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-22T17:59:00-08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>So you have a Raspberry Pi but you&#8217;re not a Linux expert? Have no fear it&#8217;s not as hard as you might think. You can do tons of stuff on the Raspberry Pi without ever using the Linux prompt, but if you do take the time to learn it you&#8217;ll open a whole world of power. In this article I&#8217;ll attempt to give you a crash course in the Linux prompt on the Raspberry Pi.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div>
+
+
+<h3>What you&#8217;ll need</h3>
+
+<p>For this tutorial I&#8217;m going to be using the Raspian image available here. This is a Raspberry Pi specific version of Debian and arguably the most robust and commonly used at this time. Since it&#8217;s based off Debian it&#8217;s more of a &#8220;pure Linux&#8221; type of environment anyway.</p>
+
+<p>For the tutorials, you&#8217;ll either need to SSH into your Raspberry Pi or use the LXTerminal found here:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-linux-1.png" title="Raspberry Pi Linux Commands" ></p>
+
+<p>Once you&#8217;re there you&#8217;ll be the <strong>command prompt</strong> or Linux shell. This is where we&#8217;ll be spending our time today.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-linux-2.png" title="Raspberry Pi Linux Commands" ></p>
+
+<p>Instead of screenshots of everything I will be just posting code, where you see something like this:</p>
+
+<pre>
+$  (Some commands here) 
+</pre>
+
+
+<p>This is what I&#8217;ll ask you to type at the prompt.</p>
+
+<h3>Who this is for</h3>
+
+<p>This guide is going to be aimed at &#8220;newbies&#8221; who have a Raspberry Pi and want to dig deeper. I&#8217;ve been getting a lot of criticism lately for articles that are &#8220;too basic&#8221; but this is exactly what an aspiring tech needs. We were all there once, and I&#8217;m hoping this article will light a fire and maybe inspire some folks to shake their fears of the prompt.</p>
+
+<h3>Getting Started: Where am I?</h3>
+
+<p>So you&#8217;ve loaded up the terminal or SSH and you&#8217;re starting at that screen that says:</p>
+
+<pre>
+pi@raspberrypi ~ $
+</pre>
+
+
+<p>What the heck does that mean? It&#8217;s what&#8217;s referred to as the prompt. It&#8217;s roots go back to the days when computers took up entire rooms so you had a &#8220;console&#8221; which was just a mouse and keyboard to connect to it. (In many ways we&#8217;re drifting towards a similar model today). It&#8217;s simply waiting for you to give it a command.</p>
+
+<p>The &#8220;pi&#8221; is your username on the system. Since you logged in as pi (I assume) it&#8217;s displayed there, then there is a @ sign and they hostname (raspberrypi). The hostname is a name for your machine that identifies you on a network.</p>
+
+<h4>Find your location.</h4>
+
+<p>The file system is composed of many files and folders. But don&#8217;t call them folders, generally in the Linux world they are called &#8220;directories&#8221;. You have your main root directory, which is simply &#8220;/&#8221;. The directories below that go after the slash, like /home or /home/pi. In fact you can see that structure in your file manager.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-linux-3.png" title="Raspberry Pi Linux Commands" ></p>
+
+<p>See up in the location area where it says &#8220;/home/pi&#8221;? this means you&#8217;re in the pi directory, which is in the home directory. So let&#8217;s look around.</p>
+
+<p>When you open your console window you see the prompt, but how do you know where you are at? It&#8217;s easy, simply type in</p>
+
+<pre>
+pwd
+</pre>
+
+
+<p>and press enter. This show what directory you are in. You should see it display &#8220;/home/pi&#8221;. This is your home directory where you will store all your files.</p>
+
+<h3>Look Around</h3>
+
+<p>Now that you know where you&#8217;re located in the file tree, let&#8217;s see what is stored in /home/pi.</p>
+
+<pre>
+ls
+</pre>
+
+
+<p>This will show you something like the following (I have added stuff):</p>
+
+<pre>
+pi@raspberrypi:~$ ls
+clearram.sh        cut        indiecity  python_games  RetroPie-Setup
+config.txt.save    Desktop    octogen    RAMP          Scratch
+config.txt.save.1  Documents  octopress  RetroPie      storage
+</pre>
+
+
+<p>This shows a listing of all the files and folders on that system. But that isn&#8217;t quite as useful as the next command:</p>
+
+<pre>
+ls -la
+</pre>
+
+
+<p>What this does is &#8220;list all&#8221; and shows a lot more information about the files.</p>
+
+<pre>
+drwxr-xr-x 33 pi   pi         4096 Jan 18 18:07 .
+drwxr-xr-x  3 root root       4096 Dec 16 11:39 ..
+-rw-------  1 pi   pi         7996 Jan 22 20:49 .bash_history
+-rw-r--r--  1 pi   pi          220 Dec 15 09:40 .bash_logout
+-rw-r--r--  1 pi   pi          238 Jan  1 01:48 .bash_profile
+-rw-r--r--  1 pi   pi         3324 Jan  1 01:48 .bashrc
+drwxr-xr-x  7 pi   pi         4096 Dec 30 12:00 .cache
+-rwxr-xr-x  1 root root        982 Dec 24 03:18 clearram.sh
+drwxr-xr-x  9 pi   pi         4096 Dec 26 21:15 .config
+-rwxr-xr-x  1 pi   pi         1205 Dec 24 03:11 config.txt.save
+-rwxr-xr-x  1 pi   pi         1205 Dec 24 03:11 config.txt.save.1
+-rw-r--r--  1 pi   pi            0 Dec 27 22:57 cut
+drwx------  3 pi   pi         4096 Dec 26 20:49 .dbus
+drwxr-xr-x  2 pi   pi         4096 Dec 30 13:39 Desktop
+drwxr-xr-x  2 pi   pi         4096 Dec 31 18:29 .dgen
+drwx------  2 pi   pi         4096 Jan 18 18:07 .dillo
+drwxr-xr-x  3 pi   pi         4096 Dec 26 21:07 Documents
+drwxr-xr-x  3 pi   pi         4096 Dec 31 18:29 .emulationstation
+-rw-------  1 pi   pi           16 Dec 26 20:49 .esd_auth
+drwxr-xr-x  2 pi   pi         4096 Dec 30 13:39 .etracer
+drwx------  3 pi   pi         4096 Jan 18 18:07 .fltk
+drwxr-xr-x  2 pi   pi         4096 Dec 30 12:00 .fontconfig
+drwxr-xr-x  3 pi   pi         4096 Jan  1 03:08 .gem
+drwxr-xr-x 24 pi   pi         4096 Dec 30 12:48 .gimp-2.8
+drwxr-xr-x  2 pi   indiecity  4096 Dec 26 21:43 .gstreamer-0.10
+drwx------  2 pi   pi         4096 Dec 26 20:49 .gvfs
+drwxr-xr-x  3 pi   indiecity  4096 Dec 26 21:13 indiecity
+drwx------  3 pi   pi         4096 Dec 26 21:14 .local
+-rw-------  1 pi   pi          176 Dec 29 20:42 .mysql_history
+drwxr-xr-x  4 pi   pi         4096 Jan  1 12:54 octogen
+drwxr-xr-x  8 pi   pi         4096 Jan  1 12:36 octopress
+-rw-r--r--  1 pi   pi          675 Dec 15 09:40 .profile
+drwx------  2 pi   pi         4096 Dec 29 00:56 .pulse
+-rw-------  1 pi   pi          256 Dec 26 20:49 .pulse-cookie
+drwxrwxr-x  2 pi   pi         4096 Jul 20  2012 python_games
+drwxr-xr-x  2 pi   pi         4096 Dec 26 21:29 RAMP
+drwxr-xr-x  3 pi   pi         4096 Jan  1 01:45 .rbenv
+drwxr-xr-x  7 pi   pi         4096 Dec 31 18:29 RetroPie
+drwxr-xr-x  6 pi   pi         4096 Dec 31 18:29 RetroPie-Setup
+drwxr-xr-x 24 pi   pi         4096 Jan  1 01:53 .rvm
+drwxr-xr-x  3 pi   pi         4096 Dec 26 21:07 .scratch
+drwxr-xr-x  2 pi   pi         4096 Dec 26 21:07 Scratch
+drwxr-xr-x  2 pi   pi         4096 Dec 26 20:25 storage
+drwx------  5 pi   pi         4096 Dec 30 12:04 .thumbnails
+drwx------  2 pi   pi         4096 Dec 26 21:07 .vnc
+-rw-------  1 pi   pi          162 Dec 26 21:01 .Xauthority
+-rw-------  1 pi   pi        27793 Jan 23 20:55 .xsession-errors
+-rw-r--r--  1 pi   pi          118 Jan  1 01:48 .zprofile
+-rw-r--r--  1 pi   pi           59 Jan  1 01:48 .zshrc
+</pre>
+
+
+<p>Now, you&#8217;re not crazy if you think the list got bigger. List all will show all the files, including hidden ones. See the ones with the dot in front of them? Those are hidden. You can hide files or folders by renaming them with the dot in front. This will make the files hidden, but don&#8217;t rely on that for security. As you can see they&#8217;re easily visible with the right parameters.</p>
+
+<h3>Basic Linux Navigation</h3>
+
+<p>So you see the file called &#8220;Desktop&#8221;? That&#8217;s actually a folder where all the stuff from your desktop is located. Let&#8217;s go there.</p>
+
+<pre>
+cd Desktop
+</pre>
+
+
+<p>&#8220;cd&#8221; stands for change directory, and it&#8217;s a great navigation tool. Now type in &#8220;ls -la&#8221; and enter, and you&#8217;ll see all the files in the desktop.</p>
+
+<p>Want to go back to the /home/pi folder?</p>
+
+<pre>
+cd ..
+</pre>
+
+
+<p>It&#8217;s that easy! You can keep typing cd .. to get to the bottom of your directory tree, or root. Another way to do that is:</p>
+
+<pre>
+cd /
+</pre>
+
+
+<p>Now you are the root. Type &#8220;pwd&#8221; to confirm.</p>
+
+<pre>
+pi@raspberrypi:/$ pwd
+/
+</pre>
+
+
+<p>Now, what if you want to back to the desktop? There are two ways to do this.</p>
+
+<pre>
+cd home 
+cd pi
+cd Desktop
+</pre>
+
+
+<p>Send these three commands and you&#8217;ll get there. But there is a faster way:</p>
+
+<pre>
+cd /home/pi/Desktop
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-linux-4.png" title="Raspberry Pi Linux Commands" ></p>
+
+<p>You can travel anywhere your permissions allow you to. Here is another neat thing, you can press the &#8220;tab&#8221; button on your keyboard to autocomplete.</p>
+
+<p>Type in</p>
+
+<pre>
+cd /home/pi/D
+</pre>
+
+
+<p>and instead of pressing enter, press &#8220;TAB&#8221;. You will see that it shows &#8220;Desktop&#8221; and &#8220;Documents&#8221; as options, because they both start with &#8220;D&#8221;. Press &#8220;TAB&#8221; again until you see Desktop shown. This can be handy when you forget the name of a file or directory.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-linux-5.png" title="Raspberry Pi Linux Commands" ></p>
+
+<p>Want to go from /home/pi/Documents back to root? There are two ways to do this:</p>
+
+<pre>
+cd ..
+cd ..
+</pre>
+
+
+<p>or you can simply type</p>
+
+<pre>
+cd /
+</pre>
+
+
+<h4>Advanced Linux Navigation</h4>
+
+<p>Now I&#8217;ll show you some cool navigation tricks. Since you&#8217;re now in &#8220;/home/pi/Desktop&#8221; you want to go to your Documents. There are three ways to do this:</p>
+
+<pre>
+cd ..
+cd Documents
+</pre>
+
+
+<p>Or</p>
+
+<pre>
+cd /home/pi/Documents
+</pre>
+
+
+<p>or also</p>
+
+<pre>
+cd ../Documents/
+</pre>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-linux-6.png" title="Raspberry Pi Linux Commands" ></p>
+
+<p>The first option is just going down one directory and back up. The 2nd option takes you to the exact location. The third option combines with .. to bring you down one directory and back up in another.</p>
+
+<p>This is really useful for copying files, as you could copy a test file by typing the following:</p>
+
+<pre>
+copy mytest.txt ../Documents
+</pre>
+
+
+<p>This becomes really useful. You can even go into directories that aren&#8217;t in that tree:</p>
+
+<pre>
+cd ../../../var/
+</pre>
+
+
+<p>This is the equivalent of typing &#8220;cd ..&#8221; multiple times to get to /var.</p>
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+
+<br />
+
+
+<h3>How to create text files in Linux</h3>
+
+<p>You can create files from the prompt, and directories to put them in. Go to /home/pi and type in:</p>
+
+<pre>
+mkdir mystuff
+</pre>
+
+
+<p>This will create a directory called &#8220;mystuff&#8221;. Go to it.</p>
+
+<pre>
+cd mystuff
+</pre>
+
+
+<p>In this folder, we want to create just an empty file. That&#8217;s done using the &#8220;touch&#8221; command.</p>
+
+<pre>
+touch test.txt
+</pre>
+
+
+<p>Now, look for this file:</p>
+
+<pre>
+ls test.txt
+</pre>
+
+
+<p>and you&#8217;ll see it there. But this is just a plain text file with nothing inside it. Let&#8217;s change that.</p>
+
+<pre>
+nano test.txt
+</pre>
+
+
+<p>You should see a window that looks like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-linux-7.png" title="Raspberry Pi Linux Commands" ></p>
+
+<p>This is the nano text editor. It works great for creating and working with text files. In that window, type whatever you want, like</p>
+
+<pre>
+The Raspberry Pi is awesome!
+</pre>
+
+
+<p>Then press Control + x</p>
+
+<p>You will see a notification:</p>
+
+<blockquote><p>Save modified buffer (ANSWERING &#8220;No&#8221; WILL DESTROY CHANGES) ?</p></blockquote>
+
+<p>Type Y (for yes)</p>
+
+<p>it will then show a filename (test.txt) which you can leave or change to anything you want.</p>
+
+<h3>How to move files in Linux</h3>
+
+<p>Now that you have the file there, let&#8217;s move it around. You are currently in the /home/pi/mystuff directory, but what if you want to put the file on your desktop? It&#8217;s a lot like the cd parameters you saw a while ago:</p>
+
+<pre>
+mv test.txt ../Desktop/
+</pre>
+
+
+<p>This will move the file to the desktop. But what if you want to copy it back? Since you&#8217;re currently in the /home/pi/mystuff directory, you can&#8217;t just type in &#8220;mv test.txt&#8221;. You have to specify where the file is located and where you want it:</p>
+
+<pre>
+mv /home/pi/Desktop/test.txt /home/pi/mystuff/
+</pre>
+
+
+<p>But there is another, faster way:</p>
+
+<pre>
+mv ../Desktop/test.txt .
+</pre>
+
+
+<p>See the single dot? That means &#8220;here&#8221; wherever you&#8217;re located. Two dots (..) means the directory below the one you&#8217;re in. If you want to go two directories down, it&#8217;s &#8220;../../&#8221; and so on.</p>
+
+<h3>How to copy files in Linux</h3>
+
+<p>What if you just want to make a copy of the file in another folder? This is a simple as changing two letters (mv to cp)</p>
+
+<pre>
+cp test.txt ../Desktop/
+</pre>
+
+
+<p>This creates a copy of the file.</p>
+
+<h3>How to delete files in Linux</h3>
+
+<p>To delete this file, type in</p>
+
+<pre>
+rm test.txt
+</pre>
+
+
+<p>If you want to delete a directory,</p>
+
+<pre>
+rmdir directoryname
+</pre>
+
+
+<p>So let&#8217;s try something different. Make sure you&#8217;re in /home/pi/mystuff and create a few files:</p>
+
+<pre>
+touch test2.txt
+touch test.jpg
+touch test3.png
+</pre>
+
+
+<p>Now, go back into your /home/pi directory:</p>
+
+<pre>
+cd ..
+</pre>
+
+
+<p>And remove the &#8220;mystuff&#8221; directory:</p>
+
+<pre>
+rmdir mystuff
+</pre>
+
+
+<p>Did you get the following message?</p>
+
+<blockquote><p>rmdir: failed to remove &#8216;mystuff&#8217;: Directory not empty</p></blockquote>
+
+<p>You can&#8217;t delete directories that are not empty. This is a good safety measure. There are two things you can do here:</p>
+
+<ul>
+<li>Remove all the files then delete it</li>
+<li>delete recursively</li>
+</ul>
+
+
+<p>The first thing we&#8217;ll do is try to delete all the files. This is easy, just like DOS back in the day:</p>
+
+<pre>
+rm mystuff/*
+</pre>
+
+
+<p>See the * ? This means &#8220;everything&#8221;. But what if you only want to delete the text files?</p>
+
+<pre>
+rm mystuff/*.txt
+</pre>
+
+
+<p>Or what if you want to delete everything starting with the letter &#8220;t&#8221;?</p>
+
+<pre>
+rm mystuff/t*
+</pre>
+
+
+<p>Now I mentioned another option, recursively deleting it. This means the rm command will travel through the directory when it works. To remove everything in mystuff and the files, type in</p>
+
+<pre>
+rm -rf mystuff
+</pre>
+
+
+<p>This will force the command to wipe out everything. Very handy (and very dangerous).</p>
+
+<h3>Summary</h3>
+
+<p>I hope this has given you a basic tour of the command prompt. There&#8217;s lots more to learn but this should be enough to get you started. As I said before, the command line is a very powerful tool. The more you learn about working with the command line, the more you&#8217;ll be able to do. GUIs are great to make things easier, multitask and do certain tasks faster. But the command prompt allows you more power, and you can do many more complicated tasks faster. Once you get the hang of it you&#8217;ll be able to do lot more in a shorter time. If this is helpful, I&#8217;ll add a lot more of these.</p>
+
+<p>If you have any questions feel free to comment!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-22T17:59:00-08:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/raspberry-pi/'>Raspberry Pi</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/programming/what-is-a-polyglot-programmer/" title="Previous Post: What is a Polyglot Programmer?">&laquo; What is a Polyglot Programmer?</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/general/my-february-blog-challenge/" title="Next Post: My February blog challenge">My February blog challenge &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-linux/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-linux/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

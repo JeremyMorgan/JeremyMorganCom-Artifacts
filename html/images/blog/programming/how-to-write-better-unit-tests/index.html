@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How to Write Better Unit Tests - Programming Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How to Write Better Unit Tests" /><meta itemprop="name" content="How to Write Better Unit Tests" /><meta name="twitter:title" content="How to Write Better Unit Tests">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-08-24 21:02:00 -0700" />
+
+<meta property="article:section" content="Programming" />
+
+<meta name="description" content="In working with some unit testing fairly extensively lately, I&#8217;ve gathered some guidelines I&#8217;ve tried to stick with over the years for &hellip;" />
+<meta property="og:description" content="In working with some unit testing fairly extensively lately, I&#8217;ve gathered some guidelines I&#8217;ve tried to stick with over the years for &hellip;" />
+<meta itemprop="description" content="In working with some unit testing fairly extensively lately, I&#8217;ve gathered some guidelines I&#8217;ve tried to stick with over the years for &hellip;" />
+<meta name="twitter:description" content="In working with some unit testing fairly extensively lately, I&#8217;ve gathered some guidelines I&#8217;ve tried to stick with over the years for &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/how-to-unit-tests.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/how-to-unit-tests.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/how-to-unit-tests.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/programming/how-to-write-better-unit-tests/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/programming/how-to-write-better-unit-tests/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/programming/how-to-write-better-unit-tests/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How to Write Better Unit Tests</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-24T21:02:00-07:00" pubdate data-updated="true">Aug 24<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>In working with some unit testing fairly extensively lately, I&#8217;ve gathered some guidelines I&#8217;ve tried to stick with over the years for writing better tests. Remember poorly written tests are a waste of time, and cause major problems down the road. It&#8217;s best to keep some of these guidelines in mind.</p>
+
+<!-- more -->
+
+
+<ul>
+<li><strong>Unit tests should not be written to pass</strong> - They should be written to fail. You can make any set of tests pass in minutes but you&#8217;re only cheating yourself.</li>
+<li><strong>Tests should only test one thing</strong> - You should be testing a single method with a single function. If not you may be violating the <a href="/blog/programming/single-responsibility-principle/" target="_blank">Single Responsibility Principle</a></li>
+<li><strong>Readability in your tests </strong>- make sure they&#8217;re commented and easy to understand, just like any other code.</li>
+<li><strong>Good Naming conventions</strong> - Again tests should be just like any other code - easy for humans to understand.</li>
+<li><strong>Asserts are separated from actions</strong> - Your assert should be looking for a result, and not performing logical operations</li>
+<li><strong>Use concrete inputs </strong>- Don&#8217;t use any dynamic data for inputs, things like date() can introduce variance.</li>
+<li><strong>Group locations of tests</strong> - from a logical standpoint this makes things easier to find when there aren&#8217;t errors pointing towards the problem.</li>
+<li><strong>Good tests are isolated from everything</strong> - You should have no reliance on other tests, environment settings, etc. This creates multiple points of failure.</li>
+<li><strong>Do not include private methods</strong> - They are implementation and should not be included in Unit Tests</li>
+<li><strong>Don&#8217;t connect to databases or data sources</strong> - This is unreliable because you cannot be certain the data served will always be the same, and can create points of failure.</li>
+<li><strong>No more than one mock per test</strong> - Again we&#8217;re trying to eliminate points of failure and inconsistenties.</li>
+<li><strong>Unit tests are not integration tests</strong> - You want to test results, not implmentation with Unit Tests.</li>
+<li><strong>Tests must be deterministic</strong> - You need a solid predictable result, so if it only passes sometimes, it&#8217;s not done.</li>
+<li><strong>Keep your tests idempotent</strong> - you should be able to run it multiple times without changing any outcomes, and it should not change any data or increment anything. One time or a million times should have the same effect.</li>
+<li><strong>Classes only test one class at a time, methods only test one method at a time.</strong> - An organizational method to pinpoint problems when they arise and help you identify dependencies in testing.</li>
+<li><strong>Include exceptions in your tests </strong>- You&#8217;re going to have exceptions so don&#8217;t ignore them, use them.</li>
+<li><strong>Don&#8217;t test functionality of 3rd party libraries with your own tests</strong> - Most quality libraries should have their own tests. If not consider mocks to produce consistent results</li>
+<li><strong>Always limit values</strong> - When working with values be mindful of your limits and set them (min max) for maximum consistency.</li>
+<li><strong>Tests should not require configuration or custom setup</strong> - Anyone should be able to jump in and make your tests work. &#8220;Works on my machine&#8221; should never apply here.</li>
+</ul>
+
+
+<p>I hope this helps some of you out there learning and working with Unit Tests.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-24T21:02:00-07:00" pubdate data-updated="true">Aug 24<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/programming/c-sharp-interview-questions/" title="Previous Post: Common C# Interview Questions">&laquo; Common C# Interview Questions</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/tech-news/tech-news-8-27-2014/" title="Next Post: Tech News August 27 2014">Tech News August 27 2014 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/blog/programming/how-to-write-better-unit-tests/';
+        var disqus_url = 'https://www.jeremymorgan.com/blog/programming/how-to-write-better-unit-tests/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

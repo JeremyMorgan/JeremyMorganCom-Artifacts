@@ -4,7 +4,7 @@
   <title><![CDATA[Blog Category:  IIS | Jeremy's Programming Blog]]></title>
   <link href="https://www.jeremymorgan.com/blog/iis/atom.xml" rel="self"/>
   <link href="https://www.jeremymorgan.com/"/>
-  <updated>2019-02-27T06:18:08+00:00</updated>
+  <updated>2019-07-07T02:24:36+00:00</updated>
   <id>https://www.jeremymorgan.com/</id>
   <author>
     <name><![CDATA[Jeremy Morgan]]></name>
@@ -14,6 +14,301 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Comparing and Syncing IIS Configurations]]></title>
+    <link href="https://www.jeremymorgan.com/blog/iis-devops/comparing-iis-configuration/"/>
+    <updated>2019-04-07T18:57:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/iis-devops/comparing-iis-configurations</id>
+    <content type="html"><![CDATA[<p>Imagine you're an administrator at ACME Widgets and it's time to upgrade your IIS server. You'll just copy over some folders and point the DNS to the new server and be done right? If you've ever done this before you know that isn't the case. The new IIS server needs to be configured identically to the old one or you're going to have problems, and you don't have time for problems.</p>
+
+<br />
+
+
+<!-- more -->
+
+
+<h3>Can't We Just Move This from One Server to Another?</h3>
+
+<p>As you stare at the Server Manager on the new machine you plan your next move. Your old i3 server that's worked for years has all of your websites and applications on it. The shiny new XEON machine is just waiting to go into service. It has Windows 2016 on it and ready to go.</p>
+
+<p>To do this transfer you'll need to:</p>
+
+<ul>
+<li>Install IIS and the necessary modules</li>
+<li>Find a way to match the old server's configuration</li>
+<li>Create websites and applications</li>
+</ul>
+
+
+<p>In this article we're only concerned with the first two parts, which is making sure IIS is installed and configured like it was on the first server. If you copy over the new sites and simply install IIS and fire it up, it.....might work. Unless you have the most basic websites running, it won't.</p>
+
+<p>There are other problems moving from one server to another. What if the operating system is different? It probably will be. Though IIS remarkably good at forward compatibility the UI changes with each release, so if you're staring at IIS manager to find the settings, it will likely be different.</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-01.jpg" alt="Internet Information Services (IIS) Manager" /></p>
+
+<br />
+
+
+<p>So you can look through all these settings and try to figure out which modules are installed, which aren't etc. Or maybe you can go into server manager to the <strong>Add Roles and Features Wizard</strong> and try to decipher it from there:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-02.jpg" alt="Add Roles and Features Wizard" /></p>
+
+<br />
+
+
+<p>This is certainly one way to figure out what's installed. In fact I've done it a few times this way years ago when I first started out with this stuff. You won't have to do this, because we're going to look at a much better way to compare IIS Installations and replicate servers.</p>
+
+<br />
+
+
+<h3>Getting the IIS Configuration</h3>
+
+<p>We need to copy the IIS installation configuration from ALPHA which is the existing server to BRAVO which is the new one.</p>
+
+<p>Since you're a Windows DevOps professional (or would like to be) you're going to use PowerShell for this task. It's extremely easy to get the current IIS installation information from a PowerShell prompt. Type in the following:</p>
+
+<p><code>
+Get-WindowsFeature -Name Web-*
+</code></p>
+
+<p>Get-WindowsFeature will output every windows feature and it's installation status, and by specifying a name of Web-* we'll get all the features that pertain to IIS and Web Services. Our ALPHA server currently looks like this:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-03.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>This shows our features and whether they are installed on the current server. We can filter it down a little so it only shows the features that are installed instead of all of them:</p>
+
+<p><code>
+Get-WindowsFeature -Name Web-* | where installed
+</code>
+By using the pipe and filtering for "where installed" we only show the modules that are currently installed.</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-04.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>This is a quick way to spot check what we have installed. When we run this on BRAVO, the new server, we can see that IIS isn't installed at all.</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-05.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>So now we have a clear idea of the IIS Configuration, how it's setup on ALPHA, and how it's set up on the new server (not at all).</p>
+
+<br />
+
+
+<h3>Comparing the IIS Servers with a Deterministic Method</h3>
+
+<p>So you can visually see the differences in your old server and your new server with the commands we just ran. Now you just have to remember what's installed on the first one and carry it over to the new server. But you've been really digging into the DevOps thing and keep hearing about making things <em>deterministic</em>. Saying it looks "close enough" won't cut it, you need to prove it. Here's a method I've come up with that works well for this.</p>
+
+<p>We're going to use one of the oldest methods in the book: the diff.</p>
+
+<p>So you run the following command on your ALPHA server, which again is the existing server we want to replicate:</p>
+
+<p><code>
+Get-WindowsFeature &gt; ALPHA.txt
+</code></p>
+
+<p>What this does is pipe the output from Get-WindowsFeature to a text file named ALPHA.txt. Then we'll copy that text file to our workstation.</p>
+
+<p>Now on the BRAVO server, do the same thing:</p>
+
+<p><code>
+Get-WindowsFeature &gt; BRAVO.txt
+</code>
+Now we'll copy that file to our workstation as well.</p>
+
+<p>Now we'll run a simple diff on those two files, I'm using KDiff3 for this:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-06.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>Now you can clearly see the differences in the two configurations and you can prove it, keeping the DevOps gods happy.</p>
+
+<br />
+
+
+<h3>Syncing up Settings in a Repeatable Way</h3>
+
+<p>Now that we know exactly what the differences are in our configuration, we need to set up the new server with those settings so we can move our websites and applications over.</p>
+
+<p>Again we're going to do this in a Devops friendly fashion. You can just install all the items in the diff and be done with the task. But again we want to do this in a <em>deterministic</em> and <em>repeatable</em> way. We want to know for certain it's the same and be able to do it multiple times. Who knows how many more times you'll have to change servers or move to the cloud. Wouldn't you rather have a script to do this for you?</p>
+
+<p>So we'll take all the items from our DIFF and put them into a list. We are only interested in the NAME of the feature, found here:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-07.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>We have our list and it looks like this:</p>
+
+<p><code>
+Web-Server
+Web-WebServer
+Web-Common-Http
+Web-Default-Doc
+Web-Dir-Browsing
+Web-Http-Errors
+Web-Static-Content
+Web-Health
+Web-Http-Logging
+Web-Custom-Logging
+Web-Performance
+Web-Stat-Compression
+Web-Dyn-Compression
+Web-Security
+Web-Filtering
+Web-App-Dev
+Web-Net-Ext45
+Web-ASP
+Web-Asp-Net45
+Web-ISAPI-Ext
+Web-ISAPI-Filter
+Web-Mgmt-Tools
+Web-Mgmt-Console
+NET-Framework-45-ASPNET
+</code></p>
+
+<p>So, that's a lot to Install right? It would be far easier to just build a script to do this, so you can just run it any time you need to set up a server with this configuration. In the the last tutorial we learned <a href="https://www.jeremymorgan.com/blog/iis-devops/how-to-dism-repeatable-iis-install/" target="_blank">how to use DISM to create a repeatable IIS installation</a> but for fun, we'll do something a little different.</p>
+
+<p>So let's create a PowerShell script.</p>
+
+<p>At the top, I'll put in a string array of all these features:</p>
+
+<p>```
+$features = @(</p>
+
+<pre><code>"Web-Server",
+"Web-WebServer",
+"Web-Common-Http",
+"Web-Default-Doc",
+"Web-Dir-Browsing",
+"Web-Http-Errors",
+"Web-Static-Content",
+"Web-Health",
+"Web-Http-Logging",
+"Web-Custom-Logging",
+"Web-Performance",
+"Web-Stat-Compression",
+"Web-Dyn-Compression",
+"Web-Security",
+"Web-Filtering",
+"Web-App-Dev",
+"Web-Net-Ext45",
+"Web-ASP",
+"Web-Asp-Net45",
+"Web-ISAPI-Ext",
+"Web-ISAPI-Filter",
+"Web-Mgmt-Tools",
+"Web-Mgmt-Console",
+"NET-Framework-45-ASPNET"
+</code></pre>
+
+<p>)
+```</p>
+
+<p>This is a good list that we can come back and modify if needed later down the road. We'll just loop through it to install everything using a foreach loop:</p>
+
+<p>```
+foreach ($feature in $features){</p>
+
+<pre><code># do something
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Inside that foreach loop we'll do something like the following:</p>
+
+<p>```
+foreach ($feature in $features){</p>
+
+<pre><code>if(Get-WindowsFeature -Name $feature | Where-Object {$_. installstate -ne "installed"}){
+    Write-Output "Feature $feature not installed. Installing"
+    Install-WindowsFeature -Name $feature
+} 
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Now as we can see here, we loop through each feature in the list, and say if the feature is not installed, we'll write out a message saying it isn't installed, and then install it. If the feature is not installed, we'll do nothing.</p>
+
+<p>This is an example of an <em>idempotent</em> script. This is another key DevOps concept, it means we can run this script over and over and it should do the same thing each time. The expected state (all of these features installed) should be the same no matter how many times we run it.</p>
+
+<p>Once we run the script on our BRAVO (new) server, it looks like this:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-08.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>Now we should have all the same features installed. We run another Get-WindowsFeature check and diff, and see the following:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-09.jpg" alt="Managing IIS With PowerShell" /></p>
+
+<br />
+
+
+<p>Success! You have now compared the two configurations, determined what you needed to install and scripted it. Now you can take this script and run it on any new server that will host your websites and applications.</p>
+
+<br />
+
+
+<h3>Conclusion</h3>
+
+<p>You're now once again the hero of the ACME Widgets Information Services department. You had an existing IIS server that was running our websites and applications, and duplicated the configuration to a new server. It's the same concept we covered in the previous article on DISM, only this time we took it a step further by doing a deterministic comparison, then using PowerShell instead of a batch file. This is a more advanced and extendable way.</p>
+
+<p>We used some patterns and methods here that fit in well with DevOps practices:</p>
+
+<ul>
+<li><strong>Deterministic</strong> - We didn't guess at what the configuration differences were, we proved it</li>
+<li><strong>Automated</strong> - Rather than jumping in and installing things we scripted it</li>
+<li><strong>Idempotent</strong> - We created a repeatable process that produces the same results every time we do it.</li>
+</ul>
+
+
+<p>This is important stuff, and will take to the next level of Administrator. I cover this topic in detail and many similar operations in my course <a href="https://pluralsight.pxf.io/RE0D2" target="_blank"><strong>Installing and Configuring IIS Servers</strong></a> on Pluralsight. It covers many ways you can make your life easier as an Administrator.</p>
+
+<p>Questions? Comments? <a href="https://twitter.com/jeremycmorgan" target="_blank">Yell at me on Twitter</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Using DISM to Create a Repeatable IIS Installation]]></title>
     <link href="https://www.jeremymorgan.com/blog/iis-devops/how-to-dism-repeatable-iis-install/"/>
     <updated>2018-09-28T23:20:00+00:00</updated>
@@ -21,6 +316,9 @@
     <content type="html"><![CDATA[<p>Repeatable installs are all the rage in Devops these days. As developers we have this "automate everything" mentality, and for good reason. In this article I'll show you how you can do that with IIS installation as well. There's no reason to go hunting and pecking around the GUI every time you need to do this. This is the just one of many ways to automate IIS installs, which I'll be covering in the next few weeks.</p>
 
 <p>I also cover this in depth in <a href="https://pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis" target="_blank">my latest Pluralsight course</a> on Installing IIS.</p>
+
+<!-- more -->
+
 
 <h3>Why would I ever need to do this?</h3>
 

@@ -10,10 +10,10 @@
 
 
 
-<meta name="description" content="Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit &hellip;" />
-<meta property="og:description" content="Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit &hellip;" />
-<meta itemprop="description" content="Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit &hellip;" />
-<meta name="twitter:description" content="Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit &hellip;">
+<meta name="description" content="There are many times in Linux you want to watch your dmesg output, especially when working with hardware to see what&#8217;s going on. There is &hellip;" />
+<meta property="og:description" content="There are many times in Linux you want to watch your dmesg output, especially when working with hardware to see what&#8217;s going on. There is &hellip;" />
+<meta itemprop="description" content="There are many times in Linux you want to watch your dmesg output, especially when working with hardware to see what&#8217;s going on. There is &hellip;" />
+<meta name="twitter:description" content="There are many times in Linux you want to watch your dmesg output, especially when working with hardware to see what&#8217;s going on. There is &hellip;">
 
 <meta property="og:site_name" content="JeremyMorgan.com" />
  <!-- https://t.co/dKP3o1e -->
@@ -55,6 +55,114 @@
   <header>
     
       <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/linux/how-to-show-realtime-dmesg-output-in-linux/">Linux Tutorial: How to Show Realtime Dmesg Output in Linux</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-28T02:25:47+00:00" pubdate data-updated="true">Sep 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are many times in Linux you want to watch your dmesg output, especially when working with hardware to see what&#8217;s going on.</p>
+
+<p>There is actually a really easy to way to do this, simply open another terminal and type:</p>
+
+<blockquote><p>tail -f /var/log/messages</p></blockquote>
+
+<p>This will show you the last messages posted in realtime. This could go for any log you want actually, and works great.</p>
+
+<p>Also some distrosl have &#8220;tailf&#8221; which does the same thing.</p>
+
+<blockquote><p>tailf /var/log/messages</p></blockquote>
+
+<p>Also you can pipe your kernel output to another terminal. Open /etc/syslog.conf and add the following line:</p>
+
+<blockquote><p>kern.*          /dev/tty10</p></blockquote>
+
+<p>This allows you to switch to that terminal to see the kernel output.</p>
+
+<p>I hope this helps!</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/09/linux.png"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/09/linux-250x300.png" alt="How to get realtime dmesg output in linux" /></a></p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/linux/how-to-show-realtime-dmesg-output-in-linux/">Linux Tutorial: How to Show Realtime Dmesg Output in Linux</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+<time datetime="2011-09-28T02:25:47+00:00" pubdate data-updated="true">Sep 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are many times in Linux you want to watch your dmesg output, especially when working with hardware to see what&#8217;s going on.</p>
+
+<p>There is actually a really easy to way to do this, simply open another terminal and type:</p>
+
+<blockquote><p>tail -f /var/log/messages</p></blockquote>
+
+<p>This will show you the last messages posted in realtime. This could go for any log you want actually, and works great.</p>
+
+<p>Also some distrosl have &#8220;tailf&#8221; which does the same thing.</p>
+
+<blockquote><p>tailf /var/log/messages</p></blockquote>
+
+<p>Also you can pipe your kernel output to another terminal. Open /etc/syslog.conf and add the following line:</p>
+
+<blockquote><p>kern.*          /dev/tty10</p></blockquote>
+
+<p>This allows you to switch to that terminal to see the kernel output.</p>
+
+<p>I hope this helps!</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/09/linux.png"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/09/linux-250x300.png" alt="How to get realtime dmesg output in linux" /></a></p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
         <h1 class="entry-title"><a href="/tutorials/c-programming/how-to-capture-the-output-of-a-linux-command-in-c/">How to Capture the Output of a Linux Command in C++</a></h1>
       
     
@@ -72,6 +180,164 @@
   
 
 
+<time datetime="2011-09-23T18:53:44+00:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit and found a lot of answers I either didn&#8217;t understand completely or just seemed too complicated for what I was trying to accomplish. I had done this with the boost libraries before but I didn&#8217;t have them on this machine so I wanted a clean, stdlib type solution.</p>
+
+<p>I dug around and found this snippet of code on my hard drive, and put something together to make it work. I didn&#8217;t write it, and I don&#8217;t remember where it came from so I can&#8217;t give credit for it, but it works like a charm:</p>
+
+<p>(tested using G++ v. 4.4.4)</p>
+
+<pre><code>string GetStdoutFromCommand(string cmd) {
+
+string data;
+FILE * stream;
+const int max_buffer = 256;
+char buffer[max_buffer];
+cmd.append(" 2&gt;&amp;1");
+
+stream = popen(cmd.c_str(), "r");
+if (stream) {
+while (!feof(stream))
+if (fgets(buffer, max_buffer, stream) != NULL) data.append(buffer);
+pclose(stream);
+}
+return data;
+}
+</code></pre>
+
+<p>As you can see, this is a function and you simply pass the command as a string to that function. It&#8217;s really easy to use. As a note, you can run system commands from within C using <a href="http://www.cplusplus.com/reference/clibrary/cstdlib/system/">system.</a> The problem with this is, the command is often run first, before any output commands and the function returns an integer indicating success or failure, but not the output of the string. The function above fixes that for you.</p>
+
+<p>What it does is creates a buffer, opens up a read-only stream, runs the command and captures the output, stuffs it into the buffer and returns it as a string.</p>
+
+<p>Here is how we put it to use:</p>
+
+<pre><code>int main (){
+
+string ls = GetStdoutFromCommand("ls -la");
+
+cout &lt;&lt; "LS: " &lt;&lt; ls &lt;&lt; endl;
+
+return 0;
+
+}
+</code></pre>
+
+<p>Keep in mind that there is no real checking here, and you should test the outputs of the commands carefully. For instance, when I used it today I had a set of long commands where things were piped into grep and cut, etc and I found that if I got unexpected output it caused a problem which hung the executable. So you want to make sure and validate your input and output as you go along, don&#8217;t just go running a bunch of commands and working on the output without some good error checking.</p>
+
+<p>Here is the full code:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="err">#</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="err">#</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">stdio</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="err">#</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">stdlib</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">string</span> <span class="nf">GetStdoutFromCommand</span><span class="p">(</span><span class="n">string</span> <span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">string</span> <span class="n">data</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">FILE</span> <span class="o">*</span> <span class="n">stream</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">const</span> <span class="kt">int</span> <span class="n">max_buffer</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="n">max_buffer</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">cmd</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot; 2&gt;&amp;1&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">stream</span> <span class="o">=</span> <span class="n">popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">feof</span><span class="p">(</span><span class="n">stream</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">fgets</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">max_buffer</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="n">data</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">pclose</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">data</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span> <span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">string</span> <span class="n">ls</span> <span class="o">=</span> <span class="n">GetStdoutFromCommand</span><span class="p">(</span><span class="s">&quot;ls -la&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;LS: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">ls</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Like I said this a pretty obscure tutorial but I figured if I had this problem, others might as well so I thought I&#8217;d throw it up there. I hope it helps.</p>
+
+<p>Happy Coding!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/c-programming/how-to-capture-the-output-of-a-linux-command-in-c/">How to Capture the Output of a Linux Command in C++</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+
+  
 <time datetime="2011-09-23T18:53:44+00:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2011</time>
         
       </p>
@@ -669,221 +935,27 @@ except omit -p and -i if unknown:
   
   
 
- </article>  <article> 
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/tutorials/linux/how-to-use-vim-instead-of-vi-with-an-alias/">Tutorial: How to Use Vim Instead of Vi With an Alias</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-18T01:03:12+00:00" pubdate data-updated="true">Aug 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Vim is a lot better than Vi, especially if you&#8217;re programming. If you would rather use Vim than Vi, and you&#8217;re on an older distro, here is how you set it up in your shell.</p>
-
-<p>Edit your .bashrc file:</p>
-
-<blockquote><p>vi /root/.bashrc</p></blockquote>
-
-<p>Add a line to it:</p>
-
-<blockquote><p>alias vi=&#8217;vim&#8217;</p></blockquote>
-
-<p>And save the file. That&#8217;s it! Most newer distros do this automatically but some distros still use vi by default.</p>
-</div>
-  
-  
-
- </article>  <article> 
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/tutorials/linux/how-to-use-vim-instead-of-vi-with-an-alias/">Tutorial: How to Use Vim Instead of Vi With an Alias</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-  
-<time datetime="2011-08-18T01:03:12+00:00" pubdate data-updated="true">Aug 18<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Vim is a lot better than Vi, especially if you&#8217;re programming. If you would rather use Vim than Vi, and you&#8217;re on an older distro, here is how you set it up in your shell.</p>
-
-<p>Edit your .bashrc file:</p>
-
-<blockquote><p>vi /root/.bashrc</p></blockquote>
-
-<p>Add a line to it:</p>
-
-<blockquote><p>alias vi=&#8217;vim&#8217;</p></blockquote>
-
-<p>And save the file. That&#8217;s it! Most newer distros do this automatically but some distros still use vi by default.</p>
-</div>
-  
-  
-
- </article>  <article> 
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/programming/old-g4-debian-linux-dirt-cheap-development-machine/">Old G4 + Debian Linux = Dirt Cheap Development Machine</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-15T17:10:43+00:00" pubdate data-updated="true">Aug 15<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So last week my laptop died on me. Motherboard took a dive, and unfortunately that was my &#8220;main machine&#8221;.  I know it takes me quite some time to find and fix up a machine, and decided a quick interim machine needed to be built. So I hit craigslist.</p>
-
-<p>I quickly found that if I wanted to spend 4-500 dollars on a laptop I&#8217;d have plenty to choose from. Most have Turion processors, or are some cheap knockoff. I just needed to finish up some PHP work, and these machines would work fine, but eventually I&#8217;m going to purchase a nice 17&#8221; laptop with all the bells and whistles and have a $500 machine that&#8217;s going to collect dust.</p>
-
-<p>I remembered using a G4 Powerbook for development just a few short years ago, and I loved it. So I thought &#8220;why not?&#8221; I knew I could get one pretty cheap. I ended up finding one for $200 that was quite a steal.</p>
-
-<p><img class="right" src="http://s3.amazonaws.com/images.jeremymorgan.com/powermac-g4.jpg" title="Linux on my PowerBook G4" ></p>
-
-<p>I picked up this PowerBook G4 with the power adapter, manuals and everything for only $200. It was in really good shape, and a great deal. Even if I didnt get this one, I found several in the 2-300 dollar range all over the place. I took it home and set it up.</p>
-
-<p>My ignorance of Mac operating systems showed pretty quick when I tried to do anything. It came pre installed with OSX &#8220;Panther&#8221; which I wasn&#8217;t really familiar with. My old G4 had Leopard installed, and was pretty modern. Panther is a dinosaur. I quickly found out that Safari didn&#8217;t render pages well at all, and it was the latest version you could install on Panther. I couldn&#8217;t install a newer version of Java to run any tools and I didn&#8217;t even bother putting Apache or anything on it. It was clear even if I could build things, I couldn&#8217;t test them on such an ancient browser anyway. So I had to come up with something else.</p>
-
-<p>You cannot develop websites effectively with Panther in 2011. Sad but true.</p>
-
-<p>The cheapest version of Leopard I could find was $150, almost what I paid for the whole machine. $150 for a really outdated operating system? There has to be a better way.</p>
-
-<p><strong>Linux saves the day again! </strong></p>
-
-<p>I remember reading about people porting linux to PPC years ago, and figured I&#8217;d give it a shot. After some research I found that three good options existed for Linux on PPC machines:</p>
-
-<ul>
-<li><a href="http://www.debian.org/ports/powerpc/">Debian Linux for PowerPC</a></li>
-<li><a href="http://www.ydl.net/products/ydl/">YellowDog Linux</a></li>
-<li><a href="http://www.freebsd.org/platforms/ppc.html">FreeBSD</a></li>
-</ul>
-
-
-<p>I decided to go with FreeBSD at first, and had some problems with partitioning. I got it installed, but it seemed like no matter what I did, I had drive seek and partition errors. I figured I&#8217;d go with something I&#8217;m more familiar with and downloaded the Debian ISO.</p>
-
-<p>At first I downloaded the<a href="http://cdimage.debian.org/debian-cd/6.0.2.1/powerpc/iso-cd/debian-6.0.2.1-powerpc-CD-1.iso"> initial install CD</a> and it installed without a hitch. I am not allowed to connect this machine to my company network, so I was doing an offline install and started putting debs on a flash drive and going back and forth. This got old really quick, so I downloaded and <a href="http://cdimage.debian.org/debian-cd/6.0.2.1/powerpc/iso-dvd/">burned the full DVD</a> and reinstalled a full version with Gnome and the web server box checked.</p>
-
-<p>The install process for this is identical to setting up linux on any other machine, with the exception of creating a small boot partition so the bootloader can work. It was much easier than I thought it would be. In no time I had a nice smooth Linux install with very few issues.</p>
-
-<p><a href="https://s3.amazonaws.com/images.jeremymorgan.com/mac-linux.png"><img src="https://s3.amazonaws.com/images.jeremymorgan.com/mac-linux-300x200.jpg" alt="Debian on Mac Powerbook" /></a></p>
-
-<p>It was a good way to make an old computer &#8220;modern&#8221;. It comes with a good version of &#8220;IceWeasel&#8221; which is a rebranded FireFox and has decent updates to Java and other things. The webserver and PHP installed without a hitch, and MySQL needed a little configuring. Now I can use Gedit or Vim to write php and test them and GFTP to upload it. I have a nice smooth running web development system for $200.</p>
-
-<p>If I want to use Photoshop I&#8217;m probably out of luck, but everything else this thing will work great. This is a nice solution if you need a rock bottom priced development machine, it would be hard to find comparable hardware in the $200 range, and this old mac actually runs really well. It only uses 180 megs of memory while I&#8217;m working, which is pretty impressive. I would recommend this setup to PHP or web developers not doing any kind of graphics, it&#8217;s smooth as can be and dirt cheap!</p>
-
-<br />
-
-
-<div class="subscribefooter">
-<h4>Do you like articles like this?</h4>
-<div class="rssbutton"></div>
-I&#8217;m constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
-<br /><br />
-You can also follow my projects on GitHub:<br />
-<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
-</div>
-
-
-<br />
-
-
-<br />
-
-
-<p><a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" /></p>
-
-<br />
-
-
-
-</div>
-  
-  
-
  </article> <div class="pagination">  <a class="prev" href="/articles/page/25/">&larr; Older</a>  <a href="/blog/archives">Blog Archives</a>  <a class="next" href="/articles/page/23/">Newer &rarr;</a>  </div> </div> <aside class="sidebar">  <section>
+	<br />
 	<h2>About Jeremy Morgan</h2>
 	<div class="aboutmeimage">&nbsp;</div>
 	<p>I&#8217;m just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I&#8217;m passionate about technology, and as long as I&#8217;m building cool stuff and helping people I&#8217;ll never work a day in my life.</p>
-	<p><a href="/about/">More about me</a></p>
-<ul>
-<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
-<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
-<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
-<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
-<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
-</ul>
-</section>
-<br />
-<section>
-	<h2>My Courses</h2>
+	<p><a href="/about/"><strong>More about me</strong></a></p>
+	<br />
+	<h2>Social Media</h2>
 	<ul>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fcreating-configuring-new-websites-iis"><div class="psicon">Configuring New Websites</div></a></li>
-<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
-<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
-</ul>
-</section>
-<section> 
-<br />
+		<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+		<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+		<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+		<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+	</ul>
+</section><section> 
+<br /><br />
 <h2>Categories</h2>
 <ul>
 <li><a href="/blog/programming/">Programming</a></li>
 <li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/iis/">IIS</a></li>
 <li><a href="/blog/arduino/">Arduino</a></li>
 <li><a href="/blog/linux/">Linux Tutorials</a></li>
 <li><a href="/blog/dotnet/">.Net Tutorials</a></li>
@@ -895,10 +967,24 @@ You can also follow my projects on GitHub:<br />
 <a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
 <br />
 <a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
 </section><section>
  <br />
+  <br />
   <h2>Recent Articles</h2>
   <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/reusable-code/">Thinking About Reusable Code</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/andon-cord-in-devops/">Transforming Your Organization with the Andon Cord</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/comparing-iis-configuration/">Comparing and Syncing IIS Configurations</a>
+	  </li>
 	
 	  <li class="post">
 		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
@@ -928,27 +1014,12 @@ You can also follow my projects on GitHub:<br />
 		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
 	  </li>
 	
-	  <li class="post">
-		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
-	  </li>
-	
-	  <li class="post">
-		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
-	  </li>
-	
-	  <li class="post">
-		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
-	  </li>
-	
   </ul>
-</section>
-<section>
+</section><section>
 <br /> 
 <h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
 <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
 <h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
-
-<br />
 <br />
 <br />
 <h2>Friends</h2>
@@ -964,14 +1035,8 @@ You can also follow my projects on GitHub:<br />
 	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
 	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
 </ul>
-<br />
-<br />
-<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
-<br />
-<br />
-</section>
-  <section>
-  <br />
+</section>  <section>
+  <br /><br />
   <h2>My RSS Feeds</h2>
   <ul>
   <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
@@ -983,28 +1048,25 @@ You can also follow my projects on GitHub:<br />
 <div class="g-plusone" data-annotation="inline" data-width="245"></div>
 
 
+<!-- <div style="margin-left: auto;margin-right: auto; text-align: center;" > &#8211;>
+<!-- possible ad space -->
+
 <section>
-<br />
-<h1>Great Deals!</h1>
-<br /><br />
-<div style="margin-left: auto;margin-right: auto; text-align: center;" >
-<!-- raspberry pi 3 --> 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-</iframe>
-<br /><br /><br /><br />
-<!-- arduino -->
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-    </iframe>
-<br /><br /><br /><br />
-<!-- cracking the code interview --> 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
-</iframe>
-<br /><br /><br /><br />
-<!-- Python Crash course --> 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-</iframe>
-<br />
+		<br />
+			<br />
+	<h2>My Courses</h2>
+
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fcreating-configuring-new-websites-iis"><div class="psicon">Configuring New Websites</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
 </div>
+<br />
+<br />
 </section>  </aside>
     </div>
   </div>

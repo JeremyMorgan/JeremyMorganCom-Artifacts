@@ -1,0 +1,1335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Tutorials | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/tutorials/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2015-05-30T12:51:07-07:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Building C#/ASP.NET apps on a Mac with vNext]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/"/>
+    <updated>2014-11-16T13:39:00-08:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/vnext/building-c-number-apps-on-a-mac</id>
+    <content type="html"><![CDATA[<p>In case you've been away from the internet for the last week, you've probably heard the big news from the ASP.Net team. They're embracing open source in a major way. Scott Hanselman wrote <a href="http://www.hanselman.com/blog/">a fantastic post about the news</a> that nearly broke the internet (and certainly tested his hosting provider). Microsoft is really backing up their claims that they are committed to Open Source in a major way.</p>
+
+<!-- more -->
+
+
+<p>Up until now the only ASP/C# development I do on my Mac is under a Virtual Machine. I have a couple "bleeding edge" VMs I use for CTP versions of the framework and Visual Studio. But I never truly develop things on the platform and thought I'd give it a try.</p>
+
+<h3>You need Sublime Text</h3>
+
+<p>Ok, so this one goes without saying but you probably already have <a href="http://www.sublimetext.com/">Sublime Text</a> on your machine. It's a fantastic editor that works well on all three platforms, and well worth $70. Having the same interface on Mac, Windows and Linux was what first attracted me to Sublime, and after using it a while I do nearly everything in it. I naturally decided to use it for this experiment. It's not <a href="https://www.jetbrains.com/webstorm/">a true IDE like WebStorm</a> (which also runs on all three) but it will work great for what we're doing here.</p>
+
+<h3>1. Getting Started</h3>
+
+<p>First we need to get Mono and the K version manager set up. We can install this with Homebrew:</p>
+
+<p><code>plain
+brew tap aspnet/k
+brew install kvm
+</code></p>
+
+<p>This will install K and pull down Mono if you don't have it installed. You will want to add a line to your .bashrc file:</p>
+
+<p><code>plain
+nano ~/.bashrc
+</code></p>
+
+<p>and add</p>
+
+<p><code>plain
+source kvm.sh
+</code></p>
+
+<p>and save it the file.</p>
+
+<p>Next you'll want to install the K Runtime environment (KRE). To do that, you type in</p>
+
+<p><code>plain
+kvm upgrade
+</code></p>
+
+<p>You're now ready to start running ASP.NET vNext on your machine.</p>
+
+<h3>2. Running a Sample App</h3>
+
+<p>Just to try it out, let's run a sample application from the vNext GitHub.</p>
+
+<p>create a project folder, and from the command line run</p>
+
+<p><code>plain
+git clone https://github.com/aspnet/Home.git
+</code></p>
+
+<p>Now let's go to /Home/samples/HelloWeb. You'll see a file in there called Startup.cs, let's open that up in Sublime.</p>
+
+<p>It looks like this:</p>
+
+<p>``` csharp
+using Microsoft.AspNet.Builder;</p>
+
+<p>namespace KWebStartup
+{</p>
+
+<pre><code>public class Startup
+{
+    public void Configure(IApplicationBuilder app)
+    {
+        app.UseStaticFiles();
+        app.UseWelcomePage();
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>As you can see, this is extremely simple file. It uses the IApplicationBuilder interface to build a simple app, and build a Welcome page.</p>
+
+<p>Also we have a project.json file that's pretty important. You use this to configure the application and load in dependencies:</p>
+
+<p>``` json
+{</p>
+
+<pre><code>"dependencies": {
+    "Kestrel": "1.0.0-beta1",
+    "Microsoft.AspNet.Diagnostics": "1.0.0-beta1",
+    "Microsoft.AspNet.Hosting": "1.0.0-beta1",
+    "Microsoft.AspNet.Server.WebListener": "1.0.0-beta1",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-beta1"
+},
+"commands": {
+    "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5001",
+    "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:5004"
+},
+"frameworks": {
+"aspnet50": {},
+    "aspnetcore50": {}
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Pretty straightforward stuff. To run our application we're going to need to pull in these packages, to do that run</p>
+
+<p><code>plain
+kpm restore
+</code></p>
+
+<p>Once you do that you'll see it start to pull down packages from NuGet for your application. Let's run the application. Since this a web app we'll use Kestrel to serve it,</p>
+
+<p><code>plain
+k kestrel
+</code></p>
+
+<p>You should see this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dotnet-on-mac/dotnet-on-mac-osx-1.jpg" alt="image" /></p>
+
+<p>This means you have a server running. Load up a web browser and point it to: http://localhost:5004/</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dotnet-on-mac/dotnet-on-mac-osx-2.jpg" alt="image" /></p>
+
+<p>ASP.NET vNext on your Mac Desktop! Pretty sweet, right? Actually you've been able to do this for about 6 months now, and it's not first class yet, but they're working on it every day.</p>
+
+<h3>3. Set up Sublime Text for C# Coding.</h3>
+
+<p>Now we're going to get Sublime Text set up for C#/ASP.Net development. First we'll install <a href="https://github.com/ligershark/Kulture">Kulture</a>, a Sublime extention for ASP.Net vNext.</p>
+
+<ul>
+<li>Bring up the Command Palette (Cmd + Shift + P)</li>
+<li>Select Package Control: Install Package</li>
+<li>Select Kulture when the list appears.</li>
+</ul>
+
+
+<p>With Kulture we'll be able to run K commands from within Sublime.</p>
+
+<p>We're also going to install <a href="https://github.com/OmniSharp/omnisharp-sublime">OmniSharp</a> for Sublime.</p>
+
+<ul>
+<li>Bring up the Command Palette (Cmd + Shift + P)</li>
+<li>Select Package Control: Install Package</li>
+<li>Select OmniSharp when the list appears.</li>
+</ul>
+
+
+<p>With OmniSharp you can build, run and refactor C# code with vNext, within sublime. Check the <a href="https://github.com/OmniSharp/omnisharp-sublime">Readme</a> for more details.</p>
+
+<p>Let's set our C# language-specific settings. (This is also outlined in the Readme)</p>
+
+<p>Go to Sublime Text -> Preferences -> Settings - More -> Syntax Specific - User</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dotnet-on-mac/dotnet-on-mac-osx-3.jpg" alt="image" /></p>
+
+<p>And paste in the following:</p>
+
+<p>``` json</p>
+
+<p> {</p>
+
+<pre><code>"auto_complete": true,
+"auto_complete_selector": "source - comment",
+"auto_complete_triggers": [ {"selector": "source.cs", "characters": ".&lt;"} ],
+</code></pre>
+
+<p> }</p>
+
+<p>```</p>
+
+<p>Now, lets open up that startup.cs file we opened earlier (The sample web app)</p>
+
+<p>Now open the command pallette (Cmd + Shift + P)</p>
+
+<p>Type a "K" and you'll see "run k commands" come up.</p>
+
+<p>You now see a list of selections:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dotnet-on-mac/dotnet-on-mac-osx-4.jpg" alt="image" /></p>
+
+<p>After a while, this will save you save you some time.</p>
+
+<p>To get Intellisense working, you need to create a project file (again this is from the Readme)</p>
+
+<p>To get intellisense with ASP.Net vNext projects you need to create a project file in Sublime. Go to Project - Save Project As and enter in a name for your project. OmniSharpSublime will use this to know what files and assemblies it needs to provide intellisense for (TIP : Close &amp; Re-Open Sublime if you do not see intellisense, it may take 10 secs for the intellisense server OmniSharpServer to start once Sublime has loaded all the plugins)</p>
+
+<p>Once OmniSharpSublime is installed and you have a project file you should be able to see intellisense.</p>
+
+<p>Hint: There's also a <a href="https://sublime.wbond.net/packages/C%23%20Snippets">C# Snippets Extension</a> worth looking at.</p>
+
+<h3>4. Let's build a console app</h3>
+
+<p>Here I will show you how to do a console application, and we'll do it a little differently. We're going to use the fantastic <a href="http://yeoman.io/">Yeoman generator</a> for this. If you've never used Yeoman you should try it out, it's pretty awesome.</p>
+
+<p>This assumes you have Node.JS and NPM installed. If you don't, <a href="http://howtonode.org/how-to-install-nodejs">You can follow these quick steps here</a>.</p>
+
+<p>So first we'll install the generator:</p>
+
+<p><code>
+npm install -g generator-aspnet
+</code>
+If you don't have Yeoman it will install it for you.</p>
+
+<p>Then, we create a folder we want the project in, and type</p>
+
+<p><code>
+yo aspnet
+</code></p>
+
+<p>You'll be greeted with a screen like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dotnet-on-mac/dotnet-on-mac-osx-5.png" alt="image" /></p>
+
+<p>You can select between the types of application it can generate. Let's select Console Application. I named mine "HelloWorld" because I lack creativity today.</p>
+
+<p>After it generates, you'll see it has created some files:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dotnet-on-mac/dotnet-on-mac-osx-6.jpg" alt="image" /></p>
+
+<p>These files should look pretty familiar, but we now have a global JSON config as well as our project config.</p>
+
+<p>Modify this file a little if you want, and bring up the command pallete, type k to run K commands and select K run:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/dotnet-on-mac/dotnet-on-mac-osx-7.jpg" alt="image" /></p>
+
+<p>Pretty cool huh? For some reason I've always been a huge fan of Console applications. I'm also a huge fan of C#. For years throughout my career I've built tons of awesome console apps, and the idea that soon I'll be able to build first class C# console apps in Linux is pretty exciting to me.</p>
+
+<h3>Conclusion</h3>
+
+<p>This is pretty exciting stuff for so many reasons. I am a fanboy of all three operating environments (Windows, OSX, Linux) depending on what I'm doing. When I'm working with Python, PHP, or JS stuff I really like working in Linux. When I'm building graphic intense web pages / CSS or video editing I use OSX. When I build .Net stuff I use Windows. My Mac is the most powerful machine I own, so the idea that I can soon build anything I want in that environment is pretty awesome to me. As I said C# is one of my favorite languages to work in, and the ASP.Net architecture is awesome for building larger websites. The idea that it's all coming together is awesome.</p>
+
+<p>I'm just scratching the surface here, and this article focused on Web/Command Line stuff. But the Mobile development world is also being disrupted right now with work from the Xamarin Team, and vNext. The potential to develop great software has never been better, and it's a great time to be a developer.</p>
+
+<p>I think it's great that Microsoft is "putting their money where their mouth is". There has been a lot of talk the last couple years about the ASP.NET team embracing open source, and they're taking a very serious approach to it. This is not a half hearted attempt at lip service, they're opening all of it, and they're working with everyone. In the end we as developers will be reaping the benefits from this latest push.</p>
+
+<p>I'll create some more vNext stuff in the future and write about some of the "gotchas" I've already run into building stuff. The vNext stuff is not "first class" yet, but it will be soon. Stay tuned, and be sure to comment if you're working on any of this cutting edge stuff.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to set up the MEAN stack on Digital Ocean]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/angularjs/how-to-mean-stack/"/>
+    <updated>2014-10-26T01:07:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/angularjs/how-to-set-up-the-mean-stack-on-digital-ocean</id>
+    <content type="html"><![CDATA[<p>If you haven't heard of the MEAN stack, it's a combination of technologies for serving up fast websites, using a set of technologies paired very well together. They consist of MongoDB, Express.JS, Angular.JS, and Node.JS. For more information check out <a href="http://meanjs.org/" target="_blank">MeanJS website</a> for more details.</p>
+
+<!-- more -->
+
+
+<p>This is not to be confused with Mean.IO. This is also a MEAN stack, but the original creator forked it and started MeanJS instead. I find it to be less error prone and a bit more organized.</p>
+
+<h3>How to set up a MEAN stack on Digital Ocean.</h3>
+
+<p><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Digital Ocean</a> is one of the greatest services for a developer. You can spin up virtualized Linux servers for as little as $5 a month, and it's a great cheap way to host your projects.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/mean-stack-how-to-1.jpg" title="How to install MEAN Stack&#34;" alt="How to install MEAN Stack&#34;"></p>
+
+<p>I know what some of you are thinking, "why not just press the MEAN app button on the console?". This is a great way to set up a MEAN stack, but I am a firm believer in doing stuff like this manually. It's important to know what you're installing and how to do it, rather than rely on GUI tools for everything. You don't really learn unless you do it.</p>
+
+<p>That being said this article isn't really specific to Digital Ocean, you can follow these steps on any Ubuntu machine. <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Digital Ocean</a> just happens to be a good platform to try it on.</p>
+
+<h3>Get Started</h3>
+
+<p>To get started we're going to create a droplet. For this tutorial I created an Ubuntu 14.04 x64 version.</p>
+
+<p>The first thing you'll want to do once you log in, is update it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And we'll need to install Git, as it will be needed later.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install git</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Install Node.JS</h3>
+
+<p>Before we can install Node we'll need some packages brought in:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python-software-properties python g++ make</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then we'll add a new repo:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo add-apt-repository ppa:chris-lea/node.js</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And update again.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install nodejs</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then we should update NPM:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g npm</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And once that's done we'll install Bower and Grunt:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo npm i -g bower
+</span><span class='line'>sudo npm install -g grunt-cli</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Install MongoDB</h3>
+
+<p>MongoDB will be the backend for the website. This is a relatively quick install, but must be done before the MEAN stack is installed.</p>
+
+<p>First we need to import the public key:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then we need to create a list file for Mongo:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Then run another update:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And then we can install MongoDB:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install -y mongodb-org</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, check to see if MongoDB has started:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>tail /var/log/mongodb/mongod.log</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>You should see this message:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/mean-stack-how-to-2.jpg" title="How to install MEAN Stack&#34;" alt="How to install MEAN Stack&#34;"></p>
+
+<p>And your MongoDB is up and running!</p>
+
+<h3>Install MEAN.JS stack</h3>
+
+<p>You're almost done! This part is quick and easy. Just clone the latest repo into a folder (I used meanjs)</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/meanjs/mean.git meanjs</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>install it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo npm install</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and run it:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grunt</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>You're done! You should see the following screen:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/mean-stack-how-to-3.jpg" title="How to install MEAN Stack&#34;" alt="How to install MEAN Stack&#34;"></p>
+
+<p>And just like that you're ready to go.</p>
+
+<h3>If you want to run it as a full time server</h3>
+
+<p>When you run Grunt it starts your server, but as soon as you exit SSH it drops. Also NodeJS is a single threaded application so a single failure can bring down the service. This is why we use forever to run the server:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install forever</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now start it up:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>forever start server.js</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and you've got a full time server running.</p>
+
+<h3>Conclusion</h3>
+
+<p>I hope this helps illustrated the steps for getting a MEAN stack set up. This is just the beginning, in future tutorials we'll build some stuff.</p>
+
+<p>This stack is pretty awesome, and really important. I can definitely see this replacing PHP as a go-to quick web development technology for open source platforms. It's advancing rapidly, offers incredible performance and reduced development time.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to set up a LEMP Server in Ubuntu 14.04]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/linux/how-to-setup-lemp-server-ubuntu/"/>
+    <updated>2014-06-16T21:07:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/linux/how-to-set-up-a-lemp-server-in-ubuntu-14-dot-04</id>
+    <content type="html"><![CDATA[<p>Today I'm going to show you how to set up a LEMP server (Linux NginX MariaDB PHP)  on an Ubuntu 14.04. It's a relatively easy process once you've done it a few times, but there are some things that can trip you up, so I thought I'd document it and present it here.</p>
+
+<p>For this tutorial I used a <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4" target="_new">Digital Ocean Droplet</a>, but any Ubuntu 14.04 server should work the same way.</p>
+
+<!-- more -->
+
+
+<h2>Set up a privileged user</h2>
+
+<p>This assumes you're using a fresh install of Ubuntu 14.04, and it's not a crucial step in the process if your server is already set up. But we want to create an environment with a privileged user and prevent people from being able to login as root over SSH. This is just an extra precaution I like to do on servers I set up.</p>
+
+<p>Log in to your user as root, and type in the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>adduser web</span></code></pre></td></tr></table></div></figure></notextile></div>
+It doesn't have to be "web" you can call it anything you want.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-lemp-ubuntu.jpg" title="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;" alt="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;"></p>
+
+<p>Add a password and there will be some prompts where you can add as much or as little information as you want for the account.</p>
+
+<p>Then run the following command:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>visudo</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>look for
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>User privilege specification</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and add the new account:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root    ALL=(ALL:ALL) ALL
+</span><span class='line'>web     ALL=(ALL:ALL) ALL</span></code></pre></td></tr></table></div></figure></notextile></div>
+It should look like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-lemp-ubuntu-2.jpg" title="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;" alt="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;"></p>
+
+<p>Ctrl + X to exit, Y to save the file</p>
+
+<p>Now we want to edit the SSH settings:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/ssh/sshd_config</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Change the Port to something between  1025 and 65536. This just adds an extra step for attackers, and bots that scan for open port 22 won't find your connection immediately.</p>
+
+<p>Look for this line:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>PermitRootLogin yes</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and change it to</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>PermitRootLogin no</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This prevents people from logging into SSH as root.</p>
+
+<p>As an additional step, let's add the line:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>AllowUsers web</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>so only the web user is allowed to log on to the server.</p>
+
+<p>Restart the ssh server:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service ssh restart</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now before we log out, we want to test and make sure we can get back in.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p 4400 web@YourIPADDRESS</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>4400 is the port shown here, but it can be whatever you choose.</p>
+
+<p>If you can log in fine, then you'll be safe to exit out of your main session, and log back in as "web" (or whatever you used as a username).</p>
+
+<h2>Install the Web Server</h2>
+
+<p>first type in</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>to update the system.</p>
+
+<p>To install NginX:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install nginx</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In Ubuntu 14.04 it will automatically start up the service, and you should see this startup page:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-lemp-ubuntu-3.jpg" title="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;" alt="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;"></p>
+
+<p>Now your NginX server is set up so we'll move on and modify it later.</p>
+
+<h2>Install the Web Server</h2>
+
+<p>We're going to install MySQL on the server, but we'll be using the <a href="https://mariadb.org/">MariaDB</a> fork instead of the MySQL distribution, because it's better in many ways.</p>
+
+<p>For our install we're using Ubuntu 14.04 and I want MariaDB 10, so here is how I set it up:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install software-properties-common
+</span><span class='line'>sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+</span><span class='line'>sudo add-apt-repository 'deb http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.0/ubuntu trusty main'</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you want to use something different or are working with a different OS, <a href="https://downloads.mariadb.org/mariadb/repositories/#mirror=digitalocean-sfo" target="_new" ref="nofollow">check here to see which repo to use</a>.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install mariadb-server</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we want to secure up our install a bit:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mysql_secure_installation</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>enter your root password and answer "Y" to all the things you want to remove for security purposes.</p>
+
+<p>Now you have a (MySQL compatible) MariaDB instance set up!</p>
+
+<h2>Install and configure PHP</h2>
+
+<p>Now we want to install PHP and get it set up with NginX.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install php5-fpm php5-mysql php5-cli php5-mcrypt git</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, we need to configure PHP:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/php5/fpm/php.ini</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Look for the following in the php.ini file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>;cgi.fix_pathinfo=1</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>remove the semicolon and set it to 0:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cgi.fix_pathinfo=0</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Quit and save the file.</p>
+
+<p>Now we need to make a small change to the PHP-FPM config:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/php5/fpm/pool.d/www.conf</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>look for the listen directive and make sure it says:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>listen = /var/run/php5-fpm.sock</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Quit and save the file, then restart PHP5-FPM:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service php5-fpm restart</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now you're set up!</p>
+
+<h2>Configure NginX</h2>
+
+<p>Create a folder where your web files will be stored. I generally set up something like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mkdir /var/www/yourdomain.com/public</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now open up this file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/nginx/sites-available/default</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The default server setup looks like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>    server {
+</span><span class='line'>        listen 80 default_server;
+</span><span class='line'>        listen [::]:80 default_server ipv6only=on;
+</span><span class='line'>
+</span><span class='line'>        root /usr/share/nginx/html;
+</span><span class='line'>        index index.html index.htm;
+</span><span class='line'>
+</span><span class='line'>        server_name localhost;
+</span><span class='line'>
+</span><span class='line'>        location / {
+</span><span class='line'>            try_files $uri $uri/ =404;
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Make the following changes to the config so it looks like this:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>    server {
+</span><span class='line'>        listen 80 default_server;
+</span><span class='line'>        listen [::]:80 default_server ipv6only=on;
+</span><span class='line'>
+</span><span class='line'>        root /var/www/yourdomain.com/public;
+</span><span class='line'>        index index.php index.html index.htm;
+</span><span class='line'>
+</span><span class='line'>        server_name server_domain_name_or_IP;
+</span><span class='line'>
+</span><span class='line'>        location / {
+</span><span class='line'>            try_files $uri $uri/ /index.php$is_args$args;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        error_page 404 /404.html;
+</span><span class='line'>        error_page 500 502 503 504 /50x.html;
+</span><span class='line'>
+</span><span class='line'>        location = /50x.html {
+</span><span class='line'>            root /var/www/yourdomain.com/public;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        # pass the PHP scripts to FastCGI server listening on /var/run/php5-fpm.sock
+</span><span class='line'>        location ~ \.php$ {
+</span><span class='line'>            try_files $uri /index.php =404;
+</span><span class='line'>            fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>            fastcgi_index index.php;
+</span><span class='line'>            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+</span><span class='line'>            include fastcgi_params;
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Replace /var/www/yourdomain.com/public  with whatever folder you'd like to use for your website (what you created earlier), and replace <em>server_domain_name_or_IP</em> with your server domain name or IP.</p>
+
+<p>Now restart your web services:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service php5-fpm restart
+</span><span class='line'>sudo service nginx restart</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we can create a test file to check your PHP configuration:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nano /var/www/yourdomain.com/public/phpinfo.php</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Add the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>lang: php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php phpinfo();</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now bring up the page in a browser and you should see this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-lemp-ubuntu-4.jpg" title="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;" alt="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;"></p>
+
+<p>And you're done!! Now you can add in your files and start building websites or applications. In future articles I'll show some good deployment methods for your new website.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started With AngularJS]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/angularjs/how-to-adsense-calculator-angularjs/"/>
+    <updated>2014-02-17T20:59:00-08:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/angularjs/getting-started-with-angularjs</id>
+    <content type="html"><![CDATA[<p>Lately I've been playing around a little with AngularJS, and I'm pretty impressed. It's amazing how many time saving features and structure this framework brings to your applications. I decided to build an app to calculate AdSense earnings, and I'll demonstrate it here.</p>
+
+<!-- more -->
+
+
+<h3>What the app does</h3>
+
+<p>You can check your Google AdSense earnings in realtime, and if you're a stats nut like me, you might just do that. What I wanted to do is see if I can predict my payout of the end of the month based on that day's earnings, and total earnings based on the current trends. So the application will:</p>
+
+<ul>
+<li><p>Take your day's amount and see what the total would be if you made that every day</p></li>
+<li><p>Take your accumulated amount and determine what you'd make at the current rate.</p></li>
+</ul>
+
+
+<p>The daily amount of course is just multiplied by the days of the month, but the accumulated amount is averaged over how many days are passed. You could easily do this with vanilla JavaScript but AngularJS makes it simpler and better structured. Let's get started!</p>
+
+<h3>What you need</h3>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/angularjs.jpg" width="250" height="250" title="How to build an AdSense calculator in AngularJS" >
+This is the easy part. You just need a copy of Angular.Min.Js and an index.html file. You should run them in a web server on your local machine, and you can modify the index with any text editor.</p>
+
+<ul>
+<li><a href="http://angularjs.org/">Angular.min.js</a></li>
+<li><a href="https://github.com/JeremyMorgan/AdSenseCalculator">The GitHub for this project</a></li>
+</ul>
+
+
+<p>Let's get started!</p>
+
+<h3>Initial page setup</h3>
+
+<p>We create a standard html webpage like so:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Angular Demo<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We need to add a few things to make sure this is recognized as an AngularJS application:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">ng-app</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The ng-app directive tells AngularJS that you want to auto bootstrap that root element as an Angular application. You don't need to make the entire HTML page an application, but in this case we will.</p>
+
+<p>You will also want to include your script into the page in the footer:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;angular.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we'll get started with the actual application.</p>
+
+<h3>Adding the controllers</h3>
+
+<p>Add the following to your body tag:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;body</span> <span class="na">ng-controller=</span><span class="s">&quot;TextController&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This declares that the body element is using the controller "TextController". Controllers are a primary means of functionality in AngularJS. This is the central part of MVC (Model View Controller) pattern that AngularJS uses.</p>
+
+<p>For display purposes we want to create a placeholder in the title like so:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;h2&gt;</span>{{someText}}<span class="nt">&lt;/h2&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Since AngularJS treats the HTML as a template, this is a simple placeholder you may have seen in other templating systems. Let's change what this says. We will add a controller to the page within script tags using common JavaScript:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script&gt;</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">TextController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">someText</span> <span class="o">=</span> <span class="s2">&quot;Angular Adsense Calculator&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>One thing you may notice is the parameter we're passing to this function named "$scope". This is our root scope which serves as a global storage area for the application. The line of code in your controller shows that we're declaring the someText property value within the scope. Save and run this page and you'll see that the headline changes.</p>
+
+<p>Now we'll do some real stuff.</p>
+
+<h3>Creating the calculator form</h3>
+
+<p>Here we're going to create an AngularJS driven form that's going to be used to handle our input values. Add the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;form</span> <span class="na">ng-controller=</span><span class="s">&quot;StartupController&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span>Today (Actual): <span class="ni">&amp;lt;</span>input ng-change=&quot;computeDaily()&quot; ng-model=&quot;funding.dailycount&quot;<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>   <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>   This Month: <span class="nt">&lt;input</span> <span class="na">ng-change=</span><span class="s">&quot;computeMonthly()&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;funding.monthcount&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>b<span class="ni">&amp;gt;</span>Based on Today:<span class="ni">&amp;lt;</span>/b<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>Predicted Payment: {{funding.dailyaftertax | currency:&quot;USD $ &quot;}} <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>b<span class="ni">&amp;gt;</span>Based on Month:<span class="ni">&amp;lt;</span>/b<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>Predicted Payment: {{funding.monthlyaftertax | currency:&quot;USD $ &quot;}} <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Some things to note. In the input tags we have ng-change="". This means when the value in this text box changes, it will call the function named inside. In this case, we're going to call the computeDaily() function, and the computeMonthly() function.</p>
+
+<p>Also, you notice the ng-model="" parameters. These set the funding.dailycount and funding.monthcount inside our scope. Funding. is our model name.</p>
+
+<p>You will notice we have two template placeholders, and they are also accessing properties in the model, funding.dailyaftertax and funding.monthlyaftertax. These two properties are also added to the funding model, which will create and use below.</p>
+
+<h3>Creating the calculator controller</h3>
+
+<p>As I said earlier, controllers are a crucial function of AngularJS and where most of the work gets done. Here we'll create the StartupController that will do the calculations for us.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script&gt;</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">StartupController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getDate</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">dailycount</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">monthcount</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">dailyaftertax</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">monthlyaftertax</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">computeDaily</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">dailyaftertax</span> <span class="o">=</span> <span class="p">((</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">dailycount</span> <span class="o">*</span> <span class="mi">28</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.33</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">computeMonthly</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">monthlyaftertax</span> <span class="o">=</span> <span class="p">((</span><span class="mi">28</span> <span class="o">*</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">monthcount</span> <span class="o">/</span> <span class="nx">date</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.33</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;funding.dailycount&#39;</span><span class="p">,</span> <span class="nx">computeDaily</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;funding.monthcount&#39;</span><span class="p">,</span> <span class="nx">computeMonthly</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you look at this code you'll see a few things going on. For one, we're getting the date of the month from the getDate() function in JavaScript. This is so we know what day of the month it is.</p>
+
+<p>The next line shows how we set up our funding model. We define these four variables in the model and initialize them to zero. We will set values to these once the form is in use.</p>
+
+<p>The computeDaily function assigns the dailyaftertax variable a value that takes the dailycount from the input in the form and multiplies it by 28 (the number of days in February) then divides it by 1.33 to get our rate after taxes. This calculation simply assumes how much we would make if the value you input were our daily average.</p>
+
+<p>The computeMonthly function works a little different. It assigns a value to monthlyaftertax by taking how much have made so far and averaging it over the elapsed days, then multiplying that by 28, and dividing by 1.33 to remove the tax rate.</p>
+
+<p>Obviously, for months other than February we'll need to change the value 28, or determine the days present based on what month it is. For now I just hardcoded 28.</p>
+
+<h3>Adding in watches</h3>
+
+<p>You'll notice two lines that say $scope.$watch followed by a variable and a function name. Watch is an expression that registers a listener callback to be executed when the values of those variables change. You can assign these listeners to multiple variables and even have listeners call other listeners.</p>
+
+<h3>The full page</h3>
+
+<p>By now your full page should look like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">ng-app</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Angular Demo<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body</span> <span class="na">ng-controller=</span><span class="s">&quot;TextController&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>h2<span class="ni">&amp;gt;</span>{{someText}}<span class="ni">&amp;lt;</span>/h2<span class="ni">&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="ni">&amp;lt;</span>form ng-controller=&quot;StartupController&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    Today (Actual): <span class="ni">&amp;lt;</span>input ng-change=&quot;computeDaily()&quot; ng-model=&quot;funding.dailycount&quot;<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    This Month: <span class="ni">&amp;lt;</span>input ng-change=&quot;computeMonthly()&quot; ng-model=&quot;funding.monthcount&quot;<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>b<span class="ni">&amp;gt;</span>Based on Today:<span class="ni">&amp;lt;</span>/b<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    Predicted Payment: {{funding.dailyaftertax | currency:&quot;USD $ &quot;}}<span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>b<span class="ni">&amp;gt;</span>Based on Month:<span class="ni">&amp;lt;</span>/b<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    Predicted Payment: {{funding.monthlyaftertax | currency:&quot;USD $ &quot;}}<span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/form<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>script src=&quot;angular.min.js&quot;<span class="ni">&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>script<span class="ni">&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'>function StartupController($scope){
+</span><span class='line'>
+</span><span class='line'>    var date = new Date().getDate();
+</span><span class='line'>
+</span><span class='line'>    $scope.funding = { dailycount: 0, monthcount: 0, dailyaftertax: 0, monthlyaftertax: 0 };
+</span><span class='line'>
+</span><span class='line'>    var computeDaily = function() {
+</span><span class='line'>       $scope.funding.dailyaftertax = (($scope.funding.dailycount * 28) / 1.33);
+</span><span class='line'>    };
+</span><span class='line'>    var computeMonthly = function() {
+</span><span class='line'>        $scope.funding.monthlyaftertax = ((28 * $scope.funding.monthcount / date) / 1.33);
+</span><span class='line'>    };
+</span><span class='line'>
+</span><span class='line'>    $scope.$watch(&#39;funding.dailycount&#39;, computeDaily);
+</span><span class='line'>    $scope.$watch(&#39;funding.monthcount&#39;, computeMonthly);
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>function TextController($scope){
+</span><span class='line'>   $scope.someText = &quot;Angular Adsense Calculator&quot;;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'><span class="ni">&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And when you run it, you can see the realtime AdSense calculator in action.</p>
+
+<h3>Summary</h3>
+
+<p>AngularJS is extremely powerful, testable and suited for rapid development. It's popularity has risen dramatically and for good reason. Things are being improved and added to it daily, and people are finding best practices and establishing guidelines as we speak.</p>
+
+<p>Don't be shy! Download a copy and start digging in now!!</p>
+
+<h3>Video Tutorial</h3>
+
+<p>Here is a video I made of this tutorial:</p>
+
+<iframe width="560" height="315" src="https://www.jeremymorgan.com//www.youtube.com/embed/r38xNCqs-2U?list=UUAR4QD5vqpn4LFrrBiDe7lQ" frameborder="0" allowfullscreen></iframe>
+
+
+<p>Be sure to check it out and subscribe to my channel for more tutorials and instructional videos!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to install Magento on Windows Azure]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/windows-azure/how-to-install-magento-windows-azure/"/>
+    <updated>2013-10-19T13:15:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/windows-azure/how-to-install-magento-on-windows-azure</id>
+    <content type="html"><![CDATA[<p>Today I'm going to show you how to set up Magento with Ubuntu 13.04 on Windows Azure. Scalability and performance are always a concern with Magento, and one way you can rectify that is to throw some more server power at it. Windows Azure is great for this purpose.</p>
+
+<!-- more -->
+
+
+<h3>Why Azure?</h3>
+
+<p>While traditionally used for Microsoft Development, Linux Virtual Machines are available on Azure. One of the biggest complaints about Magento is speed and Azure handles it quite nicely. When Magento sites start getting a lot of products and / or traffic they tend to slow, with Azure you can easily scale up and load balance across many machines to solve that problem.</p>
+
+<p>You can also split up application and the database servers and scale more VMs for each until you get the performance you're looking for. It's always good to have room to grow in an easy and affordable fashion.</p>
+
+<h3>Getting Started</h3>
+
+<p>First, you'll need to create a virtual machine on Windows Azure. This is pretty easy.</p>
+
+<p>From the Windows Azure Portal,</p>
+
+<ul>
+<li>Select "Virtual Machines" from the button on the left hand side.</li>
+<li>Click "Create a virtual Machine"</li>
+<li>Select Compute -> Virtual Machine -> Quick Create</li>
+<li>Select "Ubuntu Server 13.04"</li>
+<li>Create a name for your service, and enter a password</li>
+</ul>
+
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/windows-azure-magento-1.jpg" title="Install Windows Azure on Magento" ></p>
+
+<p>After your machine is created, select the arrow next to the name to access the Quick Start page.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/windows-azure-magento-2.jpg" title="Install Windows Azure on Magento" ></p>
+
+<ul>
+<li>Select "Endpoints"</li>
+<li>Select "Add standalone endpoint"</li>
+<li>Select "Name: http"</li>
+<li>Save changes (check mark)</li>
+</ul>
+
+
+<p>This will create a http endpoint so you can access the web. It should now show the http endpoint in addition to the ssh endpoint, which we'll use in a minute.</p>
+
+<h3>Connect to your Virtual Machine</h3>
+
+<p>Now we'll want to connect to your virtual machine through ssh. If you're using Linux or a Mac, it's already installed, if you're using Windows I recommend Putty for this purpose.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">ssh azureuser@[ your cloudapp url ]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Let's get started!</p>
+
+<h4>Step 1: Add MariaDB Repositories</h4>
+
+<p>We need to enter a few commands here to add the MariaDB repository. MariaDB is the database we're going to use for Magento, it's a drop in place swap for MySQL that's better and more secure, so that's what we'll use. Magento will never know the difference.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">sudo apt-get install software-properties-common</span>
+</span><span class='line'><span class="go">sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db</span>
+</span><span class='line'><span class="go">sudo add-apt-repository &#39;deb http://ftp.osuosl.org/pub/mariadb/repo/5.5/ubuntu raring main&#39;</span>
+</span><span class='line'><span class="go">sudo apt-get update</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h4>Step 2: Install the Web Server</h4>
+
+<p>We're going to install Apache with PHP 5 to support Magento on this machine, as well as MySQL connectors, and the maria Database server with the following commands:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">sudo apt-get install apache2</span>
+</span><span class='line'><span class="go">sudo apt-get install php5 libapache2-mod-php5</span>
+</span><span class='line'><span class="go">sudo apt-get install php5-mysql</span>
+</span><span class='line'><span class="go">sudo apt-get install mariadb-server</span>
+</span><span class='line'><span class="go">sudo apt-get install php5-mysql php5-curl php5-mcrypt php5-gd php5-common php-apc</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>During the install you will see the following screen asking for a root password.
+<img class="center" src="https://www.jeremymorgan.com/images/windows-azure-magento-3.jpg" title="Install Windows Azure on Magento" ></p>
+
+<p>Set this password and keep a note of it, we'll be using it very shortly.</p>
+
+<h4>Step 3: Install Magento</h4>
+
+<p>For this you'll need to download the Magento tarball here and put it on your server, or you can use the wget command below. I'm currently hosting the 1.8.0.0 version.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">cd /var/www</span>
+</span><span class='line'><span class="go">sudo wget http://www.jeremymorgan.com/hosted/magento-1.8.0.0.tar.gz</span>
+</span><span class='line'><span class="go">sudo tar -zxvf magento-1.8.0.0.tar.gz</span>
+</span><span class='line'><span class="go">sudo mv magento/* magento/.htaccess .</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we'll need to set the permissions so Magento can write the files it needs to:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">sudo chmod -R o+w media var</span>
+</span><span class='line'><span class="go">sudo chmod o+w app/etc</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>You're set! now let's create the database.</p>
+
+<h4>Step 4: Create the Database</h4>
+
+<p>Now we want to create a MariaDB database for this. First, since we just installed this database we want to run a quick script that will make it more secure. Run the following script and answer yes to all the questions:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">sudo mysql_secure_installation</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we need to create our tables and a user for Magento.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">mysql -u root -p</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Once logged in, you'll want to create the database, and a user:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">CREATE DATABASE magento;</span>
+</span><span class='line'><span class="go">CREATE USER magentouser IDENTIFIED BY &#39;(enter a password here)&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we want to assign that user to the database and give it the proper permissions:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">GRANT SELECT, INSERT, CREATE, ALTER, UPDATE, DELETE, LOCK TABLES on magento.* to magentouser;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>now type in "quit" to exit MariaDb.</p>
+
+<h4>Step 5: Final Server Configuration</h4>
+
+<p>We want to enable search engine friendly URLs in our install, so run the following command to install mod_rewrite for Apache:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">sudo a2enmod rewrite</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, we need to open up this file to enable it:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">sudo nano /etc/apache2/sites-available/default</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Change "AllowOverride None" to "AllowOverride All" so it looks like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/windows-azure-magento-4.jpg" title="Install Windows Azure on Magento" ></p>
+
+<p>Save the file and quit.</p>
+
+<p>Now restart the server:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="go">sudo service apache2 restart</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Load it up in a web browser and let's get this configured!</p>
+
+<h4>Step 6: Set up Magento</h4>
+
+<p>Now we have Magento all set up and ready to go. Load up the url (whatever name you chose) in web browser and start the installation.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/windows-azure-magento-5.jpg" title="Install Windows Azure on Magento" ></p>
+
+<p>Click I agree on the first screen, and continue on the next.</p>
+
+<p>On the next screen, enter your database name, user name and user password in the Database Connection box. You created these earlier on the MariaDB setup.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/windows-azure-magento-6.jpg" title="Install Windows Azure on Magento" ></p>
+
+<p>in the web access options, make sure "Use Web Server (Apache) Rewrites" is checked</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/windows-azure-magento-7.jpg" title="Install Windows Azure on Magento" ></p>
+
+<p>Click Continue.</p>
+
+<p>You will now set up your admin information:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/windows-azure-magento-8.jpg" title="Install Windows Azure on Magento" ></p>
+
+<p>Click Continue and you're done!</p>
+
+<p>You can now log into to your admin panel (yourname.cloudapp.net/admin) and get started!</p>
+
+<h3>Summary</h3>
+
+<p>I hope this helps to get your Magento site up and running on Windows Azure. With the load balancing and scaling capabilities this could be an awesome solution for your e-commerce site. Traditionally expansion has been tough and expensive for small and medium businesses who run software like this, but Windows Azure and other cloud based solutions are making it easier and cheaper to expand.</p>
+
+<p>If you're looking for a durable and scalable solution for your e-commerce needs I would recommend trying this approach.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div></p>
+]]></content>
+  </entry>
+  
+</feed>

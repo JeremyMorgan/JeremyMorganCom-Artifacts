@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Thinking About Reusable Code - Programming Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Thinking About Reusable Code" /><meta itemprop="name" content="Thinking About Reusable Code" /><meta name="twitter:title" content="Thinking About Reusable Code">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-06-03 06:09:00 +0000" />
+
+<meta property="article:section" content="Programming" />
+
+<meta name="description" content="The mythical reusable code idea has existed for decades. It showed up shortly after the first lines of code were written. We preach re-usability and &hellip;" />
+<meta property="og:description" content="The mythical reusable code idea has existed for decades. It showed up shortly after the first lines of code were written. We preach re-usability and &hellip;" />
+<meta itemprop="description" content="The mythical reusable code idea has existed for decades. It showed up shortly after the first lines of code were written. We preach re-usability and &hellip;" />
+<meta name="twitter:description" content="The mythical reusable code idea has existed for decades. It showed up shortly after the first lines of code were written. We preach re-usability and &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/reusable-code/reusable-code-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/reusable-code/reusable-code-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/reusable-code/reusable-code-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- https://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/programming/reusable-code/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/programming/reusable-code/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/programming/reusable-code/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" />
+<meta property="fb:app_id" content="198803199072" />
+<meta property="fb:page_id" content="153875204649532" />
+</head>
+<body   >
+  <header role="banner"><hgroup><div><img src="/images/programming-blog.png" alt="Programming Blog"><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"><li><a href="/">Home</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/programming/">Programming</a></li><li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li><li><a href="/blog/linux/">Linux</a></li><li><a href="/blog/dotnet/">.Net</a></li><li><a href="https://github.com/JeremyMorgan">My Projects</a></li><li><a href="/contact/">Contact Me</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Thinking About Reusable Code</h1>
+    <p>Author: <em>Jeremy Morgan</em></p>
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-06-03T06:09:00+00:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2019</time>
+        
+      </p>
+    
+  </header>
+
+
+
+<div class="entry-content"><p>The mythical &#8220;reusable code&#8221; idea has existed for decades. It showed up shortly after the first lines of code were written. We preach re-usability and sometimes strive for it but it rarely becomes a reality. I&#8217;ve seen various levels of success with this over the years. Everything from &#8220;we have a reusable library that 75% of us use&#8221; to &#8220;we have shared code libraries here, but never use them in your projects&#8221;.</p>
+
+<p>A recent discussion led me to think about this. Why don&#8217;t more software development organizations have shared code libraries? It is the pointy-haired bosses preventing it? Team conflicts? Or is it the developers themselves? </p>
+
+<p>We can&#8217;t blame the pointy-haired bosses for this one. If you explain the basic concepts of reusable code to management, most would agree it&#8217;s a great idea. Building something once, so you don&#8217;t have to build it repeatedly? Easy to find the upside here.</p>
+
+<p>Team conflicts can also contribute to it, which is usually people disagreeing about who gets to determine what code is shared. Developers themselves can also be opposed to it, due not having enough time to build them.</p>
+
+<p>All of these are contributing factors to lack of adoption, but the question you should ask is do we need reusable code libraries at all?</p>
+
+<br />
+
+
+<h3>What Are Shared Libraries and Why Do We Care?</h3>
+
+<p>If you have tasks your developers are building that contain code you can use for something else, you put that code in its own &#8220;library&#8221; to use later. This can be a DLL, a folder of snippets, a Node module, whatever. Connecting to a database? There&#8217;s no reason to write that code for every piece of software that accesses a database. Create a DB_Connect class, and put that in a file you can copy to another project later.</p>
+
+<p><img class="right" src="/images/reusable-code/reusable-code-01.jpg" title="&#34;Thinking about Reusable Code&#34;" alt="&#34;Thinking about Reusable Code&#34;"></p>
+
+<p>It&#8217;s easy. You take a function and if it&#8217;s abstract enough, parameterize it and make it available for other projects to use. When you start your project, you don&#8217;t have to write code to connect to the database, pull the library and enter your parameters. Here are some upsides:</p>
+
+<ul>
+<li>You write code once and use it multiple times (saving cycle times)</li>
+<li>If tested thoroughly, it cuts regression errors</li>
+<li>It enforces standards other groups can follow</li>
+</ul>
+
+
+<p>These are all great reasons to use shared libraries. Countless articles and books have been written about code reuse and most of you are familiar with them. The biggest selling point for this is not having to code &#8220;boring stuff&#8221; over and over and have wild variations of the same methods in the wild. This frees up time to work on exciting features.</p>
+
+<br />
+
+
+<h3>How Are They Used?</h3>
+
+<p>Here are some ways shared libraries are used in business:</p>
+
+<ul>
+<li><strong>Internal Use</strong> Code that shared with internal groups and used for projects</li>
+<li><strong>External Use</strong> Code that designed for programmers outside the organization to use</li>
+<li><strong>Forked</strong> - Users can take your initial code and &#8220;fork&#8221; it to make it work for their specific needs</li>
+</ul>
+
+
+<p>This falls in line with the DRY principle of software development. Don&#8217;t repeat yourself.</p>
+
+<br />
+
+
+<h3>Do We Want Shared Code Libraries?</h3>
+
+<p>Why isn&#8217;t everyone doing this? Your organization may avoid shared libraries for a good reason. Not every project or team benefits from this and it&#8217;s not the magic bullet to solve all development problems. Here are some reasons not to use code libraries.</p>
+
+<ul>
+<li><p><strong>Distributed Monolith Problem</strong> - If you put something into a library and everyone uses it, that doesn&#8217;t mean it isn&#8217;t bad. An inefficient database connector design means everyone is using an inefficient database connector. Changes to your implementation can still have negative cascading effects. A small change to an API could mean every single system is now broken.</p></li>
+<li><p><strong>Dependency Hell</strong> - If every piece of software is relying on your library, there&#8217;s a tight coupling in place. There will be a myriad of dependencies in place, for instance, relying on a framework like Angular. If you have software built to use a specific version, upgrading it could produce a chain reaction amongst your applications.</p></li>
+<li><p><strong>Inflexible Design</strong> - Sometimes you&#8217;re asked to use a design in a certain way that&#8217;s different from what you actually need. Because &#8220;everyone else is doing it&#8221; you&#8217;re forced to make your code work around it, which can then increase development time. Wait, why did we build shared libraries in the first place?</p></li>
+<li><p><strong>Programming Language Lock-In</strong> - Too many times I&#8217;ve heard &#8220;well our library is written in ____ so you have to use that&#8221; which means you&#8217;re locked into a single programming language. This can lead to using the wrong tool for the job.
+So don&#8217;t assume because your team doesn&#8217;t use shared libraries means they&#8217;re unenlightened and don&#8217;t want better production.</p></li>
+</ul>
+
+
+<br />
+
+
+<h3>What to Examine if You Want to Use Reusable Code Libraries</h3>
+
+<p>If you&#8217;re considering creating reusable code libraries, you should first see if it makes sense to do so.</p>
+
+<ul>
+<li><strong>Take a hard look at the design</strong> - Then look at it again. Will you really benefit from it? Do you have repeated code now? Are there any issues that may encourage tight coupling? </li>
+<li><strong>Closely examine your dependencies</strong> - Are you creating dependencies others will have to work around? How often do they change? Can they bypass the ones you create? </li>
+<li><strong>Start abstract as possible</strong> - You want your libraries to be highly abstract so that they perform expected functions, but can be overridden or extended to meet specialized use cases. Give them the basics but let them evolve it how they&#8217;d like.</li>
+</ul>
+
+
+<br />
+
+
+<h3>How to Get Developers to Implement Them</h3>
+
+<p>So you&#8217;ve decided you want a shared library. Here are some ways you can help teams adopt your library:</p>
+
+<ul>
+<li><p><strong>Steal it from an existing project</strong> - This is the easiest way to start a new library. Take an existing project and remove everything that&#8217;s specialized and keep everything that can be re-used and feels solid.</p></li>
+<li><p><strong>Thoroughly test it</strong> - The last thing you want to do is introduce problems into the software. After building your abstract library, test it thoroughly so you can rely on it, and help developers find regressions. Don&#8217;t hand them garbage and expect them to use it.</p></li>
+<li><p><strong>Examine all current use cases</strong> - By digging in and understanding how people will use your library you can determine whether it will benefit them, and whether to make changes. Do this on a method by method basis to ensure that you&#8217;re asking them to use something that will work for them with minimum effort. 
+Like most anything in business, success will come from great communication. Top down design is not your friend here, you&#8217;ll want to examine the needs of the group and design a library from those needs.</p></li>
+</ul>
+
+
+<br />
+
+
+<h3>Conclusion</h3>
+
+<p>Most of the organizations I&#8217;ve been involved with do not use a shared code library. They&#8217;re usually in some form of working towards one, and only two where they were implemented and working well.</p>
+
+<p>At one end of the spectrum you have a pattern where all repeated code is in a library. On the other you&#8217;ll have no code library, and everyone builds software for their own projects. You&#8217;ll find success somewhere between the two. How far you lean toward each extreme will depend on your needs.</p>
+
+<p>There are abstract functions that should always be shared. Some that come to mind are authentication/authorization, database connections and logging. It should be either a shared library you developed, or one that&#8217;s open sourced and built by someone else. Everything else should be examined, considering the overall design.</p>
+
+<p>Don&#8217;t jump to conclusions and take on a large project to build a giant code library that will make developers lives worse. But don&#8217;t exclude the idea altogether. Be purposeful and observant to find which strategy will work best for your projects. </p>
+
+<!-- more -->
+
+
+<p></p>
+
+<br /><br />
+
+
+<h4>What is your DevOps IQ?</h4>
+
+<p><a href="https://pluralsight.pxf.io/PqV2q">
+<img src="https://www.jeremymorgan.com/images/devops-score.jpg" alt="what's your devops score" /></a></p>
+
+<br />
+
+
+<p><strong>My Devops Skill IQ is 232. Can you beat it? <a href="https://pluralsight.pxf.io/PqV2q" target="_blank">Take the test now</a> to find out your Devops IQ score!!</strong></p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-06-03T06:09:00+00:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2019</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/programming/'>Programming</a>
+  
+</span>
+
+
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/devops/andon-cord-in-devops/" title="Previous Post: Transforming Your Organization with the Andon Cord">&laquo; Transforming Your Organization with the Andon Cord</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<br />
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
+	<p><a href="/about/"><strong>More about me</strong></a></p>
+	<br />
+	<h2>Social Media</h2>
+	<ul>
+		<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+		<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+		<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+		<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+	</ul>
+</section><section> 
+<br /><br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/iis/">IIS</a></li>
+<li><a href="/blog/arduino/">Arduino</a></li>
+<li><a href="/blog/linux/">Linux Tutorials</a></li>
+<li><a href="/blog/dotnet/">.Net Tutorials</a></li>
+<li><a href="/tutorials/">All Tutorials</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+<br />
+<br />
+<a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+<a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
+</section><section>
+ <br />
+  <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/reusable-code/">Thinking About Reusable Code</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/andon-cord-in-devops/">Transforming Your Organization with the Andon Cord</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/comparing-iis-configuration/">Comparing and Syncing IIS Configurations</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/c-sharp/how-to-net-core-unit-test/">Unit Testing with dotnet core</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/how-to-file-sharing-samba/">Set up easy file sharing with Samba</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/windows-to-go-usb-drive/">Windows to Go with the Spyrus USB Drive</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/linux/what-distro-linux-should-i-use/">Which Distribution of Linux Should I Use?</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/devops/virtualization-with-virtual-box/">My Latest Virtualization Setup</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
+	  </li>
+	
+  </ul>
+</section><section>
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://www.network-node.com/blog">Network Node</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://chriswhitney.com/">Chris Whitney</a></li>
+	<li><a href="http://johnatten.com/">John Atten</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+</section>  <section>
+  <br /><br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="https://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="https://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<!-- <div style="margin-left: auto;margin-right: auto; text-align: center;" > -->
+<!-- possible ad space -->
+
+<section>
+		<br />
+			<br />
+	<h2>My Courses</h2>
+
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fcreating-configuring-new-websites-iis"><div class="psicon">Configuring New Websites</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
+</div>
+<br />
+<br />
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2019 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

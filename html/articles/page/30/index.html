@@ -10,10 +10,10 @@
 
 
 
-<meta name="description" content="So, are you thinking about hiring an SEO? As more and more small businesses look for opportunities to grow, the term SEO (Search Engine Optimization &hellip;" />
-<meta property="og:description" content="So, are you thinking about hiring an SEO? As more and more small businesses look for opportunities to grow, the term SEO (Search Engine Optimization &hellip;" />
-<meta itemprop="description" content="So, are you thinking about hiring an SEO? As more and more small businesses look for opportunities to grow, the term SEO (Search Engine Optimization &hellip;" />
-<meta name="twitter:description" content="So, are you thinking about hiring an SEO? As more and more small businesses look for opportunities to grow, the term SEO (Search Engine Optimization &hellip;">
+<meta name="description" content="So, you want to start a blog, and make sure it gets noticed by google? It&#8217;s actually easier than you think, and you can do it absolutely free. &hellip;" />
+<meta property="og:description" content="So, you want to start a blog, and make sure it gets noticed by google? It&#8217;s actually easier than you think, and you can do it absolutely free. &hellip;" />
+<meta itemprop="description" content="So, you want to start a blog, and make sure it gets noticed by google? It&#8217;s actually easier than you think, and you can do it absolutely free. &hellip;" />
+<meta name="twitter:description" content="So, you want to start a blog, and make sure it gets noticed by google? It&#8217;s actually easier than you think, and you can do it absolutely free. &hellip;">
 
 <meta property="og:site_name" content="JeremyMorgan.com" />
  <!-- https://t.co/dKP3o1e -->
@@ -52,6 +52,319 @@
   <div id="main">
     <div id="content">
       <div class="blog-index">    <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/how-to-make-an-seo-friendly-wordpress-blog/">How to Make an SEO Friendly WordPress Blog</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-07T19:00:28+00:00" pubdate data-updated="true">Feb 7<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So, you want to start a blog, and make sure it gets noticed by google? It&#8217;s actually easier than you think, and you can do it absolutely free. I&#8217;ll show you how to install wordpress and tweak it for good SEO, so it gets picked up by google, and you start getting more traffic to your blog!</p>
+
+<p>The first step of course, is to make sure you have the right software on your website. WordPress requires php and mysql to run. Here are the <a href="http://wordpress.org/about/requirements/">exact requirements for running WordPress</a> on your site. This article isn&#8217;t about installing WordPress itself, but optimizing it, so if you need more information on <a href="http://www.jeremymorgan.com/wordpress-help/how-to-install-wordpress/">how to install wordpress, go here</a>.</p>
+
+<p><strong>Initial Setup</strong></p>
+
+<p>Initially, you want to configure a few options for best results. The first, and most important step, is your link structure. You want it to be SEO friendly. Go to your permalinks section:</p>
+
+<p><strong>Settings -> Permalinks</strong></p>
+
+<p>The way I have mine setup is by category, then post title. Like this:</p>
+
+<p><em>http://www.jeremymorgan.com/<strong>search-engine-optimization/you-need-google-chrome/</strong></em></p>
+
+<p>The way I do this, is by selecting &#8220;Custom Structure&#8221; in my permalink settings, and entering this:</p>
+
+<p>/%category%/%postname%/</p>
+
+<p>This changes all my links on the site to specify a category folder, then the name of the post. You can also do other things, like put the date in your post, or any custom information you like. <a href="http://codex.wordpress.org/Using_Permalinks">Here is a list of different tags you can use for permalinks.</a></p>
+
+<p>The most important part of this is to get something that&#8217;s user friendly, and search engine friendly. You want to do this from the very start.</p>
+
+<p><strong>The next step: RPC Pings </strong></p>
+
+<p><strong>Settings -> Writing -> Update Services</strong></p>
+
+<p>In the writing section, if you scroll down the bottom, you&#8217;ll see &#8220;update services&#8221;. These are the different sites that will be contacted when you update. See <a href="http://www.jeremymorgan.com/website-promotion/my-huge-rpc-ping-list/">my huge RPC Ping list</a> and grab that list and paste it into the box. Click Save.</p>
+
+<p>This is an important step to keep other sites updated when you post. This will really come in handy as your site gets larger, and these services start monitoring you. I have seen posts I&#8217;ve made come up on google alerts that same day for this very reason.</p>
+
+<p><strong>Install some Plugins</strong></p>
+
+<p>The first plugin I highly recommend is the <a href="http://wordpress.org/extend/plugins/all-in-one-seo-pack/">All in One SEO plugin</a>. This WordPress plugin is crucial for your success.</p>
+
+<blockquote><ul>
+<li>Automatically optimizes your titles for search engines</li>
+<li>Generates META tags automatically</li>
+<li>Avoids the typical duplicate content found on Wordpress blogs</li>
+<li>For Wordpress 2.7 you don&#8217;t even have to look at the options, it works out-of-the-box. Just install.</li>
+<li>You can override any title and set any META description and any META keywords you want.</li>
+<li>You can fine-tune everything</li>
+<li>Backward-Compatibility with many other plugins, like Auto Meta, Ultimate Tag Warrior and others.</li>
+</ul>
+</blockquote>
+
+<p>To install it, you&#8217;ll need to download the file, unzip it, and upload it to your /wp-content/plugins folder. Then, in the control panel under plugins, find the All in One SEO plugin and press &#8220;activate&#8221;.</p>
+
+<p>[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;317&#8221; caption=&#8221;/wp-content/plugins folder&#8221;]<a href="http://www.jeremymorgan.com/hosted/seo-friendly-blog-01.jpg"><img src="http://www.jeremymorgan.com/hosted/seo-friendly-blog-01.jpg" alt="/wp-content/plugins folder" /></a>[/caption]</p>
+
+<p>From here, you&#8217;ll want to configure a few options. Go to <strong>Settings -> All in One SEO pack
+</strong></p>
+
+<p>Fill out your title, description and keywords fields and they will populate your posts with the appropriate meta tags. The default settings are fine, but you can adjust everything as you see fit. This makes a difference when fine tuning your search results.</p>
+
+<p><strong>Get the Google XML Sitemaps Plugin. </strong></p>
+
+<p>Download the <a href="http://wordpress.org/extend/plugins/google-sitemap-generator/">Google XML Sitemaps plugin here </a>and install it in the same way you did the SEO pack. This plugin is crucial, as you are able to build Google sitemaps and submit them to Google, which notifies them of changes and additions to your site. Don&#8217;t skip this one!</p>
+
+<p>If you don&#8217;t have a Google Sitemap setup, <a href="http://www.google.com/webmasters/">click here</a>.</p>
+
+<p><strong>Start Writing!!</strong></p>
+
+<p>Once this is all said and done, start adding content!!! This package put together will increase your chances of getting spidered in Google, and getting good results. Content is king! Keep adding useful, interesting content and you&#8217;re on your way to search engine success! Good luck!</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/wordpress-help/how-to-install-wordpress/">How to Install WordPress</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-07T15:47:42+00:00" pubdate data-updated="true">Feb 7<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Want to know how to install WordPress on your website? It&#8217;s super easy! First off, here is what you&#8217;ll need:</p>
+
+<p>A webserver running PHP 4.3 or greater
+A webserver with mysql 4.0 or greater.</p>
+
+<p>That&#8217;s it! While I would recommend using Apache under Linux, it&#8217;s not required. I&#8217;m going to show how to install it on a godaddy hosted site, but it&#8217;s pretty similar on any web host.</p>
+
+<p>First Step: Get WordPress</p>
+
+<p>Go here to <a href="http://wordpress.org/download/">download WordPress to your computer</a>. Save the file somewhere on your hard drive, I chose my desktop. Open up the zip file:</p>
+
+<p>[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;370&#8221; caption=&#8221;The wordpress folder inside the zip file&#8221;]<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-01.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-01.jpg" alt="The wordpress folder inside the zip file" /></a>[/caption]</p>
+
+<p>Select <strong>File -> Extract</strong> Unzip the folder somewhere convenient, I chose &#8220;C:web&#8221; which is where I put my website files.</p>
+
+<p>[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;381&#8221; caption=&#8221;Unzip files into a folder&#8221;]<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-02.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-02.jpg" alt="Unzip files into a folder" /></a>[/caption]</p>
+
+<p>Next Step: Upload files to your site</p>
+
+<p>You want to upload all the files as they are to your server. Personally, I use <a href="http://filezilla-project.org/download.php">FileZilla</a> to transfer FTP files to my server. Here is some more detail on <a href="http://help.banff.org/using_filezilla/index.html">how to use FileZilla to upload files</a>.</p>
+
+<p>You can also use a file manager if your webhost supports it. Godaddy has a file manager utility that works fairly well.</p>
+
+<p><strong>Select Hosting -> My Hosting Account -> Manage Account</strong>
+In the hosting center, select &#8220;Your Files&#8221;:
+<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-03.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-03.jpg" alt="" /></a></p>
+
+<p>This file manager will allow you to upload all the wordpress files into a folder. You can either upload everything into the root of the site, or create a special folder for it, such as /blog or /journal. If you install it in the main site, then your whole site will be a wordpress blog. If you create a folder, it will simply be an extension to your existing site. It&#8217;s up to you.</p>
+
+<p><strong>Create a database </strong></p>
+
+<p>The next step is pretty important. You need to create a database. There are many ways to do this, and I won&#8217;t go into all of them here, but what you&#8217;ll need for wordpress is:</p>
+
+<ul>
+<li><p>Database Name</p></li>
+<li><p>Database User Name</p></li>
+<li><p>Database Password</p></li>
+</ul>
+
+
+<p>For Godaddy, here are some instructions: <a href="http://help.godaddy.com/article/36">how to create a mysql database on godaddy</a> or, here are some general instructions: <a href="http://www.webpronews.com/topnews/2005/06/06/mysql-for-beginners-how-to-create-a-mysql-database">how to create a mysql database</a>.</p>
+
+<p>Once you have this information handy, open up your website where wordpress is located (either http://www.yoursite.com or http://www.yoursite.com/blog</p>
+
+<p>You may get the Following Message:</p>
+
+<blockquote><p>There doesn&#8217;t seem to be a wp-config.php file. I need this before we can get started. Need more help? We got it. You can create a wp-config.php file through a web interface, but this doesn&#8217;t work for all server setups. The safest way is to manually create the file.</p></blockquote>
+
+<p>Go ahead and click on &#8220;Create a Configuration File&#8221;. On the next page click &#8220;Lets go&#8221;.</p>
+
+<p>Enter your database information in the fields below:
+[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;582&#8221; caption=&#8221;Wordpress Configuration Information&#8221;]<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-04.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-04.jpg" alt="Wordpress Configuration Information" /></a>[/caption]</p>
+
+<p>Then click &#8220;start install&#8221;</p>
+
+<p>Enter the name of your blog &#8220;Ex: Jeremy&#8217;s SEO Blog&#8221; and your email address, and click install.</p>
+
+<p>Make sure you put a checkbox where it says &#8220;Allow my blog to appear in search engines like Google and Technorati.&#8221; (unless you don&#8217;t of course).</p>
+
+<p><strong>You&#8217;re done!!</strong></p>
+
+<p>That&#8217;s really all there is to it. Wordpress is famous for it&#8217;s easy install process, and now you know why. You can do it in five minutes or less, and have a fully functioning blog. Be sure to check out other parts of my blog for WordPress plugins, tips and tricks.</p>
+
+<p>Happy Blogging!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/wordpress-help/how-to-install-wordpress/">How to Install WordPress</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-07T15:47:42+00:00" pubdate data-updated="true">Feb 7<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Want to know how to install WordPress on your website? It&#8217;s super easy! First off, here is what you&#8217;ll need:</p>
+
+<p>A webserver running PHP 4.3 or greater
+A webserver with mysql 4.0 or greater.</p>
+
+<p>That&#8217;s it! While I would recommend using Apache under Linux, it&#8217;s not required. I&#8217;m going to show how to install it on a godaddy hosted site, but it&#8217;s pretty similar on any web host.</p>
+
+<p>First Step: Get WordPress</p>
+
+<p>Go here to <a href="http://wordpress.org/download/">download WordPress to your computer</a>. Save the file somewhere on your hard drive, I chose my desktop. Open up the zip file:</p>
+
+<p>[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;370&#8221; caption=&#8221;The wordpress folder inside the zip file&#8221;]<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-01.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-01.jpg" alt="The wordpress folder inside the zip file" /></a>[/caption]</p>
+
+<p>Select <strong>File -> Extract</strong> Unzip the folder somewhere convenient, I chose &#8220;C:web&#8221; which is where I put my website files.</p>
+
+<p>[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;381&#8221; caption=&#8221;Unzip files into a folder&#8221;]<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-02.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-02.jpg" alt="Unzip files into a folder" /></a>[/caption]</p>
+
+<p>Next Step: Upload files to your site</p>
+
+<p>You want to upload all the files as they are to your server. Personally, I use <a href="http://filezilla-project.org/download.php">FileZilla</a> to transfer FTP files to my server. Here is some more detail on <a href="http://help.banff.org/using_filezilla/index.html">how to use FileZilla to upload files</a>.</p>
+
+<p>You can also use a file manager if your webhost supports it. Godaddy has a file manager utility that works fairly well.</p>
+
+<p><strong>Select Hosting -> My Hosting Account -> Manage Account</strong>
+In the hosting center, select &#8220;Your Files&#8221;:
+<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-03.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-03.jpg" alt="" /></a></p>
+
+<p>This file manager will allow you to upload all the wordpress files into a folder. You can either upload everything into the root of the site, or create a special folder for it, such as /blog or /journal. If you install it in the main site, then your whole site will be a wordpress blog. If you create a folder, it will simply be an extension to your existing site. It&#8217;s up to you.</p>
+
+<p><strong>Create a database </strong></p>
+
+<p>The next step is pretty important. You need to create a database. There are many ways to do this, and I won&#8217;t go into all of them here, but what you&#8217;ll need for wordpress is:</p>
+
+<ul>
+<li><p>Database Name</p></li>
+<li><p>Database User Name</p></li>
+<li><p>Database Password</p></li>
+</ul>
+
+
+<p>For Godaddy, here are some instructions: <a href="http://help.godaddy.com/article/36">how to create a mysql database on godaddy</a> or, here are some general instructions: <a href="http://www.webpronews.com/topnews/2005/06/06/mysql-for-beginners-how-to-create-a-mysql-database">how to create a mysql database</a>.</p>
+
+<p>Once you have this information handy, open up your website where wordpress is located (either http://www.yoursite.com or http://www.yoursite.com/blog</p>
+
+<p>You may get the Following Message:</p>
+
+<blockquote><p>There doesn&#8217;t seem to be a wp-config.php file. I need this before we can get started. Need more help? We got it. You can create a wp-config.php file through a web interface, but this doesn&#8217;t work for all server setups. The safest way is to manually create the file.</p></blockquote>
+
+<p>Go ahead and click on &#8220;Create a Configuration File&#8221;. On the next page click &#8220;Lets go&#8221;.</p>
+
+<p>Enter your database information in the fields below:
+[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;582&#8221; caption=&#8221;Wordpress Configuration Information&#8221;]<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-04.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2009/02/how-to-install-wordpress-04.jpg" alt="Wordpress Configuration Information" /></a>[/caption]</p>
+
+<p>Then click &#8220;start install&#8221;</p>
+
+<p>Enter the name of your blog &#8220;Ex: Jeremy&#8217;s SEO Blog&#8221; and your email address, and click install.</p>
+
+<p>Make sure you put a checkbox where it says &#8220;Allow my blog to appear in search engines like Google and Technorati.&#8221; (unless you don&#8217;t of course).</p>
+
+<p><strong>You&#8217;re done!!</strong></p>
+
+<p>That&#8217;s really all there is to it. Wordpress is famous for it&#8217;s easy install process, and now you know why. You can do it in five minutes or less, and have a fully functioning blog. Be sure to check out other parts of my blog for WordPress plugins, tips and tricks.</p>
+
+<p>Happy Blogging!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+
+
+</div>
+  
+  
+
+ </article>  <article> 
   <header>
     
       <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
@@ -151,6 +464,8 @@
   
 
 
+
+  
 <time datetime="2009-02-03T01:06:01+00:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2009</time>
         
       </p>
@@ -192,6 +507,16 @@
 </span><span class='line'>        }
 </span><span class='line'>    
 </span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<div style="margin: auto; text-align: center;">
+<a href="//pluralsight.pxf.io/c/1221983/480967/7490"><img src="//a.impactradius-go.com/display-ad/7490-480967" border="0" alt="" width="728" height="90"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/480967/7490" style="position:absolute;visibility:hidden;" border="0" />
+    <br />
+    <p><em>Your time is precious, and technology changes fast. Knowing which technologies are relevant means you can focus on the skills that will benefit your career the most.</em><a href="//pluralsight.pxf.io/c/1221983/480967/7490"><strong>Click here for a free report</strong></a></p>
+    <br />
+</div>
 
 
 <p>When you run this code from your IDE (F5 Button) it will write a text file in the C:\examples\filewriter directory.</p>
@@ -298,8 +623,6 @@
   
 
 
-
-  
 <time datetime="2009-02-03T01:06:01+00:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2009</time>
         
       </p>
@@ -447,8 +770,6 @@
   
 
 
-
-  
 <time datetime="2009-01-31T04:40:34+00:00" pubdate data-updated="true">Jan 31<span>st</span>, 2009</time>
         
       </p>
@@ -623,6 +944,8 @@ If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/ma
   
 
 
+
+  
 <time datetime="2009-01-31T04:40:34+00:00" pubdate data-updated="true">Jan 31<span>st</span>, 2009</time>
         
       </p>
@@ -633,6 +956,14 @@ If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/ma
   <div class="entry-content"><p>If you&#8217;re reading this tutorial, it&#8217;s likely because you googled how to read and write text files with C++.  And it&#8217;s probably a pretty lucky guess you&#8217;re a beginner, so I&#8217;ll try to explain as much as I can here to make it clear.</p>
 
 <p>If you&#8217;re thinking of getting into C++, hopefully this example will show you that it&#8217;s not as complicated as commonly thought. C++ can be very difficult, but the performance advantages are worth the effort sometimes. Java and C# are definitely stealing marketshare from C++, but it still has it&#8217;s place in the software development world, mainly in applications that require high performance. But that&#8217;s for another article. Let&#8217;s get started.</p>
+
+<div style="margin: auto; text-align: center;">
+<a href="//pluralsight.pxf.io/c/1221983/480967/7490"><img src="//a.impactradius-go.com/display-ad/7490-480967" border="0" alt="" width="728" height="90"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/480967/7490" style="position:absolute;visibility:hidden;" border="0" />
+  <br />
+  <p><em>Your time is precious, and technology changes fast. Knowing which technologies are relevant means you can focus on the skills that will benefit your career the most.</em><a href="//pluralsight.pxf.io/c/1221983/480967/7490"><strong>Click here for a free report</strong></a></p>
+  <br />
+</div>
+
 
 <p>For this example, I&#8217;m using <a href="http://www.bloodshed.net/devcpp.html">Bloodshed Dev C++,</a> because it&#8217;s simple, fast and free. You could just as easily use Visual C++ express, also free, but I feel that Dev C++ is far simpler, and better for learning the code.</p>
 
@@ -908,222 +1239,27 @@ You can also follow my projects on GitHub:<br />
   
   
 
- </article>  <article> 
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/programming/how-to-use-or-operator-with-strings-in-c/">How to Use or Operator With Strings in C#</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-
-  
-<time datetime="2008-12-08T00:07:57+00:00" pubdate data-updated="true">Dec 8<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I just had this problem tonight, so I thought I&#8217;d share the solution. In many languages you can do a string comparison in the following way:</p>
-
-<pre><code>if ($city == "Portland" || $city == "Seattle") {
-// stuff goes here
-}
-</code></pre>
-
-<p>And this works just fine. But in C#, strings are treated as objects, so you have to do the same comparison as such:</p>
-
-<pre><code>if ((city == "Portland") || (city == "Seattle")) {
-// stuff goes here
-}
-</code></pre>
-
-<p>In the above example, if the city is Portland, it will evaluate as true, making it a boolean. This is a simple step and an easy fix, but I couldn&#8217;t readily find anything on google about it, so I thought I&#8217;d post it here.</p>
-
-<p>If you want to use the || or operator in C#, this is how you do it.</p>
-
-<br />
-
-
-<div class="subscribefooter">
-<h4>Do you like articles like this?</h4>
-<div class="rssbutton"></div>
-I&#8217;m constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://eepurl.com/b3Y9Wz"><strong>get the hacker newsletter</strong></a> 100% spam free! 
-<br /><br />
-You can also follow my projects on GitHub:<br />
-<iframe src="https://ghbtns.com/github-btn.html?user=JeremyMorgan&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="220px" height="30px"></iframe>
-</div>
-
-
-<br />
-
-
-<br />
-
-
-<p><a href="//pluralsight.pxf.io/c/1221983/431405/7490"><img src="//a.impactradius-go.com/display-ad/7490-431405" border="0" alt="" width="320" height="50"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431405/7490" style="position:absolute;visibility:hidden;" border="0" /></p>
-
-<br />
-
-
-
-</div>
-  
-  
-
- </article>  <article> 
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/seo/you-need-google-chrome/">You Need Google Chrome</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-02T16:44:25+00:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ok, maybe need is strong word, but you should definitely check out Chrome, Google&#8217;s new web browser. I&#8217;ve downloaded it myself and found it to be pretty slick.</p>
-
-<p><a href="http://www.google.com/chrome">Click here to download Google Chrome</a></p>
-
-<p><strong>Why Google Chrome?</strong></p>
-
-<p>Why would google want to enter the browser wars? The simple answer is laid out in this <a href="http://www.google.com/googlebooks/chrome/index.html">comic book style announcement</a>. Simply put, today&#8217;s browsers are built for mostly static webpages, with javascript on them. While AJAX has been around a while, only  in the last couple of years has it really taken off, and web 2.0 has taken over the net. These are not static pages anymore, they&#8217;re applications.</p>
-
-<p>We now do all kinds of complicated actions on the web, with browsers that weren&#8217;t exactly built for it. So Google decided to start from the ground up and build something faster, and sleeker.</p>
-
-<p><strong>What&#8217;s it like? </strong>
-My first impression of Google Chrome is very good. It&#8217;s lightweight, clean and simple. Changing tabs is quite fast, and things seem to load fast. I don&#8217;t notice a difference in looks at all. All webpages seem to look identical to how they look in FireFox. Even the fonts are the same (which I must admit I like Safari fonts better than any browser).</p>
-
-<p>I haven&#8217;t had it crash yet, and it seems to run gmail very nice, as one would guess. I&#8217;ll give a more detailed analysis later, but I wanted to introduce you guys to this browser so you could check it out. Let me know what you think!</p>
-
-<p>Click here for the <a href="http://googleblog.blogspot.com/2008/09/fresh-take-on-browser.html">google blog</a> about Chrome.</p>
-</div>
-  
-  
-
- </article>  <article> 
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/seo/google-launches-insight-a-new-keyword-resource/">Google Launches Insight, a New Keyword Resource.</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-08-11T23:15:15+00:00" pubdate data-updated="true">Aug 11<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Google has recently launched <a href="http://google.com/insights/search/">insight</a>, a new keyword tool that looks very promising. You can track interest over time, regional information and more. This can give you even more dimensions into your keyword marketing plan.</p>
-
-<p><strong>What is insight? Why do I need it? </strong></p>
-
-<p>In their own words:</p>
-
-<blockquote><p>With Google Insights for Search, you can compare search volume patterns across specific regions, categories, and time frames.</p></blockquote>
-
-<p>This appears to be a tool geared towards Marketers and SEOs, and allows you to track keywords according to some interesting metrics.</p>
-
-<ul>
-<li><p>Categories</p></li>
-<li><p>Seasonality</p></li>
-<li><p>Geographic Distribution</p></li>
-<li><p>Interest Over Time</p></li>
-<li><p>Regional Interest</p></li>
-<li><p>Related Terms</p></li>
-<li><p>Rising Searches</p></li>
-</ul>
-
-
-<p><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2008/08/google-insight.jpg" alt="Google Insight Screenshot" /></p>
-
-<p>If utilized properly, one might be able to gauge trends in keywords, how people are searching, or how they may be searching in the future. If properly leveraged, you may be able to spot an up and coming subject and beat your competitors to the results pages. Also you may be able to spot trends you weren&#8217;t otherwise aware of. Often times when doing work for clients, I find niche terms with low competition, and high search rates, and this is something you might find here.</p>
-
-<p>This tool is very simple, and provides some good data. Check out this <a href="http://google.com/insights/search/#cat=&amp;q=seo&amp;geo=&amp;date=&amp;clp=&amp;cmpt=q">search for SEO</a>. Before doing this query, I didn&#8217;t know India would be the leader in searches for that term (although I&#8217;m not terribly surprised). Things like this can help you get a better edge on the market, and I suggest bookmarking it and playing around.</p>
-
-<p>Check it out, and let me know what you guys think of it. Till then, I&#8217;m off to do my own research!</p>
-</div>
-  
-  
-
  </article> <div class="pagination">  <a class="prev" href="/articles/page/31/">&larr; Older</a>  <a href="/blog/archives">Blog Archives</a>  <a class="next" href="/articles/page/29/">Newer &rarr;</a>  </div> </div> <aside class="sidebar">  <section>
+	<br />
 	<h2>About Jeremy Morgan</h2>
 	<div class="aboutmeimage">&nbsp;</div>
 	<p>I&#8217;m just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I&#8217;m passionate about technology, and as long as I&#8217;m building cool stuff and helping people I&#8217;ll never work a day in my life.</p>
-	<p><a href="/about/">More about me</a></p>
-<ul>
-<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
-<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
-<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
-<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
-<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
-</ul>
-</section>
-<br />
-<section>
-	<h2>My Courses</h2>
+	<p><a href="/about/"><strong>More about me</strong></a></p>
+	<br />
+	<h2>Social Media</h2>
 	<ul>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fcreating-configuring-new-websites-iis"><div class="psicon">Configuring New Websites</div></a></li>
-<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
-<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
-</ul>
-</section>
-<section> 
-<br />
+		<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+		<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+		<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+		<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+	</ul>
+</section><section> 
+<br /><br />
 <h2>Categories</h2>
 <ul>
 <li><a href="/blog/programming/">Programming</a></li>
 <li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/iis/">IIS</a></li>
 <li><a href="/blog/arduino/">Arduino</a></li>
 <li><a href="/blog/linux/">Linux Tutorials</a></li>
 <li><a href="/blog/dotnet/">.Net Tutorials</a></li>
@@ -1135,10 +1271,24 @@ My first impression of Google Chrome is very good. It&#8217;s lightweight, clean
 <a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
 <br />
 <a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
 </section><section>
  <br />
+  <br />
   <h2>Recent Articles</h2>
   <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/reusable-code/">Thinking About Reusable Code</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/andon-cord-in-devops/">Transforming Your Organization with the Andon Cord</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/comparing-iis-configuration/">Comparing and Syncing IIS Configurations</a>
+	  </li>
 	
 	  <li class="post">
 		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
@@ -1168,27 +1318,12 @@ My first impression of Google Chrome is very good. It&#8217;s lightweight, clean
 		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
 	  </li>
 	
-	  <li class="post">
-		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
-	  </li>
-	
-	  <li class="post">
-		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
-	  </li>
-	
-	  <li class="post">
-		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
-	  </li>
-	
   </ul>
-</section>
-<section>
+</section><section>
 <br /> 
 <h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
 <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
 <h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
-
-<br />
 <br />
 <br />
 <h2>Friends</h2>
@@ -1204,14 +1339,8 @@ My first impression of Google Chrome is very good. It&#8217;s lightweight, clean
 	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
 	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
 </ul>
-<br />
-<br />
-<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
-<br />
-<br />
-</section>
-  <section>
-  <br />
+</section>  <section>
+  <br /><br />
   <h2>My RSS Feeds</h2>
   <ul>
   <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
@@ -1223,28 +1352,25 @@ My first impression of Google Chrome is very good. It&#8217;s lightweight, clean
 <div class="g-plusone" data-annotation="inline" data-width="245"></div>
 
 
+<!-- <div style="margin-left: auto;margin-right: auto; text-align: center;" > &#8211;>
+<!-- possible ad space -->
+
 <section>
-<br />
-<h1>Great Deals!</h1>
-<br /><br />
-<div style="margin-left: auto;margin-right: auto; text-align: center;" >
-<!-- raspberry pi 3 --> 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-</iframe>
-<br /><br /><br /><br />
-<!-- arduino -->
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-    </iframe>
-<br /><br /><br /><br />
-<!-- cracking the code interview --> 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
-</iframe>
-<br /><br /><br /><br />
-<!-- Python Crash course --> 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-</iframe>
-<br />
+		<br />
+			<br />
+	<h2>My Courses</h2>
+
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fcreating-configuring-new-websites-iis"><div class="psicon">Configuring New Websites</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
 </div>
+<br />
+<br />
 </section>  </aside>
     </div>
   </div>

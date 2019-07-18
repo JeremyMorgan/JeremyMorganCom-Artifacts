@@ -4,7 +4,7 @@
   <title><![CDATA[Blog Category:  DotNet | Jeremy's Programming Blog]]></title>
   <link href="https://www.jeremymorgan.com/blog/dotnet/atom.xml" rel="self"/>
   <link href="https://www.jeremymorgan.com/"/>
-  <updated>2019-02-27T06:18:08+00:00</updated>
+  <updated>2019-07-07T02:24:36+00:00</updated>
   <id>https://www.jeremymorgan.com/</id>
   <author>
     <name><![CDATA[Jeremy Morgan]]></name>
@@ -459,10 +459,14 @@ Replace DefaultAppPool with the name of your application pool if it's different.
     <id>https://www.jeremymorgan.com/blog/programming/easy-crud-for-your-web-api-with-dapper</id>
     <content type="html"><![CDATA[<p>Full disclosure here: I don't like ORMs. If you're building an enormous enterprise project, you should absolutely use an ORM. If you have data you really care about and a complex, monstrous system using something like Entity Framework can save you a lot of frustration. If you're building a simple application, or some home project it's really unnecessary.</p>
 
-<!-- more -->
+<div style="margin: auto; text-align: center;">
+<a href="https://pluralsight.pxf.io/k1GQv">
+    <img src="https://www.jeremymorgan.com/images/dapper-how-to.jpg" alt="Dapper Course" />
+</a>
+<p><strong>Do you want to be a Dapper master??? <a href="https://pluralsight.pxf.io/k1GQv">This course will get there fast!</a> Check it out now!</strong> </p>
+<br />
+</div>
 
-
-<p></p>
 
 <p>Recently I found an ORM that I really like: <a href="https://www.nuget.org/packages/Dapper">Dapper</a>. It's small, simple, and fast. It can be useful on even the smallest of projects. Dapper is a simple object mapper for .Net that extends the IDbConnection interface. It contains helpers that execute queries and map results in a very elegant way. The best part is the performance is close enough to plain old SQL that it's well worth it. It will reduce the amount of code you write as well, by a long shot.</p>
 

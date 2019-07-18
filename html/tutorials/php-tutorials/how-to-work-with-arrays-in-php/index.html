@@ -3,12 +3,12 @@
 <!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head><meta charset="utf-8" /><title>Tutorials: How to work with arrays in PHP - PHP Blog </title><meta name="twitter:card" content="summary">
+<head><meta charset="utf-8" /><title>Tutorials: How to work with arrays in PHP - source Blog </title><meta name="twitter:card" content="summary">
 <meta property="og:title" content="Tutorials: How to work with arrays in PHP" /><meta itemprop="name" content="Tutorials: How to work with arrays in PHP" /><meta name="twitter:title" content="Tutorials: How to work with arrays in PHP">
 
 <meta property="article:published_time" content="2008-08-05 17:43:41 +0000" />
 
-<meta property="article:section" content="PHPProgrammingTutorials" />
+<meta property="article:section" content="source" />
 
 <meta name="description" content="An easy guide to working with arrays in PHP" />
 <meta property="og:description" content="An easy guide to working with arrays in PHP" />
@@ -74,8 +74,6 @@
   
 
 
-
-  
 <time datetime="2008-08-05T17:43:41+00:00" pubdate data-updated="true">Aug 5<span>th</span>, 2008</time>
         
       </p>
@@ -87,95 +85,63 @@
 <div class="entry-content"><p><strong>What is an array? </strong>
 Arrays are common to almost every programming language. An array is simply an ordered map of values, indexed so you can find these values, called <em>elements</em>. These elements can be of multiple datatypes, and can be ordered any way you want.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Array
-</span><span class='line'>(
-</span><span class='line'>    [a] =&gt; 1
-</span><span class='line'>    [b] =&gt; 2
-</span><span class='line'>    [c] =&gt; 3
-</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
+<p>Array
+(
+[a] => 1
+[b] => 2
+[c] => 3
+)</p>
 
-
-<p><strong>Two types of arrays in PHP</strong></p>
-
-<p>There are two types of arrays in PHP, <a href="http://en.wikipedia.org/wiki/Associative_array">associative</a> and <a href="http://en.wikipedia.org/wiki/Enumerative">enumerative</a>. The difference between the two is how they are indexed.</p>
+<p><strong>Two types of arrays in PHP</strong>
+There are two types of arrays in PHP, <a href="http://en.wikipedia.org/wiki/Associative_array">associative</a> and <a href="http://en.wikipedia.org/wiki/Enumerative">enumerative</a>. The difference between the two is how they are indexed.</p>
 
 <p><strong>Associative array</strong>s allow you to index each element with an arbitrary value. For example, you can use letters of the alphabet, or just about anything to index the value, as long as it&#8217;s unique. Here is an example:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Array
-</span><span class='line'>(
-</span><span class='line'>    [name] =&gt; Jeremy
-</span><span class='line'>    [website] =&gt; jeremymorgan.com
-</span><span class='line'>    [occupation] =&gt; developer
-</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
-
+<p>Array
+(
+[name] => Jeremy
+[website] => jeremymorgan.com
+[occupation] => developer
+)
+`</p>
 
 <p>Some programmers prefer associative arrays because they can use the key to indicate what type of data is stored in the element, like &#8220;name&#8221; in the above example. This is an indicator of what is stored, however its not a rule that&#8217;s enforced. You can just as easily put a phone number in a name field and vice versa.</p>
 
 <p><strong>Enumerative arrays</strong> are indexed with a numerical index, either auto incremented, or random. PHP is very flexible with arrays, you can use numbers at will, and add in associative elements, and return to enumerative again. Also, the keys do not need to be sequential. Also note if you leave a key blank, an auto incremented number will be assigned to the key. Here is an example of an enumerative array:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Array
-</span><span class='line'>(
-</span><span class='line'>    [0] =&gt; Jeremy
-</span><span class='line'>    [1] =&gt; jeremymorgan.com
-</span><span class='line'>    [2] =&gt; developer
-</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
-
+<p>Array
+(
+[0] => Jeremy
+[1] => jeremymorgan.com
+[2] => developer
+)`</p>
 
 <p><strong>How to build an array in PHP</strong></p>
 
 <p>Using the <a href="http://www.php.net/array">array function</a> you can create arrays a few different ways:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ourary = array (1,2,3);
-</span><span class='line'>$ourary = array ('a' =&gt; '1', 'b' =&gt; '2', 'c' =&gt; '3');
-</span><span class='line'>$ourary = array ();`</span></code></pre></td></tr></table></div></figure>
-
+<p>$ourary = array (1,2,3);
+$ourary = array (&#8216;a&#8217; => &#8216;1&#8217;, &#8216;b&#8217; => &#8216;2&#8217;, &#8216;c&#8217; => &#8216;3&#8217;);
+$ourary = array ();`</p>
 
 <p><strong>What do we do with arrays? </strong></p>
 
 <p>There are a few neat things we can do with arrays. You can extract only specific parts of an array:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$name = $ourary['name'];</span></code></pre></td></tr></table></div></figure>
-
+<p><code>
+$name = $ourary['name'];
+</code></p>
 
 <p>or you can loop through an array:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ourary = array(0 =&gt; 'Jeremy', 1 =&gt; 'jeremymorgan.com', 2 =&gt; 'developer');`
-</span><span class='line'>
-</span><span class='line'>foreach ($ourary as $value) {
-</span><span class='line'>
-</span><span class='line'>    echo "Value: $value";
-</span><span class='line'>
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+<p><code>
+$ourary = array(0 =&gt; 'Jeremy', 1 =&gt; 'jeremymorgan.com', 2 =&gt; 'developer');</code></p>
 
+<p>foreach ($ourary as $value) {</p>
+
+<p>echo &#8220;Value: $value&#8221;;</p>
+
+<p>}</p>
 
 <p>There are many things arrays can be really handy for, and I&#8217;ll cover that in future articles.</p>
 
@@ -183,15 +149,11 @@ Arrays are common to almost every programming language. An array is simply an or
 
 <p>One question you might have is, how to easily check the data in the array. There are two easy ways to do this.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>print_r($yourary);</span></code></pre></td></tr></table></div></figure>
-
+<p>print_r($yourary);</p>
 
 <p>This will display the contents of your array so you can visually verify the data before processing it. Print_r will recursively print the values of your elements. Here is another way:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var_dump($yourary);</span></code></pre></td></tr></table></div></figure>
-
+<p>var_dump($yourary);</p>
 
 <p>This also prints out the values of your elements, but displays the datatypes as well. Whether or not you need this functionality will determine whether you use print_r or var_dump.</p>
 
@@ -222,14 +184,12 @@ Arrays are common to almost every programming language. An array is simply an or
   
 
 
-
-  
-<time datetime="2018-03-25T12:22:00+00:00" class="updated">Updated Mar 25<span>th</span>, 2018</time>
+<time datetime="2008-08-05T17:43:41+00:00" pubdate data-updated="true">Aug 5<span>th</span>, 2008</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/php/'>PHP</a>, <a class='category' href='/blog/programming/'>Programming</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+    <a class='category' href='/blog/source/'>source</a>
   
 </span>
 
@@ -260,36 +220,26 @@ Arrays are common to almost every programming language. An array is simply an or
 <aside class="sidebar">
   
     <section>
+	<br />
 	<h2>About Jeremy Morgan</h2>
 	<div class="aboutmeimage">&nbsp;</div>
 	<p>I'm just a Hacker / Developer writing about Tech, Software Development, Internet of Things and more. <br /><br />I'm passionate about technology, and as long as I'm building cool stuff and helping people I'll never work a day in my life.</p>
-	<p><a href="/about/">More about me</a></p>
-<ul>
-<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
-<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
-<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
-<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
-<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
-</ul>
-</section>
-<br />
-<section>
-	<h2>My Courses</h2>
+	<p><a href="/about/"><strong>More about me</strong></a></p>
+	<br />
+	<h2>Social Media</h2>
 	<ul>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
-<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fcreating-configuring-new-websites-iis"><div class="psicon">Configuring New Websites</div></a></li>
-<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
-<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
-</ul>
-</section>
-<section> 
-<br />
+		<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Yell at Me on Twitter</div></a></li>
+		<li><a href="https://www.youtube.com/jeremymorgan" rel="nofollow"><div class="youtubeicon">My YouTube Channel</div></a></li>
+		<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">My Facebook Page</div></a></li>
+		<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Follow Me on GitHub</div></a></span></li>
+	</ul>
+</section><section> 
+<br /><br />
 <h2>Categories</h2>
 <ul>
 <li><a href="/blog/programming/">Programming</a></li>
 <li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/iis/">IIS</a></li>
 <li><a href="/blog/arduino/">Arduino</a></li>
 <li><a href="/blog/linux/">Linux Tutorials</a></li>
 <li><a href="/blog/dotnet/">.Net Tutorials</a></li>
@@ -301,10 +251,24 @@ Arrays are common to almost every programming language. An array is simply an or
 <a href="https://dzone.com/users/936981/Jeremy+Morgan.html" target="_blank"><img src="/images/dzone-most-valuable-blogger.jpg" alt="DZone Most Valuable Blogger" style="display: block; margin-left: auto; margin-right: auto;"></a>
 <br />
 <a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fauthors%2Fjeremy-morgan" target="_blank"><img src="/images/author-badge_sq-black_small.png" alt="Pluralsight Author" style="display: block; margin-left: auto; margin-right: auto;"></a>
+<br />
 </section><section>
  <br />
+  <br />
   <h2>Recent Articles</h2>
   <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/reusable-code/">Thinking About Reusable Code</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/devops/andon-cord-in-devops/">Transforming Your Organization with the Andon Cord</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/iis-devops/comparing-iis-configuration/">Comparing and Syncing IIS Configurations</a>
+	  </li>
 	
 	  <li class="post">
 		<a href="/blog/iis-devops/how-to-dism-repeatable-iis-install/">Using DISM to Create a Repeatable IIS Installation</a>
@@ -334,27 +298,12 @@ Arrays are common to almost every programming language. An array is simply an or
 		<a href="/tutorials/IIS/how-to-load-test-iis-web-server/">Load Testing Your IIS Web Server</a>
 	  </li>
 	
-	  <li class="post">
-		<a href="/tutorials/linux/how-to-install-microsoft-sql-server-ubuntu-linux/">How To Install Microsoft SQL Server on Ubuntu Linux in 5 Minutes</a>
-	  </li>
-	
-	  <li class="post">
-		<a href="/tutorials/raspberry-pi/dry-ice-vs-wet-ice/">Does Dry Ice Really Cool Five Times Better Than Regular Ice?</a>
-	  </li>
-	
-	  <li class="post">
-		<a href="/blog/iis-devops/what-is-an-application-pool/">Intro to Application Pools in IIS</a>
-	  </li>
-	
   </ul>
-</section>
-<section>
+</section><section>
 <br /> 
 <h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
 <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
 <h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
-
-<br />
 <br />
 <br />
 <h2>Friends</h2>
@@ -370,14 +319,8 @@ Arrays are common to almost every programming language. An array is simply an or
 	<li><a href="http://workingwebsolutions.com">Working Web Solutions</a></li>
 	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
 </ul>
-<br />
-<br />
-<a href="//pluralsight.pxf.io/c/1221983/431391/7490"><img src="//a.impactradius-go.com/display-ad/7490-431391" border="0" alt="" width="200" height="200"/></a><img height="0" width="0" src="//pluralsight.pxf.io/i/1221983/431391/7490" style="position:absolute;visibility:hidden;" border="0" />
-<br />
-<br />
-</section>
-  <section>
-  <br />
+</section>  <section>
+  <br /><br />
   <h2>My RSS Feeds</h2>
   <ul>
   <li><a href="https://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
@@ -389,28 +332,25 @@ Arrays are common to almost every programming language. An array is simply an or
 <div class="g-plusone" data-annotation="inline" data-width="245"></div>
 
 
+<!-- <div style="margin-left: auto;margin-right: auto; text-align: center;" > -->
+<!-- possible ad space -->
+
 <section>
-<br />
-<h1>Great Deals!</h1>
-<br /><br />
-<div style="margin-left: auto;margin-right: auto; text-align: center;" >
-<!-- raspberry pi 3 --> 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B01CD5VC92&asins=B01CD5VC92&linkId=6b921f5b971abeda2b9d17bc37c1fd77&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-</iframe>
-<br /><br /><br /><br />
-<!-- arduino -->
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=B008GRTSV6&asins=B008GRTSV6&linkId=cbcc15d2926bceea972d7f4aba345879&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-    </iframe>
-<br /><br /><br /><br />
-<!-- cracking the code interview --> 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=0984782850&asins=0984782850&linkId=448df8725f50b0bf01f584efac43e490&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066C0&bg_color=FFFFFF">
-</iframe>
-<br /><br /><br /><br />
-<!-- Python Crash course --> 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_br_asin_til&ad_type=product_link&tracking_id=webfootcentra-20&marketplace=amazon&region=US&placement=1593276036&asins=1593276036&linkId=5c76b4d28fba02b7f8e51de0cef0a54c&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
-</iframe>
-<br />
+		<br />
+			<br />
+	<h2>My Courses</h2>
+
+	<ul>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-fundamentals"><div class="psicon">IIS Adminstration Fundamentals</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fiis-administration-in-depth"><div class="psicon">IIS Adminstration In Depth</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis"><div class="psicon">Installing and Configuring IIS</div></a></li>
+<li><a href="//pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Fcreating-configuring-new-websites-iis"><div class="psicon">Configuring New Websites</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-asp-net-core-2/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on ASP.NET CORE</div></a></li>
+<li><a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=JMDOTCOM"><div class="udemyicon">Hands on Internet of Things</div></a></li>
+</ul>
 </div>
+<br />
+<br />
 </section>
   
 </aside>

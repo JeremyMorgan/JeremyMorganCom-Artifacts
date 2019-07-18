@@ -1,0 +1,846 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title> Jeremy's Programming Blog</title><meta name="twitter:card" content="summary">
+
+
+
+
+
+
+<meta name="description" content="Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit &hellip;" />
+<meta property="og:description" content="Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit &hellip;" />
+<meta itemprop="description" content="Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit &hellip;" />
+<meta name="twitter:description" content="Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit &hellip;">
+
+<meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/articles/page/18/">
+<meta property="og:url" content="https://www.jeremymorgan.com/articles/page/18/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/articles/page/18/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">    <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/c-programming/how-to-capture-the-output-of-a-linux-command-in-c/">How to Capture the Output of a Linux Command in C++</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-23T11:53:44-07:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ok, I admit this is a pretty obscure one but this came up for a task at work today and I had forgotten exactly how to do this. I Googled around a bit and found a lot of answers I either didn&#8217;t understand completely or just seemed too complicated for what I was trying to accomplish. I had done this with the boost libraries before but I didn&#8217;t have them on this machine so I wanted a clean, stdlib type solution.</p>
+
+<p>I dug around and found this snippet of code on my hard drive, and put something together to make it work. I didn&#8217;t write it, and I don&#8217;t remember where it came from so I can&#8217;t give credit for it, but it works like a charm:</p>
+
+<p>(tested using G++ v. 4.4.4)</p>
+
+<pre><code>string GetStdoutFromCommand(string cmd) {
+
+string data;
+FILE * stream;
+const int max_buffer = 256;
+char buffer[max_buffer];
+cmd.append(" 2&gt;&amp;1");
+
+stream = popen(cmd.c_str(), "r");
+if (stream) {
+while (!feof(stream))
+if (fgets(buffer, max_buffer, stream) != NULL) data.append(buffer);
+pclose(stream);
+}
+return data;
+}
+</code></pre>
+
+<p>As you can see, this is a function and you simply pass the command as a string to that function. It&#8217;s really easy to use. As a note, you can run system commands from within C using <a href="http://www.cplusplus.com/reference/clibrary/cstdlib/system/">system.</a> The problem with this is, the command is often run first, before any output commands and the function returns an integer indicating success or failure, but not the output of the string. The function above fixes that for you.</p>
+
+<p>What it does is creates a buffer, opens up a read-only stream, runs the command and captures the output, stuffs it into the buffer and returns it as a string.</p>
+
+<p>Here is how we put it to use:</p>
+
+<pre><code>int main (){
+
+string ls = GetStdoutFromCommand("ls -la");
+
+cout &lt;&lt; "LS: " &lt;&lt; ls &lt;&lt; endl;
+
+return 0;
+
+}
+</code></pre>
+
+<p>Keep in mind that there is no real checking here, and you should test the outputs of the commands carefully. For instance, when I used it today I had a set of long commands where things were piped into grep and cut, etc and I found that if I got unexpected output it caused a problem which hung the executable. So you want to make sure and validate your input and output as you go along, don&#8217;t just go running a bunch of commands and working on the output without some good error checking.</p>
+
+<p>Here is the full code:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="err">#</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="err">#</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">stdio</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="err">#</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">stdlib</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">string</span> <span class="nf">GetStdoutFromCommand</span><span class="p">(</span><span class="n">string</span> <span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">string</span> <span class="n">data</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">FILE</span> <span class="o">*</span> <span class="n">stream</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">const</span> <span class="kt">int</span> <span class="n">max_buffer</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="n">max_buffer</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">cmd</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot; 2&gt;&amp;1&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">stream</span> <span class="o">=</span> <span class="n">popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">feof</span><span class="p">(</span><span class="n">stream</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">fgets</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">max_buffer</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="n">data</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">pclose</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">data</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span> <span class="p">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">string</span> <span class="n">ls</span> <span class="o">=</span> <span class="n">GetStdoutFromCommand</span><span class="p">(</span><span class="s">&quot;ls -la&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;LS: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">ls</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Like I said this a pretty obscure tutorial but I figured if I had this problem, others might as well so I thought I&#8217;d throw it up there. I hope it helps.</p>
+
+<p>Happy Coding!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/changes-coming-to-jeremymorgan-com/">Changes Coming to JeremyMorgan.com</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-22T12:45:16-07:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are some pretty important changes coming to this site, and a complete redesign of both the look and content of the site are on the way. This is a decision that I started thinking about a year ago, and am going to start implementing in the coming weeks. Though some may be disappointed by the changes, overall I think the quality of the site will improve greatly and we can continue to grow in expand in different ways.</p>
+
+<p><strong>I&#8217;m listening to my audience.</strong></p>
+
+<p>I&#8217;ve always preached a couple things on here: content matters, and listen to your audience. About a year ago I was doing some analysis and that&#8217;s what this decision is based on. I let it simmer for a year and watched the traffic flow, feedback from visitors and experimented, and came to the conclusion that these changes need to be made.</p>
+
+<p>Since 2008 or so, this site has primarily been an SEO blog. The front page has featured articles, tips, tutorials and the like related to SEO and Marketing. It has been somewhat successful in this role, but it isn&#8217;t achieving the growth I&#8217;d like to see at this time.  The articles get good exposure and search results, and seem to get passed around via social networks fairly well. But the majority of my traffic to this site isn&#8217;t from the front page, believe it or not. The big traffic driver for this site is my personal blog, where I freely post whatever I think will interest people, and many of it&#8217;s one-off type pages and tutorials bring in the majority of the traffic. But traffic isn&#8217;t everything, and I do have a loyal following for the SEO articles, so i decided to change things up a little.</p>
+
+<p><strong>How things will change.</strong></p>
+
+<p>One of the biggest changes will be to the site structure. The root of the site has been the SEO blog portion for years now, but now it will be put into a separate /seo-blog/ folder.  Soon when you reach the front page of the site, you will see separate areas you can go to, which will be:</p>
+
+<ul>
+<li><p>SEO Blog</p></li>
+<li><p>Personal Blog</p></li>
+<li><p>Tutorials</p></li>
+<li><p>Linux Help</p></li>
+<li><p>Programming Tutorials</p></li>
+<li><p>SEO Tools</p></li>
+</ul>
+
+
+<p>And you can choose which section to go to and see a page listing the latest articles there. What I&#8217;ll be adding more of in the future is content to the other areas. I will be adding tutorials on programming, both web based and desktop based. I will be adding a lot more articles related to programming and computer science, and similar content as well as the SEO blog portion of it. I am also developing a set of SEO tools to use that will be a separate part of the site.</p>
+
+<p>I feel this will add to the usefulness of the site as well as utilize my skillset better. I have been building software for nearly two decades, and have a lot of experience and knowledge I&#8217;d like to pass on, and share what I&#8217;ve learned over the years. For those who like the SEO articles, there will be web based programming tutorials that might help you out as well. For web programmers hitting the site, they may be interested in the SEO information as well, so this cross-pollination could bring many more people to the site and create a better community. If enough people start visiting and are interested I may be adding forums again.</p>
+
+<p><strong>Why get rid of the SEO Blog?</strong></p>
+
+<p>I figured I would get this out of the way for the people who inevitably email me with this question. I am not getting rid of the SEO blog, but changing the focus a bit. The reasoning is, the SEO blog has not been as successful as I would like it to be, for many reasons, mostly due to the fact that I haven&#8217;t had the time to really stay on top of it and write useful articles. There are many other SEO blogs out there that do a way better job, and I&#8217;ll never get in the league of people like <a href="http://www.seomoz.org/blog">Rand Fishkin</a> or <a href="http://www.wolf-howl.com/">Micheal Gray</a> simply because they already fill the need well and I don&#8217;t add content at a fraction of the rate they do. Also my full time job is as a software developer, so I don&#8217;t have enough time to stay immersed and post time-relevant information like they do.</p>
+
+<p>The shelf life of an SEO article can be weeks or even days, but an article or tutorial on programming lasts for years. So writing SEO articles once or twice a month does not effectively grow your traffic base like it would if you were blogging daily. SEO is fast moving and sink or swim. To truly grow you need to fuel the fire often and that&#8217;s something I haven&#8217;t been able to do effectively.</p>
+
+<p>I&#8217;m not giving up the SEO blog however. I do have a somewhat small but very dedicated audience and newsletter group, and I won&#8217;t be letting them down. I just hope to expand the base a little and tie it all together as best I can into one site. The great thing about running a non-commercial website based on your own first name is you can do anything you want with it, and don&#8217;t have to follow a set of rules or guidelines. With that in mind, I&#8217;m going to continue to put things up here that  interest me and help others, and hopefully the site continues to grow and improve.</p>
+
+<p>Thanks for visiting all these years, and keep coming back!</p>
+
+<p>Thank you</p>
+
+<p>Jeremy Morgan</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/how-to-use-google-search-to-help-with-seo/">How to Use Google Search to Help With SEO.</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-31T17:10:26-07:00" pubdate data-updated="true">Aug 31<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A key to understanding Google is using it from a searcher&#8217;s point of view. There is no doubt you use Google search to find information about SEO and other things, but you can also use it to find out a lot of things about how Google views your site.</p>
+
+<p>In this article I&#8217;ll show you a few quick tips you can use to find out things about your site&#8217;s ranking, look for duplicate content and more.</p>
+
+<p><strong>Find out how many of your pages are in Google</strong></p>
+
+<p>Using a simple Google search you can find out how many of your pages are spidered by Google.</p>
+
+<blockquote><p>site:yoursite.com</p></blockquote>
+
+<p>By searching your site in this way, you can find out how many pages Google has spidered, plus you can see valuable information about what your results page might look like.</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/08/search-google1.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/08/search-google1.jpg" alt="Use Google Search To help with SEO" /></a></p>
+
+<p>This is a good way to see how Google looks at your pages. Beware of the fact that you will have different pages spidered at different datacenters, so this is not always an accurate number. It can vary depending on which datacenter you happen to hit.</p>
+
+<p><strong>Check for duplicate content.</strong></p>
+
+<p>There are several ways to check and see if you have duplicate content. One sure way is by taking a random sentence from your site that you know is unique, and search for it in quotes. Using quotes will make it an &#8220;exact search&#8221;.</p>
+
+<p>Again you will want to use the site: function, but this time put the phrase in you want to look for.</p>
+
+<blockquote><p>site:www.jeremymorgan.com &#8220;Stumbleupon is a great tool to bring new people to your site, and works great for branding.&#8221;</p></blockquote>
+
+<p>If you see more than one page come up, congratulations you have duplicate content! It happens to all of us, myself included. This is a good way to weed out this issue.</p>
+
+<p><em>Hint: It&#8217;s also a great way to search for other websites using your content without your permission. Do a search for a unique phrase on your site in quotes and see if anyone else has stolen your content. If so you can file a DMCA notice with Google and get it removed from the index. Don&#8217;t let a copyright thief use your work and get you a duplicate content penalty as well! </em></p>
+
+<p>Another way to check for duplicate content is with the inurl: function:</p>
+
+<blockquote><p>site:www.jeremymorgan.com inurl:&#8221;sessionid&#8221;</p></blockquote>
+
+<p>This is a good way to see if you have session id issues that are common for a lot of software products you might be using. Also you can search for:</p>
+
+<blockquote><p>site:www.jeremymorgan.com inurl:&#8221;id&#8221;</p></blockquote>
+
+<p>and see if you have IDs being used. This is helpful if you&#8217;re using permalinks (like me) or another url rewriter to build your URLs and you want to make sure it&#8217;s working.</p>
+
+<p>Use robots.txt to weed out some of these duplicate pages when you find them.</p>
+
+<p>Another great function is intitle: this will search the titles of your pages, again if you have two pages with the same title, it may be duplicated content.</p>
+
+<blockquote><p>site:www.jeremymorgan.com intitle:&#8221;How to Panda Proof Your Website&#8221;</p></blockquote>
+
+<p><strong>See if someone is mentioning you or your website. </strong></p>
+
+<p>Vanity searches are great, but also a good way to find out if someone is linking to you. Search for your name or website name in quotes, and remove your own website from the results. You can do that like so:</p>
+
+<blockquote><p>jeremymorgan.com -site:jeremymorgan.com</p></blockquote>
+
+<p>again using the quotes can help as well when searching your own name:</p>
+
+<blockquote><p>&#8220;Jeremy Morgan&#8221; -site:jeremymorgan.com</p></blockquote>
+
+<p>This is probably one of the most accurate ways to see what kind of buzz you&#8217;re generating (or not generating) on Google.</p>
+
+<p><strong>Find out who is linking to you</strong></p>
+
+<p>I know I&#8217;ll get a few tomatoes thrown at me and a few emails for this, but there is a command to see who is linking to you on Google. The bad news is that it&#8217;s terribly inaccurate. But if you&#8217;re really curious:</p>
+
+<blockquote><p>link:www.jeremymorgan.com</p></blockquote>
+
+<p>this will show you some of the people who are linking to your site. If you want a more accurate picture, try using <a href="https://www.google.com/webmasters/tools/">Google Webmaster Tools</a>. This won&#8217;t show you all sites linking to you either, but it will show you more than the link: function will.</p>
+
+<p>Also, you can check out other sites like Metacrawler and Altavista who will show you a better picture of who is linking to your site, and even show you individual pages.</p>
+
+<p><strong>Check your Google Cache</strong></p>
+
+<p>Checking out what Google has cached on your page is useful because you can tell when they last spidered your site, and it also gives you a more accurate picture of what Google sees when it visits your site. To do this simply type:</p>
+
+<blockquote><p>cache:jeremymorgan.com</p></blockquote>
+
+<p>This shows you the currently cached site, and if you click on &#8220;text only&#8221; you can get a better idea of what your text looks like to a search engine. There is a lot to be gleaned from this.</p>
+
+<p><strong>Survey The Competition</strong></p>
+
+<p>Ok this one is pretty obvious, but you can also use Google to check out your competition. Not only can you search for terms you are trying to get good rankings for, but you can use the tools above to check out their pages a little more in depth.  You are free to do the same thing on their site as you can on your own, so see what your competitors are up to!</p>
+
+<p><strong>Conclusion</strong></p>
+
+<p>The more you use Google, the more you&#8217;ll understand it. The more you experiment with some of their tools the more you can learn about your own site. Make sure and sign up for the Webmaster Tools while you&#8217;re at it. It provides a lot of useful information. I hope this helps!</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/google-confirms-1-is-used-as-a-ranking-signal/">Google Confirms +1 Is Used as a Ranking Signal.</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-30T05:51:50-07:00" pubdate data-updated="true">Aug 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In June Google unveiled the +1 button, and it&#8217;s no surprise to anyone that they&#8217;re announcing this will be <a href="http://googleblog.blogspot.com/2011/08/doing-more-with-1-button-more-than-4.html">used as a signal for ranking websites</a>. Google now claims the +1 button is being used on over a million sites, so clearly this is something that isn&#8217;t going away. Here&#8217;s my thoughts on this, and my viewpoint might surprise you.</p>
+
+<p><strong>The Democratic Web</strong></p>
+
+<p>From the very beginning, Google has been using us to improve their product. In fact, we&#8217;re essentially unpaid employees who test their products, give them metrics and help them improve. As a die hard fan of many of their products I have no problem with this. If my surfing habits are tracked and my personal info is used to make the product better I&#8217;m fine with it. Way back when Google started out &#8220;backrub&#8221; was a model based on producing results that other people thought were relevant, by counting how many pages were linking to a particular page.</p>
+
+<p>As many of you know, in the early days it was very easy to game this algorithm, as &#8220;Googlebombing&#8221; became a phenomenon that led to the creation of the SEO industry. Thankfully things have changed considerably, and though it is much harder to be an SEO, you see a lot less spam in the results when <em>you </em>go to search for something.  In a perfect world, this democratic model would be the silver bullet solution for everyone, because every site relies on it&#8217;s own merit to succeed, so only the good rise to the top.</p>
+
+<p><strong>The Problem with Democracy</strong></p>
+
+<p>Since we&#8217;re forced to live in a not so perfect world there are a few problems with the &#8220;democratic web&#8221;. One large problem is you end up with the problem you&#8217;re trying to avoid: people can buy search results. Here is how that works.</p>
+
+<ol>
+<li><p>Google releases the +1 button, and it&#8217;s slow to take hold. Only a fraction of people use it. They&#8217;re mostly bleeding edge, early adopter types. They are the ones who try everything first, and have no problem signing their name to something. Let&#8217;s say for this example this is 1% of people (a figure I&#8217;m making up, I actually don&#8217;t know the real figure).</p></li>
+<li><p>Website #1 has a page with very relevant, useful content about a subject. The author of the page worked very hard to provide good, accurate information about this subject, and searchers who landed on this page would have their needs filled by visiting here. The problem is, this website only gets a few hundred people a day to the site.</p></li>
+<li><p>Website #2 is a very large tech site that gets 100,000 people a day and writes a page about the very same subject. They give a much broader view of the subject however, and offer less information about the subject. It&#8217;s essentially a 50,000 ft view of it written by an author who covers many different subjects and decides to talk about this one in an article.</p></li>
+<li><p>After a month when all the +1 data is tallied up, searchers find website #2 at the number one spot for this subject, and find themselves going back and searching more because they didn&#8217;t get all the information they needed.</p></li>
+</ol>
+
+
+<p>Given this information which page would rank higher? Of course the answer is the bigger site, because 1% of website #1&#8217;s traffic hit the plus 1 button, and led to 2 hits. Website #1 also only had 1% of their audience using the +1 button, and they got 1000 hits. Using this data it would seem obvious that website #2 has the better content, because 1000 people liked it as opposed to only two people liking it. But the voting was skewed because the sampling is so different.</p>
+
+<p>The two pages cannot be compared equally because 99,000 people never saw website #1. You aren&#8217;t getting an exact comparison.</p>
+
+<p><strong>What this means for search results.</strong></p>
+
+<p>As I said earlier, this makes it pretty clear how you can buy search results, something Google tries very hard to avoid. It&#8217;s simple: if you have enough money for advertising you can build a lot of traffic, and a big following to get more of those 1% clicks day after day. It could be argued that the people you bring in are not yet loyal to your site and have a short attention span, but it&#8217;s unclear if that&#8217;s really the case. You could also argue that larger commercial sites do indeed have the ability to bring better content, but we know that&#8217;s not always true.</p>
+
+<p>The problem Google should be concerned about is the homogenization of their results. If the same big sites are always getting the +1s and ranked up, they&#8217;ll get more traffic, and more +1 action as well. This leads to the same sites producing the same content. Google&#8217;s search results become heavily reliant on the same sites, and when they don&#8217;t deliver, Google doesn&#8217;t deliver.</p>
+
+<p><strong>Conclusion</strong></p>
+
+<p>This is all just my opinion about concerns I have for ranking +1 results too heavily. Knowing how Google usually works, they&#8217;ll test this heavily before implementing it completely. They&#8217;ll also figure out a way to shuffle in some little guys once in a while. I certainly hope that&#8217;s the case, considering my site is more like site #1 (the smaller traffic one) than it like Slashdot. I haven&#8217;t seen very many +1s  for my pages, though I notice I get many &#8220;likes&#8221; on Stumbleupon, which seems like a more fair sampling of data. On Stumbleupon your site is displayed randomly with everyone else, so you really can get more traffic based on merit, but this is simply not possible for Google at this time.</p>
+
+<p>I don&#8217;t ever expect Google to send you hundreds of thousands of random viewers just to see if they +1 your content, but I do think the current democratic web ideas do need some fine tuning before they decide this is a huge factor. If you&#8217;re one of the little guys looking to make it big with Google+ and the +1 button (they&#8217;re now integrated) then keep making great content that people will want to share. It&#8217;s still the best way to get ahead if you don&#8217;t have a huge bankroll.</p>
+
+<p><strong>Related Stories:</strong></p>
+
+<p><a href="http://googleblog.blogspot.com/2011/08/doing-more-with-1-button-more-than-4.html">Doing more with the +1 Button</a></p>
+
+<p><a href="http://blog.performics.com/search/2011/04/empowering-the-democratic-web-googles-newest-social-search-initiative-1.html">Empowering the &#8220;Democratic Web&#8221;</a></p>
+
+<p><a href="http://www.jeremymorgan.com/search-engine-optimization/google-announces-plus-one/">Google+ could be a plus for us</a></p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/linux/how-to-get-the-linux-version-from-the-command-line/">Tutorial: How to Get the Linux Version From the Command Line</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-20T01:18:25-07:00" pubdate data-updated="true">Aug 20<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are several ways to get your Linux version from the command line. One way that just displays a basic name:</p>
+
+<blockquote><p>uname</p></blockquote>
+
+<p>But this usually just returns &#8220;Linux&#8221;. Pretty sure you already knew that. A more detailed view would be:</p>
+
+<blockquote><p>uname -a</p></blockquote>
+
+<p>Which shows &#8220;all&#8221; the information uname provides.</p>
+
+<p>Here are some other switches for uname:</p>
+
+<pre><code>  -a, --all                print all information, in the following order,
+except omit -p and -i if unknown:
+-s, --kernel-name        print the kernel name
+-n, --nodename           print the network node hostname
+-r, --kernel-release     print the kernel release
+-v, --kernel-version     print the kernel version
+-m, --machine            print the machine hardware name
+-p, --processor          print the processor type or "unknown"
+-i, --hardware-platform  print the hardware platform or "unknown"
+-o, --operating-system   print the operating system
+--help     display this help and exit
+--version  output version information and exit
+</code></pre>
+
+<p>There is another method for gathering system information:</p>
+
+<blockquote><p>cat /proc/version</p></blockquote>
+
+<p>This will also show you quite a bit of information on your system.</p>
+
+<blockquote><pre><code>Linux version 2.6.32-71.el6.x86_64 (mockbuild@x86-007.build.bos.redhat.com)
+(gcc version 4.4.4 20100726 (Red Hat 4.4.4-13) (GCC) ) #1 SMP Wed Sep 1 01:33:01 EDT 2010
+</code></pre></blockquote>
+
+<p>Some distros have their own methods of identification also, such as RedHat:</p>
+
+<p>cat /etc/redhat-release</p>
+
+<p>Consult your manuals for each distro to find out where they store this information.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/marketing/we-didnt-even-see-it-coming/">We Didn&#8217;t Even See It Coming.</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-17T18:10:33-07:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Some of the best ideas, and some of the greatest creations of the world have come by accident. Many large successful projects started out as something small, and nobody ever dreamed it would &#8220;blow up&#8221; like it did. This is something marketers and entrepreneurs don&#8217;t give a lot of thought to.</p>
+
+<p>I could name a million examples of things that started really small and grew into worldwide phenomenons, but I&#8217;ll only mention a few.</p>
+
+<p><strong>Linux</strong> - A 21 year old college student in Finland decides to write his own copy of Minix, an operating system for his computer and give it away for free. Just &#8220;dabbling around&#8221; at first, 20 years later his project has computing as we know it. (I&#8217;m typing this on a laptop running Linux in fact, and this website sits on a Linux server).</p>
+
+<p><strong>Facebook</strong> - A story many more people are familiar with, in 2003 a college student decides to create a website for Harvard students to share information about themselves and what they&#8217;re doing. Today it has over 750 million users. As a side note, here is what CNN had to say about Facebook in 2006:</p>
+
+<blockquote><p>Last spring, Facebook reportedly turned down a $750 million buyout offer, holding out instead for as much as $2 billion. Bad move. After selling itself to Rupert Murdoch&#8217;s Fox for $580 million last year, MySpace is now the Web&#8217;s second most popular website. Facebook is growing too - but given that MySpace has quickly grown into the industry&#8217;s 80-million-user gorilla, it&#8217;s hard to imagine who would pay billions for an also-ran.</p></blockquote>
+
+<p>We have the benefit of hindsight now, but even 5 years ago it was hard to predict the rise of Facebook.</p>
+
+<p><strong>Apple</strong> -A couple of geeks messing around in a garage decide to build their own personal computer - something unheard of at the time. Little did they know they&#8217;d change the world.</p>
+
+<p>This kind of stuff happens all the time, in fact here is a list of  <a href="http://www.businesspundit.com/fortune-500-rags-to-riches/">Fortune 500 Companies that started with nothing</a>.</p>
+
+<p><strong>So what&#8217;s my point?</strong></p>
+
+<p>What these examples all have in common is this: there was a need, and by filling that need, they discovered many other people with the same need. They didn&#8217;t set out to change the world, but that&#8217;s exactly what happened. They only thought of filling their own needs, in a small world that suddenly outgrew them. If you start out with the idea of making it big, raking in millions and then finding a way to do it, you&#8217;re working backwards. This is probably why so many of these ventures fail.</p>
+
+<p>Instead of finding a way to strike it rich, think of a need that you can fulfill. It&#8217;s not true that everything that needs to be invented is already here. There is plenty of need out there, you just have to find it. If you&#8217;re the one solving a problem, and many others have that problem, you&#8217;ll find yourself in high demand.</p>
+
+<p>Think about it.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/linux/how-to-use-vim-instead-of-vi-with-an-alias/">Tutorial: How to Use Vim Instead of Vi With an Alias</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-17T18:03:12-07:00" pubdate data-updated="true">Aug 17<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Vim is a lot better than Vi, especially if you&#8217;re programming. If you would rather use Vim than Vi, and you&#8217;re on an older distro, here is how you set it up in your shell.</p>
+
+<p>Edit your .bashrc file:</p>
+
+<blockquote><p>vi /root/.bashrc</p></blockquote>
+
+<p>Add a line to it:</p>
+
+<blockquote><p>alias vi=&#8217;vim&#8217;</p></blockquote>
+
+<p>And save the file. That&#8217;s it! Most newer distros do this automatically but some distros still use vi by default.</p>
+</div>
+  
+  
+
+ </article> <div class="pagination">  <a class="prev" href="/articles/page/19/">&larr; Older</a>  <a href="/blog/archives">Blog Archives</a>  <a class="next" href="/articles/page/17/">Newer &rarr;</a>  </div> </div> <aside class="sidebar">  <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I&#8217;m just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I&#8217;m passionate about tech, and as long as I&#8217;m building cool stuff and helping people, I&#8217;ll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>  </aside>
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

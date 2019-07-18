@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Linux | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/linux/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2015-05-30T12:51:07-07:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to set up a LEMP Server in Ubuntu 14.04]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/linux/how-to-setup-lemp-server-ubuntu/"/>
+    <updated>2014-06-16T21:07:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/linux/how-to-set-up-a-lemp-server-in-ubuntu-14-dot-04</id>
+    <content type="html"><![CDATA[<p>Today I'm going to show you how to set up a LEMP server (Linux NginX MariaDB PHP)  on an Ubuntu 14.04. It's a relatively easy process once you've done it a few times, but there are some things that can trip you up, so I thought I'd document it and present it here.</p>
+
+<p>For this tutorial I used a <a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4" target="_new">Digital Ocean Droplet</a>, but any Ubuntu 14.04 server should work the same way.</p>
+
+<!-- more -->
+
+
+<h2>Set up a privileged user</h2>
+
+<p>This assumes you're using a fresh install of Ubuntu 14.04, and it's not a crucial step in the process if your server is already set up. But we want to create an environment with a privileged user and prevent people from being able to login as root over SSH. This is just an extra precaution I like to do on servers I set up.</p>
+
+<p>Log in to your user as root, and type in the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>adduser web</span></code></pre></td></tr></table></div></figure></notextile></div>
+It doesn't have to be "web" you can call it anything you want.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-lemp-ubuntu.jpg" title="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;" alt="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;"></p>
+
+<p>Add a password and there will be some prompts where you can add as much or as little information as you want for the account.</p>
+
+<p>Then run the following command:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>visudo</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>look for
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>User privilege specification</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and add the new account:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root    ALL=(ALL:ALL) ALL
+</span><span class='line'>web     ALL=(ALL:ALL) ALL</span></code></pre></td></tr></table></div></figure></notextile></div>
+It should look like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-lemp-ubuntu-2.jpg" title="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;" alt="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;"></p>
+
+<p>Ctrl + X to exit, Y to save the file</p>
+
+<p>Now we want to edit the SSH settings:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/ssh/sshd_config</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Change the Port to something between  1025 and 65536. This just adds an extra step for attackers, and bots that scan for open port 22 won't find your connection immediately.</p>
+
+<p>Look for this line:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>PermitRootLogin yes</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>and change it to</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>PermitRootLogin no</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This prevents people from logging into SSH as root.</p>
+
+<p>As an additional step, let's add the line:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>AllowUsers web</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>so only the web user is allowed to log on to the server.</p>
+
+<p>Restart the ssh server:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service ssh restart</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now before we log out, we want to test and make sure we can get back in.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p 4400 web@YourIPADDRESS</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>4400 is the port shown here, but it can be whatever you choose.</p>
+
+<p>If you can log in fine, then you'll be safe to exit out of your main session, and log back in as "web" (or whatever you used as a username).</p>
+
+<h2>Install the Web Server</h2>
+
+<p>first type in</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>to update the system.</p>
+
+<p>To install NginX:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install nginx</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In Ubuntu 14.04 it will automatically start up the service, and you should see this startup page:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-lemp-ubuntu-3.jpg" title="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;" alt="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;"></p>
+
+<p>Now your NginX server is set up so we'll move on and modify it later.</p>
+
+<h2>Install the Web Server</h2>
+
+<p>We're going to install MySQL on the server, but we'll be using the <a href="https://mariadb.org/">MariaDB</a> fork instead of the MySQL distribution, because it's better in many ways.</p>
+
+<p>For our install we're using Ubuntu 14.04 and I want MariaDB 10, so here is how I set it up:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install software-properties-common
+</span><span class='line'>sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+</span><span class='line'>sudo add-apt-repository 'deb http://sfo1.mirrors.digitalocean.com/mariadb/repo/10.0/ubuntu trusty main'</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you want to use something different or are working with a different OS, <a href="https://downloads.mariadb.org/mariadb/repositories/#mirror=digitalocean-sfo" target="_new" ref="nofollow">check here to see which repo to use</a>.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install mariadb-server</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we want to secure up our install a bit:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mysql_secure_installation</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>enter your root password and answer "Y" to all the things you want to remove for security purposes.</p>
+
+<p>Now you have a (MySQL compatible) MariaDB instance set up!</p>
+
+<h2>Install and configure PHP</h2>
+
+<p>Now we want to install PHP and get it set up with NginX.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install php5-fpm php5-mysql php5-cli php5-mcrypt git</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, we need to configure PHP:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/php5/fpm/php.ini</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Look for the following in the php.ini file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>;cgi.fix_pathinfo=1</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>remove the semicolon and set it to 0:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cgi.fix_pathinfo=0</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Quit and save the file.</p>
+
+<p>Now we need to make a small change to the PHP-FPM config:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/php5/fpm/pool.d/www.conf</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>look for the listen directive and make sure it says:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>listen = /var/run/php5-fpm.sock</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Quit and save the file, then restart PHP5-FPM:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service php5-fpm restart</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now you're set up!</p>
+
+<h2>Configure NginX</h2>
+
+<p>Create a folder where your web files will be stored. I generally set up something like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mkdir /var/www/yourdomain.com/public</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now open up this file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nano /etc/nginx/sites-available/default</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The default server setup looks like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>    server {
+</span><span class='line'>        listen 80 default_server;
+</span><span class='line'>        listen [::]:80 default_server ipv6only=on;
+</span><span class='line'>
+</span><span class='line'>        root /usr/share/nginx/html;
+</span><span class='line'>        index index.html index.htm;
+</span><span class='line'>
+</span><span class='line'>        server_name localhost;
+</span><span class='line'>
+</span><span class='line'>        location / {
+</span><span class='line'>            try_files $uri $uri/ =404;
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Make the following changes to the config so it looks like this:
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>    server {
+</span><span class='line'>        listen 80 default_server;
+</span><span class='line'>        listen [::]:80 default_server ipv6only=on;
+</span><span class='line'>
+</span><span class='line'>        root /var/www/yourdomain.com/public;
+</span><span class='line'>        index index.php index.html index.htm;
+</span><span class='line'>
+</span><span class='line'>        server_name server_domain_name_or_IP;
+</span><span class='line'>
+</span><span class='line'>        location / {
+</span><span class='line'>            try_files $uri $uri/ /index.php$is_args$args;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        error_page 404 /404.html;
+</span><span class='line'>        error_page 500 502 503 504 /50x.html;
+</span><span class='line'>
+</span><span class='line'>        location = /50x.html {
+</span><span class='line'>            root /var/www/yourdomain.com/public;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        # pass the PHP scripts to FastCGI server listening on /var/run/php5-fpm.sock
+</span><span class='line'>        location ~ \.php$ {
+</span><span class='line'>            try_files $uri /index.php =404;
+</span><span class='line'>            fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>            fastcgi_index index.php;
+</span><span class='line'>            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+</span><span class='line'>            include fastcgi_params;
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Replace /var/www/yourdomain.com/public  with whatever folder you'd like to use for your website (what you created earlier), and replace <em>server_domain_name_or_IP</em> with your server domain name or IP.</p>
+
+<p>Now restart your web services:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service php5-fpm restart
+</span><span class='line'>sudo service nginx restart</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we can create a test file to check your PHP configuration:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nano /var/www/yourdomain.com/public/phpinfo.php</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Add the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>lang: php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php phpinfo();</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now bring up the page in a browser and you should see this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-lemp-ubuntu-4.jpg" title="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;" alt="&#34;How to set up a LEMP Server on Ubuntu 14.04&#34;"></p>
+
+<p>And you're done!! Now you can add in your files and start building websites or applications. In future articles I'll show some good deployment methods for your new website.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why Linux Mint is Awesome]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/linux-mint-is-awesome/"/>
+    <updated>2013-09-10T22:08:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/why-linux-mint-is-awesome</id>
+    <content type="html"><![CDATA[<p>Linux Mint is one of the most under-rated Linux distribution out there, yet it really does provide a lot of value, even for seasoned Linux hackers. If you haven't tried it out yet, you're missing out.</p>
+
+<!-- more -->
+
+
+<h3>What do people say about Linux Mint?</h3>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/linux-mint-og.jpg" title="Linux Mint" >The Linux community doesn't talk about Mint too much. What most people say is it's bloated, too Windows-like and not very modern.</p>
+
+<p>They also complain about non-free software codecs and GNU stuff. It's for "newbs". But what if you don't care about any of that?</p>
+
+<h3>Linux for Newbs</h3>
+
+<p>First off, I'm far from a "Newb". I've been using Linux since 1996 or so, and have put in my years with stuff like Slackware, Gentoo etc. Compiling a kernel, or the whole operating system is nothing for me.</p>
+
+<p>If I'm setting up a server or working with limited hardware I'll gladly do it too. A leaned out Arch or Gentoo install is still my choice in certain cases.</p>
+
+<p>But for a desktop? I'd rather just install something and start working. I've got an I5 and 16 gigs of RAM, don't exactly need to optimize a kernel for performance. So if I'm going to go with a "drop in and run" Linux install, what's wrong with that? This is a case where I don't want to configure stuff all day, I need to work. Linux Mint Shines in this respect.</p>
+
+<h3>It's all about the desktop</h3>
+
+<p>Some say that it's too "Windows Like" but that's one of the things I like about it. It's a familiar interface, it works so why toy with it? I can't stand the Unity interface of Ubuntu and I can tolerate Gnome 3, but my choice is still something like MATE or Cinnamon. It's simple, elegant and works great.</p>
+
+<p>Linux Mint focuses on the desktop experience. Many other distributions have admitted they don't care about the Desktop, and Ubuntu is still chasing this "new hotness" tablet and phone market. But Linux Mint focuses on guys like me, who still use a desktop for work.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/linux-mint-disk-usage.jpg" title="Linux Mint Disk Usage" ></p>
+
+<h4>Stability and ease of use</h4>
+
+<p>I first investigated and installed Linux Mint for my mom, who is by no means a Linux expert. After using it a while, I just really liked the interface, and pain free setup so I started using it for my own projects. Ever since I have noticed one thing about Linux Mint:</p>
+
+<p>It just works. Stuff actually works.</p>
+
+<p>This has always been a big hindrance for Linux distributions, because people get frustrated when they have to edit text files and restart services, then they ask for help online and are told "RTFM". With Linux Mint that doesn't seem to be much of an issue. Here's what contributes to that ease of use:</p>
+
+<ul>
+<li>Stable foundation</li>
+<li>Great Package Managers</li>
+<li>Great Software Center</li>
+<li>Drivers for lots of varied hardware</li>
+</ul>
+
+
+<p>All this combined in a nice stable package makes for a great distribution. Install, update, grab the software you need and go. You can reliably come back to this machine any time without a problem.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/linux-mint-cpu-usage.jpg" title="Linux Mint CPU Usage" ></p>
+
+<h3>Resource Usage</h3>
+
+<p>Remember, it's Linux. You'll be using a lot less resources than a Windows install. It's great for older machines that would otherwise use XP. But if you're running something more new and powerful, it's also nice to run really smooth. You can pick out packages and services that will speed it up a bit no matter what. You're left with a system that uses your resources as efficiently as possible.</p>
+
+<h3>The Bottom Line</h3>
+
+<p>If you're the type of person who really wants to get some work done, whether it's writing, programming, whatever you need to check out Linux Mint. It really is like Windows only much better. And if you just need a Linux machine to run some hacks or develop some software in an environment only Linux can provide, it's your best bet.</p>
+
+<p>You install it, configure it and get to work. If you want to devote hours tweaking and compiling and things like that there are far better distros. If you're building a server this isn't the right one for you either. But if you want to put together a simple desktop and get to work, <a href="http://www.linuxmint.com/download.php" target="_blank">Linux Mint</a> is the best choice.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div></p>
+]]></content>
+  </entry>
+  
+</feed>

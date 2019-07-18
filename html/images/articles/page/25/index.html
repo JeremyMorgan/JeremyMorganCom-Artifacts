@@ -1,0 +1,757 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title> Jeremy's Programming Blog</title><meta name="twitter:card" content="summary">
+
+
+
+
+
+
+<meta name="description" content="If you&#8217;re reading this tutorial, it&#8217;s likely because you googled how to read and write text files with C++.  And it&#8217;s probably a &hellip;" />
+<meta property="og:description" content="If you&#8217;re reading this tutorial, it&#8217;s likely because you googled how to read and write text files with C++.  And it&#8217;s probably a &hellip;" />
+<meta itemprop="description" content="If you&#8217;re reading this tutorial, it&#8217;s likely because you googled how to read and write text files with C++.  And it&#8217;s probably a &hellip;" />
+<meta name="twitter:description" content="If you&#8217;re reading this tutorial, it&#8217;s likely because you googled how to read and write text files with C++.  And it&#8217;s probably a &hellip;">
+
+<meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/articles/page/25/">
+<meta property="og:url" content="https://www.jeremymorgan.com/articles/page/25/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/articles/page/25/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">    <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/c-programming/how-to-write-text-files-with-c/">How to Write Text Files With C++</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-30T20:40:34-08:00" pubdate data-updated="true">Jan 30<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you&#8217;re reading this tutorial, it&#8217;s likely because you googled how to read and write text files with C++.  And it&#8217;s probably a pretty lucky guess you&#8217;re a beginner, so I&#8217;ll try to explain as much as I can here to make it clear.</p>
+
+<p>If you&#8217;re thinking of getting into C++, hopefully this example will show you that it&#8217;s not as complicated as commonly thought. C++ can be very difficult, but the performance advantages are worth the effort sometimes. Java and C# are definitely stealing marketshare from C++, but it still has it&#8217;s place in the software development world, mainly in applications that require high performance. But that&#8217;s for another article. Let&#8217;s get started.</p>
+
+<p>For this example, I&#8217;m using <a href="http://www.bloodshed.net/devcpp.html">Bloodshed Dev C++,</a> because it&#8217;s simple, fast and free. You could just as easily use Visual C++ express, also free, but I feel that Dev C++ is far simpler, and better for learning the code.</p>
+
+<p>Go to <strong>file->new</strong> and create a new project. Your options should look like this:</p>
+
+<p><img class="center" src="http://s3.amazonaws.com/images.jeremymorgan.com/how-to-write-text-file-c%2B%2B-01.jpg" title="How to write a text file in C++" ></p>
+
+<p>Start a new C++ project, and call it whatever you want. You can save the dev file wherever you feel neccessary. Go into options and choose a folder to put your executable:</p>
+
+<p>Select <strong>Project->Project Options->(Build Options)</strong></p>
+
+<p><img class="center" src="http://s3.amazonaws.com/images.jeremymorgan.com/how-to-write-text-file-c%2B%2B-02.jpg" title="How to write a text file in C++" ></p>
+
+<p>This will put your final executable in a folder you can easily get to when you decide to run it.</p>
+
+<p>When you first create your project, you&#8217;ll find the following code:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#include &lt;cstdlib>
+</span><span class='line'>#include &lt;iostream>
+</span><span class='line'>
+</span><span class='line'>    
+</span><span class='line'>    using namespace std;
+</span><span class='line'>    
+</span><span class='line'>    int main(int argc, char *argv[])
+</span><span class='line'>    {
+</span><span class='line'>        system("PAUSE");
+</span><span class='line'>        return EXIT_SUCCESS;
+</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code is pretty self explanatory, and I won&#8217;t go into it here, because we&#8217;re going to erase it anyway. Select all the code in the window and delete it. Replace it with this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;------ start code ------->
+</span><span class='line'>
+</span><span class='line'>#include &lt;iostream>
+</span><span class='line'>#include &lt;fstream>
+</span><span class='line'>
+</span><span class='line'>    
+</span><span class='line'>    using namespace std;
+</span><span class='line'>    int main () {
+</span><span class='line'>    
+</span><span class='line'>      ofstream myfile;
+</span><span class='line'>      myfile.open ("test.txt");
+</span><span class='line'>      myfile &lt;&lt;  "Hey this is my first written text file.\n";
+</span><span class='line'>      myfile.close();
+</span><span class='line'>      return 0;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>&lt;------ end code --------></span></code></pre></td></tr></table></div></figure>
+
+
+<p>After you have entered this code, save the file, then press Ctrl+F9. This will compile your executable. Run it from the command prompt, wherever you set it to build to. In my case, it looks like this:</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/how-to-write-text-file-c%2B%2B-03.jpg" title="How to write a text file in C++" ></p>
+
+<p>When you run the executable it generates test.txt. Everything you specified in your cout gets written to a file. But lets examine how that happened.</p>
+
+<p>The following code is the start of your program:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>int main () {</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is the starting point of your program. Wherever you see main() that is the method you use to start your program. By putting this in you are telling the compiler where to begin. &#8220;Int&#8221; is the return type, which I will talk about in future tutorials. &#8220;int&#8221; stands for integer, which is what your main function must return. For this example, you don&#8217;t need to be concerned with that part, but in the future, you will create funtions which return a datatype, and it will become more important.</p>
+
+<p>The following opens up an output file stream:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ofstream myfile;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What this does is open up a stream for file output. <a href="http://www.cplusplus.com/reference/iostream/ofstream/">You can get more info about ofstream here</a>. By opening up this stream, you are preparing the compiler to output data to a file. You create an object called &#8220;myfile&#8221; that you can use to perform the necessary file output functions.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>myfile.open ("test.txt");</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you&#8217;ve probably guessed, this is how you open your file. You are using that same ofstream object to open a file you specify within the parentheses. In our case, we are instructing the myfile object to open test.txt.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>myfile &lt;&lt; "Hey this is my first written text file.\n";</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This portion of the code does the actual writing. You are essentially &#8220;pushing&#8221; the data to the file object using the &lt;&lt; operator. You can see above the line of text, and then followed by \n. At the end of the string we put \n to indicate a new line. This is what&#8217;s known as a &#8220;escape character&#8221; and is used to create a new line. Play around with this line and see what you can do with it. You can use \n as many times as needed to format your output with the proper line breaks.</p>
+
+<p>Finally, we need to close the file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>myfile.close();
+</span><span class='line'>      return 0;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>By calling the close method of myfile, we are closing the file we wrote to. While not required, you should always close your files on execution. If you are building an application, whether it&#8217;s just one person using it or hundreds, you should always close the files used, for resource usage purposes. Too many files loaded into memory can be a bad thing. Note that we also return 0,  as a &#8220;success flag&#8221; for the compiler. The program exits at this point.</p>
+
+<p>When you run the executable, it will generate a text file, as you&#8217;ve specified. This concludes our lesson. You can use these same methods to read another file, filter it and build it another file. You can also build something that will filter the strings being parsed, and write strings with different patterns, or pretty much anything you can imagine.</p>
+
+<p>So copy this code, and try it out. If you have any questions, or need general help, be sure to ask in our forums. I will gladly help others trying to learn who are stuck on something. Till then, enjoy!!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/what-the-heck-is-bounce-rate/">What the Heck Is Bounce Rate?</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-24T09:13:29-08:00" pubdate data-updated="true">Dec 24<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Bounce Rate is a web analytics term that defines how many people visit a page, and then leave that page without going anywhere else on your site. If someone lands on one of your pages and subsequently exits, that&#8217;s considered a bounce. If they hit another page on your site, it isn&#8217;t. The lower your Bounce Rate, the better. It could mean more people are exploring your site. Simple enough?
+From Wikipedia:</p>
+
+<blockquote><p>A bounce occurs when a web site visitor leaves a page or a site without visiting any other pages before a specified session-timeout occurs. There is no industry-standard minimum or maximum time by which a visitor must leave in order for a bounce to occur. Rather, this is determined by the session timeout of the analytics tracking software.
+I&#8217;ve been asked this question a lot lately because <a href="http://www.google.com/analytics">Google Analytics</a> has been featuring Bounce Rate a little more prominently in their statistics. And naturally the question following is &#8220;is mine good or bad?&#8221; or &#8220;how can I improve it?</p>
+
+<h3>What is a good Bounce Rate?</h3>
+
+<p>This is a difficult question to answer without generalization. My answer is usually roughly between 20 and 30 percent is a good target range. There are many factors to consider, a big one is of course they type of page you&#8217;re measuring. If you are measuring the Bounce Rate off an entry page, and your rate is 25%, that means 75% of the people who land on it (through ads, SEO or however) are continuing on through your site. If it is a &#8220;click here to purchase&#8221; page you&#8217;ll be the luckiest salesperson alive if 75% of the people who read the page continue to a purchase page (not impossible, but very unlikely). So it depends on the type of page. For an entry page, or a content page you should focus on the 20%-30% range for best results. I&#8217;ve seen rates as low as 15%, but they aren&#8217;t common.
+Keep in mind some sites like news sites will naturally have a higher Bounce Rate, because people tend to scan headlines, or read an article, and head off to the next site. A site like this one (JeremyMorgan.com) is more of a niche oriented type of article, and I tend to run in the 30-35% range, which is decent for an article site. How-to sites may also suffer from high Bounce Rates, as people find what they were looking for, and exit to use the information.</p>
+
+<h3>What causes a high Bounce Rate?</h3>
+
+<p>One big thing of course is irrelevant content. If your content isn&#8217;t what the person searching was looking for, they likely won&#8217;t search your site for it, they simply move on. If you&#8217;re using deceptive tactics to get search results or clicks, you can expect a higher Bounce Rate. Also as I said earlier, &#8220;how to&#8221; type sites generally run a little higher, because of the focus of what people are looking for.
+Side note: in my experience submitting your sites to social media outlets like <a href="http://digg.com">Digg</a>, <a href="http://reddit.com">Reddit</a> and <a href="http://stumbleupon.com">Stumbleupon</a> increase your Bounce Rates. Not because they send bad traffic, but because of the nature of the audience. They tend to be more &#8220;hit and run&#8221; type visitors. They scan your page, and immediately move on to the next link. This is especially true with stumbleupon because their users simply need to hit the stumble button to move on the next site.</p>
+
+<h3>Should I care about Bounce Rate?</h3>
+
+<p>In a general sense, you should pay attention to any kind of analytic data you can get to your site. but for most sites you shouldn&#8217;t invest a large amount of time and money on Bounce Rate until you&#8217;ve locked down bigger issues like conversions or bookmarking rates. In other words, keep it on the list of things to monitor and change, but don&#8217;t stress yourself out about it unless you find an 80% Bounce Rate somewhere. Once you have increased your conversion ratios, bookmarks, and things like that you can start tuning your Bounce Rate. If you run an e commerce site you should pay attention more closely than you would a news site.</p>
+
+<h3>How can I lower my Bounce Rate?</h3>
+
+<p>The best way to lower your Bounce Rate is to make your content good, and relevant. Write good headlines, and provide people the content they were searching for. Don&#8217;t try to gather extra clicks or search results with irrelevant terms. Here are a couple good articles to read:
+<a href="http://www.google.com/support/conversionuniversity/bin/answer.py?answer=77157&amp;hl=en">5 tips for Writing Effective Web Headlines</a>
+<a href="http://www.doshdosh.com/how-to-analyze-and-improve-your-bounce-rate/">How to Analyze and Improve your Bounce Rate </a></p></blockquote>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/programming/how-to-use-or-operator-with-strings-in-c/">How to Use or Operator With Strings in C#</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-07T16:07:57-08:00" pubdate data-updated="true">Dec 7<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I just had this problem tonight, so I thought I&#8217;d share the solution. In many languages you can do a string comparison in the following way:</p>
+
+<pre><code>if ($city == "Portland" || $city == "Seattle") {
+// stuff goes here
+}
+</code></pre>
+
+<p>And this works just fine. But in C#, strings are treated as objects, so you have to do the same comparison as such:</p>
+
+<pre><code>if ((city == "Portland") || (city == "Seattle")) {
+// stuff goes here
+}
+</code></pre>
+
+<p>In the above example, if the city is Portland, it will evaluate as true, making it a boolean. This is a simple step and an easy fix, but I couldn&#8217;t readily find anything on google about it, so I thought I&#8217;d post it here.</p>
+
+<p>If you want to use the || or operator in C#, this is how you do it.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div>
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/you-need-google-chrome/">You Need Google Chrome</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-02T09:44:25-07:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ok, maybe need is strong word, but you should definitely check out Chrome, Google&#8217;s new web browser. I&#8217;ve downloaded it myself and found it to be pretty slick.</p>
+
+<p><a href="http://www.google.com/chrome">Click here to download Google Chrome</a></p>
+
+<p><strong>Why Google Chrome?</strong></p>
+
+<p>Why would google want to enter the browser wars? The simple answer is laid out in this <a href="http://www.google.com/googlebooks/chrome/index.html">comic book style announcement</a>. Simply put, today&#8217;s browsers are built for mostly static webpages, with javascript on them. While AJAX has been around a while, only  in the last couple of years has it really taken off, and web 2.0 has taken over the net. These are not static pages anymore, they&#8217;re applications.</p>
+
+<p>We now do all kinds of complicated actions on the web, with browsers that weren&#8217;t exactly built for it. So Google decided to start from the ground up and build something faster, and sleeker.</p>
+
+<p><strong>What&#8217;s it like? </strong>
+My first impression of Google Chrome is very good. It&#8217;s lightweight, clean and simple. Changing tabs is quite fast, and things seem to load fast. I don&#8217;t notice a difference in looks at all. All webpages seem to look identical to how they look in FireFox. Even the fonts are the same (which I must admit I like Safari fonts better than any browser).</p>
+
+<p>I haven&#8217;t had it crash yet, and it seems to run gmail very nice, as one would guess. I&#8217;ll give a more detailed analysis later, but I wanted to introduce you guys to this browser so you could check it out. Let me know what you think!</p>
+
+<p>Click here for the <a href="http://googleblog.blogspot.com/2008/09/fresh-take-on-browser.html">google blog</a> about Chrome.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/google-launches-insight-a-new-keyword-resource/">Google Launches Insight, a New Keyword Resource.</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-11T16:15:15-07:00" pubdate data-updated="true">Aug 11<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Google has recently launched <a href="http://google.com/insights/search/">insight</a>, a new keyword tool that looks very promising. You can track interest over time, regional information and more. This can give you even more dimensions into your keyword marketing plan.</p>
+
+<p><strong>What is insight? Why do I need it? </strong></p>
+
+<p>In their own words:</p>
+
+<blockquote><p>With Google Insights for Search, you can compare search volume patterns across specific regions, categories, and time frames.</p></blockquote>
+
+<p>This appears to be a tool geared towards Marketers and SEOs, and allows you to track keywords according to some interesting metrics.</p>
+
+<ul>
+<li><p>Categories</p></li>
+<li><p>Seasonality</p></li>
+<li><p>Geographic Distribution</p></li>
+<li><p>Interest Over Time</p></li>
+<li><p>Regional Interest</p></li>
+<li><p>Related Terms</p></li>
+<li><p>Rising Searches</p></li>
+</ul>
+
+
+<p><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2008/08/google-insight.jpg" alt="Google Insight Screenshot" /></p>
+
+<p>If utilized properly, one might be able to gauge trends in keywords, how people are searching, or how they may be searching in the future. If properly leveraged, you may be able to spot an up and coming subject and beat your competitors to the results pages. Also you may be able to spot trends you weren&#8217;t otherwise aware of. Often times when doing work for clients, I find niche terms with low competition, and high search rates, and this is something you might find here.</p>
+
+<p>This tool is very simple, and provides some good data. Check out this <a href="http://google.com/insights/search/#cat=&amp;q=seo&amp;geo=&amp;date=&amp;clp=&amp;cmpt=q">search for SEO</a>. Before doing this query, I didn&#8217;t know India would be the leader in searches for that term (although I&#8217;m not terribly surprised). Things like this can help you get a better edge on the market, and I suggest bookmarking it and playing around.</p>
+
+<p>Check it out, and let me know what you guys think of it. Till then, I&#8217;m off to do my own research!</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/should-we-be-thinking-about-cuil/">Should We Be Thinking About Cuil?</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-06T07:53:53-07:00" pubdate data-updated="true">Aug 6<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cuil is a startup who has created a search engine they say can spider more content faster and cheaper than Google. They have received a surprising amount of press, most likely because <a href="http://www.cuil.com/info/management/">some of the founders of cuil</a> are ex employees of Google. Should we be paying attention?</p>
+
+<p><strong>What is so special about Cuil?</strong>
+If Cuil plans to earn a spot in the search engine arena, they will have to provide something completely unique and different than anything Google has. So far, from a user perspective, I noticed that I like the cosmetics of the interface however it&#8217;s not terribly useful.</p>
+
+<p>The simple search box in front is nice, but google has that also. When you perform a search, your results are placed into boxes that fill up the page, with a photo attached to most listings. While this looks neat, I can&#8217;t see it being that nice when you are searching for something for hours on end. Who hasn&#8217;t perused through 10 or more pages on google looking for something? Their simple listings are nice, and with cuil you seem to get more clutter when doing the same thing.</p>
+
+<p>The listings also seem outdated for some things, and maybe I&#8217;m just bitter because <a href="http://www.cuil.com/search?q=jeremymorgan.com">my site doesn&#8217;t show up at all</a>. In fact I noticed a few sites that haven&#8217;t been spidered yet.</p>
+
+<p>One positive note, the spammers have yet to discover it, or they are being weeded out well. I had a hard time finding spam pages.</p>
+
+<p><strong>Will the public embrace it? </strong></p>
+
+<p>There is no doubt that webmasters and marketers will pay attention to this new, flashy search engine. But will users embrace it? That remains to be seen. Here are a few disadvantages:</p>
+
+<p>People know Google. It&#8217;s a verb now.
+habits are hard to break. Some people are still using metacrawler.
+The name is confusing, and can be misspelled.
+The name is not memorable.
+The buzz wont last for long. After that they need substance.</p>
+
+<p>There is no doubt that we should be mindful of this new search engine, but for the time being I won&#8217;t be investing any serious time in optimizing for their site. I don&#8217;t see enough to lure the masses away, and once the hype dies down, its likely they will collect dust. While there is a lot of buzz going on now, it can be forgotten tommorow.</p>
+
+<p>Like other marketers, I will keep my eye on the site, and attempt to get some pages in there. I&#8217;ll check my logs to see if they&#8217;re even sending anyone. But as far as going out of my way&#8230; not yet. Only time will tell whether this flash in the pan will actually succeed. After all, nobody thought Yahoo would ever be topped, and it only took a few short years for Google to become #1. And what it will take to succeed is converting enough average, ordinary users to the site. We&#8217;ll see how it goes.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/google-knol-what-does-it-mean-for-seo/">Google Knol - What Does It Mean for SEO?</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-06T05:51:36-07:00" pubdate data-updated="true">Aug 6<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Last week, Google quietly released <a href="http://knol.google.com/">Knol</a>, an online encyclopedia similar to Wikipedia. Immediately the SEO community started buzzing about it, and SEOs wondered how they can start utilizing it.</p>
+
+<p><strong>Does Google favor Knol pages? </strong>
+I don&#8217;t have an definitive answer to this, but intuition tells me yes. It does, and it will favor knol pages in the future, and several people have proven it. The reason is simply that google favors authority pages, as I have written about in the past. And there is the obvious house advantage, google will likely try to push their own product.</p>
+
+<p>How many times have you spotted a wikipedia article at the top of a SERP? It happens all the time, and the reason for this is simple: Google considers Wikipedia articles to be a decent authority on the subject. Aside from all the inbound links, and massive traffic, this could be the primary reason wiki often earns the top spot. Whether they are actually a good authority or not is certainly arguable, but currently wiki articles are given pretty good juice in SERPS.</p>
+
+<p>With Knol, they are able to control the content of the articles, something they cannot do with Wikipedia. So in theory, if they start linking to Knol pages, they are giving an authority page a high ranking, and one that they can control the content of. If Google can implement quality control on this new encyclopedia, they can better direct what sort of content their searchers land on.</p>
+
+<p><strong>How do you take advantage of it? </strong>
+The best way you can take advantage of Knol pages is to start creating them. Become an &#8220;authority&#8221; on the topic, and make sure to sprinkle your links on pages as needed. Later down the road, if Knol really takes off, you&#8217;ll be glad you got your spot when you did. Even if it doesn&#8217;t give you SEO improvement, it&#8217;s another opportunity to get your name out there. I would recommend getting on there now, and start putting up content.</p>
+</div>
+  
+  
+
+ </article> <div class="pagination">  <a class="prev" href="/articles/page/26/">&larr; Older</a>  <a href="/blog/archives">Blog Archives</a>  <a class="next" href="/articles/page/24/">Newer &rarr;</a>  </div> </div> <aside class="sidebar">  <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I&#8217;m just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I&#8217;m passionate about tech, and as long as I&#8217;m building cool stuff and helping people, I&#8217;ll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>  </aside>
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

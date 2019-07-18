@@ -1,0 +1,730 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Raspberry Pi how to: Set up a SVN Server - Raspberry Pi Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Raspberry Pi how to: Set up a SVN Server" /><meta itemprop="name" content="Raspberry Pi how to: Set up a SVN Server" /><meta name="twitter:title" content="Raspberry Pi how to: Set up a SVN Server">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-02-11 22:44:00 -0800" />
+
+<meta property="article:section" content="Raspberry PiTutorials" />
+
+<meta name="description" content="A step by step guide to setting up an SVN Server on your Raspberry Pi" />
+<meta property="og:description" content="A step by step guide to setting up an SVN Server on your Raspberry Pi" />
+<meta itemprop="description" content="A step by step guide to setting up an SVN Server on your Raspberry Pi" />
+<meta name="twitter:description" content="A step by step guide to setting up an SVN Server on your Raspberry Pi">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-how-to-svn-server/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-how-to-svn-server/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-how-to-svn-server/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Raspberry Pi How to: Set Up a SVN Server</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-11T22:44:00-08:00" pubdate data-updated="true">Feb 11<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>Today we&#8217;re going to go thru the process of turning your Raspberry Pi into an SVN server. While this may not be the most practical use of your Pi, it&#8217;s an excellent learning experience. SVN is a pretty good way to manage your code, especially if you&#8217;re juggling lots of projects.</p>
+
+<p>This isn&#8217;t going to be a &#8220;how to use SVN&#8221; tutorial but more of a guide for setting it up on a Raspberry Pi. If you&#8217;re not familiar with SVN <a href="http://svnbook.red-bean.com/" target="_blank" rel="nofollow">Here is an excellent free guide</a> to get you started.</p>
+
+<!-- more -->
+
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div>
+
+
+<br /><br />
+
+
+<h3>Getting Started</h3>
+
+<p>The first thing we want to do is ssh into the Raspberry Pi or open up a terminal. We&#8217;re going to do all of this from the Linux prompt.</p>
+
+<p>Then, we&#8217;ll install Subversion:</p>
+
+<pre>
+sudo apt-get install subversion
+</pre>
+
+
+<p>Now let&#8217;s create a folder to put our repositories in:</p>
+
+<pre>
+mkdir -p /home/pi/repos
+</pre>
+
+
+<p>Now, we need to create a project:</p>
+
+<pre>
+svnadmin create /home/pi/repos/helloworld
+</pre>
+
+
+<p>With that created, you should see a folder that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-svn-server-1.png" title="&#34;Raspberry Pi how to setup SVN server&#34;" alt="&#34;Raspberry Pi how to setup SVN server&#34;"></p>
+
+<p>Let&#8217;s create a project that we&#8217;ll add to SVN.</p>
+
+<pre>
+mkdir /home/pi/projects/helloworld
+cd /home/pi/projects/helloworld
+</pre>
+
+
+<p>create a file called main.cpp:</p>
+
+<pre>
+sudo nano main.cpp
+</pre>
+
+
+<p>add the following to the file:</p>
+
+<figure class='code'><figcaption><span>main.cpp </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// main.cpp v .1</span>
+</span><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello World!&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And save it.</p>
+
+<p>Now we&#8217;ll want to import it into svn:</p>
+
+<pre>
+sudo svn import /home/pi/projects/helloworld/ file://localhost/home/pi/repos/helloworld/
+</pre>
+
+
+<p>You should see a screen that looks like this.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-svn-server-2.png" title="&#34;Raspberry Pi how to setup SVN server&#34;" alt="&#34;Raspberry Pi how to setup SVN server&#34;"></p>
+
+<p>Enter a message for committing this file. CTRL+X exits this screen.</p>
+
+<p>You should see:</p>
+
+<pre>
+Adding /home/pi/projects/helloworld/main.cpp
+
+Committed revision 1.
+</pre>
+
+
+<h3>Set up Remote Access</h3>
+
+<p>Now, we&#8217;ll need to set up the server part of it so you can access it remotely:</p>
+
+<pre>
+sudo apt-get install apache2 libapache2-svn
+</pre>
+
+
+<p>(If you already have Apache installed you won&#8217;t need to reinstall it)</p>
+
+<p>Now let&#8217;s edit the dav_svn.conf:</p>
+
+<pre>
+sudo nano /etc/apache2/mods-available/dav_svn.conf
+</pre>
+
+
+<p>Add this to the bottom of the file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;Location /svn>
+</span><span class='line'>  DAV svn
+</span><span class='line'>  SVNParentPath /home/pi/repos
+</span><span class='line'>  AuthType Basic
+</span><span class='line'>  AuthName "Subversion Repo"
+</span><span class='line'>  AuthUserFile /etc/apache2/dav_svn.passwd
+</span><span class='line'>  &lt;LimitExcept GET PROPFIND OPTIONS REPORT>
+</span><span class='line'>    Require valid-user
+</span><span class='line'>  &lt;/LimitExcept>
+</span><span class='line'> &lt;/Location></span></code></pre></td></tr></table></div></figure>
+
+
+<p>Quit and save the file, then restart apache:</p>
+
+<pre>
+sudo /etc/init.d/apache2 restart
+</pre>
+
+
+<p>Now we need to change the permissions of this folder:</p>
+
+<pre>
+sudo chown -R www-data:www-data /home/pi/repos
+</pre>
+
+
+<p>We&#8217;re changing this so the SVN server can access these files. Don&#8217;t modify these files by hand anymore! Always use SVN.</p>
+
+<p>Now you need to create an SVN user:</p>
+
+<pre>
+sudo htpasswd -c /etc/apache2/dav_svn.passwd jeremy
+</pre>
+
+
+<p>Remember <strong>only use -c the first time you add a user</strong>. If you run this with -c again it will delete existing users! This is for the first time only!</p>
+
+<p>Now you can check your repo thru a web browser on your machine using the IP of your Raspberry Pi (probably different than mine)</p>
+
+<p>http://192.168.254.18/svn/helloworld/</p>
+
+<p>You should see a screen like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-svn-server-3.png" title="&#34;Raspberry Pi how to setup SVN server&#34;" alt="&#34;Raspberry Pi how to setup SVN server&#34;"></p>
+
+<p>Go back to your main computer and check out the repo.</p>
+
+<h3>Check out the repository in Linux</h3>
+
+<p>Open up a terminal window, and type the following:</p>
+
+<pre>
+svn co --username jeremy http://192.168.254.18/svn/helloworld
+</pre>
+
+
+<p>You should see:</p>
+
+<pre>
+A helloworld/main.cpp
+Checked out revision 1.
+</pre>
+
+
+<p>Now go into that folder and edit the file again:</p>
+
+<pre>
+cd helloworld
+nano main.cpp
+</pre>
+
+
+<p>And make the following changes:</p>
+
+<figure class='code'><figcaption><span>main.cpp </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// main.cpp v .2</span>
+</span><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello World! Version 2&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Quit and save the file.</p>
+
+<p>Now do a diff on the file:</p>
+
+<pre>
+svn diff main.cpp
+</pre>
+
+
+<p>A diff shows you the difference between the file you&#8217;re editing, and what&#8217;s stored in SVN.</p>
+
+<p>You will see a screen that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-svn-server-4.png" title="&#34;Raspberry Pi how to setup SVN server&#34;" alt="&#34;Raspberry Pi how to setup SVN server&#34;"></p>
+
+<p>Now, let&#8217;s commit that file with the message &#8220;version 2&#8221;</p>
+
+<pre>
+sudo svn commit -m "version 2" main.cpp
+</pre>
+
+
+<p>You should see:</p>
+
+<pre>
+Sending main.cpp
+Transmitting file data .
+Committed revision 2.
+</pre>
+
+
+<p>Now, if you check your repo browser again:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-svn-server-5.png" title="&#34;Raspberry Pi how to setup SVN server&#34;" alt="&#34;Raspberry Pi how to setup SVN server&#34;"></p>
+
+<p>You will see that your change has been committed. It&#8217;s that easy!</p>
+
+<h3>Check out the repository in Windows</h3>
+
+<p>Let&#8217;s say you&#8217;re a Windows user (not that there&#8217;s anything wrong with that) and you want to connect to your Pi from Windows. I recommend using <a href="http://tortoisesvn.net/downloads.html" rel="nofollow">Tortiose SVN</a> for the task. It&#8217;s a great free program that works well.</p>
+
+<p>Once it&#8217;s installed, create a folder on your Desktop called &#8220;repos&#8221;. Then, right click inside that box and select &#8220;SVN Checkout&#8221;.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-svn-server-6.png" title="&#34;Raspberry Pi how to setup SVN server&#34;" alt="&#34;Raspberry Pi how to setup SVN server&#34;"></p>
+
+<p>In that window, put in the URL to your repository:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-svn-server-7.png" title="&#34;Raspberry Pi how to setup SVN server&#34;" alt="&#34;Raspberry Pi how to setup SVN server&#34;"></p>
+
+<p>For me it is http://192.168.254.18/svn/helloworld but yours may be different.</p>
+
+<p>Click OK, and you should see the main.cpp file in there.</p>
+
+<p>Edit it and make the following changes:</p>
+
+<figure class='code'><figcaption><span>main.cpp </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// main.cpp v .2</span>
+</span><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello World! Version 2&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Save the file. Then right click on the file and select &#8220;SVN Commit&#8221;.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-svn-server-8.png" title="&#34;Raspberry Pi how to setup SVN server&#34;" alt="&#34;Raspberry Pi how to setup SVN server&#34;"></p>
+
+<p>Enter a message and commit the file. It will ask for your login, then you You will see the following screen:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/raspberry-pi-how-to-svn-server-9.png" title="&#34;Raspberry Pi how to setup SVN server&#34;" alt="&#34;Raspberry Pi how to setup SVN server&#34;"></p>
+
+<p>And you&#8217;re done!</p>
+
+<h3>Conclusion</h3>
+
+<p>I hope this has helped you with setting up an SVN server on your Raspberry Pi. It&#8217;s not incredibly practical but it seems to work well for me, as I&#8217;m the only developer using it. I also store my repos on an external drive, as the SD cards seem to flake out quite a bit.</p>
+
+<p>If you have any questions, leave me a comment!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div>
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-11T22:44:00-08:00" pubdate data-updated="true">Feb 11<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/raspberry-pi/'>Raspberry Pi</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/linux/how-to-install-linux-ppc-powerbook-g4/" title="Previous Post: How to install Linux on a PowerBook G4">&laquo; How to install Linux on a PowerBook G4</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/linux/how-to-wireless-networking-linux-ppc-powerbook-g4/" title="Next Post: How To Set Up Wireless Networking with Ubuntu on a G4 PowerBook">How To Set Up Wireless Networking with Ubuntu on a G4 PowerBook &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-how-to-svn-server/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/raspberry-pi-how-to-svn-server/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

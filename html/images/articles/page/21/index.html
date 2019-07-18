@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title> Jeremy's Programming Blog</title><meta name="twitter:card" content="summary">
+
+
+
+
+
+
+<meta name="description" content="Ok so this is a short one, but in the past if you were running Apache/PHP/MySQL on your windows computer there were a lot of steps to get CURL &hellip;" />
+<meta property="og:description" content="Ok so this is a short one, but in the past if you were running Apache/PHP/MySQL on your windows computer there were a lot of steps to get CURL &hellip;" />
+<meta itemprop="description" content="Ok so this is a short one, but in the past if you were running Apache/PHP/MySQL on your windows computer there were a lot of steps to get CURL &hellip;" />
+<meta name="twitter:description" content="Ok so this is a short one, but in the past if you were running Apache/PHP/MySQL on your windows computer there were a lot of steps to get CURL &hellip;">
+
+<meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/articles/page/21/">
+<meta property="og:url" content="https://www.jeremymorgan.com/articles/page/21/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/articles/page/21/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">    <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/php-tutorials/how-to-make-curl-work-with-xampp-in-windows/">How to Make CURL Work With XAMPP in Windows</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-01T08:14:50-08:00" pubdate data-updated="true">Mar 1<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ok so this is a short one, but in the past if you were running Apache/PHP/MySQL on your windows computer there were a lot of steps to <a href="http://www.tonyspencer.com/2003/10/22/curl-with-php-and-apache-on-windows/">get CURL working with PHP in Windows</a>. Many developers, myself included, like to set up a web server on the desktop when doing development, and a project I&#8217;m working on I decided to add in Curl. I use <a href="http://www.apachefriends.org/en/xampp.html">XAMPP</a> currently, so I wasn&#8217;t sure if I should go through all the trouble of installing curl and configuring things if I didn&#8217;t have to. And as it turns out, it&#8217;s as simple as uncommenting it in your php.ini file.</p>
+
+<h3>Step 1: Find your php.ini file</h3>
+
+<p>Find your php.ini file. You can do this by looking at your phpinfo page:</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/phpinfo.jpg" title="How to find your php.ini file" ></p>
+
+<p>If you don&#8217;t have one setup, you simply create a php file with the following code:</p>
+
+<p>And bring it up in your web browser.</p>
+
+<h3>Step 2: Uncomment &#8220;extension=php_curl.dll&#8221;</h3>
+
+<p>Search the php file for the following:</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/how-to-php-curl.jpg" title="How to make CURL work with XAMPP in Windows" ></p>
+
+<p>And remove the &#8220;;&#8221; to enable it.</p>
+
+<p>And you&#8217;re done! I love <a href="http://www.apachefriends.org/en/xampp.html">XAMPP</a> for it&#8217;s simplicity. You get an easy install of Apache, PHP and MySQL but you can still go in and configure things as you want. It&#8217;s a great product!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/google-algorithm-update-takes-aim-at-content-farms/">Google Algorithm Update Takes Aim at &#8220;Content Farms&#8221;</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-25T08:13:01-08:00" pubdate data-updated="true">Feb 25<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Yesterday Google announced a significant update to their algorithm, which they say will affect 11.8% of their queries. The update is designed to &#8220;reduce rankings for low-quality sites—sites which are low-value add for users, copy content from other websites or sites that are just not very useful.&#8221;  Basically it looks like they&#8217;re taking aim at &#8220;content farms&#8221;. So what does this update mean for you? It could be good news.</p>
+
+<h2>Algorithm Changes</h2>
+
+<p><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/02/contentfarm.jpg" alt="Google Algorithm Update Target's &quot;Content Farms&quot;" />
+Google changes their &#8220;algorithm&#8221; all the time.  There is no actual single algorithm, but likely thousands of algorithms that determine ranking. Google changes them quite frequently and most of the time they&#8217;re pretty subtle. This is why people check their rankings daily and see changes. There have been many large scale changes such as the <a href="http://answers.google.com/answers/threadview?id=283860">&#8220;Florida&#8221; update of 2003</a> (which incidentally increased my search engine traffic dramatically) and the more recent &#8221;<a href="http://searchengineland.com/google-confirms-mayday-update-impacts-long-tail-traffic-43054">Mayday</a>&#8221; update last year.  These changes usually make a serious impact, any many sites fall off the map completely, bringing other sites up.</p>
+
+<p>I love it when Google does these large updates, because I nearly always benefit from them. Can you guess why? Because when they do these drastic updates they cut a lot of cheater, spam and Blackhat SEO&#8217;d sites out of the index, and the rest of us rise to the top. As long as you&#8217;re keeping it honest not only do you not have to worry about huge updates, but sometimes you&#8217;ll benefit from it. But I won&#8217;t ramble on too much about that, but you get the picture.</p>
+
+<h2>What is a Content Farm?</h2>
+
+<p>A content farm is basically a junk site with junk content used to scrape search engine traffic. They aren&#8217;t really built for human visitors, their sole purpose is getting search engine traffic and funneling it towards a revenue source. There are a few ways they build the content for their sites:</p>
+
+<ul>
+<li><p>Scrape Content From other sites</p></li>
+<li><p>Hire offshore writers to make keyword loaded but senseless articles</p></li>
+<li><p>Grab content from RSS feeds</p></li>
+<li><p>Grab content from Wikipedia and reword it</p></li>
+<li><p>Use Markov Algorithms and other tools to generate text</p></li>
+</ul>
+
+
+<p>The list goes on and on, but mostly they put together sites filled with nonsense but try to get Google to rank it. Most of the time the information is either copyrighted or randomly generated. These sites can generate thousands of pages and their owners build backlinks to get them ranked and throw ads on it.</p>
+
+<p>If you&#8217;re doing this and making money off it, it really can work but you must understand the business model. You can create hundreds or thousands of domains, fill then with thousands of pages and create complicated link structures and make a lot of money. But this is not a great long term strategy, and eventually the sites will be dropped from the index become worthless. Your domains will be de-indexed or even banned. <strong>Do not ever do this with your main company URL. Ever. </strong></p>
+
+<p>That&#8217;s in short what a content farm is, and Google has declared war on them. This update is one of many moves Google has taken to clean their results of these types of sites.</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/02/shrug.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/02/shrug.jpg" alt="What do we know about this Google Algorithm Update?" /></a></p>
+
+<h2>What do we know about this update?</h2>
+
+<p>In short, very little. Google sometimes announces these updates <a href="http://googleblog.blogspot.com/2011/02/finding-more-high-quality-sites-in.html">as they did this time</a>, but they rarely give any real insight to the technical part of it, or what they&#8217;re looking for. The reasons for this are fairly obvious. But here is what I&#8217;m guessing this update is about. Keep in mind this is only my educated guess and I really have no insight or confidential information on it.</p>
+
+<p><strong>I believe Google will be targeting:</strong></p>
+
+<p><strong>Sites with duplicate content - </strong>Sites that contain content found on other sites, and sites that contain scraped information. Especially sites that take content that doesn&#8217;t belong to them. It wouldn&#8217;t be hard to figure out that Bob from from get-your-latest-financial-news.biz doesn&#8217;t have the rights to republish a clone of CNN.com with all their content.</p>
+
+<p><strong>Sites that contain only RSS Content </strong>- Any site that contains content only scraped from RSS feeds will likely suffer. You can build entire sites from these feeds, but if you don&#8217;t have anything else unique on your site they&#8217;ll find it.</p>
+
+<p><strong>Sites that have low quality or Markov text - </strong>Google is constantly changing and developing algorithms to detect junk text. Just because the random text looks like it&#8217;s a real article, doesn&#8217;t mean it will make sense if you read it aloud. This also goes for those 1000 articles for $5 deals you sometimes find in webmaster forums. It&#8217;s poor quality stuff and Google will pick up on it.</p>
+
+<p><strong>Sites that just contain articles from popular article sites - </strong>If you&#8217;re using articles from <a href="http://goarticles.com/">Goarticles.com</a> or something similar on your site, that&#8217;s great. I often write articles for them and other article distribution sites in hopes that people will republish and spread my articles around. There is nothing wrong with using those articles on your site, but if your site consists solely of these articles you&#8217;re likely going to run into a penalty.</p>
+
+<p><strong>Sites with very little original content -</strong> This one is pretty obvious. Whether it&#8217;s syndicated articles, RSS feeds, javascript includes or whatever you can find, if there is no original content on your site, eventually it will fall through the cracks. You need original content to survive!</p>
+
+<h2>How does this affect you?</h2>
+
+<p>The answer to this one is pretty simple. If you&#8217;re doing some of the things listed above, you may be affected by it. If you&#8217;re not doing any of those things you shouldn&#8217;t see any more than your usual  fluctuation. If anything you&#8217;ll see better rankings because the junk is being flushed out again, but there&#8217;s no guarantee. If you&#8217;re staying with White hat SEO efforts you shouldn&#8217;t have anything to worry about.</p>
+
+<h2>My Opinion</h2>
+
+<p>As I said above, usually when Google does major algorithm changes my rankings seem to benefit so I tend to like them. Most of the people who complain about Google algorithm changes are people who were gaming the system to begin with. I like the fact that Google is taking steps to eliminate bad results, and it&#8217;s good they are moving forward. As a searcher, I like finding better results and an SEO/Website Owner I like having my sites and my customer&#8217;s sites  rise up above the spammy crap. The more of these kinds of updates the better.</p>
+
+<p>People often forget that Google owes you nothing. It&#8217;s free traffic (Unless you&#8217;re using adwords of course.) and should be considered as such. Those who get very angry and devote their lives to trashing Google on blogs and forums usually feel that Google has cheated them in some way, and they feel they aren&#8217;t getting as much traffic as they should and get upset. They often forget that basing your entire business on Google is risky at best. Don&#8217;t put all your eggs in the Google basket because any day you can wake up and be removed from the site for any reason.</p>
+
+<p>In short, keep it honest, and any development Google makes towards putting out better results  will end up helping you.</p>
+
+<h2>Further Reading:</h2>
+
+<p><a href="http://googleblog.blogspot.com/2011/02/finding-more-high-quality-sites-in.html">Official Google Release</a></p>
+
+<p><a href="http://www.nojobformom.com/2011/02/25/google-content-farms-and-diversification/">Google Content Farms and Diversification</a></p>
+
+<p><a href="http://www.googletutor.com/google-introduces-a-major-algorithm-change-to-improve-search-results/">Google Announces a Major Algorithm Change to Improve Search Results</a></p>
+
+<p><a href="http://www.demandmedia.com/blog/a-statement-about-search-engine-algorithm-changes/">Demand Media&#8217;s Response to Algorithm Change</a></p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/dont-fall-for-these-seo-scams/">Don&#8217;t Fall for These SEO Scams.</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-10T12:07:41-08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>While there may be a sucker born every minute, there&#8217;s also a scamming SEO company born every minute. These companies pop  up everywhere and usually end up emailing you or calling you on the phone. They look up domain registry information and contact people every day, and some of them are very good. Good at ripping you off that is.</p>
+
+<h2>Hey &#8220;buddy&#8221; want to get rich?</h2>
+
+<p>A while back my mother received a phone call from one of these guys. Thankfully she&#8217;s not quite as naive as the average small business owner, and making money is not the primary goal of her site. The person on the phone said &#8220;Hi, I&#8217;m from Google&#8230;.&#8221;  and rattled off this slick sales pitch about how they were from a new office in Portland and they could guarantee top rankings for her site, for a monthly fee and soon she&#8217;d be rolling in traffic.</p>
+
+<p>She listened to what the guy had to say and didn&#8217;t commit to anything. She mentioned her son was an SEO, and how he&#8217;d done a lot of work for big companies in town, and if you do a quick search you&#8217;ll find his site. The conversation pretty much ended at that point and he gave her some contact info and went on his way.</p>
+
+<p>Unfortunately this type of thing happens every day. I have more than 10 customers in the last 5 years or so who fell for one of these things and the money spent ranges anywhere from thousands of dollars to $49 a month or so. None of them were happy with the results, and they all had roughly the same story about the phone call and sales pitch. They drop big names to impress you, but it&#8217;s very likely a huge stretch they joined some affiliate program and are making claims the company doesn&#8217;t know about, or outright lies.</p>
+
+<p><strong>Fact:</strong> Google, Microsoft, AT&amp;T, Intel, Yahoo, and similar companies do not have divisions of their companies that sell SEO services.</p>
+
+<p>Here are some other things you should know to avoid these scammers.</p>
+
+<h2>Nobody can guarantee search engine rankings. Nobody can sell you &#8220;guaranteed spots&#8221;.</h2>
+
+<p>This is the first claim out of the mouths of these slimy salesmen. They are really good at SEO, or have some inside track with the search engine companies and they can guarantee you a rank. This is 100% false. Nobody can guarantee you a ranking for any price.  In fact, <a href="http://www.google.com/support/webmasters/bin/answer.py?hl=en&amp;answer=35291">read it for yourself right on Google&#8217;s website</a>.</p>
+
+<blockquote><p><em>Beware of SEOs that claim to guarantee rankings, allege a &#8220;special relationship&#8221; with Google, or advertise a &#8220;priority submit&#8221; to Google. There is no priority submit for Google. In fact, the only way to submit a site to Google directly is through our <a href="http://www.google.com/addurl/?continue=/addurl">Add URL</a> page or by submitting a <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=40318">Sitemap</a> and you can do this yourself at no cost whatsoever.</em></p></blockquote>
+
+<p>You have to ask yourself, if they&#8217;re so good they can guarantee any #1 spot, why are they wasting their time calling you? They could be making a large fortune funneling millions of searchers to various product.  I certainly can&#8217;t &#8220;guarantee&#8221; any rankings or I wouldn&#8217;t be writing this, I&#8217;d be sitting on a beach somewhere on the island I just bought.  Even the best SEOs can&#8217;t guarantee rankings. They can only promise to do whatever they can to ensure your site is successful. There&#8217;s no question a good SEO will get you top rankings but it&#8217;s not something they can promise.</p>
+
+<h2>Google does not have a &#8220;preferred vendors program&#8221; or anything like that.</h2>
+
+<p>Another common claim is an &#8220;inside track&#8221; to Google that the general public does not have access to. &#8220;We do lots of business with Google&#8221; is usually a part of that pitch. They claim to have a &#8220;priority submit&#8221; or something similar. It&#8217;s all crap. Google does not have such a program, and neither does Bing. Yahoo has a program where you can pay to have your site considered for listing but it does not have anything to do with ranking,  it&#8217;s just for getting your site listed (which is free if you wait a while).</p>
+
+<h2><strong>Ask Questions</strong></h2>
+
+<p>If you&#8217;re paying a monthly fee for SEO, ask them exactly what they&#8217;re doing. While many SEO&#8217;s warn against monthly fees there are some legitimate reasons for paying an SEO a monthly fee. Here are some of them:</p>
+
+<ol>
+<li>The SEO is adding content to your site (articles, guides etc).</li>
+<li>You are adding content frequently and the SEO is checking it.</li>
+<li>The SEO is doing something every month to get you inbound links (submitting to social media sites, article marketing etc.).</li>
+<li>Analytics. They could be analyzing your traffic or rankings and monitoring for changes and trends.</li>
+</ol>
+
+
+<p>All of these are good reasons to have an SEO on retainer. Not all &#8220;monthly fees&#8221; are bad.</p>
+
+<p>But don&#8217;t pay an SEO for:</p>
+
+<ol>
+<li>Resubmitting to search engines. You don&#8217;t  need to do this.</li>
+<li>&#8220;Maintaining your ranking&#8221;.</li>
+<li>&#8220;Fake Forum Posts / blog comments&#8221; and other shady attempts to spam your site.</li>
+<li>&#8220;Secret&#8221; operations they aren&#8217;t allowed to tell you.</li>
+</ol>
+
+
+<h2>The more you know&#8230;</h2>
+
+<p>If you&#8217;re not a technical person or don&#8217;t have the time to learn SEO, nobody can blame you for hiring someone. You&#8217;re paying for expertise and time you don&#8217;t have. But the more you learn about SEO the better decisions you will make when it comes hiring time.</p>
+
+<p>Reading this blog is a good starting point, but there are thousands of SEO websites and forums on the internet, and you&#8217;d be surprised what information is floating out there for free. Not all of it is correct of course, but you can at least familiarize yourself with the process enough to know what to ask for and sniff out a scammer.</p>
+
+<p>Remember,</p>
+
+<h2>If it sounds too good to be true, it probably is.</h2>
+
+<p>Take care and send this article to your friends. Also be sure to read <a href="http://www.jeremymorgan.com/search-engine-optimization/what-you-should-know-before-hiring-an-seo/">what to know when hiring an SEO</a>.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/the-skinny-on-domain-names-5-things-you-should-never-do/">The Skinny on Domain Names - 5 Things You Should Never Do</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-03T07:23:21-08:00" pubdate data-updated="true">Jan 3<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>What&#8217;s the perfect domain name for your site? Chances are it&#8217;s already been taken. The great domain names were taken up in the 90s, and a few gold mines were found in the last 10 years, but not many. So people have all kinds of silly domain name ideas, and I&#8217;m going to offer some quick advice on it.</p>
+
+<h3><strong>1.  A long keyword loaded domain</strong></h3>
+
+<p>A long hyphenated domain is so 2001. I did it too, I think at some point every marketing professional gets the idea and tries it. So they come up with something like</p>
+
+<blockquote><p>http://www.mortgage-real-estate-where-to-by-homes-cheap-discount-realty-portland-tigard-beaverton-oregon.com</p></blockquote>
+
+<p>Awesome name, you think to yourself as you plunk down 10 bucks. You have visions and dreams of nailing every keyword in it, and getting thousands of people a day calling you up. But in reality, this rarely happens, if ever. Have you ever searched for a really popular term and found a domain like this? Of course not. In fact, when I search for &#8220;portland real estate&#8221; I find jmaproperties.com, which has none of the keywords in it.</p>
+
+<p>_Why you shouldn&#8217;t do it: _</p>
+
+<p><strong>Domain names like this look really tacky.</strong> - Nobody sees a domain like this and takes it seriously.
+<strong>It doesn&#8217;t work </strong> - The keyword in a domain thing works from time to time, but it&#8217;s not often enough to bank on.
+<strong>It&#8217;s not memorable</strong> - People won&#8217;t remember it to type it in later, and they won&#8217;t tell their friends.
+<strong>It could get you banned</strong> - while there is no general rule that bans these domains I have seen it happen.</p>
+
+<h3><strong>2.  Buying 100 domain names and pointing them to a single site.</strong></h3>
+
+<p>I see this one constantly. It&#8217;s a pretty safe bet that most of the customers I come across end up doing this, with poor results. Many SEO firms even encourage it. Stop doing this!! While logically it seems like a great idea, it never works.</p>
+
+<p><em>Why you shouldn&#8217;t do it:</em></p>
+
+<p><strong>1.  It will get you banned. Fast. </strong> - Doorway pages as they are called have been outlawed by Google years ago. This worked for a very short time in the early 2000s, but it doesn&#8217;t work now. There are severe duplicate content penalties, and they&#8217;ll result in these domains being blocked, as well as your &#8220;main domain&#8221; if you do it.
+<strong>It looks tacky. </strong> - See above, it doesn&#8217;t look very good for your company to be using tactics that appear desperate.
+<strong>It&#8217;s confusing. </strong> - While this may sound silly, it confuses people when they find multiple sites that contain the same thing, it even makes them angry. An angry customer won&#8217;t waste their time finding out who you really are.</p>
+
+<h3><strong>3.  A rip off of another popular domain name or misspelling</strong></h3>
+
+<p>This one kind of goes without saying. Most reputable businesses would never try this, but you&#8217;d be surprised at the ones who do.</p>
+
+<p><em>Why you shouldn&#8217;t do it:</em></p>
+
+<p><strong>Come on, it&#8217;s super tacky</strong> - no question about this.
+<strong>It could open you up for a lawsuit</strong> - Many companies find these domains, and take legal action.
+<strong>Misdirected customers are worthless</strong> - If people are looking for something else and find you they will quickly leave. More details below.</p>
+
+<h3><strong>4.  Domain names with popular culture terms in them or other misrepresentation</strong></h3>
+
+<p>If you register justin-bieber-lady-gaga-dancing-with-the-stars.com for your kitchen faucet business, you&#8217;re doing far more harm than good. You MIGHT catch some traffic from these keywords but chances are 13 year old girls looking for Justin Bieber videos aren&#8217;t going to buy a new stainless sink for their kitchen.</p>
+
+<p>_Why you shouldn&#8217;t do it: _</p>
+
+<p><strong>Tacky</strong> (again)
+<strong>You aren&#8217;t targeting any new customers. </strong> - Just because you get traffic doesn&#8217;t mean you&#8217;ll make any sales or earn new readers to your blog. It&#8217;s a waste of time
+<strong>This makes your business look really bad.</strong> - Old school businesspeople tend to fall into a trap where they think the internet is a huge anonymous place, and it really isn&#8217;t. Online reputation management is far more important than offline reputation these days, because they tie together directly. And when someone searches for your online, you want to attempt to control what they find.</p>
+
+<h3><strong>5.  .Biz, .Info, .whatever domains</strong></h3>
+
+<p>Though this is #5, and kind of a small one, it&#8217;s the one I&#8217;ll get the most emails about I&#8217;m sure. I usually tell my clients to snatch up the .biz and .info domains, then use them to put a single link to their website, or use a 301 redirect to it. That way you don&#8217;t get penalized by Google. You don&#8217;t want domain squatters or porno sites using your name with a .biz at the end. Personally, I don&#8217;t care to manage them all so there are other jeremymorgan.x domains out there, but if you have a brand to protect you want to do it.</p>
+
+<p>Don&#8217;t use it as your main domain name, and don&#8217;t buy 150 of them just because they&#8217;re $1.99 a piece.</p>
+
+<p><em>Why you shouldn&#8217;t do it:</em></p>
+
+<p><strong>Duplicate content penalties still apply</strong> - Even though it&#8217;s a different extension, it still applies as duplicate content if you have the same site on both domains.
+<strong>It looks tacky and people associate it with bad things</strong> - Most people associate .biz and .info domains with Porn, Viagra, dating sites, MLM scams and the like. When is the last time you saw a high quality, relevant and well designed .biz page?
+<strong>Google practically ignores them</strong> - Likely due to the reasons above, they don&#8217;t do well with Google. I don&#8217;t have solid evidence of this claim, but my experience over time has shown that domains rarely do well with these extensions.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/marketing/find-the-edges/">Find the Edges.</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-23T20:21:11-08:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>&#8220;Everything that can be invented has been invented&#8221;  -Charles Duell, Commissioner of US Patent Office, 1899</p></blockquote>
+
+<p>Surely you&#8217;ve ran across this quote before, and probably had a laugh about it.  And since he likely didn&#8217;t tweet this from his iPhone while driving his Smart Car, he was also wrong. But his quote has some truth to it today. Everything we realistically want and need is here. Of course there will be some breakthrough products that change the way we do things, but for the most part we&#8217;re a pretty satisfied bunch. Succeeding in business is tougher than ever, because everything we need is already here, for the most part. So how to we move forward?</p>
+
+<p>Statements like this are the type that people laugh about 5 years later. But realistically the odds that you are going to come up with a breakthrough invention that&#8217;s completely new are pretty slim. You may come up with an improvement on a product or idea, sure but are you likely to come up with something that&#8217;s completely, 100% out of this world new? Probably not. I&#8217;m not trying to be a Debbie Downer, just being realistic. So what can you to do to break ahead? You need to find an edge, a need that is unsatisfied.</p>
+
+<p><strong>Example: Firefox</strong></p>
+
+<p>The first Web browser was pretty awesome, and easy to market. It&#8217;s 1993 and you want to check out these new &#8220;webpages&#8221; so you downloaded Mosiac, for free. Then along came Netscape who improved on the idea, and never made any real money. Microsoft, who was pretty late to the game, came out with Internet Explorer (also free) and changed the game again. Soon, IE took over the market and that was the end of the story, for quite a while. People didn&#8217;t need anything more than Internet Explorer provided. They were happy. When the masses are happy with a product, they stick with it. No need for anything new.</p>
+
+<p>But to say everyone was happy with IE would be false. There were security issues, and more technical users found problems with it. Developers hated it, because they had to change their code to &#8220;IE specific&#8221; pages and it was quite difficult to build standardized pages that looked the same to everyone. But these people, were they the status quo? Of course not. These were the &#8220;edge cases&#8221;, the fringe groups, not the general user. Susie Soccer Mom didn&#8217;t care about HTML and CSS standards when she was browsing Ebay for Beanie Babies so it didn&#8217;t matter much. The edge was ignored for quite sometime.</p>
+
+<p>Enter Firefox. This was a browser based on an entirely different engine, and built for the power user. Not only was it faster, but also more secure, and rendered pages better. It quickly caught on with the power users and development started really picking up, and Firefox quickly added support for plugins, themes, and other really great features. The power users tried it, adopted it and never looked back. The type of people who use Firefox are the type of people who try new things, and experiment. Again, they&#8217;re on the edge. Today, Firefox is the second most used browser in the world, which is no small feat. David truly is throwing some serious rocks at Goliath, and they know it.</p>
+
+<p>There are similar stories out there for Linux, MacOSX and other products that serve a minority rather than the majority. Make no mistake: <strong>If Firefox had tried to grab the mass market from IE they would have failed. </strong>If they tried to put out a &#8220;vanilla&#8221; product to compete with the existing vanilla product and go after the mass market, they would have failed. Instead, they found an edge.</p>
+
+<p><strong>Summary</strong></p>
+
+<p>So long story short, instead of trying to usurp some giant corporation&#8217;s mass market product, look for the edges. Don&#8217;t try to invent a better web browser, operating system or smart phone. You aren&#8217;t going to start a revolution by inventing an a better lawn sprinkler.<strong> Don&#8217;t try to come up with a better flavor of vanilla. The products that everyone wants are already here.</strong> The mass market products are already serving the masses just fine. Your product may be better, but they will ignore it. You have to shoot for the products that certain people want, and find the areas that the vanilla products aren&#8217;t serving well.</p>
+
+<p>Find an edge, and give it all you&#8217;ve got. Find a niche of a market that isn&#8217;t being served well, and solve their problems. Not everyone is going to want your Caramel Apple and Cinnamon ice cream, but if you do it right, those who will want it will become loyal customers.</p>
+
+<p>Remember as a marketer your job is to solve a problem. If your market is content, any small improvements will likely be ignored.  Find the market with problems.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/social-media/twitter-and-facebook-can-help-seo-but-how/">Twitter and Facebook Can Help SEO - but How?</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-09T11:47:30-08:00" pubdate data-updated="true">Dec 9<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It&#8217;s been confirmed by Bing and Google that Twitter and Facebook can help your search rankings. This is something SEOs have speculated about and known for quite some time. But how does it really affect your rankings?</p>
+
+<p><strong>Social Search vs Web Search</strong></p>
+
+<p>There is a distinction here that should be noted. When <a href="http://www.bing.com/social/search?q=Justin+Bieber&amp;go=&amp;form=DTPSOH">doing a search on Bing Social</a>, you can see what people are saying on various social media sites, mainly Twitter and YouTube. The links in those results go to either a page showing where the term was mentioned, or the profile of the person saying it. This is a social search only, Google has a similar feature that&#8217;s tied to your <a href="http://www.google.com/profiles/jeremy.morgan">Google Profile</a>. Some social searches show up at the bottom of web searches also.</p>
+
+<p>Web searches of course are just <a href="http://www.bing.com/search?q=Justin+Bieber&amp;go=&amp;form=QBLH&amp;qs=n&amp;sk=&amp;sc=8-10">standard searches of the web</a>, which is what we want to capitalize on. So how do they relate?</p>
+
+<p><strong>Once again, authority is king. </strong></p>
+
+<p>Both Google and Bing have confirmed that these social results do factor into your web results as well. Any guesses as to what they might focus on? If you guessed &#8220;Authority&#8221; you&#8217;re probably right. A solid tenet of good SEO is becoming an influencer. Reputation is everything and when Google sees that your site is an authority on a subject matter it&#8217;s treated well. If your site is one that others link to frequently and is shown to influence a niche, your rankings go up. Social search is no different.</p>
+
+<p>If your links are frequently &#8220;liked&#8221; on FaceBook and your tweets are often retweeted, you&#8217;ll show up more in Social Search, but it&#8217;s also likely the links you post you will get some SEO juice as well. As many of you know, Twitter links are <a href="http://en.wikipedia.org/wiki/Nofollow">nofollow</a> links, but it looks like they&#8217;ll still factor in. IF you are someone who has &#8220;authority&#8221; on Twitter you can expect some of your links to get some juice.</p>
+
+<p><strong>How do I take advantage of it? </strong></p>
+
+<p>The answer to this one is pretty simple, and something I preach constantly on this site: make something worth going to. Give out content people want, and they will follow. If you have a Twitter account that just posts constant links to your website, or you&#8217;re constantly hawking affiliate links people won&#8217;t follow you. But if you post valuable, entertaining or remarkable content, they will. And with a good Twitter or Facebook following you can get an extra kick to your search engine rankings as well.</p>
+
+<p>A black hat solution of course would be to create some fake networks. You could create 1,000 twitter accounts and get a ring going where a bunch of the accounts retweet your links all over, and you could do the same with Facebook. And I&#8217;m sure it would probably work fairly well for a while, but they&#8217;ll have a detection method for it, if they don&#8217;t already. As I like to advise my clients, black hat SEO works, and often works well but it&#8217;s a poor long term business plan. Set your goals accordingly.</p>
+
+<p>Some more reading on this subject:</p>
+
+<p><a href="http://searchengineland.com/what-social-signals-do-google-bing-really-count-55389">What Social Signals do Bing and Google really count?</a></p>
+
+<p><a href="http://www.socialtimes.com/2010/12/facebook-and-twitter-affect-seo-confirmed-by-google-and-bing/">Facebook and Twitter affect SEO</a></p>
+
+<p><a href="http://www.seomoz.org/blog/google-bing-confirm-twitter-facebook-influence-seo">Google and Bing confirm Twitter and Facebook affect SEO</a></p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/wordpress/how-to-use-a-custom-thumbnail-when-posting-a-wordpress-link-to-facebook/">How to Use a Custom Thumbnail When Posting a WordPress Link to Facebook</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-07T14:34:37-08:00" pubdate data-updated="true">Dec 7<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you&#8217;ve ever posted a link to Facebook, you know that it brings up a thumbnail image for that page (sometimes) and it chooses them from random images on the page. Sometimes you&#8217;ll only have one to choose from, sometimes hundreds. But you may want a specific image to show when you post that link, and Facebook has provided a way to do that. But if you&#8217;re using WordPress it&#8217;s not simple HTML hack like with other pages, but it&#8217;s still really easy. I&#8217;ll show you how.</p>
+
+<p><strong>The Thumbnail</strong></p>
+
+<p>As you know, when you post a link to Facebook, it crawls the page and brings up a thumbnail:</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2010/12/showing_picture_facebook1.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2010/12/showing_picture_facebook1.jpg" alt="How to show custom thumbnail on Facebook" /></a></p>
+
+<p>As you can see this only gives me one option for a thumbnail, which is pulled from an image on the side. Obviously I don&#8217;t want all my links to show my smiling mug (face it, nobody wants that) so I have to have a way to change it. Thankfully, Facebook <a href="http://developers.facebook.com/docs/reference/plugins/like">does provide a way</a> for you to specify your own thumbnail:</p>
+
+<pre><code>&lt;link rel="image_src" href="http://www.yourwebsite.com/yourimage.jpg"&gt;
+</code></pre>
+
+<p>But that doesn&#8217;t help much if you&#8217;re using wordpress, unless you plan on hacking it into every post, or using one image for the whole site. Here is how you do it.</p>
+
+<p><strong>Step 1: Add this code to your header.php file:</strong></p>
+
+<pre><code>&lt;?php $image = get_post_meta($post-&gt;ID, 'facebookimage', true);
+if ($image) {
+echo "&lt;link rel=\"image_src\" href=\"" . $image . "\"&gt;";
+} ?&gt;
+</code></pre>
+
+<p>Go to <strong>Appearance</strong> on the left hand menu and select &#8220;Editor&#8221;</p>
+
+<p>Select &#8220;Header.php&#8221; on the right hand side.</p>
+
+<p>Paste the code somewhere in the <head> like so:</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2010/12/wordpress_template1.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2010/12/wordpress_template1.jpg" alt="Edit your WordPress Template header" /></a></p>
+
+<p>If you want a quick breakdown of the code, it&#8217;s pretty simple. You&#8217;re creating a variable called $image, and using the <a href="http://codex.wordpress.org/Function_Reference/get_post_meta">get_post_meta()</a> function from wordpress to grab a custom field (we&#8217;ll cover that next) and if it exists, we&#8217;ll echo out some html to go into the header. We pass $post->ID to the function so it knows which post to grab it from, and &#8220;facebookimage&#8221; is the name of our custom field.</p>
+
+<p><strong>Step 2: Create and upload your image. </strong></p>
+
+<p>Generally the thumbnail images are 72 pixels high and 72 pixels wide. You can create an image to these specs for best results. Or, as long as your image maintains that 1:1 aspect ratio, you&#8217;re fine. For example a 300px x 300px image would work just as good, Facebook will crop it to 72. Then you upload it, using ftp, or your <a href="http://codex.wordpress.org/Using_Images">WordPress interface</a>. Copy or save the url to the image (Example: http://www.yoursite.com/images/yourimage.jpg).</p>
+
+<p><strong>Step 4: Create a custom field in WordPress</strong></p>
+
+<p>When you go to make a new post in WordPress, add a custom field. This is really easy, it&#8217;s in the box below your post:</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2010/12/wordpress_custom_field1.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2010/12/wordpress_custom_field1.jpg" alt="How to add a custom field to WordPress" /></a></p>
+
+<p>Click on &#8220;Enter new&#8221; and create a field called &#8220;facebookimage&#8221;. For the value, simply paste in the URL of the image you uploaded.</p>
+
+<p>Now, you&#8217;re done, and the next time you go to post that link, a better image will come up:</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2010/12/showing_picture_facebook-2.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2010/12/showing_picture_facebook-2.jpg" alt="How to show a custom thumbnail on Facebook link with WordPress" /></a></p>
+
+<p>It seems like a long process, but it&#8217;s actually less than 10 minutes, and you only have to do the template modification once. Then in future posts, you can drop the URL in the custom field every time you publish, and you&#8217;re set!! If you have any questions, feel free to <a href="http://www.facebook.com/home.php?#!/pages/JeremyMorgancom/153875204649532">contact me on Facebook</a> or shoot me an email.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+  
+  
+
+ </article> <div class="pagination">  <a class="prev" href="/articles/page/22/">&larr; Older</a>  <a href="/blog/archives">Blog Archives</a>  <a class="next" href="/articles/page/20/">Newer &rarr;</a>  </div> </div> <aside class="sidebar">  <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I&#8217;m just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I&#8217;m passionate about tech, and as long as I&#8217;m building cool stuff and helping people, I&#8217;ll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>  </aside>
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

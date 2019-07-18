@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>The Book Every PHP Developer Should Read - Programming Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="The Book Every PHP Developer Should Read" /><meta itemprop="name" content="The Book Every PHP Developer Should Read" /><meta name="twitter:title" content="The Book Every PHP Developer Should Read">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-06-12 21:07:00 -0700" />
+
+<meta property="article:section" content="Programming" />
+
+<meta name="description" content="It's time to stop releasing insecure PHP code into the wild. A book I read recently helps programmers write smarter, more secure PHP." />
+<meta property="og:description" content="It's time to stop releasing insecure PHP code into the wild. A book I read recently helps programmers write smarter, more secure PHP." />
+<meta itemprop="description" content="It's time to stop releasing insecure PHP code into the wild. A book I read recently helps programmers write smarter, more secure PHP." />
+<meta name="twitter:description" content="It's time to stop releasing insecure PHP code into the wild. A book I read recently helps programmers write smarter, more secure PHP.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/php-security-howto-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/php-security-howto-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/php-security-howto-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/programming/the-book-every-php-dev-should-read/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/programming/the-book-every-php-dev-should-read/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/programming/the-book-every-php-dev-should-read/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">The Book Every PHP Developer Should Read</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-12T21:07:00-07:00" pubdate data-updated="true">Jun 12<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>PHP has gotten a bad rap over the years. There is plenty of discussion around it&#8217;s &#8220;Fractal of Bad Design&#8221; and syntactical inconsistencies but the chief complaint is generally security. Lots of PHP sites get hacked by the minute, and even some experienced and knowledgeable programmers will say that the language is inherently insecure.</p>
+
+<!-- more -->
+
+
+<p>I have always argued against this because there is a common sense reason there are so many security breaches of PHP.</p>
+
+<p><a href="http://buildingsecurephpapps.com/?coupon=jmorgan" target="_new"><img class="right" src="https://www.jeremymorgan.com/images/php-security-howto-1.jpg" title="&#34;PHP Security how to&#34;" alt="&#34;PHP Security how to&#34;"></a>
+PHP applications are hacked frequently because:</p>
+
+<ol>
+<li>There are so many PHP applications.</li>
+<li>It&#8217;s very easy to learn and write PHP.</li>
+<li>It&#8217;s easy to write bad PHP.</li>
+</ol>
+
+
+<p>It’s that simple. PHP is popular and has been for many years. The more PHP out in the wild the more it will it&#8217;s exploited. Few of these hacks exploit flaws in the PHP processing engine itself, and are usually vulnerabilities of the scripts themselves.</p>
+
+<p>This means, of course that it&#8217;s mostly the programmer&#8217;s fault when a PHP application is hacked. Sorry folks, but that&#8217;s the truth.</p>
+
+<p>You can write PHP that&#8217;s just as secure (or more so) than other web languages out there. It&#8217;s time we started really striving towards that.</p>
+
+<h3>Your Best Defense against PHP Hacks</h3>
+
+<p>Writing secure PHP code is not a secret black art hidden away from PHP developers. But the information is so scattered it would take you weeks or months (or longer) to gather good PHP security practices into some sort of checklist or formula. Even then only true experience would tell you how much of it is true.</p>
+
+<p>Thankfully Ben Edmunds has already done that for you. He recently released &#8221;<a href="http://buildingsecurephpapps.com/?coupon=jmorgan">Building Secure PHP Apps - a Practical Guide</a>&#8221; and it&#8217;s one of the best security related books I&#8217;ve ever read, and certainly the best covering PHP. In this review I&#8217;ll go over why I think every PHP developer should be reading this.</p>
+
+<p>The book is a very concise guide that will bring to the next level as a developer and have you building better, more secure scripts.</p>
+
+<h4>Introduction</h4>
+
+<p>The book quickly jumps right in with a common sense rule about web development: Never Trust Your Users and Sanitize ALL Input. It starts by painting a small scenario and and jumps right into the technical ways that users can enter your system. In the first chapter it jumps right into topics like:</p>
+
+<ul>
+<li>SQL Injection</li>
+<li>Mass Assignable Fields</li>
+<li>Typecasting</li>
+<li>Sanitizing Input / Output</li>
+</ul>
+
+
+<p>These are items that new PHP programmers (and some experienced ones) neglect all the time. Sanitizing input is seen as an optional step by many, and this chapter talks a lot about.</p>
+
+<p>In reading it I was reminded of my first day on a job many years ago when I was digging into the existing code and found the following in the new user creation script:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">&quot;isadmin&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'><span class="c1">// code to set to admin in database </span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I panicked when seeing this as it was a VERY active script and there was much to be gained by a malicious user who could have guessed this and inserted a simple form variable and accessed around 5,000 credit card numbers and other personal info.</p>
+
+<p>Digging deeper I found stuff like:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO database (id,name,...) VALUES (&quot;</span> <span class="o">.</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;);&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I almost walked out of that job on the first day because of this terrible stuff they were relying on. This stuff is out there and it&#8217;s up to you to change it, and definitely avoid creating more of it.</p>
+
+<p>This chapter talks about why code like this is a terrible risk and how you can fix it.</p>
+
+<h4>HTTPS and Certificates</h4>
+
+<p>This is another area Ben covers with scenarios, stories and a little humor but also clearly explains some concepts of HTTPS that can be unclear. He explains it in a way that even your boss can understand it.</p>
+
+<p>The book is very thorough in describing how certificates work, types of certificates and how they&#8217;re implemented, and even how to set them up in Apache or Nginx.</p>
+
+<h4>Passwords</h4>
+
+<p>In this book some careful explanation of passwords, hashes, lookup tables and salts is included that is incredibly helpful for developers creating a user login system.</p>
+
+<p>Folks, this is one area that is extremely lacking even in 2014. I still run across applications that store plain text passwords or something silly like a <a href="http://en.wikipedia.org/wiki/ROT13">ROT13</a> cipher to protect them. Please, for the sake of the people using your app and your good reputation don’t do this.</p>
+
+<p>Passwords and other sensitive should be very difficult to obtain even if someone has full access to the database. This is covered pretty thoroughly here and will give you great direction for designing better systems.</p>
+
+<h4>Authentication and Access Control</h4>
+
+<p>The book covers this topic very thoroughly. When you’re building a new PHP application some of the first considerations are:</p>
+
+<ul>
+<li>Who can access what resources?</li>
+<li>Who can control other users access?</li>
+</ul>
+
+
+<p>These are crucial things to think about for applications, especially ones handling sensitive data. A good portion of development in the enterprise world is devoted to this. If you set up authentication and access control improperly the best that can happen is you annoy your users and create more work. The worst than can happen is a severe data breach and / or data destruction.</p>
+
+<p>In this book the basics are covered well, then it deep dives a little more into things like controlling access to files and individual pages of an application, and has plenty of code samples to look at.</p>
+
+<h4>Specific Exploits</h4>
+
+<p>The book covers some common exploits that are used to breach systems and goes into very good detail about Cross Site Scripting, arguably the most common way attackers exploit applications. It explains different types of attacks and how to protect yourself.</p>
+
+<p><a href="http://buildingsecurephpapps.com/?coupon=jmorgan"><h3>Sound Good? You can get this book at a discount using this link!</h3></a></p>
+
+<h3>What I liked the most about this book</h3>
+
+<p>In reading this book I really enjoyed how information is presented in a way that&#8217;s useful for both beginners and experienced programmers. There is a set of concepts presented, what they are and how to protect yourself against it. There are plenty of code samples without &#8220;filler code&#8221; that some technical books suffer from.</p>
+
+<p>You can go through this book fairly quickly because there isn&#8217;t a lot of fluff. Newer developers can go through this book and examine each topic and start looking at their code and making revisions to how they do things. Remember in this business you need to constantly change. If you look back and are ashamed of code you wrote 6 months ago you&#8217;re doing it right.</p>
+
+<p>More advanced and experienced programmers can use this guide to fill in their weak spots (admit it no matter how long you&#8217;ve been in the game, you have them) and learn more about systems they&#8217;ve been using in their work. For instance I have used certificates like crazy over the years but never thought about things down to the level presented in this book.</p>
+
+<p>No matter who you are, you&#8217;ll learn something. So stop reading this post and pick up a copy already! Use this link to purchase it for a discount!!</p>
+
+<h3>Disclaimer</h3>
+
+<p>I don&#8217;t do many reviews on my blog so you may have a few questions. To be clear, I am not being paid or compensated for this review. The coupon code above is to give my blog readers $4 off the price of the book, and I receive none of that. I did receive a promotional copy of the book for reviewing purposes of course.</p>
+
+<p>Also I know the author personally and that&#8217;s one of the reasons I trust the information in this book and have full faith in it&#8217;s guidance. <a href="http://benedmunds.com/">Ben Edmunds</a> has been a huge influence in the PHP community over the years, he has over 10 years experience with PHP is one of the leaders of the Portland area PHP users group, and has made significant <a href="http://benedmunds.com/code.html">contributions to open source PHP projects</a> over the years. It&#8217;s pretty safe to say he knows his stuff and you can trust the information presented here.</p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-12T21:07:00-07:00" pubdate data-updated="true">Jun 12<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/programming/how-to-create-asp-self-hosted-api/" title="Previous Post: Create a self hosted API for Local Development">&laquo; Create a self hosted API for Local Development</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/linux/how-to-setup-lemp-server-ubuntu/" title="Next Post: How to set up a LEMP Server in Ubuntu 14.04">How to set up a LEMP Server in Ubuntu 14.04 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/blog/programming/the-book-every-php-dev-should-read/';
+        var disqus_url = 'https://www.jeremymorgan.com/blog/programming/the-book-every-php-dev-should-read/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

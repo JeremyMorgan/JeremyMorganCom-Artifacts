@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Just How Fast Are GitHub Pages? - Programming Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Just How Fast Are GitHub Pages?" /><meta itemprop="name" content="Just How Fast Are GitHub Pages?" /><meta name="twitter:title" content="Just How Fast Are GitHub Pages?">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-02-07 19:30:00 -0800" />
+
+<meta property="article:section" content="Programming" />
+
+<meta name="description" content="Recently GitHub rolled out some improvements to their GitHub Pages static page hosting services. I decided to do a comparison and put them to the &hellip;" />
+<meta property="og:description" content="Recently GitHub rolled out some improvements to their GitHub Pages static page hosting services. I decided to do a comparison and put them to the &hellip;" />
+<meta itemprop="description" content="Recently GitHub rolled out some improvements to their GitHub Pages static page hosting services. I decided to do a comparison and put them to the &hellip;" />
+<meta name="twitter:description" content="Recently GitHub rolled out some improvements to their GitHub Pages static page hosting services. I decided to do a comparison and put them to the &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/github-pages-ogimage.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/github-pages-ogimage.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/github-pages-ogimage.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/programming/how-fast-are-github-pages/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/programming/how-fast-are-github-pages/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/programming/how-fast-are-github-pages/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Just How Fast Are GitHub Pages?</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-07T19:30:00-08:00" pubdate data-updated="true">Feb 7<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>Recently GitHub rolled out some improvements to <a href="https://github.com/blog/1715-faster-more-awesome-github-pages">GitHub Pages</a>, their free static page hosting service. As this is a static site I&#8217;ve recently had a lot of interest in static hosts and seeing which ones might be the best. I decided to do a comparison and see how some major services, including GitHub pages serve up static content. I was a bit surprised.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<h3>My Current Hosting</h3>
+
+<p>Currently I&#8217;m hosted at <a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage">Arvixe Hosting</a> and I couldn&#8217;t be happier with it. The service is great, speed is great and it&#8217;s an excellent package. One thing I&#8217;ve noticed about them, is they serve up static pages like this one surprisingly fast:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/github-pages-speed-test-1.jpg" alt="GitHub Pages Speed Test" /></p>
+
+<p>Couple that with the fact they run ASP 4.5 and unlimited MSSQL databases, I&#8217;m not exactly looking around for a new host. However I am curious about other static site hosting options so I did some tests.</p>
+
+<h3>The Initial Test</h3>
+
+<p>Initially I ran some tests of my page&#8217;s basic content. I generated the site in Octopress and uploaded it to the following sites:</p>
+
+<ul>
+<li>Arvixe (The site you&#8217;re looking at)</li>
+<li>Windows Azure</li>
+<li>Amazon AWS</li>
+<li>GitHub Pages</li>
+</ul>
+
+
+<p>I figured they&#8217;d all be pretty close. Since host all my CSS, JavaScript and Images on a CDN anyway, they don&#8217;t factor in to the actual host speed.</p>
+
+<p>These are tested with Webpagetest.org from Dulles, VA on a cable connection.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/github-pages-speed-test-3.jpg" alt="GitHub Pages Speed Test" /></p>
+
+<p><strong>Site Load Times (Standard Website, Dulles VA)</strong></p>
+
+<ul>
+<li>Arvixe - 2.866s</li>
+<li>Windows Azure - 3.962s</li>
+<li>Amazon AWS - 4.055s</li>
+<li>GitHub Pages - 2.658s</li>
+</ul>
+
+
+<p>So in this test we have two clear winners. Arvixe and GitHub pages. Since these tests were run from the same site I decided to change it up a bit.</p>
+
+<p><strong>Site Load Times (Standard Website, Los Angeles CA)</strong></p>
+
+<ul>
+<li>Arvixe - 3.283s</li>
+<li>Windows Azure - 3.480s</li>
+<li>Amazon AWS - 3.483s</li>
+<li>GitHub Pages - 3.202s</li>
+</ul>
+
+
+<p>The results here were a little different. The grouping is much more close, and clearly geography matters. So why not go overseas with a test? Since I have a large audience coming from India, I decided to test that:</p>
+
+<p><strong>Site Load Times (Standard Website, Indore, India)</strong></p>
+
+<ul>
+<li>Arvixe - 8.140s</li>
+<li>Windows Azure - 7.347s</li>
+<li>Amazon AWS - 7.872s</li>
+<li>GitHub Pages - 5.915s</li>
+</ul>
+
+
+<p>Here we see the sites load slower overall, but GitHub Pages are considerably faster. This is using my standard web page, so I decided to do an all text test.</p>
+
+<h3>Results with all text test page</h3>
+
+<p>I decided to create an all text page, so I set up a simple bootstrapped page with a ton of text on it.</p>
+
+<p><a href="http://www.jeremymorgan.com/speedtest/">http://www.jeremymorgan.com/speedtest/</a></p>
+
+<p><a href="https://github.com/JeremyMorgan/staticpagetest" rel="nofollow">Download this test page from GitHub</a></p>
+
+<p>I uploaded that test to the different hosts. This one loads considerably slower but with a large chunk of text, it should give us a pretty good idea of which host serves straight text the best.</p>
+
+<p>This test was so large that my India tests kept timing out. It&#8217;s a good thing my articles are never quite that verbose. Here&#8217;s the results of some tests from various geographic locations:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/github-pages-speed-test-2.jpg" alt="GitHub Pages Speed Test" /></p>
+
+<p><strong>Site Load Times (All Text, Dulles, VA)</strong></p>
+
+<ul>
+<li>Arvixe - 30.239s</li>
+<li>Windows Azure - 22.178s</li>
+<li>Amazon AWS - 32.918s</li>
+<li>GitHub Pages - 14.673s</li>
+</ul>
+
+
+<p><strong>Site Load Times (All Text, Los Angeles, CA)</strong></p>
+
+<ul>
+<li>Arvixe - 32.671s</li>
+<li>Windows Azure - 21.535s</li>
+<li>Amazon AWS - 39.045s</li>
+<li>GitHub Pages - 18.393s</li>
+</ul>
+
+
+<p><strong>Site Load Times (All Text, Miami, FL)</strong></p>
+
+<ul>
+<li>Arvixe - 41.267s</li>
+<li>Windows Azure - 27.018s</li>
+<li>Amazon AWS - 57.933s</li>
+<li>GitHub Pages - 23.175s</li>
+</ul>
+
+
+<p><strong>Site Load Times (All Text, Denver, CO)</strong></p>
+
+<ul>
+<li>Arvixe - 79.055s</li>
+<li>Windows Azure - 73.729s</li>
+<li>Amazon AWS - 93.335s</li>
+<li>GitHub Pages - 47.211s</li>
+</ul>
+
+
+<p><strong>Site Load Times (All Text, Phoenix, AZ)</strong></p>
+
+<ul>
+<li>Arvixe - 27.164s</li>
+<li>Windows Azure - 26.16s</li>
+<li>Amazon AWS - 45.765s</li>
+<li>GitHub Pages - 11.263s</li>
+</ul>
+
+
+<p><strong>Site Load Times (All Text, Montreal, CAN)</strong></p>
+
+<ul>
+<li>Arvixe - 67.208s</li>
+<li>Windows Azure - 45.301s</li>
+<li>Amazon AWS - 60.068s</li>
+<li>GitHub Pages - 44.022s</li>
+</ul>
+
+
+<h3>Why these tests don&#8217;t matter much</h3>
+
+<p>It&#8217;s easy to draw a conclusion from these results, but they&#8217;re not very scientific. The tests run are on people&#8217;s machines all around the world with various different internet connections and other variables that can go wrong. A tester&#8217;s connection could instantly slow on one site or another, or server loads can change. You never truly know your actual load time, and I cannot say &#8220;Github pages are ____% faster&#8221; with these tests.</p>
+
+<p>That being said with each set of tests if you compare the sites to each other it&#8217;s pretty clear GitHub pages are faster overall. I don&#8217;t know exactly what they&#8217;re doing in the background other than what they share but it&#8217;s pretty clear they have text compression and serving down very well. If you&#8217;re building a static site it&#8217;s a pretty good bet to host it on GitHub pages if you can.</p>
+
+<h3>Run your own tests!</h3>
+
+<p>If you&#8217;d like to run a similar set of tests, head over to the <a href="https://github.com/JeremyMorgan/staticpagetest" rel="nofollow">GitHub page</a> for my static test page and upload it anywhere you want. I used <a href="http://www.webpagetest.org" rel="nofollow">webpagetest.org</a> for the tests, and used <a href="https://addons.mozilla.org/en-US/firefox/addon/imacros-for-firefox/" rel="nofollow">Imacros</a> to automate the process. Let me know in the comments or contact me if you come up with something different!</p>
+
+<h3>Update!</h3>
+
+<p>After this article hit Twitter it started to gain traction and I found out GitHub pages are <a href="https://www.fastly.com/" target="_blank">hosted by Fastly</a>. If you&#8217;re familiar with Fastly at all you&#8217;re probably not surprised they have something to do with the high speed. They&#8217;re a CDN that&#8217;s setting speed records, check em out.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-07T19:30:00-08:00" pubdate data-updated="true">Feb 7<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/general/my-year-end-analytics/" title="Previous Post: Taking a look at Year End Analytics">&laquo; Taking a look at Year End Analytics</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/angularjs/how-to-adsense-calculator-angularjs/" title="Next Post: Getting Started With AngularJS">Getting Started With AngularJS &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/blog/programming/how-fast-are-github-pages/';
+        var disqus_url = 'https://www.jeremymorgan.com/blog/programming/how-fast-are-github-pages/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

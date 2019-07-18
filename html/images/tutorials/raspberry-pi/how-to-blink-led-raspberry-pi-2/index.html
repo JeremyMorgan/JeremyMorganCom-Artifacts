@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How to Blink an LED on a Raspberry Pi 2 - Raspberry Pi Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How to Blink an LED on a Raspberry Pi 2" /><meta itemprop="name" content="How to Blink an LED on a Raspberry Pi 2" /><meta name="twitter:title" content="How to Blink an LED on a Raspberry Pi 2">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-03-17 18:55:00 -0700" />
+
+<meta property="article:section" content="Raspberry Pi" />
+
+<meta name="description" content="The blinking LED is the hello world of the maker community, and today I'll show you how easy it is to do with the Raspberry Pi 2 (or Model B)!" />
+<meta property="og:description" content="The blinking LED is the hello world of the maker community, and today I'll show you how easy it is to do with the Raspberry Pi 2 (or Model B)!" />
+<meta itemprop="description" content="The blinking LED is the hello world of the maker community, and today I'll show you how easy it is to do with the Raspberry Pi 2 (or Model B)!" />
+<meta name="twitter:description" content="The blinking LED is the hello world of the maker community, and today I'll show you how easy it is to do with the Raspberry Pi 2 (or Model B)!">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/blink-led-rpi-2-python/raspberry-pi-2-blink-led-og.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/blink-led-rpi-2-python/raspberry-pi-2-blink-led-og.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/blink-led-rpi-2-python/raspberry-pi-2-blink-led-og.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How to Blink an LED on a Raspberry Pi 2</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-17T18:55:00-07:00" pubdate data-updated="true">Mar 17<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>The blinking LED is the &#8220;hello world&#8221; of the maker community, and today I&#8217;ll show you how easy it is to do with the Raspberry Pi 2 (or Model B)! We&#8217;re going to use Python and WiringPi for this project.</p>
+
+<!-- more -->
+
+
+<h3>What you&#8217;ll need</h3>
+
+<p>For this article I&#8217;m using a Raspberry Pi 2, but you can also use a Raspberry Pi Model B. You will also need:</p>
+
+<p><img class="right" src="/images/blink-led-rpi-2-python/raspberry-pi-2-blink-led-1.jpg" title="&#34;Blink an LED Raspberry Pi 2&#34;" alt="&#34;Blink an LED Raspberry Pi 2&#34;"></p>
+
+<ul>
+<li>A GPIO Adapter</li>
+<li>Breadboard</li>
+<li>Resistor</li>
+<li>LED</li>
+</ul>
+
+
+<p>What I am using for this project is highly recommended the <a href="http://www.amazon.com/gp/offer-listing/B008XVAVAW/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B008XVAVAW&linkCode=am2&tag=webfootcentra-20&linkId=VF3GTBAGOAKMKG2S" target="_new">Canakit for Raspberry Pi</a> which contains everything in the list above. (This is an Amazon affiliate link).</p>
+
+<p>Any decent breadboard or even a set of jumpers will work for this project.</p>
+
+<h2>How to Blink an LED with Python</h2>
+
+<p>The quickest way to get that LED to blink is to take a look at the <a href="http://pi.gadgetoid.com/pinout" target="_new">pins of the GPIO</a> and decide which one to tie to. Then you can use Python and the <a href="https://pypi.python.org/pypi/RPi.GPIO" target="_blank" rel="nofollow">Raspberry Pi GPIO Library</a> to create a script to light it up.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">RPi.GPIO</span> <span class="kn">as</span> <span class="nn">GPIO</span>             <span class="c">## Import GPIO Library</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>                         <span class="c">## Import &#39;time&#39; library (for &#39;sleep&#39;)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">blue</span> <span class="o">=</span> <span class="mi">7</span>                            <span class="c">## These are our LEDs</span>
+</span><span class='line'><span class="n">ourdelay</span> <span class="o">=</span> <span class="mi">1</span>                        <span class="c">## Delay</span>
+</span><span class='line'><span class="c"># pins 4,17,18,21,22,23,24,25</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">GPIO</span><span class="o">.</span><span class="n">BOARD</span><span class="p">)</span>            <span class="c">## Use BOARD pin numbering</span>
+</span><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>        <span class="c">## set output</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">## function to save code</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">activateLED</span><span class="p">(</span> <span class="n">pin</span><span class="p">,</span> <span class="n">delay</span> <span class="p">):</span>
+</span><span class='line'>  <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">HIGH</span><span class="p">)</span>      <span class="c">## set HIGH (LED ON)</span>
+</span><span class='line'>  <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>                <span class="c">## wait</span>
+</span><span class='line'>  <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">LOW</span><span class="p">)</span>       <span class="c">## set LOW (LED OFF)</span>
+</span><span class='line'>  <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">activateLED</span><span class="p">(</span><span class="n">blue</span><span class="p">,</span><span class="n">ourdelay</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>                      <span class="c">## close down library</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see in the code above, it doesn&#8217;t take much to get things working. But I&#8217;ll explain the code a little deeper.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">RPi.GPIO</span> <span class="kn">as</span> <span class="nn">GPIO</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The following code imports the Python GPIO library, and the time library. The GPIO library, as you probably guessed is the library for interacting with the GPIO in Python. It does an amazing job of simplifying the process. The time library is there so we can put a delay in, otherwise the blink might be too fast to notice.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">blue</span> <span class="o">=</span> <span class="mi">7</span>
+</span><span class='line'><span class="n">ourdelay</span> <span class="o">=</span> <span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here I created a variable named &#8220;blue&#8221; (the color of the LED) and assigned it &#8220;7&#8221; which is the pin number we want. If I wanted to add multiple LEDs I could name it something like:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">blue</span> <span class="o">=</span> <span class="mi">7</span>
+</span><span class='line'><span class="n">red</span> <span class="o">=</span> <span class="mi">13</span>
+</span><span class='line'><span class="n">green</span> <span class="mi">14</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I then created a &#8220;delay&#8221; variable of one second. This way I can change the delay of the lights blinking however I want.</p>
+
+<p>You can name the variables anything you want, but this was just to make it easy to see which LED is which if I wanted to do some fancy light show.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">GPIO</span><span class="o">.</span><span class="n">BOARD</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, we set the GPIO mode to &#8220;Board&#8221; which means we&#8217;ll use the numbering of the pin by board instead of GPIO. This makes it a little easier to understand when using a bread board.</p>
+
+<p>With this line of code we set the pin to be an output:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There are 2 main commands to turn the LED on then off:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">HIGH</span><span class="p">)</span>
+</span><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">LOW</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you wanted to blink an LED twice you would have to repeat the last two lines each time. So I decided to put this in a function and put the pin and delay as parameters. This way making a particular LED blink is as simple as:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">activateLED</span><span class="p">(</span><span class="n">blue</span><span class="p">,</span><span class="n">ourdelay</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is repeatable and saves code when doing larger programs.</p>
+
+<p>To close everything down, we need to run the following:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&#8217;s that easy! You could easily write a nice Python script that do some pretty cool stuff with just a few lines of code.</p>
+
+<h2>How to Blink an LED with WiringPi</h2>
+
+<p>For this step we&#8217;ll install <a href="http://wiringpi.com/" target="_blank">WiringPi</a> for the libraries to interact with the GPIO. This allows us to do what we just did, but from the command line. We&#8217;ll need to install WiringPi:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/sources
+</span><span class='line'>git clone git://git.drogon.net/wiringPi
+</span><span class='line'>cd wiringPi
+</span><span class='line'>git pull origin
+</span><span class='line'>./build</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If successful you should see a screen like this:</p>
+
+<p><img src="/images/blink-led-rpi-2-python/raspberry-pi-2-blink-led-2.jpg" title="&#34;Blink an LED Raspberry Pi 2&#34;" alt="&#34;Blink an LED Raspberry Pi 2&#34;"></p>
+
+<p>Now we can light up the LED from the command line. Remember the pin 7 in the example above? We can now light up like so:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpio mode 7 out
+</span><span class='line'>gpio mode 7 1</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will light up the LED. You can turn it off by entering:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpio mode 7 0</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/blink-led-rpi-2-python/raspberry-pi-2-blink-led-3.jpg" title="&#34;Blink an LED Raspberry Pi 2&#34;" alt="&#34;Blink an LED Raspberry Pi 2&#34;"></p>
+
+<p>This makes it super easy to light up LEDs from the command line. You could create a pretty neat BASH script to do this, and do some neat things, or call this from other languages.</p>
+
+<h2>Summary</h2>
+
+<p>I hope this has helped in showing how easy it is to blink an LED on the Raspberry Pi 2/B. Of course as you progress on you&#8217;ll want to do far more than just blink an LED, but the GPIO libraries make it very easy to create some neat stuff. If you&#8217;ve experimented with this and done something cool, leave me a comment!!</p>
+
+<p>Special Thanks to the folks in <a href="http://www.reddit.com/r/raspberry_pi/comments/30iiq7/for_beginners_how_to_blink_an_led_on_a_raspberry/" target="_new">this thread on Reddit</a> who helped with some corrections to this article.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-17T18:55:00-07:00" pubdate data-updated="true">Mar 17<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/raspberry-pi/'>Raspberry Pi</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/" title="Previous Post: Raspberry Pi 2 has arrived!">&laquo; Raspberry Pi 2 has arrived!</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/seo/open-graph-tags-for-seo/" title="Next Post: Open Graph Tags Are Terribly Important">Open Graph Tags Are Terribly Important &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

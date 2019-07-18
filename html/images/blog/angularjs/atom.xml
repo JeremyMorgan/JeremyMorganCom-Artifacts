@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  AngularJS | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/angularjs/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2015-05-30T12:51:07-07:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started With AngularJS]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/angularjs/how-to-adsense-calculator-angularjs/"/>
+    <updated>2014-02-17T20:59:00-08:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/angularjs/getting-started-with-angularjs</id>
+    <content type="html"><![CDATA[<p>Lately I've been playing around a little with AngularJS, and I'm pretty impressed. It's amazing how many time saving features and structure this framework brings to your applications. I decided to build an app to calculate AdSense earnings, and I'll demonstrate it here.</p>
+
+<!-- more -->
+
+
+<h3>What the app does</h3>
+
+<p>You can check your Google AdSense earnings in realtime, and if you're a stats nut like me, you might just do that. What I wanted to do is see if I can predict my payout of the end of the month based on that day's earnings, and total earnings based on the current trends. So the application will:</p>
+
+<ul>
+<li><p>Take your day's amount and see what the total would be if you made that every day</p></li>
+<li><p>Take your accumulated amount and determine what you'd make at the current rate.</p></li>
+</ul>
+
+
+<p>The daily amount of course is just multiplied by the days of the month, but the accumulated amount is averaged over how many days are passed. You could easily do this with vanilla JavaScript but AngularJS makes it simpler and better structured. Let's get started!</p>
+
+<h3>What you need</h3>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/angularjs.jpg" width="250" height="250" title="How to build an AdSense calculator in AngularJS" >
+This is the easy part. You just need a copy of Angular.Min.Js and an index.html file. You should run them in a web server on your local machine, and you can modify the index with any text editor.</p>
+
+<ul>
+<li><a href="http://angularjs.org/">Angular.min.js</a></li>
+<li><a href="https://github.com/JeremyMorgan/AdSenseCalculator">The GitHub for this project</a></li>
+</ul>
+
+
+<p>Let's get started!</p>
+
+<h3>Initial page setup</h3>
+
+<p>We create a standard html webpage like so:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Angular Demo<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We need to add a few things to make sure this is recognized as an AngularJS application:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">ng-app</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The ng-app directive tells AngularJS that you want to auto bootstrap that root element as an Angular application. You don't need to make the entire HTML page an application, but in this case we will.</p>
+
+<p>You will also want to include your script into the page in the footer:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;angular.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we'll get started with the actual application.</p>
+
+<h3>Adding the controllers</h3>
+
+<p>Add the following to your body tag:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;body</span> <span class="na">ng-controller=</span><span class="s">&quot;TextController&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This declares that the body element is using the controller "TextController". Controllers are a primary means of functionality in AngularJS. This is the central part of MVC (Model View Controller) pattern that AngularJS uses.</p>
+
+<p>For display purposes we want to create a placeholder in the title like so:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;h2&gt;</span>{{someText}}<span class="nt">&lt;/h2&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Since AngularJS treats the HTML as a template, this is a simple placeholder you may have seen in other templating systems. Let's change what this says. We will add a controller to the page within script tags using common JavaScript:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script&gt;</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">TextController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">someText</span> <span class="o">=</span> <span class="s2">&quot;Angular Adsense Calculator&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>One thing you may notice is the parameter we're passing to this function named "$scope". This is our root scope which serves as a global storage area for the application. The line of code in your controller shows that we're declaring the someText property value within the scope. Save and run this page and you'll see that the headline changes.</p>
+
+<p>Now we'll do some real stuff.</p>
+
+<h3>Creating the calculator form</h3>
+
+<p>Here we're going to create an AngularJS driven form that's going to be used to handle our input values. Add the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;form</span> <span class="na">ng-controller=</span><span class="s">&quot;StartupController&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span>Today (Actual): <span class="ni">&amp;lt;</span>input ng-change=&quot;computeDaily()&quot; ng-model=&quot;funding.dailycount&quot;<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>   <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class='line'>   This Month: <span class="nt">&lt;input</span> <span class="na">ng-change=</span><span class="s">&quot;computeMonthly()&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;funding.monthcount&quot;</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>b<span class="ni">&amp;gt;</span>Based on Today:<span class="ni">&amp;lt;</span>/b<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>Predicted Payment: {{funding.dailyaftertax | currency:&quot;USD $ &quot;}} <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>b<span class="ni">&amp;gt;</span>Based on Month:<span class="ni">&amp;lt;</span>/b<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>Predicted Payment: {{funding.monthlyaftertax | currency:&quot;USD $ &quot;}} <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Some things to note. In the input tags we have ng-change="". This means when the value in this text box changes, it will call the function named inside. In this case, we're going to call the computeDaily() function, and the computeMonthly() function.</p>
+
+<p>Also, you notice the ng-model="" parameters. These set the funding.dailycount and funding.monthcount inside our scope. Funding. is our model name.</p>
+
+<p>You will notice we have two template placeholders, and they are also accessing properties in the model, funding.dailyaftertax and funding.monthlyaftertax. These two properties are also added to the funding model, which will create and use below.</p>
+
+<h3>Creating the calculator controller</h3>
+
+<p>As I said earlier, controllers are a crucial function of AngularJS and where most of the work gets done. Here we'll create the StartupController that will do the calculations for us.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script&gt;</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">StartupController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getDate</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">dailycount</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">monthcount</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">dailyaftertax</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">monthlyaftertax</span><span class="o">:</span> <span class="mi">0</span> <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">computeDaily</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">dailyaftertax</span> <span class="o">=</span> <span class="p">((</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">dailycount</span> <span class="o">*</span> <span class="mi">28</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.33</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">computeMonthly</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">monthlyaftertax</span> <span class="o">=</span> <span class="p">((</span><span class="mi">28</span> <span class="o">*</span> <span class="nx">$scope</span><span class="p">.</span><span class="nx">funding</span><span class="p">.</span><span class="nx">monthcount</span> <span class="o">/</span> <span class="nx">date</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.33</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;funding.dailycount&#39;</span><span class="p">,</span> <span class="nx">computeDaily</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;funding.monthcount&#39;</span><span class="p">,</span> <span class="nx">computeMonthly</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If you look at this code you'll see a few things going on. For one, we're getting the date of the month from the getDate() function in JavaScript. This is so we know what day of the month it is.</p>
+
+<p>The next line shows how we set up our funding model. We define these four variables in the model and initialize them to zero. We will set values to these once the form is in use.</p>
+
+<p>The computeDaily function assigns the dailyaftertax variable a value that takes the dailycount from the input in the form and multiplies it by 28 (the number of days in February) then divides it by 1.33 to get our rate after taxes. This calculation simply assumes how much we would make if the value you input were our daily average.</p>
+
+<p>The computeMonthly function works a little different. It assigns a value to monthlyaftertax by taking how much have made so far and averaging it over the elapsed days, then multiplying that by 28, and dividing by 1.33 to remove the tax rate.</p>
+
+<p>Obviously, for months other than February we'll need to change the value 28, or determine the days present based on what month it is. For now I just hardcoded 28.</p>
+
+<h3>Adding in watches</h3>
+
+<p>You'll notice two lines that say $scope.$watch followed by a variable and a function name. Watch is an expression that registers a listener callback to be executed when the values of those variables change. You can assign these listeners to multiple variables and even have listeners call other listeners.</p>
+
+<h3>The full page</h3>
+
+<p>By now your full page should look like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">ng-app</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Angular Demo<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body</span> <span class="na">ng-controller=</span><span class="s">&quot;TextController&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>h2<span class="ni">&amp;gt;</span>{{someText}}<span class="ni">&amp;lt;</span>/h2<span class="ni">&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="ni">&amp;lt;</span>form ng-controller=&quot;StartupController&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    Today (Actual): <span class="ni">&amp;lt;</span>input ng-change=&quot;computeDaily()&quot; ng-model=&quot;funding.dailycount&quot;<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    This Month: <span class="ni">&amp;lt;</span>input ng-change=&quot;computeMonthly()&quot; ng-model=&quot;funding.monthcount&quot;<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>b<span class="ni">&amp;gt;</span>Based on Today:<span class="ni">&amp;lt;</span>/b<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    Predicted Payment: {{funding.dailyaftertax | currency:&quot;USD $ &quot;}}<span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>b<span class="ni">&amp;gt;</span>Based on Month:<span class="ni">&amp;lt;</span>/b<span class="ni">&amp;gt;&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    Predicted Payment: {{funding.monthlyaftertax | currency:&quot;USD $ &quot;}}<span class="ni">&amp;lt;</span>br /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/form<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>script src=&quot;angular.min.js&quot;<span class="ni">&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>script<span class="ni">&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'>function StartupController($scope){
+</span><span class='line'>
+</span><span class='line'>    var date = new Date().getDate();
+</span><span class='line'>
+</span><span class='line'>    $scope.funding = { dailycount: 0, monthcount: 0, dailyaftertax: 0, monthlyaftertax: 0 };
+</span><span class='line'>
+</span><span class='line'>    var computeDaily = function() {
+</span><span class='line'>       $scope.funding.dailyaftertax = (($scope.funding.dailycount * 28) / 1.33);
+</span><span class='line'>    };
+</span><span class='line'>    var computeMonthly = function() {
+</span><span class='line'>        $scope.funding.monthlyaftertax = ((28 * $scope.funding.monthcount / date) / 1.33);
+</span><span class='line'>    };
+</span><span class='line'>
+</span><span class='line'>    $scope.$watch(&#39;funding.dailycount&#39;, computeDaily);
+</span><span class='line'>    $scope.$watch(&#39;funding.monthcount&#39;, computeMonthly);
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>function TextController($scope){
+</span><span class='line'>   $scope.someText = &quot;Angular Adsense Calculator&quot;;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'><span class="ni">&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And when you run it, you can see the realtime AdSense calculator in action.</p>
+
+<h3>Summary</h3>
+
+<p>AngularJS is extremely powerful, testable and suited for rapid development. It's popularity has risen dramatically and for good reason. Things are being improved and added to it daily, and people are finding best practices and establishing guidelines as we speak.</p>
+
+<p>Don't be shy! Download a copy and start digging in now!!</p>
+
+<h3>Video Tutorial</h3>
+
+<p>Here is a video I made of this tutorial:</p>
+
+<iframe width="560" height="315" src="https://www.jeremymorgan.com//www.youtube.com/embed/r38xNCqs-2U?list=UUAR4QD5vqpn4LFrrBiDe7lQ" frameborder="0" allowfullscreen></iframe>
+
+
+<p>Be sure to check it out and subscribe to my channel for more tutorials and instructional videos!</p>
+]]></content>
+  </entry>
+  
+</feed>

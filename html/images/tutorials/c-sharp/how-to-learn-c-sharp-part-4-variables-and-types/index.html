@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>C# .Net Tutorials - How to Learn C# Part 4 - Variables and Types - Tutorials Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="C# .Net Tutorials - How to Learn C# Part 4 - Variables and Types" /><meta itemprop="name" content="C# .Net Tutorials - How to Learn C# Part 4 - Variables and Types" /><meta name="twitter:title" content="C# .Net Tutorials - How to Learn C# Part 4 - Variables and Types">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-11-26 16:34:00 -0800" />
+
+<meta property="article:section" content="Tutorials" />
+
+<meta name="description" content="Part 4 of my Tutorial series on learning C# .Net which takes a look at variables and types in C#" />
+<meta property="og:description" content="Part 4 of my Tutorial series on learning C# .Net which takes a look at variables and types in C#" />
+<meta itemprop="description" content="Part 4 of my Tutorial series on learning C# .Net which takes a look at variables and types in C#" />
+<meta name="twitter:description" content="Part 4 of my Tutorial series on learning C# .Net which takes a look at variables and types in C#">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">C# .Net Tutorials - How to Learn C# Part 4 - Variables and Types</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-26T16:34:00-08:00" pubdate data-updated="true">Nov 26<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>In part 4 of my learning C# tutorial series we&#8217;re going to talk about variables and types in C#. I hope to give you a general idea of how variables work in C#, and introduce you to types which are a core part of the language. If you&#8217;ve done some programming in other languages this will probably be a quick skim, but if you&#8217;re a beginner it&#8217;s one you won&#8217;t want to miss.</p>
+
+<!-- more -->
+
+
+<h3>What is a variable?</h3>
+
+<p>A variable is a storage place for data. Think of it like a mailbox. You have a wall of mailboxes in an apartment building the mail carrier puts mail into the box for later retrieval by you.</p>
+
+<div class="tutorialbox">
+<h3>C# Tutorials: How to Learn C#</h3>
+<ol>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-1/">C# Introduction</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/">C# Namespaces</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-3-coding-basics/" rel="prev">C# Coding Basics</a></li>
+<li>C# Variables and Types</li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/" rel="next">C# Selection Statements</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-6-iteration-statements/">C# Iteration Statements</a></li>
+</ol>
+<a href="http://feedburner.google.com/fb/a/mailverify?uri=JeremyMorganTutorials&amp;loc=en_US" rel="nofollow"><strong>Get notified when new C# tutorials are released!</strong></a>
+</div>
+
+
+<p>But how do does he or she know the mail will go to the right people? Each box is given a unique identifier such as an apartment number and possibly your name on the box so each letter that&#8217;s addressed to you, will reach you. When you go to retrieve it, you know which box is yours because of those same labels.</p>
+
+<p>That&#8217;s how variables work as well. Variables are given unique names so you can identify them later, when storing or retrieving information. You can then store, reuse and manipulate data in program. Each of those variables has a unique name, and a type assigned to it.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">apples</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>            <span class="c1">// integer</span>
+</span><span class='line'><span class="n">string</span> <span class="n">myname</span> <span class="o">=</span> <span class="s">&quot;Jeremy&quot;</span>    <span class="c1">// string</span>
+</span><span class='line'><span class="kt">double</span> <span class="n">pivalue</span> <span class="o">=</span> <span class="mf">3.14</span>       <span class="c1">// double</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>What is a type?</h3>
+
+<p>Every variable and expression (we&#8217;ll get to those) in C# has a type. This is the type of data that&#8217;s stored in the variable which could be numbers, letters, or objects. There are several built in types that are mostly for numbers, and there are complex types that you will create such as objects, collections, and more. To find a good analogy for types, look in your kitchen. In one cupboard you have plates, in another bowls, and a drawer for silverware. The cupboards are variables and bowl is a type.</p>
+
+<p>Your kitchen is a loosely typed scenario, because you can put cups with the plates, and move the silverware with the bowls if you really want to. If you&#8217;re like me you have a significant other that won&#8217;t tolerate such disorganization and will insist everything is kept separate, or &#8220;strongly typed&#8221;. Bowls go with bowls, and silverware goes in a drawer.</p>
+
+<p>She has a good point: if everything were mixed up we would never be able to find anything when we need it. When I put the dishes away it would be a lot easier and faster to stuff them wherever they fit, but would cause some problems down the road. Programming languages are the same way. I&#8217;ll elaborate on that in a bit.</p>
+
+<p>Here are the built in types for C&#35; that we&#8217;ll be talking about:</p>
+
+<table border="1">
+<tr><th width="100"><strong>C&#35; Type</strong></th><th width="200"><strong>.NET Framework Type</strong></th><th width="325"><strong>Description</strong></th></tr>
+<tr><td>bool</td><td>System.Boolean</td><td>Stores Boolean values true and false</td></tr>
+<tr><td>byte</td><td>System.Byte</td><td>Unsigned Integer from 0 to 255</td></tr>
+<tr><td>sbyte</td><td>System.SByte</td><td>Signed 8-bit integer from -128 to 127</td></tr>
+<tr><td>char</td><td>System.Char</td><td>Unicode 16-bit Character from U+0000 to U+ffff</td></tr>
+<tr><td>decimal</td><td>System.Decimal</td><td>128-bit &#177;1.0 x 10-28 to &#177;7.9 x 1028 (approximate) </td></tr>
+<tr><td>double</td><td>System.Double</td><td>64-bit floating point from &#177;5.0 x 10-324 to &#177;1.7 x 10308 (approximate)</td></tr>
+<tr><td>float</td><td>System.Single</td><td>32-bit floating point from &#177;1.5 x 10-45 to &#177;3.4 x 1038(approximate)</td></tr>
+<tr><td>int</td><td>System.Int32</td><td>Signed 32-bit integer from -2,147,483,648 to 2,147,483,647</td></tr>
+<tr><td>uint</td><td>System.UInt32</td><td>Unsigned 32-bit integer from 0 to 4,294,967,295</td></tr>
+<tr><td>long</td><td>System.Int64</td><td>Signed 64-bit integer from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td></tr>
+<tr><td>ulong</td><td>System.UInt64</td><td>Unsigned 64-bit integer from 0 to 18,446,744,073,709,551,615</td></tr>
+<tr><td>object</td><td>System.Object</td><td>Alias for a .NET Framework object</td></tr>
+<tr><td>short</td><td>System.Int16</td><td>Signed 16-bit integer from -32,768 to 32,767</td></tr>
+<tr><td>ushort</td><td>System.UInt16</td><td>Unsigned 16-bit integer from 0 to 65,535</td></tr>
+<tr><td>string</td><td>System.String</td><td>zero or more Unicode characters</tr>
+</table>
+
+
+<br /><br />
+
+
+<p>This is taken from the <a href="http://msdn.microsoft.com/en-us/library/ya5y69ds(v=vs.80).aspx" rel="nofollow">MSDN Page on Built-In Types</a> which contains more detailed information about each type.</p>
+
+<h3>Variables in C&#35;</h3>
+
+<p>We call these containers <em>variables</em> because the data frequently changes, yet the type of data it contains doesn&#8217;t. Variable can mean several things in C&#35; meaning it can be a local variable, or fields or properties in objects. For now we&#8217;ll just talk about local variables that will be used to store information within a method.</p>
+
+<p>To declare a variable, you must first declare the type, then the name you want for it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>int apples = 0;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This declares an integer value named apples, and sets it to 0. You can just create the variable without any data like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>int apples;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But you must assign this variable a value before trying to use it, if you don&#8217;t the compiler will give you an error. Let&#8217;s take our hello world app, and add this variable to it:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="kt">int</span> <span class="n">apples</span><span class="p">;</span>
+</span><span class='line'>          <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When you try to compile the program, you get the following warning:</p>
+
+<blockquote><p>int.cs(7,15): warning CS0168: The variable &#8216;apples&#8217; is declared but never used</p></blockquote>
+
+<p>Note that this is only a warning, the program will still compile and run, but you&#8217;re warned that you have a variable that isn&#8217;t being used. So what happens when we try to use it?</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="kt">int</span> <span class="n">apples</span><span class="p">;</span>
+</span><span class='line'>          <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;We have {0} apples in our basket&quot;</span><span class="p">,</span> <span class="n">apples</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see we create the variable <em>apples</em> and then we try to use it though it has no value. When you compile it you&#8217;ll get the following error:</p>
+
+<blockquote><p>int.cs(8,57): error CS0165: Use of unassigned local variable &#8216;apples&#8217;</p></blockquote>
+
+<p>An error is more serious than a warning: this program will not compile. When a local variable is created you have to give it a value before we use it. Change the program to the following:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">class</span> <span class="n">Program</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">static</span> <span class="kt">void</span> <span class="n">Main</span><span class="p">()</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="kt">int</span> <span class="n">apples</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+</span><span class='line'>          <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;We have {0} apples in our basket&quot;</span><span class="p">,</span> <span class="n">apples</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now when you compile it, you&#8217;ll get no errors or warnings because you created a variable, assigned it a value of 42, and then used it. After it compiles, run it and you&#8217;ll see:</p>
+
+<blockquote><p>We have 42 apples in our basket</p></blockquote>
+
+<p>This is our expected output.</p>
+
+<h4>A note about variable naming</h4>
+
+<p>Notice how we named the variable <em>apples</em> to represent how many apples we have. The truth is, the compiler doesn&#8217;t care if you name it apples, oranges, or oiueoriue. It&#8217;s only useful for programmers, you could name the variable &#8220;a&#8221; and the next one you need &#8220;b&#8221; if you really wanted to. But the next time you go back into your code, or someone else does things will be a lot harder. Always give your variables valuable names that represent the data being stored.</p>
+
+<h3>Strings</h3>
+
+<p>Strings are what we were dealing with in our hello world app. A string is a sequence of Unicode characters that represent text. Most human readable items are stored in strings. A string is a reference type, but you and also use it as an object to do do comparisons and I&#8217;ll demonstrate that in a future tutorial. You can learn more about strings in the <a href="http://msdn.microsoft.com/en-us/library/362314fe%28v=vs.80%29.aspx" rel="nofollow">MSDN C# Reference</a>.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">string</span> <span class="n">sentence</span> <span class="o">=</span> <span class="s">&quot;The quick brown fox jumped over the lazy dog&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Char</h3>
+
+<p>The char type contains a single Unicode character within the valid range. They are 16 bit values and can be very useful in many situations. You can write Hexadecimal Unicode and Integers into a char value when needed.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>char ourHexChar = '\x0058';   // Hexadecimal Value</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Bool</h3>
+
+<p>The Boolean data type only stores either true or false values. You&#8217;ll be using Booleans a lot in your expressions. Boolean values are used for checking, validation and flow control. It&#8217;s a crucial part of any application. Here&#8217;s an example:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">bool</span> <span class="n">isValid</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Integers</h3>
+
+<p>Integers represent whole numbers. Integer data types are best for discrete values, such as incrementers, rows in a database or any value constrained to a whole number. The benefit of using integers is the computation is exact, no rounding or guessing involved.</p>
+
+<p>data types that use integers are often referred to as <em>integral</em> data types. This can sometimes confuse new programmers because they trip up on the word &#8220;integral&#8221; or mistake it for &#8220;integrated&#8221;. Integral just means a value that uses integers.</p>
+
+<h4>Signed and unsigned integers</h4>
+
+<p>Of the integer data types you&#8217;ll notice some of them have negative numbers some do not. <em>Unsigned</em> integers can only recognize positive numbers, while <em>signed</em> values can represent negative or positive. Why do we have these two different data types? You&#8217;ll notice unsigned integers have a much higher maximum value, because it utilizes space that would otherwise be used for negative values.</p>
+
+<p>For example a signed 16-bit integer has a maximum value of 32,767. If the value you&#8217;re storing is larger than that you&#8217;ll have to use a 32-bit integer. However if you know you&#8217;ll never need negative numbers you can use an unsigned 16-bit integer as large as 65,535 in the same 16 bits of space.</p>
+
+<p>Many languages do not support unsigned integers so you&#8217;ll sometimes find types in the .NET framework that don&#8217;t use negative values, yet still use signed integers for compatibility. The effect this has on memory and performance is very minimal.</p>
+
+<h4>8-bit, 16-bit, 32-bit, and 64-bit integers</h4>
+
+<p>At the present time 32-bit integers are the most widely used. This is because it offers a very good range of values and is very efficient with 32-bit CPUs. Here are some of the uses for each type:</p>
+
+<p><strong>8-bit</strong> - sometimes used for I/0 and network connections when byte-oriented operations are optimal.</p>
+
+<p><strong>16-bit</strong> - Mostly used for compatibility with old protocols an interfaces.</p>
+
+<p><strong>32-bit</strong> - Most frequently used for integer operations</p>
+
+<p><strong>64-bit</strong> - used for very large values where the 32-bit limitations are not optimal.</p>
+
+<h4>Big Integers</h4>
+
+<p>In version 4 of the .NET framework you have BigInteger as an option. This is for very large values but there is a key difference in that it is a dynamic data type, and it will only use as much space as it needs. As the size of the integer grows more space is allocated, meaning your theoretical size limit is dependent on how much memory you have. Not something you&#8217;d want to use unless you absolutely need it.</p>
+
+<h4>Floating Point</h4>
+
+<p>Floating point numbers are named such because there is a fixed number of digits available, but the decimal point is allowed to &#8220;float&#8221; around, for example:</p>
+
+<blockquote><p>123.456
+12.3456</p></blockquote>
+
+<p>While the decimal point is allowed to move within the number the amount of <em>precision</em> changes. Precision is the amount of detail allowed in your value. For example, our monetary system uses a precision of 2 digits, such as</p>
+
+<blockquote><p>$10.34</p></blockquote>
+
+<p>There is no such value as $10.345 because we generally don&#8217;t deal in terms of fractions of a cent. As you can see from our table above, you can have <em>float</em> values ranging from &#177;1.5 x 10-45 to &#177;3.4 x 1038(approximate). If you need a greater range you can use something like <em>long</em> (-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807) or even <em>ulong</em> for very large positive values (0 to 18,446,744,073,709,551,615).</p>
+
+<p>Since I mentioned precision earlier, you might be wondering if data can be lost, or calculations can possibly be inaccurate if there is not enough precision and the value is truncated. This is correct, and though it&#8217;s fairly accurate if you&#8217;re doing something that requires absolute results from computations you&#8217;ll want to use the next data type.</p>
+
+<h3>Decimal</h3>
+
+<p>For high precision computation such as accounting, you&#8217;ll want to use the decimal format. Because floating point numbers are rounded off, you can end up with small incremental changes to each value that can lead to inaccuracies. This is why you would use the aptly named <em>decimal</em> data type for decimal values. Decimal data types have a precision up to 28 digits and won&#8217;t give unexpected results for precise calculations.</p>
+
+<p>You want to use this data type only when it&#8217;s needed because there is a trade off and decimals are slightly less efficient than double or float because of the conversions from decimal to binary and vice-versa.</p>
+
+<h3>Summary</h3>
+
+<p>In this tutorial I have explained variables, what they are how to assign them. We also talked about some of the types available. Because this started to get so long winded I haven&#8217;t covered everything on the subject but given you a good foundation to start with. You&#8217;ll be working with variables and types a lot in the future, and I&#8217;ll cover more as we go on.</p>
+
+<p>If you have any questions or comments, leave them below I&#8217;ll be checking them frequently. In the next tutorial we&#8217;re going to cover some statements.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-26T16:34:00-08:00" pubdate data-updated="true">Nov 26<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/raspberry-pi/how-to-raspberry-pi-web-server/" title="Previous Post: Tutorial: How to Set Up a Raspberry Pi Web Server">&laquo; Tutorial: How to Set Up a Raspberry Pi Web Server</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/" title="Next Post: C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements">C# .Net Tutorials - How to Learn C# Part 5 - Selection Statements &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

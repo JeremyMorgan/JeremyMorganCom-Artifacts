@@ -1,0 +1,583 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How to upload a file with PHP - Tutorials Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How to upload a file with PHP" /><meta itemprop="name" content="How to upload a file with PHP" /><meta name="twitter:title" content="How to upload a file with PHP">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-10-04 10:25:52 -0700" />
+
+<meta property="article:section" content="Tutorials" />
+
+<meta name="description" content="Step by step tutorial to show you how to upload a file with PHP." />
+<meta property="og:description" content="Step by step tutorial to show you how to upload a file with PHP." />
+<meta itemprop="description" content="Step by step tutorial to show you how to upload a file with PHP." />
+<meta name="twitter:description" content="Step by step tutorial to show you how to upload a file with PHP.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/php-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/php-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/php-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/php-tutorials/how-to-upload-a-file-with-php/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/php-tutorials/how-to-upload-a-file-with-php/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/php-tutorials/how-to-upload-a-file-with-php/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How to Upload a File With PHP</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-04T10:25:52-07:00" pubdate data-updated="true">Oct 4<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>If you want to upload files to your website, making a PHP file uploader is easier than you think. Today I&#8217;m going to show you a quick example how to build one that you can easily use, and modify for your needs.</p>
+
+<p>The first thing I&#8217;ll start is a php page. I&#8217;m using a &#8220;index switched&#8221; page format here, meaning everything will be done with one file. This is a rather uncommon way of doing it, but once you start getting used to it, it&#8217;s a much more efficient way to build your pages. I&#8217;ll do a full article on that soon, but for today just follow along. Create a file that looks like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php
+</span><span class='line'>    
+</span><span class='line'>    switch($_REQUEST['mode']){
+</span><span class='line'>    
+</span><span class='line'>      default:
+</span><span class='line'>    
+</span><span class='line'>      break;
+</span><span class='line'>    
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>?></span></code></pre></td></tr></table></div></figure>
+
+
+<p>By following the code, you can see we&#8217;ve created a switch statement that will control what the page does. For the &#8220;default&#8221; switch, we want it to draw our upload form. This will be what the person sees when they first bring up the page. Here is what our upload form will look like:</p>
+
+<pre><code>&lt;form action="index.php" method="POST" enctype="multipart/form-data" &gt;
+    &lt;input type="hidden" name="MAX_FILE_SIZE" value="8000000" /&gt;
+    &lt;input type="hidden" name="mode" value="doupload" /&gt;
+    Select file to upload: &lt;input name="uploadedfile" type="file" /&gt;&lt;br /&gt;
+    &lt;input type="submit" value="Upload your File" /&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>This form will be what we use to select the file. It&#8217;s just a standard form, but note a couple additions: the enctype (encoding type) and two of the hidden fields. the MAX_FILE_SIZE field is pretty self explanatory. This limits the size of the file that can be uploaded.<strong> Security Note: </strong>This only limits the file size when using this form, and can be easily bypassed. In a public facing site you should not rely solely on this method of limiting file size.</p>
+
+<p>The &#8220;mode&#8221; field is used to tell the PHP script to upload the file, which we will put in our switch statement. Your file should now look like this:</p>
+
+<pre><code>&lt;?php
+
+switch($_REQUEST['mode']){
+
+    case "doupload":
+
+    // upload actions go here
+
+    break;
+
+    default:
+
+    ?&gt;
+    &lt;form action="index.php" method="POST" enctype="multipart/form-data" &gt;
+    &lt;input type="hidden" name="MAX_FILE_SIZE" value="8000000" /&gt;
+    &lt;input type="hidden" name="mode" value="doupload" /&gt;
+    Select file to upload: &lt;input name="uploadedfile" type="file" /&gt;&lt;br /&gt;
+    &lt;input type="submit" value="Upload your File" /&gt;
+    &lt;/form&gt;
+    &lt;?php
+
+    break;
+}
+
+?&gt;
+</code></pre>
+
+<p>When you bring up this page in a browser, you should see your upload form.</p>
+
+<p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/10/upload-form-php-1.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/10/upload-form-php-1.jpg" alt="Tutorial: How to upload a file with php" /></a></p>
+
+<p>Now by itself, this form won&#8217;t do anything. We need to add some action in the &#8220;doupload&#8221; section of the switch statement:</p>
+
+<pre><code>    case "doupload":
+
+    // upload actions go here
+
+    break;
+</code></pre>
+
+<p>When the form is submitted, only everything outside the switch statement will be performed, and by adding in this case statement, when you set mode=doupload you also run all the statements within that block. This performs the action of two separate pages in one. Rather than call an upload.php you call the same page with a different switch.</p>
+
+<p>Now we&#8217;ll add in some statements to upload the file.</p>
+
+<pre><code>    case "doupload":
+
+    // folder we'll upload files in
+    $uploadfolder = "uploads/";
+
+    // final path where we want to store the file
+    $ourpath = realpath($uploadfolder) . basename( $_FILES['uploadedfile']['name']); 
+
+    if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $ourpath) == true) {
+
+        echo "uploaded " . $_FILES['uploadedfile']['name'] . " successfully";
+
+    } else{
+        echo "could not upload the file";
+    }
+
+    break;
+</code></pre>
+
+<p>I&#8217;ll explain what we&#8217;re doing above. The steps to this process are as follows:</p>
+
+<ol>
+<li><p> Set the $uploadfolder variable to the name of the folder.</p></li>
+<li><p> Create a &#8220;final path&#8221; which is the absolute path where we want to put the file. We use the realpath function to get the full name of the path.</p></li>
+<li><p> Use the move_uploaded_file function to move the file from a temporary location to the final location and rename it.</p></li>
+<li><p> If successful, show the new name of the file. This variable ($_FILES[&#8216;uploadedfile&#8217;][&#8216;name&#8217;]) is the name of the file as it was when it entered the browser.</p></li>
+</ol>
+
+
+<p>Now you should see a message saying it was uploaded successfully. If you don&#8217;t here are some things to check:</p>
+
+<ol>
+<li><p> Permissions in the folder may not be correct.</p></li>
+<li><p> File may be too large. There is a browser file size limit and a server size limit to adhere to.</p></li>
+</ol>
+
+
+<p>So now that we have that done, lets look at the final code:</p>
+
+<p><strong>The Finished Code:</strong></p>
+
+<pre><code>switch($_REQUEST['mode']){
+
+    case "doupload":
+
+        // folder we'll upload files in
+        $uploadfolder = "uploads/";
+
+        // final path where we want to store the file
+        $ourpath = realpath($uploadfolder) . basename( $_FILES['uploadedfile']['name']); 
+
+        if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $ourpath) == true) {
+
+            echo "uploaded " . $_FILES['uploadedfile']['name'] . " successfully";
+
+        } else{
+
+            echo "could not upload the file";
+
+        }
+
+    break;
+
+    default:
+
+        ?&gt;
+        &lt;form action="index.php" method="POST" enctype="multipart/form-data" &gt;
+        &lt;input type="hidden" name="MAX_FILE_SIZE" value="8000000" /&gt;
+        &lt;input type="hidden" name="mode" value="doupload" /&gt;
+        Select file to upload: &lt;input name="uploadedfile" type="file" /&gt;&lt;br /&gt;
+        &lt;input type="submit" value="Upload your File" /&gt;
+        &lt;/form&gt;
+
+        &lt;?php
+
+    break;
+
+}
+</code></pre>
+
+<p><strong>Congratulations! You&#8217;ve created a script to upload a file in PHP.</strong></p>
+
+<p>But you&#8217;re not done yet. It should be advised that this is a very insecure script as it sits. It is intended for educational purposes only and will work great for personal use or on an internal network with people you trust, but do not put this on the internet as it is! It is very vulnerable to cross site scripting and exploits. Someone can bypass the file size limit or upload executable files.</p>
+
+<p>What you should add to this file before making it public:</p>
+
+<ol>
+<li><p> Actual file size limitation (in addition to browser based limitation)</p></li>
+<li><p> Checking of extensions (don&#8217;t allow anything but what types you&#8217;re looking for)</p></li>
+<li><p> In depth check of file type</p></li>
+<li><p> checking of permissions once uploaded</p></li>
+<li><p> limit amount of files uploaded by IP address</p></li>
+</ol>
+
+
+<p>This will keep your script from becoming a gateway into your site.</p>
+
+<p>I hope this helps new PHP programmers understand how to make an upload script, if you&#8217;re doing something cool with this send me an email!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-04T10:25:52-07:00" pubdate data-updated="true">Oct 4<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/seo/google-adds-new-tools-for-webmasters/" title="Previous Post: Google Adds New Tools for Webmasters">&laquo; Google Adds New Tools for Webmasters</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/self-improvement/the-most-simple-and-cheap-task-management-tool-youll-see-today/" title="Next Post: The Most Simple and Cheap Task Management Tool You'll See Today.">The Most Simple and Cheap Task Management Tool You'll See Today. &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/php-tutorials/how-to-upload-a-file-with-php/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/php-tutorials/how-to-upload-a-file-with-php/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

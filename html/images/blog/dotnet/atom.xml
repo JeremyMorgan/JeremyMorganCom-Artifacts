@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  DotNet | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/dotnet/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2015-05-30T12:51:07-07:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Common C# Interview Questions]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/c-sharp-interview-questions/"/>
+    <updated>2014-08-03T21:50:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/common-c-number-interview-questions</id>
+    <content type="html"><![CDATA[<p>I was reading a post about some common C# interview questions, and thought I'd share some of mine. These are questions that I asked in interviews, or was asked in past interviews. Try them out and see you how you do! I'm not going to post the answers here, if you don't know them, find out!</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<h3>Common C# (and .Net) Interview Questions</h3>
+
+<ul>
+<li>What are the different types of collections in .Net?</li>
+<li>What are the benefits offered by generics as opposed to other collections?</li>
+<li>What is the difference between a class and a struct?</li>
+<li>When calling a function, are parameters passed by value or by reference?</li>
+<li>What are the different ways to pass a parameter by reference?</li>
+<li>What are the mechanisms for maintaining state in an asp.net application?</li>
+<li>Describe inheritance. Describe different ways you can implement inheritance.</li>
+<li>What is dependency injection?</li>
+<li>How do you override a static method?</li>
+<li>Name some of the parts of the page life cycle in ASP.NET.</li>
+<li>Where I would validate something like an email address?</li>
+<li>What is the difference between public, static and void?</li>
+<li>What are Jagged Arrays?</li>
+<li>What is serialization?</li>
+<li>Can "this" be used within a static method?</li>
+<li>What is the difference between Array and Arraylist?</li>
+<li>Can a private virtual method be overridden?</li>
+<li>Describe the accessibility modifier "protected internal".</li>
+<li>What are the differences between System.String and System.Text.StringBuilder?</li>
+<li>What's the difference between the System.Array.CopyTo() and System.Array.Clone()?</li>
+<li>What's the difference between an interface and abstract class?</li>
+<li>What is the difference between Finalize() and Dispose() methods?</li>
+<li>What's an object pool?</li>
+<li>What is the difference between method overriding and method overloading?</li>
+<li>What is the difference between a Struct and a Class?</li>
+<li>What are Indexers?</li>
+</ul>
+
+
+<h3>MS SQL</h3>
+
+<ul>
+<li>What are the different ways for storing behaviors in SQL?</li>
+<li>What are the different kinds of SQL joins? When would you use each?</li>
+<li>If you have a slow running query that looks at seldom changed data, how might you speed it up?</li>
+<li>Describe the different types of joins?</li>
+<li>What is the no-lock feature?</li>
+<li>How do you make sure you maintain your referential integrity?</li>
+<li>He asked me to describe the Controller?</li>
+<li>What is a clustering index?</li>
+<li>How do you handle an error in a SQL query?</li>
+</ul>
+
+
+<h3>Exercises</h3>
+
+<ul>
+<li>Name the 3 language features that make a programming language object-oriented.</li>
+<li>Write a C# method that takes an array of integers and returns the largest integer in the array</li>
+<li>Explain the difference between pass by value and pass by reference?</li>
+<li>Write a C# method that will reverse a string (e.g. "abcd" -> "dcba"). Make sure that it works.</li>
+<li>Write a function that tests if a string is a Palindrome</li>
+<li>Write this same function recursively</li>
+<li>Write a function that acts as a telegraph, that has a set limit of characters per line (for example only 20 characters per line) and break it up so you don't split any words.</li>
+</ul>
+
+
+<h3>Summary</h3>
+
+<p>These are just a few I had stored over the years for interviews, but I'll come up with some more. It's always good to keep brushed up on this stuff to make sure your skill level is where you think it should be.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Create a self hosted API for Local Development]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/how-to-create-asp-self-hosted-api/"/>
+    <updated>2014-05-13T20:20:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/create-a-self-hosted-api-for-local-development</id>
+    <content type="html"><![CDATA[<p>If you've ever worked in an overly restrictive environment, you know you have to come up with some workarounds to get your job done. I worked in such and environment and ran into a problem developing some front end pages to work with an API, but I didn't want to use live data. Here's a solution I came up with and I decided to write it out and explain it in hopes it will help others.</p>
+
+<!-- more -->
+
+
+<p>
+Tools Needed for this Tutorial (both free of charge):</p>
+
+<ul>
+<li><a href="http://www.microsoft.com/en-us/download/details.aspx?id=40787" rel="nofollow" target="_new">Microsoft Visual Studio 2013 Express for Desktop</a></li>
+<li><a href="http://www.telerik.com/download/fiddler" rel="nofollow" target="_new">Telerik Fiddler</a></li>
+</ul>
+
+
+<h3>Why a self hosted API?</h3>
+
+<p>When you're developing front end stuff its always nice to have a development environment to work against rather than live data, as I explain in <a href="http://www.jeremymorgan.com/blog/programming/smell-it-before-you-eat-it/">smell it before you eat it.</a> But what if a development environment isn't available? What if you can't install IIS on your machine either? In that case you make a self hosted API to send fake calls to, and try to replicate the behavior.</p>
+
+<p>You don't need anything other than Visual Studio to do this, and it gives you a good starting point, and since everything is stored in memory you don't have to worry about breaking anything important. There are some other cool uses for a self hosted API but today we'll focus on using it to test your JavaScript front end stuff.</p>
+
+<p>For this tutorial I'm going to assume you already know all about REST and some ASP.Net API basics.</p>
+
+<h3>Find out what you need.</h3>
+
+<p>First you need to find out which API functions you'll need and map them out, because you're going to have replicate them here, on a small scale. For the demo, we're going to make something that stores a listing of books.</p>
+
+<blockquote><p>/API/Book</p></blockquote>
+
+<p>We want to be able to have some basic CRUD methods for it, so let's set it up. For this you will need a copy of Visual Studio Professional, or Express 2013 for Windows Desktop. That's what I'll use for this demo.</p>
+
+<h3>1. Create the Project</h3>
+
+<p>Select File -> New Project</p>
+
+<p>Choose "Console Application"</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-self-host-asp-web-api-1.jpg" title="How to build self hosted Web API in ASP.Net&#34;" alt="How to build self hosted Web API in ASP.Net&#34;"></p>
+
+<p>Right click on your project and select "Manage NuGet Packages"</p>
+
+<p>Search the Online Packages for "Microsoft ASP.Net Web API Self Host" and install the assemblies.</p>
+
+<h3>2. Set up the executable</h3>
+
+<p>Next we'll want to add configuration data, so in Program.cs add the following using statements:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Web</span><span class="p">.</span><span class="n">Http</span><span class="p">;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Web</span><span class="p">.</span><span class="n">Http</span><span class="p">.</span><span class="n">SelfHost</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And then inside in the static void Main() function add:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">var</span> <span class="n">config</span> <span class="o">=</span> <span class="n">new</span> <span class="n">HttpSelfHostConfiguration</span><span class="p">(</span><span class="s">&quot;http://localhost:31337&quot;</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Note that the port can be anything you want it to be.</p>
+
+<p>Now create an instance of the HttpSelfHostServer passing in your config object as the parameter:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">var</span> <span class="n">server</span> <span class="o">=</span> <span class="n">new</span> <span class="n">HttpSelfHostServer</span><span class="p">(</span><span class="n">config</span><span class="p">);</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now create a task that calls the OpenAsync method and set the task to Wait:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">var</span> <span class="n">task</span> <span class="o">=</span> <span class="n">server</span><span class="p">.</span><span class="n">OpenAsync</span><span class="p">();</span>
+</span><span class='line'><span class="n">task</span><span class="p">.</span><span class="n">Wait</span><span class="p">();</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next, we'll want to output something to console to let you know it's started, and put a Console.ReadLine in there to make sure it stays open until you want it to quit.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Server Up&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<blockquote><p><strong>Note:</strong> At this time you can have a running service, but you must be running Visual Studio as an administrator. Now, if you're in a restricted environment like I was you can't do that, so you just have to code it with blind faith that it will work. You can run the finished product once it's done, but if you are allowed to run as admin you can debug and test better.</p></blockquote>
+
+<h3>3. Set up routing</h3>
+
+<p>Ok, so much of this doesn't do you a lot of good until you can route your requests.</p>
+
+<p>Open up the package manager again (<em>Right click on your project and select "Manage NuGet Packages"</em>)
+and search for "<strong>Attribute Routing Self-Hosted</strong>". Install the AttributeRouting(Self-Hosted Web API) package.</p>
+
+<p>Now, open up Program.cs and add the following:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">config</span><span class="p">.</span><span class="n">Routes</span><span class="p">.</span><span class="n">MapHttpRoute</span><span class="p">(</span><span class="s">&quot;Default&quot;</span><span class="p">,</span> <span class="s">&quot;api/{controller}/{id}&quot;</span><span class="p">,</span> <span class="n">new</span> <span class="p">{</span> <span class="n">id</span> <span class="o">=</span> <span class="n">RouteParameter</span><span class="p">.</span><span class="n">Optional</span> <span class="p">});</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This will handle the routing for your application.</p>
+
+<h3>4. Create a Model</h3>
+
+<p>In this tutorial we're going to create a storage space for some books. Create a class that looks like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">public</span> <span class="n">class</span> <span class="n">Book</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">public</span> <span class="n">string</span> <span class="n">Title</span> <span class="p">{</span> <span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">public</span> <span class="n">string</span> <span class="n">Author</span> <span class="p">{</span> <span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">public</span> <span class="n">decimal</span> <span class="n">Price</span> <span class="p">{</span> <span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This will obviously store some simple attributes for our books.</p>
+
+<h3>5. Create a Controller</h3>
+
+<p>Let's create a class called BookController that extends the ApiController:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">public</span> <span class="n">class</span> <span class="n">BookController</span> <span class="o">:</span> <span class="n">ApiController</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In that class we'll want to create a few demo books every time it starts. We do this by creating a List of type book, and adding a few instances into it to start out:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span> <span class="n">ourbooks</span> <span class="o">=</span> <span class="n">InitBooks</span><span class="p">();</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">private</span> <span class="k">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span> <span class="n">InitBooks</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">var</span> <span class="n">booklist</span> <span class="o">=</span> <span class="n">new</span> <span class="n">List</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">Book</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">booklist</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">new</span> <span class="n">Book</span> <span class="p">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Title</span> <span class="o">=</span> <span class="s">&quot;Microsoft Visual C# 2012&quot;</span><span class="p">,</span> <span class="n">Author</span> <span class="o">=</span> <span class="s">&quot;John Sharp&quot;</span><span class="p">,</span> <span class="n">Price</span> <span class="o">=</span> <span class="mf">29.99</span><span class="n">M</span> <span class="p">});</span>
+</span><span class='line'><span class="n">booklist</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">new</span> <span class="n">Book</span> <span class="p">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Title</span> <span class="o">=</span> <span class="s">&quot;C# 5.0 in a nutshell&quot;</span><span class="p">,</span> <span class="n">Author</span> <span class="o">=</span> <span class="s">&quot;Joseph Albahari&quot;</span><span class="p">,</span> <span class="n">Price</span> <span class="o">=</span> <span class="mf">19.99</span><span class="n">M</span> <span class="p">});</span>
+</span><span class='line'><span class="n">booklist</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">new</span> <span class="n">Book</span> <span class="p">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">Title</span> <span class="o">=</span> <span class="s">&quot;C# in Depth, 3rd Edition&quot;</span><span class="p">,</span> <span class="n">Author</span> <span class="o">=</span> <span class="s">&quot;Jon Skeet&quot;</span><span class="p">,</span> <span class="n">Price</span> <span class="o">=</span> <span class="mf">29.99</span><span class="n">M</span> <span class="p">});</span>
+</span><span class='line'><span class="n">booklist</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">new</span> <span class="n">Book</span> <span class="p">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">Title</span> <span class="o">=</span> <span class="s">&quot;Pro ASP.NET MVC 5&quot;</span><span class="p">,</span> <span class="n">Author</span> <span class="o">=</span> <span class="s">&quot;Adam Freeman&quot;</span><span class="p">,</span> <span class="n">Price</span> <span class="o">=</span> <span class="mf">34.01</span><span class="n">M</span> <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="n">booklist</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Next, we'll want to create a method to retrieve all books:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">public</span> <span class="n">IEnumerable</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span> <span class="n">Get</span><span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">ourbooks</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This will return all the books in our list. Let's open up fiddler and see what that looks like:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-self-host-asp-web-api-2.png" title="How to build self hosted Web API in ASP.Net&#34;" alt="How to build self hosted Web API in ASP.Net&#34;"></p>
+
+<p>So as you can see, a list of our items is returned with a GET request. This may be all you need, but if you need REST services, continue on.</p>
+
+<h3>6. Setting up REST actions</h3>
+
+<p>in our BookController, you'll want to add a few more methods to add update and delete items.</p>
+
+<h5>Retrieve a book by ID (GET)</h5>
+
+<p>Let's make it so we can select a book by it's Id. Add a method to the controller that looks like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">public</span> <span class="n">Book</span> <span class="n">Get</span><span class="p">(</span><span class="kt">int</span> <span class="n">Id</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">var</span> <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">from</span> <span class="n">b</span> <span class="n">in</span> <span class="n">ourbooks</span>
+</span><span class='line'>                      <span class="n">where</span> <span class="n">b</span><span class="p">.</span><span class="n">Id</span> <span class="o">==</span> <span class="n">Id</span>
+</span><span class='line'>                      <span class="n">select</span> <span class="n">b</span><span class="p">).</span><span class="n">FirstOrDefault</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">null</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">var</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">new</span> <span class="n">HttpResponseMessage</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">NotFound</span><span class="p">)</span>
+</span><span class='line'>            <span class="p">{</span>
+</span><span class='line'>                <span class="n">Content</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StringContent</span><span class="p">(</span><span class="n">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&quot;No book with ID = {0}&quot;</span><span class="p">,</span> <span class="n">Id</span><span class="p">)),</span>
+</span><span class='line'>                <span class="n">ReasonPhrase</span> <span class="o">=</span> <span class="s">&quot;Book ID Not Found&quot;</span>
+</span><span class='line'>            <span class="p">};</span>
+</span><span class='line'>            <span class="n">throw</span> <span class="n">new</span> <span class="nf">HttpResponseException</span><span class="p">(</span><span class="n">resp</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This overrides the Get method, so if you pass it an Id, it will return some details for that book. As you can see if it does not find an ID it returns a 404 error, with a custom response.</p>
+
+<h4>Add a new book (POST)</h4>
+
+<p>To add a new book, we want to create a method that takes a POST command, and gets the JSON object from the body of the request. To that, add the following method:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">public</span> <span class="kt">void</span> <span class="n">Post</span><span class="p">([</span><span class="n">FromBody</span><span class="p">]</span><span class="n">Book</span> <span class="n">b</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">b</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">ourbooks</span><span class="p">.</span><span class="n">Count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="n">ourbooks</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+</span><span class='line'><span class="n">var</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">new</span> <span class="n">HttpResponseMessage</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">Created</span><span class="p">);</span>
+</span><span class='line'><span class="n">throw</span> <span class="n">new</span> <span class="nf">HttpResponseException</span><span class="p">(</span><span class="n">resp</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In order to add a new item to our list, we'll need to change the request in Fiddler to a POST, and set the Content-Type:</p>
+
+<blockquote><p>Content-Type: application/json</p></blockquote>
+
+<p>And we'll need to send it a JSON object, like this:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{</span><span class="s">&quot;Id&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;Title&quot;</span><span class="o">:</span><span class="s">&quot;One More Book!&quot;</span><span class="p">,</span><span class="s">&quot;Author&quot;</span><span class="o">:</span><span class="s">&quot;Jeremy Morgan&quot;</span><span class="p">,</span><span class="s">&quot;Price&quot;</span><span class="o">:</span><span class="mf">1.99</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Your composer should look like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-self-host-asp-web-api-3.png" title="How to build self hosted Web API in ASP.Net&#34;" alt="How to build self hosted Web API in ASP.Net&#34;"></p>
+
+<p>Once you submit, run another GET request, and you'll see the new object:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-self-host-asp-web-api-4.png" title="How to build self hosted Web API in ASP.Net&#34;" alt="How to build self hosted Web API in ASP.Net&#34;"></p>
+
+<p>It's that easy! The next are even easier.</p>
+
+<h4>Update a book (PUT)</h4>
+
+<p>In this method we're going to update a book using the PUT command.</p>
+
+<p>Add the following method to your controller:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">public</span> <span class="kt">void</span> <span class="n">Put</span><span class="p">(</span><span class="kt">int</span> <span class="n">Id</span><span class="p">,</span> <span class="p">[</span><span class="n">FromBody</span><span class="p">]</span><span class="n">Book</span> <span class="n">book</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">var</span> <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">from</span> <span class="n">b</span> <span class="n">in</span> <span class="n">ourbooks</span>
+</span><span class='line'>                <span class="n">where</span> <span class="n">b</span><span class="p">.</span><span class="n">Id</span> <span class="o">==</span> <span class="n">Id</span>
+</span><span class='line'>                <span class="n">select</span> <span class="n">b</span><span class="p">).</span><span class="n">FirstOrDefault</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">result</span><span class="p">.</span><span class="n">Title</span> <span class="o">=</span> <span class="n">book</span><span class="p">.</span><span class="n">Title</span><span class="p">;</span>
+</span><span class='line'><span class="n">result</span><span class="p">.</span><span class="n">Author</span> <span class="o">=</span> <span class="n">book</span><span class="p">.</span><span class="n">Author</span><span class="p">;</span>
+</span><span class='line'><span class="n">result</span><span class="p">.</span><span class="n">Price</span> <span class="o">=</span> <span class="n">book</span><span class="p">.</span><span class="n">Price</span><span class="p">;</span>
+</span><span class='line'><span class="n">var</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">new</span> <span class="n">HttpResponseMessage</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">Accepted</span><span class="p">);</span>
+</span><span class='line'><span class="n">throw</span> <span class="n">new</span> <span class="nf">HttpResponseException</span><span class="p">(</span><span class="n">resp</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, if you run a GET in Fiddler, you should see a set of results as they are set by default:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-self-host-asp-web-api-5.png" title="How to build self hosted Web API in ASP.Net&#34;" alt="How to build self hosted Web API in ASP.Net&#34;"></p>
+
+<p>Since it's a new instance the one we added will not be there.</p>
+
+<p>In Fiddler (or whatever program you're using) change the request to a PUT, and add an ID at the end (for the record you want to change). Then set the Content-Type to application/json and send the JSON string we used earlier. It should look like this:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-self-host-asp-web-api-6.png" title="How to build self hosted Web API in ASP.Net&#34;" alt="How to build self hosted Web API in ASP.Net&#34;"></p>
+
+<p>Once you send the put request, now send a GET and you'll see the updated information:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-self-host-asp-web-api-7.png" title="How to build self hosted Web API in ASP.Net&#34;" alt="How to build self hosted Web API in ASP.Net&#34;"></p>
+
+<h4>Remove a book (DELETE)</h4>
+
+<p>This one is really easy:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">public</span> <span class="kt">void</span> <span class="n">Delete</span><span class="p">(</span><span class="kt">int</span> <span class="n">Id</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">var</span> <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">from</span> <span class="n">b</span> <span class="n">in</span> <span class="n">ourbooks</span>
+</span><span class='line'>                <span class="n">where</span> <span class="n">b</span><span class="p">.</span><span class="n">Id</span> <span class="o">==</span> <span class="n">Id</span>
+</span><span class='line'>                <span class="n">select</span> <span class="n">b</span><span class="p">).</span><span class="n">FirstOrDefault</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ourbooks</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+</span><span class='line'><span class="n">var</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">new</span> <span class="n">HttpResponseMessage</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">OK</span><span class="p">);</span>
+</span><span class='line'><span class="n">throw</span> <span class="n">new</span> <span class="nf">HttpResponseException</span><span class="p">(</span><span class="n">resp</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, just set fiddler to delete an id and send it:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-self-host-asp-web-api-8.png" title="How to build self hosted Web API in ASP.Net&#34;" alt="How to build self hosted Web API in ASP.Net&#34;"></p>
+
+<p>And it's deleted!</p>
+
+<h3>7. Build and use it!</h3>
+
+<p>So now that your application is ready, you can build and executable and use it for development.</p>
+
+<p>Just build it, then look in your /bin/release folder and run it from there!</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-self-host-asp-web-api-9.jpg" title="How to build self hosted Web API in ASP.Net&#34;" alt="How to build self hosted Web API in ASP.Net&#34;"></p>
+
+<p>Whenever it's running you can connect to it like a standard web service.</p>
+
+<h3>So what's the point of all this?</h3>
+
+<p>After reading this it might seem like a lot of work, but after you've done it a few times it's really quick to whip it up. You might be asking, what's the point?</p>
+
+<p>The best use of this is to test the functionality of your application on a sample set of data. You can use this with a plain HTML/JavaScript page, asp page, or even another application. It's a good way to test and develop your apps without using live data, or even accessing a live database.</p>
+
+<p>Since you control what data is seeded in, you can write better unit tests for it knowing exactly what to expect. Since it's only stored in memory, it's really fast and resets as soon as you restart the executable. This can drastically speed up the development time and create better test cases.</p>
+
+<p>Let me know if you use this, the <a href="https://github.com/JeremyMorgan/ASP-Self-Hosted-API" target="_new">code is on GitHub</a> feel free to fork it and expand on it!</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Properties vs Fields in C#]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/properties-vs-fields/"/>
+    <updated>2014-05-04T11:25:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/properties-vs-fields-in-c-number</id>
+    <content type="html"><![CDATA[<p>One of the areas that causes a lot of confusion for new C# developers is the idea of properties and fields. It's an easy thing to mess up and there aren't really any solid rules on it, but here are some general guidelines to help you decide how to use these members in your project.</p>
+
+<!-- more -->
+
+
+<h3>Definitions</h3>
+
+<p>Here are some quick definitions of what I'll be talking about:</p>
+
+<p><strong>Properties</strong> - A property is a member that provides a flexible mechanism to read, write or compute the data of a private field. (<a href="http://msdn.microsoft.com/en-us/library/x9fsa0sw.aspx">From MSDN</a>)</p>
+
+<p><strong>Fields</strong> - The private members of a class that contain values specific to the object</p>
+
+<p><strong>Methods</strong> - Methods are behaviors of an object, or "a code block that contains a series of statements" (<a href="http://msdn.microsoft.com/en-us/library/ms173114.aspx">From MSDN</a>)</p>
+
+<p>These are core parts of Object Oriented Programming as it relates to C#.</p>
+
+<h3>When should I use a property?</h3>
+
+<p>In general you should use properties if you need them to look and behave like a variable. Properties give you a level of abstraction so you can change the fields while not affecting how they're used by a class.</p>
+
+<p>Here are some basic rules:</p>
+
+<ul>
+<li><strong>Should be quick to read</strong> - reading a property should be just as fast as if it were reading a variable. If there are heavy calculations involved or you need to go to a database every time it's needed, this isn't the best way to use a property.</li>
+<li><strong>Client code should be able to read it's value.</strong> - Write only properties are best reserved for methods.</li>
+<li><strong>Reading and writing to a property should not have any side effects</strong> - You should have no unexpected actions or side affects when working with this value. Changing this value should produce the results expected (like a color on a web page for instance) but changes should not be able to break the functionality of your program.</li>
+<li><strong>Properties should require an order</strong> - You should be able to set the properties in any order, you should not have any errors in a property if another property has not been set. This creates a dependency chain that can make your program unpredictable.</li>
+<li><strong>Validation and other logic is fine</strong> - you can encapsulate logic in properties, and adding an additional level of validation here is fine, if not recommended in some cases.</li>
+<li><strong>Read it a million times with the same result</strong> - You should be able to read the property multiple times with the same result. If you have a value that's constantly changing like how much gas in the gas tank, a GetGasLevel() method would be better. If you want to store values that don't change often like the amount of gallons the tank holds, use a property.</li>
+</ul>
+
+
+<h3>When do you I use a field?</h3>
+
+<p>Fields should nearly always be private members of a class, so you don't expose internal implementation. They can be constants if necessary. Fields are used for data hiding, which is a best practice for Object Oriented Design:</p>
+
+<blockquote><p>In computer science, information hiding is the principle of segregation of the design decisions in a computer program that are most likely to change, thus protecting other parts of the program from extensive modification if the design decision is changed. The protection involves providing a stable interface which protects the remainder of the program from the implementation (the details that are most likely to change). (<a href="http://en.wikipedia.org/wiki/Information_hiding">Wikipedia Definition</a>)</p></blockquote>
+
+<p>You can perform any internal operations on a field, so long as it's private and you can expose it's value with a property. Here's an example:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">public</span> <span class="n">class</span> <span class="n">Person</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>   <span class="c1">// name field</span>
+</span><span class='line'>   <span class="n">private</span> <span class="n">string</span> <span class="n">ourname</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>   <span class="c1">// name property</span>
+</span><span class='line'>   <span class="n">public</span> <span class="n">string</span> <span class="n">Name</span>
+</span><span class='line'>   <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="n">get</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>     <span class="k">return</span> <span class="n">ourname</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="n">set</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>     <span class="n">_name</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>   <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>As you can see in this code we have the inner field named "ourname" and a Name property that's available to the outside world. While in the code example above it looks like pointless ceremony but if you wanted to perform operations on the name, such as making it title case this would be a great place to do it.</p>
+
+<p>If you don't have any logic to perform you can use AutoProperties (C# 3.0 or later):</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">public</span> <span class="n">class</span> <span class="n">Person</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>   <span class="c1">// name property</span>
+</span><span class='line'>   <span class="n">public</span> <span class="n">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is much more concise and simple, if you need to apply logic to the value later you can always come back and expand it.</p>
+
+<h3>Summary</h3>
+
+<p>I hope that clears up the name vs property question when dealing with objects. Remember there are no hard rules here so if you really need to violate these guidelines you can, but remember some changes may make extension or interfacing difficult.</p>
+
+<p>If you have any questions leave a comment!</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I'm constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div></p>
+]]></content>
+  </entry>
+  
+</feed>

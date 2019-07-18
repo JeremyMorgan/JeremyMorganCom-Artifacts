@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>C# .Net Tutorials - How to learn C# Part 2 - Namespaces - Tutorials Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="C# .Net Tutorials - How to learn C# Part 2 - Namespaces" /><meta itemprop="name" content="C# .Net Tutorials - How to learn C# Part 2 - Namespaces" /><meta name="twitter:title" content="C# .Net Tutorials - How to learn C# Part 2 - Namespaces">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-11-17 18:42:00 -0800" />
+
+<meta property="article:section" content="Tutorials" />
+
+<meta name="description" content="Part 2 of my tutorial series on learning C# .Net which takes a deeper look at C# namespaces" />
+<meta property="og:description" content="Part 2 of my tutorial series on learning C# .Net which takes a deeper look at C# namespaces" />
+<meta itemprop="description" content="Part 2 of my tutorial series on learning C# .Net which takes a deeper look at C# namespaces" />
+<meta name="twitter:description" content="Part 2 of my tutorial series on learning C# .Net which takes a deeper look at C# namespaces">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/csharp-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">C# .Net Tutorials - How to Learn C# Part 2 - Namespaces</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T18:42:00-08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>In the second part of our learning C# series we&#8217;re going to explain namespaces. You got a look at a namespace when we ran the sample code in the <a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-1/" rel="prev">last chapter</a>, and now we&#8217;re going to dig in a little deeper into C# namespaces and what they mean.</p>
+
+<!-- more -->
+
+
+<br />
+
+
+<h3>What is a namespace?</h3>
+
+<div class="tutorialbox">
+<h3>C# Tutorials: How to Learn C#</h3>
+<ol>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-1/" rel="prev">C# Introduction</a></li>
+<li>C# Namespaces</li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-3-coding-basics/" rel="next">C# Coding Basics</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-part-4-variables-and-types/">C# Variables and Types</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-5-selection-statements/">C# Selection Statements</a></li>
+<li><a href="/tutorials/c-sharp/how-to-learn-c-sharp-6-iteration-statements/">C# Iteration Statements</a></li>
+</ol>
+<a href="http://feedburner.google.com/fb/a/mailverify?uri=JeremyMorganTutorials&amp;loc=en_US" rel="nofollow"><strong>Get notified when new C# tutorials are released!</strong></a>
+</div>
+
+
+<p>The .NET Framework class library is huge, over 10,000 classes in fact. Namespaces bring order to all those classes by creating containers for entities such as classes or types.</p>
+
+<p>In our Hello World application it looked like this:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">HelloWorldApp</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But we also had another namespace in use that we identified above that:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>These two lines let the compiler know what namespaces we&#8217;re working in. We implemented the using statement for System to let our program have access to entities within the &#8220;System&#8221; namespace, which is a part of the .NET Framework. The namespace &#8220;HelloWorldApp&#8221; is our namespace that we created for our application.</p>
+
+<p>The primary function of namepsaces is organizing your code. With our Hello World application they didn&#8217;t do much because it&#8217;s very minimal, but in a real application they help you out immensely.</p>
+
+<br />
+
+
+<h3>What do they do?</h3>
+
+<p>A namespace organizes your code by creating boundaries and hierarchies for your types. They do several things:</p>
+
+<p><strong> Identify the purpose of the type </strong> - For example, System.IO controls input and output, System.Text contains classes that deal with character encodings.</p>
+
+<p><strong> Creates a hierarchy of types </strong> - For instance, System.Net handles communication at a higher level, while System.Net.Sockets is more granular and focuses on sockets. You may only need what&#8217;s contained within sockets, or you may need several parts of the System.Net namespace.</p>
+
+<p><strong> Help you navigate the Library </strong> - As stated before there are over 10,000 classes in the .NET Framework library and you don&#8217;t need them all. When you&#8217;re searching you don&#8217;t want to search all of them looking for a particular method. As in the example above, you know sockets are used for communication, so you can browse to System.Net and look for System.Net.Sockets and then find the method or type you&#8217;re looking for. Autocomplete in Visual Studio helps with this also.</p>
+
+<p><strong> Namespaces ensure uniqueness </strong> - Namespaces can determine how a method is used. For example the &#8220;scan&#8221; method means something different for a networking library than it would for an OCR library. In the regex class there is a &#8220;capture&#8221; but if you&#8217;re writing something for a mobile phone it could mean taking a picture.</p>
+
+<p><strong> Namespaces can also make your code cleaner </strong> - By implementing &#8220;using&#8221; directives you can include a namespace and reference all the methods in it within it&#8217;s scope.</p>
+
+<p>For example instead of writing <strong>System.Console.WriteLine(&#8220;text&#8221;)</strong> you can call it out implicitly, such as <strong>Console.WriteLine(&#8220;text&#8221;)</strong>. This may not seem like much of a difference, but when working with large projects things like this matter more.</p>
+
+<br />
+
+
+<h3>How namespaces are named</h3>
+
+<p>The primary function of namepsaces is organizing your code. With our Hello World application they didn&#8217;t do much because it&#8217;s very minimal, but in a real application they help you out immensely. The name of your namespace reflects who created it and what it&#8217;s purpose is.</p>
+
+<p><strong>System.[name]</strong> - These are entities that are part of the .NET Framework Class Library.</p>
+
+<p>Examples:</p>
+
+<blockquote><ul>
+<li>System.IO</li>
+<li>System.Text</li>
+<li>System.Console</li>
+</ul>
+</blockquote>
+
+<p>You can even put your own types into the System namespace, but I wouldn&#8217;t recommend it.</p>
+
+<p><strong>Microsoft.[name]</strong> - These are usually libraries with functionality created by Microsoft, but not included in the .NET Framework libraries.</p>
+
+<p>Examples:</p>
+
+<blockquote><ul>
+<li>Microsoft.CSharp</li>
+<li>Microsoft.Runtime.Hosting</li>
+<li>Microsoft.SqlServer</li>
+</ul>
+</blockquote>
+
+<p><strong>[CompanyName].[name]</strong> - Companies often put their own name in as the first part of the namespace to indicate something is utilizing their own tools.</p>
+
+<p>Examples:</p>
+
+<blockquote><ul>
+<li>Telerik.Windows.Controls</li>
+<li>CookComputing.XmlRpc</li>
+</ul>
+</blockquote>
+
+<p><strong>[ProjectName].[name]</strong> - Open source projects often use the same naming conventions for their namespaces as well.</p>
+
+<p>Examples:</p>
+
+<blockquote><ul>
+<li>Codemonkey.TextParser</li>
+<li>Thor.Net.Views</li>
+</ul>
+</blockquote>
+
+<p>As you can see in the examples a hierarchy is created by the namespace and we try to reflect that in the naming. You can name your namespaces just about any way you&#8217;d like but it&#8217;s highly recommended to follow the general convention:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;Company>.(&lt;Product>|&lt;Technology>)[.&lt;Feature>][.&lt;Subnamespace>]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This adds clarity to your solution and helps protect you from naming conflicts. The way you identify your namespaces will make your life easier down the road. We&#8217;ll explore even further in the next section.</p>
+
+<br />
+
+
+<h3>Additional naming considerations</h3>
+
+<p>Preventing conflicts is a full time job for any programming language or framework and C# .NET is no exception. Here are some tips to follow when naming your namespaces.</p>
+
+<p><strong>Use your company name in the namespace</strong> - This helps avoid conflicts if your entities are named similar to another company&#8217;s software.</p>
+
+<p><strong>Don&#8217;t put version numbers in the names</strong> - Changing namespaces introduces a host of problems, and version numbers change frequently.</p>
+
+<p><strong>Don&#8217;t name it after the internal codename of your company project</strong> - These names tend to change over time.</p>
+
+<p><strong>Don&#8217;t use keywords or types as names for namespaces</strong> - this seems pretty obvious, but can lead to some nasty conflicts down the road.</p>
+
+<br />
+
+
+<h3>Explicit references and namespace aliases</h3>
+
+<p>So what if you have two methods with the same name in two different namespaces? Well, it&#8217;s not the end of the world. You just need to call them out explicitly:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">Htmltools</span><span class="p">.</span><span class="n">Parsetags</span><span class="p">(</span><span class="s">&quot;someparameter&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Xmltools</span><span class="p">.</span><span class="n">Reader</span><span class="p">.</span><span class="n">Parsetags</span><span class="p">(</span><span class="s">&quot;someparameter&quot;</span><span class="p">,</span> <span class="s">&quot;anotherone&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see, you have can two different methods, even with different types and signatures, and you&#8217;ll be just fine as long as you call them out explicitly. This should be easy for most programmers to figure out if they&#8217;re reading your code.</p>
+
+<p>Another option for similarly named types would be to use an alias. This is another way to differentiate similarly named types. Let&#8217;s say you have a path class defined in one of your namespaces, but you also need a class that works with filesystem paths. Here&#8217;s both of them called out explicitly:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">JeremysTools</span><span class="p">.</span><span class="n">IniReader</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// explicit calls would be:</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span>
+</span><span class='line'><span class="n">JeremysTools</span><span class="p">.</span><span class="n">IniReader</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can create an alias for both very easily to avoid confusion:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">using</span> <span class="n">IOPath</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">IniPath</span> <span class="o">=</span> <span class="n">JeremysTools</span><span class="p">.</span><span class="n">IniReader</span><span class="p">.</span><span class="n">Path</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>See how easy that is? Now you can easily differentiate between IOPath and IniPath without doing a bunch of extra typing.</p>
+
+<br />
+
+
+<h3>Nested namespaces</h3>
+
+<p>The .NET Framework uses namespace nesting a lot, with good reason. For instance the System namespace is huge, and contains types such as System.Net and subcategories such as System.Net.Socket and System.Net.Mail. If you declare the socket namespace, you can&#8217;t neccessarily use the Mail namespace types, even though they&#8217;re both in the System.Net namespace. This creates the hierarchy we talked about earlier. This is done for effieciency, as we don&#8217;t want to load the entire framework for every application.</p>
+
+<p>You can use nested namespaces too if your application needs it. It&#8217;s a very simple method:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">YourApp</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">namespace</span> <span class="n">NetTools</span> <span class="p">{</span>
+</span><span class='line'>      <span class="c1">// do stuff</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a simple way to create a hierarchy and better organize your code. Another even more succinct method looks like this:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">YourApp</span><span class="p">.</span><span class="n">Net</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// do stuff</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is the most common method. Any code you put in a nested namespace can use types from the parent namespace without calling it explicitly.</p>
+
+<br />
+
+
+<h3>Conclusion</h3>
+
+<p>I hope this tutorial was a good introduction to namespaces. Honestly I didn&#8217;t think it would be this long until I started writing it and really thinking about it. This isn&#8217;t really code heavy, but the next part will be when I start talking about types.</p>
+
+<p>Most tutorials go straight from Hello world to types, but I thought the namespace would be an important first step since all your code is contained in them. But software is about data, so the next part will be about types, variables and classes then we&#8217;ll start on some conditional operation. I&#8217;ll also start to dive into some more object oriented stuff so you start off doing things in an object oriented manner.</p>
+
+<p>I hope this stuff helps, leave me some comments or shoot me a message if you have any questions or comments.</p>
+
+<br />
+
+
+<br />
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T18:42:00-08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/programming/how-to-stay-relevant-as-a-web-developer/" title="Previous Post: How to Stay Relevant as a Web Developer">&laquo; How to Stay Relevant as a Web Developer</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/c-sharp/how-to-learn-c-sharp-part-3-coding-basics/" title="Next Post: C# .Net Tutorials - How to Learn C# Part 3 - Coding Basics">C# .Net Tutorials - How to Learn C# Part 3 - Coding Basics &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/c-sharp/how-to-learn-c-sharp-part-2-namespaces/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

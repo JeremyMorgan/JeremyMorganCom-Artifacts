@@ -1,0 +1,1186 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title> Jeremy's Programming Blog</title><meta name="twitter:card" content="summary">
+
+
+
+
+
+
+<meta name="description" content="As a part of my increased focus on software development topics, today I&#8217;m going to talk about Object Oriented Programming (OOP). This is the &hellip;" />
+<meta property="og:description" content="As a part of my increased focus on software development topics, today I&#8217;m going to talk about Object Oriented Programming (OOP). This is the &hellip;" />
+<meta itemprop="description" content="As a part of my increased focus on software development topics, today I&#8217;m going to talk about Object Oriented Programming (OOP). This is the &hellip;" />
+<meta name="twitter:description" content="As a part of my increased focus on software development topics, today I&#8217;m going to talk about Object Oriented Programming (OOP). This is the &hellip;">
+
+<meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/articles/page/15/">
+<meta property="og:url" content="https://www.jeremymorgan.com/articles/page/15/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/articles/page/15/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">    <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/programming/an-introduction-to-object-oriented-programming/">An Introduction to Object Oriented Programming</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-30T17:24:18-07:00" pubdate data-updated="true">May 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As a part of my increased focus on software development topics, today I&#8217;m going to talk about Object Oriented Programming (OOP). This is the first in a series of articles that will aim to teach you more about OOP and how you can use it to develop better software.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/programming/an-introduction-to-object-oriented-programming/">Read on &rarr;</a>
+    </footer>
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/recipes/how-to-make-the-perfect-salmon/">How to Make the Perfect Salmon</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-30T05:04:24-07:00" pubdate data-updated="true">May 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I eat tons of fish. There are a lot of health benefits to it and it tastes pretty good. Lately I&#8217;ve been cooking a lot of Salmon and I&#8217;ve picked up a few good tricks for doing so.</p>
+
+<p><strong>1. </strong> Buy or catch some Wild Salmon and thaw it if frozen.</p>
+
+<p><strong>2.</strong> Marinate</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/how-to-cook-salmon-1-300x225.jpg" title="" ></p>
+
+<p>This one is a big step, you have to marinate. Here is what I often use for a marinate:</p>
+
+<ul>
+<li>2 parts  Lemon Juice</li>
+<li>1 part soy sauce</li>
+<li>1 part water</li>
+</ul>
+
+
+<p>Let this soak for as long as you can, 3 hours or so is good, 5 or  6 is even better. Make sure and refrigerate it while you do.</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/how-to-cook-salmon-2-300x225.jpg" title="How to cook the perfect salmon" ></p>
+
+<p><strong>3</strong>. Take some aluminum foil and coat it with olive oil. Use a napkin or something and coat all of the foil that will be touching the fish.  You can wrap the fillets individually or do them all in a big foil packet, doesn&#8217;t matter. This is so the foil doesn&#8217;t stick to the fish and burn it , plus it holds the salt and pepper as well.</p>
+
+<p><strong>4</strong>. Sprinkle sea salt and fresh ground pepper on the foil. You want it to stick to the foil.</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/how-to-cook-salmon-3-300x225.jpg" title="How to cook the perfect salmon" ></p>
+
+<p><strong>5</strong>. Put the fillets inside the foil and put a bit of butter on each one. (Not margarine, but real butter).  Sprinkle some pepper on top of them fillets. Close it up tightly and make it into a &#8220;boat&#8221; so it cooks in the juices. You can also put a little soy sauce on each fillet if you want.</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/how-to-cook-salmon-4-300x225.jpg" title="How to cook the perfect salmon" ></p>
+
+<p><strong>6</strong>. Cook it! There are two different ways to do it depending on your taste:</p>
+
+<ul>
+<li>Low heat  in oven - This will cook slower, and meat will be much more moist. If you like it moist cook it this way (290 degrees for 45 mins)</li>
+<li>High heat in oven or grill - This will cook faster, but salmon will be a bit more dry.  (300+ for 20-25 minutes)</li>
+</ul>
+
+
+<p>This is a good way to eat Salmon that&#8217;s healthy and simple. Feel free to leave comments about this!</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/images.jeremymorgan.com/salmon-recipe-1-300x300.jpg" title="How to cook the perfect salmon" ></p>
+
+<p><strong>Note:</strong> Make sure it&#8217;s <em>always</em> Wild Salmon. Fresh or frozen doesn&#8217;t matter as much but it has to wild for taste and your health. You can get 2 pounds of frozen wild salmon for around $9-$10 at Walmart or WinCo that&#8217;s really good. There are more expensive varieties at Trader Joe&#8217;s, Safeway and Albertson&#8217;s stores but I haven&#8217;t noticed a difference.</p>
+
+<p>Of course the best way is to catch it wild yourself and cook it up that night, but not always an option for everyone.</p>
+
+<p>Leave a comment!</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/python-tutorials/python-for-beginners/">Python for the Absolute Beginner</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-21T03:58:15-07:00" pubdate data-updated="true">May 21<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you&#8217;re a Programmer / Developer, chances are you&#8217;ve at least heard of this neat little program called Python. Those who know it sing it&#8217;s praises, and it can be found in some very powerful applications. If you&#8217;ve been curious about how to get started with Python I have built this tutorial to help you on your way to becoming a text manipulating ninja.</p>
+
+<p>Ok, that sounded a little corny but Python is really, really good at parsing and manipulating text. It&#8217;s one of the duties you&#8217;ll see it doing often. Let&#8217;s get started.</p>
+
+<p><strong>Step 1:Get Python</strong></p>
+
+<p>I&#8217;m not going to go into great detail about installation, but you can get python for any of the big three (PC, Mac Linux) operating environments and the setup is pretty similar. In many versions of OSX and Linux Python is installed by default. One way to see if it&#8217;s installed is by opening up a command window, and simply typing &#8220;python&#8221; or &#8220;py&#8221;. If it&#8217;s installed you&#8217;ll see something like this:</p>
+
+<blockquote><p>[jeremy@localhost ~]$ python
+Python 2.4.3 (#1, Jul 27 2009, 11:32:33)
+[GCC 4.1.2 20080704 (Red Hat 4.1.2-44)] on linux2
+Type &#8220;help&#8221;, &#8220;copyright&#8221;, &#8220;credits&#8221; or &#8220;license&#8221; for more information.</p>
+
+<blockquote><blockquote></blockquote></blockquote></blockquote>
+
+<p>If not, the best place to get the latest version is from<a href="http://www.python.org/download/"> Python.org</a>.</p>
+
+<p><strong>Step 2: Start Coding</strong>
+<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/python-tutorials.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/python-tutorials.jpg" alt="Python Tutorials" /></a>
+Here is how you should start building Python scripts:</p>
+
+<ul>
+<li><p>Plain Text Editor</p></li>
+<li><p>Running Python at the prompt</p></li>
+</ul>
+
+
+<p>The editor I use the most is <a href="http://kate-editor.org/">Kate</a> in Linux. This is because Kate manages your files, and you have a command terminal below, allowing you to enter stuff. If I&#8217;m on a windowless machine Vim works very well too. For Windows machines I would recommend <a href="http://notepad-plus-plus.org/">Notepad++</a> to edit. Both are free and there are tons of free text editors out there, especially in Linux.</p>
+
+<p>Your first step is the obligatory &#8220;Hello world&#8221;. You&#8217;ll find it&#8217;s nearly as simple as it could possibly be in Python.</p>
+
+<p>Create a file called test.py and put the following line in it:</p>
+
+<pre><code>print "hello world"
+</code></pre>
+
+<p>and save it. Now type:</p>
+
+<blockquote><p>python test.py</p></blockquote>
+
+<p>Amazing right? Now do something silly, to make it spit out an error, and remove the last quote. Type this exactly as you see it:</p>
+
+<pre><code>print "hello world
+</code></pre>
+
+<p>You should see the following message:</p>
+
+<blockquote><p>File &#8220;test.py&#8221;, line 1
+print &#8220;hello world
+^
+SyntaxError: EOL while scanning string literal</p></blockquote>
+
+<p>Like every programming language you have to close everything you open. (With the exception of tags in PHP, but let&#8217;s not get into that).</p>
+
+<p>So to clarify, our steps are:</p>
+
+<ol>
+<li><p> Put python code into a text file.</p></li>
+<li><p> run that text file with python ( python + filename )</p></li>
+<li><p> look at the results.</p></li>
+</ol>
+
+
+<p>Seems simple enough, so let&#8217;s do some more stuff.</p>
+
+<p><strong>Comments</strong></p>
+
+<p>A quick note about comments: use them. When you become a better programmer you can decide whether &#8220;good code comments itself&#8221; but for now, let&#8217;s use comments to explain what&#8217;s going on. Basically a comment is any text that YOU can see as a programmer, but the computer can&#8217;t. This is so you can leave yourself notes, or notes for other programmers.</p>
+
+<p>In Python, you use the # pound sign for commenting, like so:</p>
+
+<pre><code># This is a comment
+print "hello world"
+</code></pre>
+
+<p>But usually they&#8217;re explaining something a little more important:</p>
+
+<pre><code># classroom.py
+
+boys = 5 # Boys in the class
+girls = 8 # Girls in the class
+total = boys + girls # Add up the total
+
+# print our message
+print "There are", boys, "boys in the class and", girls, "girls in the class"
+
+# print the total
+print "There are a total of", total, "students in this class"
+</code></pre>
+
+<p>When you run classroom.py the computer (python interpreter to be exact) will ignore all the comments you insert, but they remain in the file for the next person to look at (which could be you).</p>
+
+<p>Speaking of math, let&#8217;s do some!</p>
+
+<p>As you saw above it doesn&#8217;t take much to do basic arithmatic in Python. Here is one way of performing mathmatic expressions:</p>
+
+<pre><code># weeksinyear.py
+
+print "How many weeks are in a year?", 365 / 7
+
+See how easy that was? But this prints the answer at the end of the line. What if we want it in the middle of the sentence?
+
+# weeksinyear.py
+
+# figure out the total
+weeksinyear = 365 / 7
+
+print "There are", weeksinyear, "weeks in a year"
+</code></pre>
+
+<p>Notice how easy it was to insert the text into the sentence? That was done with a variable.</p>
+
+<p>Here is what you should see:</p>
+
+<blockquote><p>There are 52 weeks in a year</p></blockquote>
+
+<p>You can do all kinds of things with the output, you can output just answers:</p>
+
+<pre><code>print 3+2
+</code></pre>
+
+<p>But why stop there?</p>
+
+<pre><code>print 3 + (2 + 4) / 2 * 34
+</code></pre>
+
+<p>You can group expressions and output the answer however you like, or feed it into a variable and use the variable.</p>
+
+<p>Python also outputs boolean (true / false) as well:</p>
+
+<pre><code>print 3 + 3 &lt; 10
+</code></pre>
+
+<p>Since 6 obviously less than 10 it will output true. This statement isn&#8217;t exactly useful, but once you start using variables and inputs it will.</p>
+
+<p>Variables.</p>
+
+<p>Variables are simply containers to put data in. Think of a set of mailboxes for an apartment building. Each mailbox contains someone&#8217;s mail (data) and each mailbox is labeled with a number (variable name). The variable is the mailbox, and the number on the mailbox is the variable name.</p>
+
+<p>So let&#8217;s create some variables.</p>
+
+<pre><code># aboutme.py
+name = "Jeremy"
+age = 34
+currentyear = 2012
+drivingyears = age - 16
+alcyears = age - 21
+
+print "Some facts about",name
+print "Jeremy was born sometime around", currentyear - age
+print "He's",age,"years
+print "He has been driving around", drivingyears, "years"
+print "He could has been able to drink alcohol for about", alcyears, "years"
+</code></pre>
+
+<p>Here you can see we&#8217;ve created some variables here to hold my name, age, and the current year. We also added in a couple of formulas to figure out how long I&#8217;ve been driving, and (legally) drinking alchohol. If you copy this script exactly (don&#8217;t!) you will get the following output:</p>
+
+<blockquote><p>Some facts about Jeremy
+Jeremy was born sometime around 1978
+He&#8217;s 34 years old
+He has been driving around 18 years
+He has been able to legally drink alcohol for about 13 years</p></blockquote>
+
+<p>OK, so this script makes me feel pretty old. Create a similar script for yourself and feel free to modify it. Add in how many years you&#8217;ve been married or how long you&#8217;ve been in school. I encourage you to take these examples and run with them, modify and go crazy, because that&#8217;s the best way to learn. Experiment and don&#8217;t worry about breaking things.</p>
+
+<p>Now it&#8217;s time to change it up a little.</p>
+
+<pre><code>radius = 2
+pi = 3.14
+
+print "The area of our circle is", pi * (radius * radius)
+</code></pre>
+
+<p>Notice something different? We&#8217;re now using a floating point number, which Python detected and used, then output another float. Python supports many different datatypes including integers, long, floats and complex.</p>
+
+<p>In the next tutorial we&#8217;re going to get a little more in depth and start exploring some more math, and loops.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/linux/how-to-build-apache-php5-and-mysql-from-source-the-hard-way/">Linux Tutorial: How to Build Apache, PHP5 and MySQL From Source ( the Hard Way)</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-20T08:49:56-07:00" pubdate data-updated="true">May 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My last article on this subject was about building the trinity (Apache, PHP, MySQL) the easy way using XAMPP. Now I&#8217;m going to show you how to do it the hard way, building everything from source, the way Linus intended. Let&#8217;s get started.</p>
+
+<h2>Step 1: Determine if it&#8217;s right for you.</h2>
+
+<p>This is not the only way to get a LAMP server going and not always the best way. You can get these files from your package manager in your favorite distribution or use something like XAMPP like I mentioned in previous articles. For most developers this a perfectly acceptable way to do it, and likely a better use of your time. Here are the reasons you would want to build from source:</p>
+
+<p><strong><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/tux-gangsta.png"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/tux-gangsta.png" alt="Gangsta Tux always builds from source." /></a>You should only build from source if:</strong></p>
+
+<ul>
+<li><p>You have a good idea of what you&#8217;re doing.</p></li>
+<li><p>You have time and patience.</p></li>
+<li><p>You want the latest and greatest stuff and your package manager doesn&#8217;t have it yet.</p></li>
+<li><p>You want to do something really custom and need to change crucial options.</p></li>
+<li><p>You want full control over the installation details.</p></li>
+<li><p>You need the maximum performance and stability possible.</p></li>
+<li><p>You want to learn something.</p></li>
+</ul>
+
+
+<p>If those don&#8217;t apply to you, then <a href="http://www.apachefriends.org/en/xampp.html">head over to this site</a> and get XAMPP, it&#8217;s an awesome project.</p>
+
+<h2>Step 2: Get Sources.</h2>
+
+<p>Here is all the stuff you&#8217;re going to need. I put asterisks next to the &#8220;maybe&#8221; stuff that you might not need depending on how updated your system is.</p>
+
+<p><strong>Apache:</strong></p>
+
+<p><a href="http://httpd.apache.org/download.cgi">http://httpd.apache.org/download.cgi</a></p>
+
+<p><strong>PHP:</strong></p>
+
+<p><a href="http://php.net/downloads.php">http://php.net/downloads.php</a></p>
+
+<p><strong>MySQL:</strong></p>
+
+<p><a href="http://dev.mysql.com/downloads/">http://dev.mysql.com/downloads/</a></p>
+
+<p><strong>Cmake: </strong>*</p>
+
+<p><a href="http://www.cmake.org/files/v2.8/cmake-2.8.8.tar.gz">http://www.cmake.org/files/v2.8/cmake-2.8.8.tar.gz</a></p>
+
+<p><strong>Mcrypt: </strong>*</p>
+
+<p><a href="http://sourceforge.net/projects/mcrypt/files/Libmcrypt/">http://sourceforge.net/projects/mcrypt/files/Libmcrypt/</a></p>
+
+<p><strong>APR:</strong></p>
+
+<p><a href="http://apr.apache.org/">http://apr.apache.org/</a></p>
+
+<p><strong>PCRE:</strong></p>
+
+<p><a href="http://www.pcre.org/">http://www.pcre.org/</a></p>
+
+<p>Additional reading about setting up an Apache server can be found here:</p>
+
+<p><a href="http://httpd.apache.org/docs/2.4/install.html">http://httpd.apache.org/docs/2.4/install.html</a></p>
+
+<p><strong>Verify your files!
+</strong></p>
+
+<p>Make sure and download the .asc file also and do a quick checksum on it. This extra few seconds is well worth the benefit. Here is how you do it with Apache:</p>
+
+<p><a href="http://www.apache.org/info/verification.html">http://www.apache.org/info/verification.html</a></p>
+
+<p>You should verify all your files before building, just to make sure you didn&#8217;t get a corrupt file.</p>
+
+<p>Notes before you start:</p>
+
+<p>You will see version numbers here, and those numbers are for the latest version of the software available when I wrote this. By the time you read this, they will have changed. If you want you can get these exact version numbers and build them exactly as in the article, but usually the newest version of the software is best.</p>
+
+<p>I use &#8220;nice -20&#8221; before running make to ensure it gets priority. You don&#8217;t have to do this, and usually its not even required as most kernels will prioritize it pretty well.</p>
+
+<p>You do not have to be root to build this stuff, in fact you shouldn&#8217;t be. You only need root privileges to install the software but you can build it with a regular user.</p>
+
+<h2>Step 3: Start Building</h2>
+
+<p><strong>Install cmake:</strong></p>
+
+<blockquote><p>./configure &#8211;prefix=/usr &#8211;mandir=/usr/share/man
+gmake</p></blockquote>
+
+<p><strong>Install MySql:</strong></p>
+
+<blockquote><p>groupadd mysql
+useradd -g mysql mysql</p></blockquote>
+
+<p>tar zxvf mysql-5.5.24.tar.gz (file name will differ)</p>
+
+<p>cd mysql-5.5.24
+./configure &#8211;prefix=/usr/local/mysql
+make
+make install
+cd /usr/local/mysql
+chown -R mysql .
+chgrp -R mysql .
+scripts/mysql_install_db &#8211;user=mysql
+chown -R root .
+chown -R mysql var
+cp support-files/my-medium.cnf /etc/my.cnf</p>
+
+<p>bin/mysqld_safe &#8211;user=mysql &amp;</p>
+
+<p>This will install your MySQL server. If you have issues getting it working, <a href="http://dev.mysql.com/doc/refman/5.5/en/installing-source-distribution.html">consult this page</a> and follow those instructions.</p>
+
+<p><strong>Install Mcrypt</strong></p>
+
+<blockquote><p>bunzip2 libmcrypt-2.5.8.tar.bz2
+tar xvf libmcrypt-2.5.8.tar
+cd libmcrypt-2.5.8
+./configure &#8211;prefix=/usr &#8211;mandir=/usr/share/man
+nice -20 make
+make install</p></blockquote>
+
+<p><strong>Install APR</strong></p>
+
+<blockquote><p>tar xvzf apr-1.4.6.tar.gz /usr/src/http-2.4.2/srclib
+cd apr-1.4.6
+./configure
+nice -20 make</p></blockquote>
+
+<p><strong>APR Utils:</strong></p>
+
+<blockquote><p>tar xvzf apr-util-0.9.19.tar.gz
+./buildconf &#8211;with-apr=/usr/src/apr-1.4.6/
+./configure</p></blockquote>
+
+<p><strong>Install PCRE</strong></p>
+
+<blockquote><p>tar xvzf pcre-8.30.tar.gz
+./configure
+nice -20 make
+make install</p></blockquote>
+
+<p><strong>Install Apache</strong></p>
+
+<blockquote><p>cd httpd-2.4.2
+CFLAGS=&#8221;-O2&#8221; ./buildconf &#8211;with-apr-util=/usr/src/httpd-2.4.2/srclib/apr-util-1.4.1 &#8211;with-apr=/usr/src/httpd-2.4.2/srclib/apr-1.4.6/ &#8211;enable-so &#8211;prefix=/usr/local/apache2
+CFLAGS=&#8221;-O2&#8221; ./configure
+nice -20 make
+make install</p></blockquote>
+
+<p><strong>Install PHP</strong></p>
+
+<p>We are going to install PHP 5.4.3 which was the most current at the time of this writing.</p>
+
+<blockquote><p>tar -xvzf php-5.4.3.tar.gz
+cd php-5.4.3</p></blockquote>
+
+<p><strong>Note:</strong> The configure paramaters are where you really customize your installation. The following is the one I used for my machine, but your needs may be different. I will show you two of them and if mine doesn&#8217;t work, you can use a failsafe one.</p>
+
+<p>My config:</p>
+
+<blockquote><p>./configure &#8211;with-apxs2=/usr/local/apache2/bin/apxs &#8211;with-mysql &#8211;with-curl=/usr/bin/curl &#8211;enable-bcmath &#8211;enable-calendar &#8211;with-curl=/usr/bin/curl &#8211;with-gdbm &#8211;enable-exif &#8211;enable-ftp &#8211;with-gd &#8211;with-freetype-dir=/usr &#8211;with-jpeg-dir=/usr &#8211;with-png-dir=/usr/bin/libpng-config &#8211;enable-gd-native-ttf &#8211;with-gettext &#8211;with-mcrypt=/usr/bin/libmcrypt-config &#8211;with-mhash &#8211;with-mysql=/usr/local/mysql/ &#8211;with-mysqli=/usr/bin/mysql_config &#8211;with-openssl &#8211;with-pdo-mysql=/usr &#8211;enable-soap &#8211;enable-wddx &#8211;with-xsl &#8211;with-zlib &#8211;enable-mbstring &#8211;enable-zip</p></blockquote>
+
+<p>Failsafe:</p>
+
+<blockquote><p>./configure &#8211;with-apxs2=/usr/local/apache2/bin/apxs &#8211;with-mysql</p></blockquote>
+
+<p>Make sure and get what you really need, but remember you can always recompile later. Now copy over a PHP.ini</p>
+
+<blockquote><p>cp php.ini-development /usr/local/apache2/php/php.ini</p></blockquote>
+
+<p>NOTE: Here&#8217;s an error you might run into:</p>
+
+<p>configure: error: Cannot find MySQL header files under /usr.
+Note that the MySQL client library is not bundled anymore!</p>
+
+<p>If you do install the mysql client libraries:</p>
+
+<blockquote><p>git clone git://github.com/Sannis/node-mysql-libmysqlclient.git
+cd node-mysql-libmysqlclient
+nice -20 make
+make test
+make clean
+sudo make install</p></blockquote>
+
+<p>After it&#8217;s built you&#8217;ll need to do a couple things:</p>
+
+<blockquote><p>vi /usr/local/apache2/conf/httpd.conf</p></blockquote>
+
+<p>Make sure this is here:</p>
+
+<blockquote><p>LoadModule php5_module modules/libphp5.so</p></blockquote>
+
+<p>And add this to the file also:</p>
+
+<p><FilesMatch "\.ph(p[2-6]?|tml)$">
+SetHandler application/x-httpd-php
+</FilesMatch></p>
+
+<p>Then restart Apache:</p>
+
+<blockquote><p>/usr/local/bin/apache2/apachectl restart</p></blockquote>
+
+<p>This will give you a nice running system! You will run into problems along the way, nothing that should be a showstopper. Good luck and if you have any questions, feel free to comment!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/programming/why-i-love-using-old-hardware/">Why I Love Using Old Hardware</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-19T20:03:16-07:00" pubdate data-updated="true">May 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A while back I wrote an article about my <a href="http://www.jeremymorgan.com/blog/linux/old-g4-debian-linux-dirt-cheap-development-machine/">dirt cheap dev machine</a> that I bought on Craigslist for $200. What happened was my laptop went out and I was in the middle of a project. Because I am really picky and like to research new purchases very thoroughly, I decided I needed an interim machine. I ended up buying a G4 powerbook and slapping Linux on it and got my stuff done.</p>
+
+<p><img class="right" src="http://s3.amazonaws.com/images.jeremymorgan.com/powermac-g4-150x150.jpg"My" title="G4 Powermac&#34;" alt="G4 Powermac&#34;"></p>
+
+<p>When I first turned on the computer it had a copy of OSX Panther on it. It took me 10 minutes or so to decide it was time to go, once I got it connected to the internet it was horribly slow, and most of the websites didn&#8217;t format properly, and many didn&#8217;t work at all. So I did what any self respecting geek would do and grabbed a copy of Linux to breathe life into this old dog. First it was a copy of Debian PPC, then Yellow Dog Linux. I installed what I needed and got the project done.</p>
+
+<p>Then I got a new laptop and the G4 went in the closet for a few months. I recently decided to break it out again, and fix some of the issues it had, and maybe build some new versions of packages. I ended up getting hooked big time, and lately I&#8217;ve been spending a lot more time on that old G4. Why?</p>
+
+<h3>Advantages of Using Dinosaurs</h3>
+
+<p>There are quite a few advantages of using old stuff. This G4 was originally released in 2004, that&#8217;s 8 long years. In 2004 we weren&#8217;t doing a fraction of the cool stuff we&#8217;re doing now with the web and things like Facebook and Twitter didn&#8217;t even exist, so the computer wasn&#8217;t exactly designed for today&#8217;s stuff. Linux of course solves this problem.</p>
+
+<p>But the next problem with this particular machine is, the motorola PowerPC processor. Apple stopped using them in 2006, and even most versions of Linux built for the PPC stopped developing in 2010 or so.</p>
+
+<p><img class="left" src="http://s3.amazonaws.com/images.jeremymorgan.com/99ee98d8964611e1b10e123138105d6b_7-300x300.jpg" title="&#34;My G4 Powermac&#34;" alt="&#34;My G4 Powermac&#34;"></p>
+
+<p>But I want the newest stuff, so that means compling from source. When you do that, you start hitting dependencies and going on a wild goose chase for software, backtracking all over the net upgrading everything, tweaking and tuning and pulling your hair out to get one simple package to work.</p>
+
+<p>If that sounds like fun, you&#8217;re as much of a geek as me. I&#8217;ve upgraded nearly every component of this old mac and it&#8217;s taken me HOURS to do it. But I&#8217;ve learned a tremendous amount in the process. I&#8217;ve learned about the hardware, learned more about Linux and learned more about the packages themselves. I&#8217;ve also learned more about optimizing my system.</p>
+
+<p>Did I mention cost? I&#8217;ve got a machine that you can browse the internet, watch movies, make websites and even develop software on for $200. Hard to beat.</p>
+
+<p>Drivers for hardware are pretty well established as well, so you don&#8217;t have to worry about hardware too new to support, or surprises in the drivers.</p>
+
+<h3>Conclusion</h3>
+
+<p>When you use old stuff like this, you save a lot of money. You also save the environment by using something that might otherwise be thrown away. Finally, you learn more about your hardware and learn how to squeeze every drop of performance out of it. If you want a decent daily driver you can get your favorite distribution of Linux and put together something pretty neat and stable.</p>
+
+<p>Obviously if you&#8217;re a gamer or doing something like video editing or animation there aren&#8217;t many advantages of using older stuff. But for the rest of us it can save you some money and of course be really fun. Don&#8217;t throw it away, give it a try!</p>
+
+<p><img class="center" src="http://s3.amazonaws.com/images.jeremymorgan.com/mac-daddy-300x300.jpg" title="&#34;Mac G4 running Yellow Dog Linux&#34;" alt="&#34;Mac G4 running Yellow Dog Linux&#34;"></p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/programming/setting-up-linux-use-a-package-manager-or-build-from-source/">Setting Up Linux: Use a Package Manager or Build From Source?</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-12T02:35:18-07:00" pubdate data-updated="true">May 12<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/09/linux.png"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/09/linux-250x300.png" alt="How to get realtime dmesg output in linux" /></a></p>
+
+<p>There are a few different ways to do things in the Linux world and if you ask for the best way, you&#8217;ll get several different answers. Linux folk tend to be pretty opinionated and become polarized about issues, which creates difficulties and makes for one more thing to add to the list of reasons the masses don&#8217;t publicly adopt Linux.</p>
+
+<p>How you build your software is one of those dividing issues. People who favor package managers talk of ease of upgrading, not thinking about dependencies and stability. People who favor building from source talk of control and peak performance. The purpose of this article is to help you figure out which camp you should be in.</p>
+
+<p>Personally, I&#8217;ve been a Linux user since the mid 90s and also a software developer by trade so I&#8217;m pretty confident in building from source so that&#8217;s my preference. Plus I&#8217;m a bit of a control freak which is one of the big reasons I use Linux in the first place. Do I always recommend it for others? No, of course not.</p>
+
+<p>This task can be pretty daunting for a beginner, and possibly not worth the trouble. Plus there are some really great package managers for Linux out there: rpm, yum, aptitude and dpkg to name a few, and they are pretty great.</p>
+
+<h2>Using a package manager and/or precompiled binaries.</h2>
+
+<p>So you just burned that cool new Ubuntu CD and can&#8217;t wait to install it. You fire it up and notice all kinds of cool stuff you gotta download so you get crackin. You install a bunch of software and get everything where you want and have your system set up.</p>
+
+<p>Do you have a good system set up? Yes.
+Do you have what you&#8217;re looking for? Yes.
+Did you spend a lot of time on it? No.
+Is it still better than a Windows box? Yes.</p>
+
+<p>So is there anything wrong with doing things this way? Of course not. If you&#8217;re a casual or new user this is likely the best way to do it. You install everything without worrying too much about dependencies, libraries or compilers. Someone else has done the work for you and that&#8217;s fine with you. You&#8217;re just going to browse the web and maybe learn some PHP or Python, so the system is ready.</p>
+
+<h3>Advantages:</h3>
+
+<blockquote><p><strong>You save yourself time compiling stuff</strong> - Most is pre compiled for you so hours become minutes.
+<strong>Easy Installation</strong> - You don&#8217;t spend a bunch of time editing text files and chasing down libraries.
+<strong>Dependencies?</strong> - They are of little concern to you.
+<strong>Super simple</strong> - Installation was as easy as pushing a button.
+<strong>Peace of Mind-</strong> You probably installed stable and secure software. Generally package managers recommend stable, tested stuff.
+<strong>Didn&#8217;t have to use VI</strong> - You don&#8217;t know a lick of coding so it&#8217;s a good thing you didn&#8217;t have to do any.</p></blockquote>
+
+<p>You&#8217;re probably ok doing it this way especially as a casual user, however there are some downsides. If this were the only and best way to do it, we wouldn&#8217;t have this article.</p>
+
+<h3>Disadvantages:</h3>
+
+<blockquote><p><strong>You have old stuff</strong> - You may not have the newest software. You have what the distribution or package manager decided to give you.
+<strong>You have Slow Stuff</strong> - You have precompiled binaries that may not be fully optimized for your processor.
+<strong>Too much fat</strong> - You have a lot of stuff on your hard drive, and a lot of it you will never need.
+<strong>Memory Hogs</strong> - The programs have a lot of extra stuff compiled in, so you may be using more memory than you need to.
+<strong>Toaster Effect </strong>- You have things set up with all the default options, which may not be exactly what you want.</p></blockquote>
+
+<h2>Compiling from Source.</h2>
+
+<p>So, let&#8217;s say you take another route and decide to compile everything from source. So what you do in this case is go out and hit each website and get the newest (or newest stable) versions of the source, download it and compile it for your system. At the end of this you also have a great running system but what are the pros and cons of this method?</p>
+
+<h3>Advantages:</h3>
+
+<blockquote><p><strong>You have the newest stuff - </strong>You can go with the latest stable or the very bleeding edge which can be good or bad. You could have untested (but really new) stuff that&#8217;s full of bugs or you could have the best product the programmers can offer. Your mileage may vary.
+<strong>You have software that&#8217;s optimized for your processor</strong> - Since this was compiled on your system for your system it&#8217;s running as fast as it can. With some programs it&#8217;s useless with others the added performance is quite noticeable.
+<strong>You have only what you need -</strong> Unless you went and got software for the hell of it, you only have what you needed to successfully build the software. This saves on hard drive space and eases organization.
+<strong>You have configured it your way, and eliminated a lot of fat.</strong> You&#8217;re using less hard drive space and memory and you sleep well at night knowing you&#8217;re using your system in the most efficient way possible. For some of us this is very important.
+<strong>You probably learned something</strong> - As I mentioned I have been using Linux since the mid 90s, and a couple days ago I updated my GCC to the latest version and I learned something about MPFR and how it ties in with other libraries. You never stop learning, and by compiling stuff by hand you&#8217;ll learn a lot about how your computer works, and how software is set up.</p></blockquote>
+
+<p>Of course compiling from source isn&#8217;t the silver bullet, end all solution either. There are some key complaints to compiling from source that are very valid.</p>
+
+<h3>Disadvantages:</h3>
+
+<blockquote><p><strong>Time</strong> - Wow! You spent 4 hours setting up a new version of GCC? Really? Yes, I did just that yesterday and if you compile stuff from source you will spend a ton of time babysitting it. Expect to spend a lot of time watching lines go by, and restarting it when something fails. Yes you can do other stuff during compiling but your computer is (or should be) off limits while you compile all this code. You can spend 40 working hours setting up a decent system easily by building from source, It&#8217;s more common than you&#8217;d think.
+<strong>Frustration</strong> - You&#8217;ve had to hunt down libraries, chase dependencies and hack config files right and left. Nothing is ever as simple as running ./configure, make and make install. You had a frustrating speed bump every step of the way and had to hit Google 20 times to make this thing work. (Don&#8217;t worry I still have to hit Google sometimes to make stuff work and I do this for a living).
+<strong>Dependencies</strong> - You&#8217;ll discover them after waiting 40 minutes for a package to compile and see an Error 2 at the last minute.
+<strong>Updating software</strong> - Sure it&#8217;s all neat and dandy once you get everything built and running, but once you need to upgrade one of those pieces of software you&#8217;ll find out that you&#8217;re in for lots more time than you imagined. There is no apt-get updates for you buddy! Start recompiling everything.
+<strong>Bleeding edge</strong> - There&#8217;s a chance that latest and greatest software you just put on the production server runs like garbage and has some serious security issues. You&#8217;re pretty much stuck with it until you&#8217;ve got the time to roll stuff back.</p></blockquote>
+
+<h2>Conclusion</h2>
+
+<p>OK, so which method is better? It depends on your application. I&#8217;ve been known to install an OS and use all the vanilla stuff and do just fine. I even use XAMPP for personal dev machines sometimes because it&#8217;s just so easy and quick. There&#8217;s nothing wrong with this if your goal is to use the machine as a simple tool to get a job done.</p>
+
+<p>I&#8217;ve also been known to do things like I have recently, where I spent HOURS working on my PowerBook G4 updating everything from source. Since I&#8217;m running a version of Yellow Dog Linux from 2008 there was tons of old stuff on there, but I had to redo it all and squeeze some performance out of it. I hand crafted every configure parameter and compiled and recompiled binaries making sure everything was pristine and perfect. I have a very optimized machine, especially considering it&#8217;s 9 years old, but I paid for it with time.</p>
+
+<p>If I were to factor in the amount of time I spent and apply the amount my employer pays me per hour to work, I could have easily bought a brand new laptop with Windows 7 on it that would outperform this machine by leaps. But what fun would that be?</p>
+
+<p>In conclusion you have to do what&#8217;s best for you. If your operating system and machine are merely tools to do a task that you don&#8217;t really care about, just install your favorite Linux distro with all the defaults and get to work. You&#8217;re still getting a great system (if you choose Linux or Unix). If you are working with old hardware, need the maximum performance or are just a perfectionist like me, build it from source and enjoy squeezing every drop of performance out of it. Public facing production servers should always be running stuff compiled from source in my opinion.</p>
+
+<p>In the end you have a choice, which is what Linux is really all about.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/programming/a-typical-programmers-toolbox/">A Typical Programmers Toolbox</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-06T09:37:15-07:00" pubdate data-updated="true">May 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently my computer at work started to exhibit some problems, so I decided to do a full backup. I didn&#8217;t know this, but at the time the IT department did a snapshot of all the programs installed on the machine, which turned out to be quite a helpful list.</p>
+
+<p><img class="right" src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/programmer-tools.jpg" title="Typical Programmer's Toolbox" ></p>
+
+<p>Here is a listing of all the programs I had installed and it gives you a good idea of what the typical programmer would use to do his/her job. At this time I am primarily developing in Linux, but in a previous position with this same company I was developing ASP/C# stuff and many of those programs were still installed so it shows a good variety of stuff. My reason for posting is to not only show the large variety of programs a typical developer might use, but also give you some ideas, there may be things you&#8217;ve never used before and decide to check out. Many of them are free/open source.</p>
+
+<h3>Programs Installed on my Machine</h3>
+
+<ul>
+<li>Microsoft Visual Studio Ultimate 2010 Enu</li>
+<li>RealVNC VNC Viewer 4.5.1 Enu</li>
+<li>.NET Framework Async CTP</li>
+<li>Adobe ExtendScript Toolkit 2</li>
+<li>Adobe Photoshop CS3</li>
+<li>Anki</li>
+<li>AutoIt v3.3.8.0</li>
+<li>AutoIT-Recorder</li>
+<li>BrainWave Generator</li>
+<li>Bulk Rename Utility 2.7.1.2</li>
+<li>CamStudio</li>
+<li>Crystal Reports for Visual Studio</li>
+<li>CutePDF Writer 2.8</li>
+<li>Delphi 7 Second Edition</li>
+<li>Dia (remove only)</li>
+<li>Directory Submitter 1.0.29</li>
+<li>Dotfuscator Software Services - Community Edition</li>
+<li>F-Secure SSH Client</li>
+<li>Fences</li>
+<li>Fiddler Syntax-Highlighting Addons</li>
+<li>Fiddler2</li>
+<li>FileZilla Client 3.5.3</li>
+<li>Gnaural ver. 1.0.20110606</li>
+<li>Google Drive</li>
+<li>IBM Installation Manager</li>
+<li>IBM Rational Team Concert</li>
+<li>IcoFX 1.6.4</li>
+<li>IIS 7.5 Express</li>
+<li>Intel® Active Management Technology</li>
+<li>Java(TM) SE Development Kit 6 Update 24</li>
+<li>Java(TM) SE Development Kit 6 Update 29</li>
+<li>jv16 PowerTools 2011</li>
+<li>LinuxLive USB Creator</li>
+<li>MagicDisc 2.7.106</li>
+<li>McAfee Agent</li>
+<li>Microsoft ASP.NET MVC 2</li>
+<li>Microsoft ASP.NET MVC 2 - Visual Studio 2010 Tools</li>
+<li>Microsoft ASP.NET MVC 2 - VWD Express 2010 Tools</li>
+<li>Microsoft ASP.NET MVC 3</li>
+<li>Microsoft ASP.NET MVC 3 - VWD Express 2010 Tools Update</li>
+<li>Microsoft ASP.NET Web Pages</li>
+<li>Microsoft ASP.NET Web Pages - VWD Express 2010 Tools</li>
+<li>Microsoft CAPICOM 2.1.0.2 SDK</li>
+<li>Microsoft Office 2003 Web Components</li>
+<li>Microsoft Office Enterprise 2007</li>
+<li>Microsoft Office Office 64-bit Components 2007</li>
+<li>Microsoft Office Visio Viewer 2007</li>
+<li>Microsoft Silverlight 3 SDK</li>
+<li>Microsoft Silverlight 4 SDK</li>
+<li>Microsoft SQL Server 2008 (64-bit)</li>
+<li>Microsoft SQL Server 2008 Browser</li>
+<li>Microsoft SQL Server 2008 Common Files</li>
+<li>Microsoft SQL Server 2008 Database Engine Services</li>
+<li>Microsoft SQL Server 2008 Database Engine Shared</li>
+<li>Microsoft SQL Server 2008 Management Studio</li>
+<li>Microsoft SQL Server 2008 Policies</li>
+<li>Microsoft SQL Server 2008 R2 Data-Tier Application Framework</li>
+<li>Microsoft SQL Server 2008 R2 Data-Tier Application Project</li>
+<li>Microsoft SQL Server 2008 R2 Management Objects</li>
+<li>Microsoft SQL Server 2008 R2 Management Objects (x64)</li>
+<li>Microsoft SQL Server 2008 R2 Native Client</li>
+<li>Microsoft SQL Server 2008 R2 Transact-SQL Language Service</li>
+<li>Microsoft SQL Server 2008 Setup Support Files</li>
+<li>Microsoft SQL Server Compact 3.5 SP1 Query Tools English</li>
+<li>Microsoft SQL Server Compact 3.5 SP2 ENU</li>
+<li>Microsoft SQL Server Compact 3.5 SP2 x64 ENU</li>
+<li>Microsoft SQL Server Compact 4.0 x64 ENU</li>
+<li>Microsoft SQL Server Database Publishing Wizard 1.4</li>
+<li>Microsoft SQL Server System CLR Types</li>
+<li>Microsoft SQL Server System CLR Types (x64)</li>
+<li>Microsoft SQL Server VSS Writer</li>
+<li>Microsoft Sync Framework Runtime v1.0 SP1 (x64)</li>
+<li>Microsoft Sync Framework SDK v1.0 SP1</li>
+<li>Microsoft Sync Framework Services v1.0 SP1 (x64)</li>
+<li>Microsoft Sync Services for ADO.NET v2.0 SP1 (x64)</li>
+<li>Microsoft Team Foundation Server 2010 Object Model - ENU</li>
+<li>Microsoft Visual C++ Compilers 2010 Standard - enu - x64</li>
+<li>Microsoft Visual C++ Compilers 2010 Standard - enu - x86</li>
+<li>Microsoft Visual C++ 2010 x64 Designtime - 10.0.30319</li>
+<li>Microsoft Visual C++ 2010 x64 Runtime - 10.0.40219</li>
+<li>Microsoft Visual C++ 2010 x86 Runtime - 10.0.40219</li>
+<li>Microsoft Visual F# 2.0 Runtime</li>
+<li>Microsoft Visual Studio 2010 Express Prerequisites x64 - ENU</li>
+<li>Microsoft Visual Studio 2010 IntelliTrace Collection (x64)</li>
+<li>Microsoft Visual Studio 2010 Office Developer Tools (x64)</li>
+<li>Microsoft Visual Studio 2010 Performance Collection Tools SP1 - ENU</li>
+<li>Microsoft Visual Studio 2010 SharePoint Developer Tools</li>
+<li>Microsoft Visual Studio 2010 Ultimate - ENU</li>
+<li>Microsoft Visual Studio Async CTP</li>
+<li>Microsoft Visual Studio Macro Tools</li>
+<li>Microsoft Visual Web Developer 2010 Express - ENU</li>
+<li>Microsoft Web Deploy 2.0</li>
+<li>Microsoft Web Platform Installer 3.0</li>
+<li>Mobipocket Creator 4.2</li>
+<li>MSVCRT</li>
+<li>MySQL Workbench 5.2 CE</li>
+<li>NetBeans IDE 6.9.1</li>
+<li>Notepad++</li>
+<li>NuGet</li>
+<li>Quincy 2005 v. 1.3</li>
+<li>SciTE4AutoIt3 12/29/2011</li>
+<li>Security Update for Microsoft Office system 2007 (972581)</li>
+<li>SharpDevelop 4.0</li>
+<li>Site Map Builder.NET</li>
+<li>Skype Click to Call</li>
+<li>Skype™ 5.8</li>
+<li>SolveigMM AVI Trimmer</li>
+<li>Sql Server Customer Experience Improvement Program</li>
+<li>Telerik Extensions for ASP.NET MVC Q3 2011</li>
+<li>Telerik RadControls for ASP.NET AJAX Q3 2011</li>
+<li>Telerik RadControls for WinForms Q3 2011 SP1</li>
+<li>Telerik RadControls for WPF Q3 2011 SP1</li>
+<li>TeraCopy 2.12</li>
+<li>The Guide</li>
+<li>The Regex Coach 0.9.2</li>
+<li>Visual Studio 2010 Prerequisites - English</li>
+<li>Visual Studio 2010 Tools for SQL Server Compact 3.5 SP2 ENU</li>
+<li>WCF RIA Services V1.0 SP1</li>
+<li>Web Deployment Tool</li>
+<li>Windows Grep 2.3</li>
+<li>Windows Live Writer</li>
+<li>Windows Movie Maker 2.6</li>
+<li>WinMerge 2.12.4</li>
+<li>WinPcap 4.1.2</li>
+<li>Wireshark 1.6.5</li>
+<li>XAMPP 1.7.4</li>
+</ul>
+
+
+<p>I may get some time soon and organize them by type and maybe even link you to a download. I hope this helps, somehow. I think it&#8217;s pretty cool they gave me this list, it definitely helped the reinstall/rebuild process.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div>
+
+
+
+</div>
+  
+  
+
+ </article> <div class="pagination">  <a class="prev" href="/articles/page/16/">&larr; Older</a>  <a href="/blog/archives">Blog Archives</a>  <a class="next" href="/articles/page/14/">Newer &rarr;</a>  </div> </div> <aside class="sidebar">  <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I&#8217;m just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I&#8217;m passionate about tech, and as long as I&#8217;m building cool stuff and helping people, I&#8217;ll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>  </aside>
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

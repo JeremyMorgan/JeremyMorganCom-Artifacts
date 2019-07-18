@@ -1,0 +1,910 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title> Jeremy's Programming Blog</title><meta name="twitter:card" content="summary">
+
+
+
+
+
+
+<meta name="description" content="So last week my laptop died on me. Motherboard took a dive, and unfortunately that was my &#8220;main machine&#8221;.  I know it takes me quite some &hellip;" />
+<meta property="og:description" content="So last week my laptop died on me. Motherboard took a dive, and unfortunately that was my &#8220;main machine&#8221;.  I know it takes me quite some &hellip;" />
+<meta itemprop="description" content="So last week my laptop died on me. Motherboard took a dive, and unfortunately that was my &#8220;main machine&#8221;.  I know it takes me quite some &hellip;" />
+<meta name="twitter:description" content="So last week my laptop died on me. Motherboard took a dive, and unfortunately that was my &#8220;main machine&#8221;.  I know it takes me quite some &hellip;">
+
+<meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/articles/page/19/">
+<meta property="og:url" content="https://www.jeremymorgan.com/articles/page/19/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/articles/page/19/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">    <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/programming/old-g4-debian-linux-dirt-cheap-development-machine/">Old G4 + Debian Linux = Dirt Cheap Development Machine</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-15T10:10:43-07:00" pubdate data-updated="true">Aug 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So last week my laptop died on me. Motherboard took a dive, and unfortunately that was my &#8220;main machine&#8221;.  I know it takes me quite some time to find and fix up a machine, and decided a quick interim machine needed to be built. So I hit craigslist.</p>
+
+<p>I quickly found that if I wanted to spend 4-500 dollars on a laptop I&#8217;d have plenty to choose from. Most have Turion processors, or are some cheap knockoff. I just needed to finish up some PHP work, and these machines would work fine, but eventually I&#8217;m going to purchase a nice 17&#8221; laptop with all the bells and whistles and have a $500 machine that&#8217;s going to collect dust.</p>
+
+<p>I remembered using a G4 Powerbook for development just a few short years ago, and I loved it. So I thought &#8220;why not?&#8221; I knew I could get one pretty cheap. I ended up finding one for $200 that was quite a steal.</p>
+
+<p><img class="right" src="http://s3.amazonaws.com/images.jeremymorgan.com/powermac-g4.jpg" title="Linux on my PowerBook G4" ></p>
+
+<p>I picked up this PowerBook G4 with the power adapter, manuals and everything for only $200. It was in really good shape, and a great deal. Even if I didnt get this one, I found several in the 2-300 dollar range all over the place. I took it home and set it up.</p>
+
+<p>My ignorance of Mac operating systems showed pretty quick when I tried to do anything. It came pre installed with OSX &#8220;Panther&#8221; which I wasn&#8217;t really familiar with. My old G4 had Leopard installed, and was pretty modern. Panther is a dinosaur. I quickly found out that Safari didn&#8217;t render pages well at all, and it was the latest version you could install on Panther. I couldn&#8217;t install a newer version of Java to run any tools and I didn&#8217;t even bother putting Apache or anything on it. It was clear even if I could build things, I couldn&#8217;t test them on such an ancient browser anyway. So I had to come up with something else.</p>
+
+<p>You cannot develop websites effectively with Panther in 2011. Sad but true.</p>
+
+<p>The cheapest version of Leopard I could find was $150, almost what I paid for the whole machine. $150 for a really outdated operating system? There has to be a better way.</p>
+
+<p><strong>Linux saves the day again! </strong></p>
+
+<p>I remember reading about people porting linux to PPC years ago, and figured I&#8217;d give it a shot. After some research I found that three good options existed for Linux on PPC machines:</p>
+
+<ul>
+<li><a href="http://www.debian.org/ports/powerpc/">Debian Linux for PowerPC</a></li>
+<li><a href="http://www.ydl.net/products/ydl/">YellowDog Linux</a></li>
+<li><a href="http://www.freebsd.org/platforms/ppc.html">FreeBSD</a></li>
+</ul>
+
+
+<p>I decided to go with FreeBSD at first, and had some problems with partitioning. I got it installed, but it seemed like no matter what I did, I had drive seek and partition errors. I figured I&#8217;d go with something I&#8217;m more familiar with and downloaded the Debian ISO.</p>
+
+<p>At first I downloaded the<a href="http://cdimage.debian.org/debian-cd/6.0.2.1/powerpc/iso-cd/debian-6.0.2.1-powerpc-CD-1.iso"> initial install CD</a> and it installed without a hitch. I am not allowed to connect this machine to my company network, so I was doing an offline install and started putting debs on a flash drive and going back and forth. This got old really quick, so I downloaded and <a href="http://cdimage.debian.org/debian-cd/6.0.2.1/powerpc/iso-dvd/">burned the full DVD</a> and reinstalled a full version with Gnome and the web server box checked.</p>
+
+<p>The install process for this is identical to setting up linux on any other machine, with the exception of creating a small boot partition so the bootloader can work. It was much easier than I thought it would be. In no time I had a nice smooth Linux install with very few issues.</p>
+
+<p><a href="https://s3.amazonaws.com/images.jeremymorgan.com/mac-linux.png"><img src="https://s3.amazonaws.com/images.jeremymorgan.com/mac-linux-300x200.jpg" alt="Debian on Mac Powerbook" /></a></p>
+
+<p>It was a good way to make an old computer &#8220;modern&#8221;. It comes with a good version of &#8220;IceWeasel&#8221; which is a rebranded FireFox and has decent updates to Java and other things. The webserver and PHP installed without a hitch, and MySQL needed a little configuring. Now I can use Gedit or Vim to write php and test them and GFTP to upload it. I have a nice smooth running web development system for $200.</p>
+
+<p>If I want to use Photoshop I&#8217;m probably out of luck, but everything else this thing will work great. This is a nice solution if you need a rock bottom priced development machine, it would be hard to find comparable hardware in the $200 range, and this old mac actually runs really well. It only uses 180 megs of memory while I&#8217;m working, which is pretty impressive. I would recommend this setup to PHP or web developers not doing any kind of graphics, it&#8217;s smooth as can be and dirt cheap!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like articles like this?</h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff and writing about happenings in the programmer world. You can <a href="http://feeds.feedburner.com/jeremymorgan/NJwt"><strong>subscribe to my feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=339769"><strong>get the programmer newsletter</strong></a> 100% spam free!
+</div>
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/what-is-google-really-using-for-rankings/">What Is Google Really Using for Rankings?</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-10T05:43:39-07:00" pubdate data-updated="true">Aug 10<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>What do you really need to get great SEO results? What does Google really use to rank sites? I wish I had a definitive answer. Like most SEOs, an educated guess is the best I can come up with, and I have a pretty good theory about what&#8217;s really working and what isn&#8217;t.</p>
+
+<p><strong>The Basics</strong></p>
+
+<p>I still think the basics matter. Content rules, and reputation and authority are key factors. But how Google determines this is still a mystery. There are still some things that all high ranking sites have in common:</p>
+
+<ul>
+<li><p>Backlinks (of course)</p></li>
+<li><p>Good and original content.</p></li>
+<li><p>Good formatting / clean code</p></li>
+<li><p>Naturally occurring keywords and links.</p></li>
+<li><p>Good Social Media Presence.</p></li>
+</ul>
+
+
+<p>These factors haven&#8217;t changed much over the years. You can have good rankings without these factors, but it&#8217;s pretty rare. But how these factors are determined is changing. You can have a W3C validated site with the perfect amount of keywords, good semantics, great design and UI, and pay people to write content and link to you. You could create social media profiles, add thousands of &#8220;friends&#8221; and post things every day. You could just invest some money and time and create a site that beats out everyone for top rankings and sit back and collect the checks, right?</p>
+
+<p>Not exactly.</p>
+
+<p>The truth is, your site needs a much more personal feel to it, and it needs to be actually accepted by the people. You can argue that money does buy rankings, but it&#8217;s not the way you might think. The &#8220;big sites&#8221; getting all the top rankings spend money on SEO, but it&#8217;s not the top factor, and it&#8217;s not the only reason they&#8217;re at the top. They start with a foundation that&#8217;s more important to SEO than many people realize.</p>
+
+<p>They have an audience.</p>
+
+<p><strong>What you need now.</strong></p>
+
+<p>In 2010, you can can still &#8220;get lucky&#8221; and nail some pretty good SERPs with enough work. But if you want real SEO success, you need a &#8220;tribe&#8221;. You need a following to your site, and you need people to talk about you. It needs to be &#8220;natural&#8221;.</p>
+
+<p>So how do people&#8217;s silly blogs or Squidoo pages get top ranks for competitive terms? Simply put, people are going there. It&#8217;s the common problem people find when building online forums (myself included). You need critical mass. People need to go to your site, and people won&#8217;t go there unless there are other people there. When starting an online community there is nobody there, so nobody signs up. When you get enough people signed up, others join because they see people there. It&#8217;s the same theory.</p>
+
+<blockquote><p><strong>All the major websites who have tons of top search positions have a following of loyal dedicated readers. </strong></p></blockquote>
+
+<p>This is a simple fact that&#8217;s hard to get around. If you aren&#8217;t creating original, interesting content and getting it in front of people, no amount of backlinks will save you anymore. People need to be reading your site, using it and talking about it.</p>
+
+<p>Your site now needs:</p>
+
+<ul>
+<li><p>Content that&#8217;s interesting, and written by passionate, real people.</p></li>
+<li><p>A following on social sites, with people talking about your site (without links).</p></li>
+<li><p>To be mentioned by other &#8220;authority&#8221; sites in your field.</p></li>
+<li><p>Mentions of your site in blogs, forums and in articles.</p></li>
+</ul>
+
+
+<p>I firmly believe Google is measuring signals with humans more than ever. They&#8217;re taking the top SERPs and checking out the sites. They are measuring how many people are talking about you, even without a link. They are measuring &#8220;buzz&#8221; in a more human way than ever before.</p>
+
+<p><strong>What to think about. </strong></p>
+
+<p>The next time you sit down and evaluate your SEO strategy, stop counting backlinks and measuring keywords. Start thinking about &#8220;buzz&#8221;. Think of new creative ways to get people talking. You can use Guerrilla Marketing just as effectively now as you could 10 years ago. With the right creative ideas, you can get people talking. Get them interested, build a &#8220;tribe&#8221; (sorry Seth Godin, I love this term). Get a group of loyal followers and get them talking about you. This will get you miles ahead of paid links on the side of some blog or directory.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/linux/how-to-install-apache-php-and-mysql-in-ubuntu-the-easy-way/">Tutorial: How to Install Apache, PHP and MySQL in Ubuntu the Easy Way</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-30T14:39:06-07:00" pubdate data-updated="true">Jul 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Linux by nature attracts developers. It takes a good deal of knowledge and skill to install and run Linux on a daily basis, so this comes as no surprise. So many Linux users are also developers, either web, desktop or both. And when web developers want to develop in an environment that&#8217;s close to a webserver, running Apache on their machine is a natural choice.</p>
+
+<p>One way to set up a webserver on your local machine is to of course just install each manually. Installing Apache, PHP and MySQL from source isn&#8217;t incredibly difficult, especially if you follow the directions. I&#8217;ve never tried using the ubuntu software center, but I&#8217;m assuming it&#8217;s fairly simple as well. But if you want a really easy, simple way using XAMPP to configure everything is a good way to do it, and that&#8217;s what we&#8217;re doing today. I&#8217;m also going to show you how to configure things a little differently to make it a little easier.</p>
+
+<p><strong>1. Download XAMPP for Linux</strong></p>
+
+<p>Go to the <a href="http://www.apachefriends.org/en/xampp-linux.html">XAMPP For Linux download page</a> and get the latest version of XAMPP and save it. In this case, I saved it to my desktop,at /home/jeremy/Desktop.</p>
+
+<p><strong>2. Install XAMPP</strong></p>
+
+<p>Go to the directory you saved the archive in and type:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo tar xvzf xampp-linux-1.7.4.tar.gz -C /opt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will install XAMPP into the /opt/lampp directory.</p>
+
+<p><strong>3. Start XAMPP</strong></p>
+
+<p>Type in the following to start XAMPP:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo /opt/lampp/lampp start</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will start up the XAMPP services. Test them out by pointing your web browser to <a href="http://localhost">http://localhost</a></p>
+
+<p>You should see a welcome screen showing you a list of options.</p>
+
+<p><strong>Special Note:</strong></p>
+
+<p>This is not what you want to do if you&#8217;re setting up a production web server. Dont run apache as root if you don&#8217;t have to, and also there are a few security problems with this installation. If you&#8217;re just installing it on your local machine for development it&#8217;s fine, but don&#8217;t do this on a public facing server. If you want to use XAMPP on a public facing server, you at least want to run this command to fix some of the security issues:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo /opt/lampp/lampp security</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Also note your MySQL server has a root password that&#8217;s blank. Change that for obvious reasons.</p>
+
+<p><strong>Changes I like to make</strong></p>
+
+<p>Here are some of the changes I sometimes make to my XAMPP configuration.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vi /opt/lampp/etc/http.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Look for the home directory:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>DocumentRoot "/opt/lampp/htdocs"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I like to change this to a directory in my home folder, so I don&#8217;t deal with navigating all over there and dealing with permissions issues, I usually change it something like /home/Jeremy/Desktop/Web</p>
+
+<p>You will also need to change it here:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;Directory "/opt/lampp/htdocs"></span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once this is changed, restart the XAMPP server.</p>
+
+<p>This is probably the easiest way I know of to setup a webserver for desktop development. As I said if you want to install everything manually, it&#8217;s not that difficult and can provide you with a bit more power and customization over your setup. But this is a good way to get started if you just want to get up and running quick. I hope it helps!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/how-to-succeed-with-stumbleupon/">How to Succeed With Stumbleupon</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-22T06:12:56-07:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Stumbleupon is a great tool to bring new people to your site, and works great for branding. But most of the time you read about it on forums and in social media people are bashing it. I&#8217;m convinced that many of the people who are bashing it haven&#8217;t figured out the key to getting good traffic from it. I&#8217;ll attempt to help with this short post.</p>
+
+<h2>What is Stumbleupon?</h2>
+
+<p><img class="right" src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/07/StumbleUpon_logo-150x150.png" title="How to Succeed at Stumbleupon" ></p>
+
+<p><a href="http://www.stumbleupon.com/">Stumbleupon </a>is one of those neat little tools that came out in the mid-2000s that was a great idea that was pretty much ignored by the masses. It&#8217;s an idea that&#8217;s still good, and hasn&#8217;t really been copied but it&#8217;s starting to take off.  The idea is you have a toolbar in your browser, and when you go to webpages you like, you &#8220;stumble&#8221; them, which is essentially just bookmarking them. You keep a list of pages and sites you like and you can go back later to check them out, and share the bookmarks with your friends. What&#8217;s great about Stumbleupon is the &#8216;stumble&#8221; feature itself. You can click &#8220;stumble&#8221; and it will try to find the type of pages and sites you like, based on your own stumbles. It gives you pages other people have stumbled and you can &#8220;like&#8221; it or dislike it.</p>
+
+<p><strong>Is it a good marketing tool? </strong></p>
+
+<p>The answer to that is yes and no. It&#8217;s a good marketing tool if you have something really good, and people are interested in it. It&#8217;s much like Digg was in it&#8217;s heyday. If you are simply spamming Digg with pages nobody is interested in you won&#8217;t get much traffic. But if you build clout within the community and Digg useful, unique stuff it sends lots of traffic. Stumbleupon is no different.</p>
+
+<p><strong>The Good:</strong></p>
+
+<ol>
+<li><p> When it brings traffic, it brings lots of traffic. Sometimes thousands of hits per day.</p></li>
+<li><p> There is a community factor to it, so if you get the right person to stumble it, it will grow quickly.</p></li>
+<li><p> It&#8217;s actually useful as a user as well, you can find a lot of relevant stuff that&#8217;s very interesting.</p></li>
+</ol>
+
+
+<p><strong>The Bad: </strong></p>
+
+<ol>
+<li><p> If you post too much of your own stuff, you&#8217;ll get buried and nobody will see your stumbles. (Good for the users, bad for marketers).</p></li>
+<li><p> The attention span of this group is very short and people quickly skim pages.</p></li>
+<li><p> May affect your bounce rate negatively if people are stumbling quickly (Like channel surfing)</p></li>
+<li><p> If it doesn&#8217;t fall into a niche people will ignore it.</p></li>
+</ol>
+
+
+<h2>How do you succeed?</h2>
+
+<p>This answer is simple and complicated at the same time. The simple answer is &#8220;give stumblers what they want&#8221;. The hard part is creating that. Stumblers tend to really like certain things, such as:</p>
+
+<ul>
+<li><p>Photoshop Tutorials</p></li>
+<li><p>Programming Tutorials</p></li>
+<li><p>Photography</p></li>
+<li><p>Design Articles</p></li>
+<li><p>Humor</p></li>
+<li><p>Videos</p></li>
+<li><p>Unique Content.</p></li>
+</ul>
+
+
+<p>These things get stumbled a lot. If you have a funny article about a celebrity it will blow up. If you provide a long article talking about the details of a marketing strategy they wont. If you&#8217;re trying to directly sell a product, it will be ignored. Stumblers are looking for something unique, or a how to article. They want something new and fresh that will keep them entertained. They don&#8217;t want to be sold anything. So if you&#8217;re running a site such as jeremymorgan.com, stumbleupon is great. People want articles and how tos, and want to read my stuff, so generally when I stumble it I can expect at least a few thousand new eyes from there. If you want &#8220;stumble&#8221; every page of your online store or a landing page selling a product you can expect very minimal hits.</p>
+
+<p><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2011/07/stumbleupon-300x182.jpg" alt="How to succeed at Stumbleupon" /></p>
+
+<p><strong>So as a general rule:</strong></p>
+
+<ol>
+<li><p> Make it &#8220;sticky&#8221; or unique.</p></li>
+<li><p> Provide something interesting.</p></li>
+<li><p> Give a &#8220;how to&#8221; or explain how something works.</p></li>
+<li><p> Give an interesting article that informs or entertains.</p></li>
+<li><p> Give them something funny, or an interesting video.</p></li>
+<li><p> Photography or Photoshop stuff is always a big hit.</p></li>
+<li><p> Get their attention in seconds, not minutes. Keep the interesting stuff at the top of the page.</p></li>
+</ol>
+
+
+<p>If you do this, you can expect some pretty good results. You&#8217;ll get a good influx of traffic and a percentage of them will bookmark you and come back. You&#8217;ll also find they stumble pages for you. If you want to spam the site, don&#8217;t waste your time. Their anti-spam measures are good and the audience votes so you&#8217;ll be spending a lot of time for nothing.</p>
+
+<p>I will elaborate more on this later, but I hope this helps. Go check it out and start stumbling!</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/tutorials/photoshop/photoshop-tutorial-how-to-make-a-software-box/">Photoshop Tutorial: How to Make a Software Box</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-23T08:27:55-07:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you&#8217;ve ever seen those software boxes in ads before, you might notice they look &#8220;perfect&#8221;. This is because most of the time those boxes are not photographed, but created in Photoshop. This is a tutorial showing how to make those software boxes, it&#8217;s easier than you might think.</p>
+
+<p>I figured this out one day when I was selling my first software product, and realized that creating a box would be a cool way to sell the product. It works, even though most software purchased today comes as a digital download, by putting a box there you make an association with purchasing a product the way we used to: by holding something in your hand. It&#8217;s always a good idea to spice up your landing pages with stuff like this.</p>
+
+<h2>How to Make a Software Box in Photoshop</h2>
+
+<p><strong>Step 1</strong>
+Create an image that is 600px x 600px, with a white background.
+<img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-001.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p><strong>Step 2</strong></p>
+
+<p>Create a new layer (Ctrl+shift+N) and name it &#8220;panels&#8221;.</p>
+
+<p>Create a set of panels, you will want the front, and the side. Here is a sample of how I created them:<img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-002.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>You may use this image as a base if you need to. I generally start with a large rectangle and cut out the parts as a whole.</p>
+
+<p><strong>Step 3 </strong></p>
+
+<p>Add the content you want on your box.</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-003.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Make sure if you use gradients, that they carry over to the adjacent panels as needed.</p>
+
+<p><strong>Step 4 </strong></p>
+
+<p>Highlight the layer containing just the shapes, not the layer with all your objects on it.</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-004.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Using the magic wand tool, select the front of the box as shown:</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-005.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Right click on it, and select &#8220;Layer via Copy&#8221; and make a new layer from it.</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-006.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Do this with the side as well, so it looks like this:</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-007.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Make sure and merge the graphics layers you added on, so you&#8217;re left with just the two panels.</p>
+
+<p><strong>Step 5</strong></p>
+
+<p>Put the box together. Start with the front, and do a <strong>transform->Skew</strong> so it looks like this:</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-008.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Then use<strong> transform->scale</strong> to slim it up a little.</p>
+
+<p>Do the same with the side panel:</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-009.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>And move it over to match up with the front, and merge the layers together. You now have your box.</p>
+
+<p><strong>Step 6</strong></p>
+
+<p>You can do some effects to make the box look more real, such as a shadow. Create a black box around the same size as the software box:</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-010.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Then use the same skew and resize techniques to make it fall behind the box as shown:</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-011.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Then do a <strong>filter->blur->Gaussian blur </strong>and reduce the opacity to make something like this:</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-012.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p><strong>Another Technique</strong></p>
+
+<p>Another cool technique is to put a reflection below it.</p>
+
+<p>Right click on the box layer, and select <strong>duplicate layer. </strong></p>
+
+<p>On the top layer, go to Edit -> Free Transform and click the top of the selection.</p>
+
+<p>Hold down the shift key and drag the box down so it&#8217;s mirrored blow:</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-013.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Then use the skew and transform tools to match the edges up. This is tricky.</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-014.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>Fade and / or blur the bottom box to get the desired effect.</p>
+
+<p><img src="/wp-content/uploads/2011/06/photoshop-tutorial-software-box-015.jpg" alt="Photoshop Tutorials - How to make a software box in photoshop" /></p>
+
+<p>I hope this helps show you how to build a software box in photoshop, stay tuned for more tutorials!</p>
+
+<p><strong>Rate this tutorial</strong></p>
+
+<p><a href="http://www.photoshoplab.net">@PhotoshopLab.net</a></p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+
+
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/google-announces-plus-one/">Google +1 Could Be a Plus for Us</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-01T07:52:51-07:00" pubdate data-updated="true">Jun 1<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Google&#8217;s goal has always been pretty consistent: to provide better search results. Often times SEO professionals seem like they&#8217;re at war with Google to get the best results for their sites. While this battle may be tiring for both sides, it seems to bring better technology to the table. The latest feature implemented by Google could be a groundbreaking step, or yet another flash in the pan.</p>
+
+<h2>What is +1?</h2>
+
+<p>I&#8217;ts important to know what +1 is, and what it isn&#8217;t. It isn&#8217;t a tool to bump up search rankings (though I&#8217;m sure people have already found ways to game it as such).  Google&#8217;s new rollout +1 is essentially a &#8220;like&#8221; button for Google. From their site:</p>
+
+<blockquote><p>Our goal at Google is to get you the most relevant results as quickly as possible. But relevance is about relationships as well as words on webpages. That’s why we <a href="http://googleblog.blogspot.com/2011/02/update-to-google-social-search.html">recently</a> started to include more information from people you know—stuff they’ve shared on Twitter, Flickr and other sites—in Google search results.</p></blockquote>
+
+<p>Today we’re taking that a step further, enabling you to share recommendations with the world right in Google’s search results. It’s called <a href="http://www.google.com/+1/button/">+1</a>—the digital shorthand for “this is pretty cool.” To recommend something, all you have to do is click +1 on a webpage or ad you find useful. These +1’s will then start appearing in Google’s search results.</p>
+
+<p>It&#8217;s basically a &#8220;like&#8221; button that will show up in search results. So when you search for a term, you will see how many people &#8220;liked&#8221; the page before you even click on the link. This shows you how many people actually find the page useful or cool.</p>
+
+<p>Google has already indicated they&#8217;ll be using this a signal, but it&#8217;s unknown how much weight it will carry. My guess is the +1 button will have very little effect on actual search results, unless something gets a large amount of pluses. These pages will likely be a part of a much larger site with a large devoted fanbase, and will likely have good search engine results anyway.</p>
+
+<p><strong>Why it could be a big hit:</strong></p>
+
+<ul>
+<li><p>People like to share things they are interested in, and like others to see what they&#8217;re interested in.</p></li>
+<li><p>When products or features are rolled out by Google, they&#8217;re either a smash or a flop, with very little in between.</p></li>
+<li><p>This could actually be useful to heavy users of Google Profiles.</p></li>
+</ul>
+
+
+<p><strong>Why it could flop:</strong></p>
+
+<ul>
+<li><p>Facebook did it years ago</p></li>
+<li><p>It provides little value</p></li>
+<li><p>It seems confusing to average searchers.</p></li>
+<li><p>Unlike facebook, the things you &#8220;like&#8221; aren&#8217;t as easily displayed.</p></li>
+</ul>
+
+
+<h2>How Can It Help Us (SEO&#8217;s)?</h2>
+
+<p>If this new feature takes off and everyone starts using it (I have my doubts) it can be a great help to SEOs. You can encourage your visitors to click this item, and most things like this tend to reach a critical mass. If nobody is &#8220;liking&#8221; a page then nobody will click the like button. But if a good number of people &#8220;like&#8221; it then more people will click the like button. This happens on Facebook already. Facebook Pages have to reach this critical mass which is usually around 10,000 people. The road to 10,000 is long and hard, but the road from 10,000 to 20,000 is fast. After 50,000 you can count on the next 50,000 to be faster as well. This is simple human nature and herd theory at work, and I have no doubts it will apply here as well.</p>
+
+<p>My advice would be to <a href="http://www.google.com/webmasters/+1/button/index.html">add this to your site</a>, and encourage your visitors to click it. You never really know, it could end up really taking off and benefiting us all greatly, Searchers and SEOs alike.</p>
+</div>
+  
+  
+
+ </article>  <article> 
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/seo/google-panda-update-survival/">Succeeding in a Post Panda World</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-25T13:55:36-07:00" pubdate data-updated="true">May 25<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In late February, Google changed their algorithm, codenamed the &#8220;Panda&#8221; update, or &#8220;Farmer&#8221; Update. I wrote about it here and have been analyzing and studying my own results and that of my clients since then. This update affects 12% of sites in the index, and some people have reported a 50% drop or more in results. Is the sky falling? Is there anything you can do about it?</p>
+
+<h2>Who was hit hardest by Panda?</h2>
+
+<p>If you want to know some heavier details about the Panda update, you can find great detailed articles all over the net by experts like Matt Cutts and others that will explain in more detail what this update was all about. On Google&#8217;s blog they also give a factual, <a href="http://googleblog.blogspot.com/2011/02/finding-more-high-quality-sites-in.html">although somewhat vague</a> idea of what the update consists of.  In short junk sites, content farms and other sites designed to game the search engines were dropped down and &#8220;quality&#8221; sites were given more traffic.  Sites featuring random generated or scraped content were deranked while established authority sites got better results.</p>
+
+<p>Yes, there was some collateral damage and some innocents were punished in this update, but that&#8217;s to be expected with any update. The hardest hit were sites that are intentionally trying to game Google, and sites like &#8220;article sites&#8221;  and scrapers. In case you were wondering, I saw virtually no change in my search engine traffic to JeremyMorgan.com.  I am not getting any less traffic, and not getting anymore. It seems once again I&#8217;m stuck in the middle during a big algorithm change, which is fine with me.</p>
+
+<h2>Who is getting a boost?</h2>
+
+<p>It seems sites like YouTube, Facebook, Instructables.com and other large sites really increased their traffic. Here is a good list of sites that did better, and see if you can spot the opportunity here.</p>
+
+<ul>
+<li><p><a href="http://www.youtube.com">YouTube</a></p></li>
+<li><p><a href="http://www.facebook.com">Facebook</a></p></li>
+<li><p><a href="http://www.linkedin.com/">LinkedIn</a></p></li>
+<li><p><a href="http://www.instructables.com/">Instructables</a></p></li>
+</ul>
+
+
+<p>I could go on with this list, but I don&#8217;t need to in order to make this point. <strong>They are all sites you can create profiles on</strong>.  By creating profiles on these panda friendly sites you can put a link back to your own URL and possibly capitalize on the search engine boost these sites are enjoying. Don&#8217;t spam these sites however, create a profile and become an active member of the community.</p>
+
+<p>With that being said here are some good solid rules to help you succeed after the panda update, and possibly insulate you against the next update.</p>
+
+<h2>How to succeed after the panda update</h2>
+
+<ol>
+<li><p> Keep it Honest - No more black hat stuff</p></li>
+<li><p> Stay out of &#8220;bad neighborhoods&#8221;. Don&#8217;t spam your links on spammy sites.</p></li>
+<li><p> Keep your content original. Don&#8217;t base your whole site on scraped or copied content.</p></li>
+<li><p> Don&#8217;t use random text or Markov generators or similar techniques to make fake content.</p></li>
+<li><p> Don&#8217;t republish other material (even if you are doing it legally) and base your whole site on it.</p></li>
+<li><p> Create profiles at respected sites and participate without spamming.</p></li>
+<li><p> Get backlinks the good old fashioned way - create content people want to link to.</p></li>
+</ol>
+
+
+<p>If you do these simple things you can gather better search traffic, and have a more respectable site. &#8220;Authority&#8221; sites are what Google likes, and authority sites rarely use spammy techniques to get ahead. I hope this helps.</p>
+</div>
+  
+  
+
+ </article> <div class="pagination">  <a class="prev" href="/articles/page/20/">&larr; Older</a>  <a href="/blog/archives">Blog Archives</a>  <a class="next" href="/articles/page/18/">Newer &rarr;</a>  </div> </div> <aside class="sidebar">  <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I&#8217;m just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I&#8217;m passionate about tech, and as long as I&#8217;m building cool stuff and helping people, I&#8217;ll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>  </aside>
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

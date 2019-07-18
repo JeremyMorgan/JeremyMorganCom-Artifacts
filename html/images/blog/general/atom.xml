@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  General | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/general/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2015-05-30T12:51:07-07:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Taking a look at Year End Analytics]]></title>
+    <link href="https://www.jeremymorgan.com/blog/general/my-year-end-analytics/"/>
+    <updated>2014-01-30T21:10:00-08:00</updated>
+    <id>https://www.jeremymorgan.com/blog/general/taking-a-look-at-year-end-analytics</id>
+    <content type="html"><![CDATA[<p>So I have started to pull down some of my stats from 2013. While most people are somewhat secretive with their analytics, I can show mine and share some of what I've learned over the last year, and what I did right, as well as what I did wrong.</p>
+
+<!-- more -->
+
+
+<h3>The Raw Numbers</h3>
+
+<p>Ok, this is probably your first question:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/year-end-analytics.jpg" alt="Year End Analytics" /></p>
+
+<p>These numbers are pretty much what I expected. 2013 was pretty much when my traffic "leveled" out. 2012 I had a lot of publicity on my site, hitting the front page of Hacker News, Lifehacker and Wired several times really threw my stats off (in a good way of course). But 2013 was pretty much the residuals of that publicity with some extra SEO love thrown in.</p>
+
+<p>I think overall I did pretty well, considering this just some silly personal blog that I hardly update enough, and I'm not a celebrity or anything like that. Here's how it breaks down:</p>
+
+<ul>
+<li>Average Visits per day: <strong>3,059</strong></li>
+<li>Unique Visitors per day: <strong>2,432</strong></li>
+<li>Page Views per day: <strong>4,311</strong></li>
+</ul>
+
+
+<p>Ok, so obviously this isn't a huge powerhouse of a website, but again not bad for a personal blog. What surprises me is the amount of new visitors. 79% of the people coming here are new, that's pretty amazing. As anyone would likely guess, the majority of that is search engine traffic. Let's see:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/year-end-analytics-2.jpg" alt="Year End Analytics" /></p>
+
+<p>Last year Google has been doing some shaking up of the Analytics and it shows here. "Not set" is likely search engine traffic too. Even if we disregard that we can see the traffic we do know about is still search engine traffic. Interesting stuff.</p>
+
+<h3>Why So Much Search Engine Traffic?</h3>
+
+<p>This is an easy one to answer, especially if you've been going to the site for a while. My background is in SEO, and a few years ago this was an SEO blog. While I don't do a lot of these days, I still know it fairly well. I decided to take a hands off approach to SEO and go with a "build good content and make sure Google can find it" strategy, and it works well. But here's a few more things that contribute to good search engine traffic:</p>
+
+<ul>
+<li>Semantic Crawl-able Structure</li>
+<li>Text heavy content</li>
+<li>Friendly URLs</li>
+<li>Fast Load Time</li>
+<li>Heavy Social Media Presence</li>
+<li>Odata tagging</li>
+<li>Google Authorship</li>
+</ul>
+
+
+<p>Yes folks, there is my secret sauce for SEO success in 2013. Do all of these things, and put out lots of content and you'll reap the benefits. If you put out better, more popular content with a lot of frequency you'll pass up my numbers easily.</p>
+
+<p>But is there anything else helping? Most of what the search engines hit is tutorials. If you think about that, it makes perfect sense. I don't have tons of people searching for the topics when I write a general article, like something about Technical Debt or Single Responsibility Principle. While these do gain some aggregate traffic, what really does well is "How to _____". When people look for tutorials they hit the search engines to find how to do something. This is truly the bread and butter of my traffic and what I truly love to do with this site.</p>
+
+<blockquote><p>Teach people how to do something, and the search traffic will come.</p></blockquote>
+
+<h3>What did I do right this year?</h3>
+
+<p>I can't really point to anything I really succeeded at this year, as it seems most of what I did right was in 2012. I found some popular topics, did cool stuff and lots of people noticed. I did my best to post some good stuff last year, and I kept active on Social Media. While 99% of what I post on there is not my own links, when I do post it there is a pretty good response. Another thing I may have done right was speed up the site as much I can. This is a work in progress and material for a future article.</p>
+
+<h3>What did I do wrong?</h3>
+
+<p>This list is a lot bigger. I'm honest enough with myself to know I'm not pushing this site to it's potential. I should have posted more, but a busy schedule meant I could post a few times a month at best. Also, the Raspberry Pi stuff is by far the hottest content on the site, and I haven't done enough with that lately. It's not that I don't love it, the Raspberry Pi and the project behind it is something I'm very passionate about, I just haven't had the time to do it. Had I posted 10 tutorials last year, I'm sure my traffic would have been significantly better.</p>
+
+<h3>Summary</h3>
+
+<p>What I've learned so far is I have a good steady stream of people coming to look for tutorials on things and I need to keep that momentum. Blog posting is not "work" for me, but something I really enjoy. However with all of the things I have going on during the day it's harder to do. This year I'm going to really push myself to do more tutorial based content, because that's my passion. I love teaching others, and learning while I teach. I'm also going to try to find some up and coming technology stuff to keep people interested. Stay tuned!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Where to Find a Cheap Computer in Oregon]]></title>
+    <link href="https://www.jeremymorgan.com/blog/portland/cheap-computers-oregon/"/>
+    <updated>2013-04-21T14:39:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/blog/portland/where-to-find-a-cheap-computer-in-oregon</id>
+    <content type="html"><![CDATA[<p>This post isn't going to be much use for the majority of my audience, but I am creating this post because I am often referring people to these places, and wanted to create a nice page to send them to.</p>
+
+<p>This is a small list of computer recyclers in my area that I'll be updating and spreading around. I'm a huge fan of computer recycling and low cost computing, if you're curious you should look around in your area for some similar non profit recyclers!</p>
+
+<!-- more -->
+
+
+<h3>Can I use a recycled computer?</h3>
+
+<p>The answer to this isn't always yes. If you're looking for the latest and greatest, or you play games (real games not Facebook games) you won't be able to find what you need here. But mostly what I get asked about is: "I need a computer for school but don't want to pay a lot" and that's one area where recycled computers shine. Here's what you can use recycled computers for:</p>
+
+<p><strong>Schoolwork</strong> - High School, college etc. Creating documents and reports, etc. A cheap computer running <a href="http://www.openoffice.org/">OpenOffice</a> will work just fine.</p>
+
+<p><strong>Programming</strong> - A high end machine is nice for programming but not really necessary. You can do web development on just about anything for instance. I do most of the work for this website on a 2004 Powerbook, because it's basic text editing. My Windows stuff is done on a 2007 Toshiba Laptop.</p>
+
+<p><strong>Office Management</strong> - Again using a cheap older computer with <a href="http://www.openoffice.org/">OpenOffice</a> and you can do pretty much anything a high dollar new machine will do, only a bit slower. But if you're saving $1000 it might be worth the price.</p>
+
+<p><strong>Kid Computers</strong> - If you want a computer for your kids to browse the internet and play learning games an old computer works great. If you're ready for the challenge, you can install Linux on it where most versions have TONS of educational software for free. Take <a href="http://www.edubuntu.org/">Edubuntu</a> for a spin and check out all the awesome stuff they have.</p>
+
+<p>This list could be a lot longer but it's not the purpose of the article. Basically if you aren't playing online games, ripping videos or something of that sort you might notice that a new computer isn't a whole lot better than an older one.</p>
+
+<h3>Cheap Computer Recyclers in Oregon</h3>
+
+<p>Here is a list of people I've dealt with personally and really like. You can walk in with a couple hundred bucks and come out with a decent desktop or laptop that works great. They test their equipment, set it up and don't try to upsell your or rip you off.</p>
+
+<hr>
+
+
+<p><strong>Computer Drive Connection - Cornelius Oregon</strong></p>
+
+<p><a href="http://computerdriveconnection.com/">Their Website</a></p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/cheap-computer-oregon.jpg" title="Where to find a cheap computer in Oregon" ></p>
+
+<p>Since this one is closest to my hometown I've been sending a lot of people here. The guy running it is great, he's very knowledgeable and honest. Just tell him what you need to use a computer for and he'll steer you right. Great prices as well.</p>
+
+<p>For instance, I picked up a 20" LCD flatpanel monitor there recently for $100. Worked great, no scratches or dead pixels. It's the 3rd or 4th monitor I've picked up there that works great.</p>
+
+<p><a href="https://maps.google.com/maps?q=909+N.+Freemont+Lane+%C2%A0%C2%A0%C2%A0Cornelius,+Oregon+97113&amp;ie=UTF8&amp;ll=45.524397,-123.060812&amp;spn=0.002161,0.004823&amp;hnear=909+N+Fremont+Ln,+Cornelius,+Oregon+97113&amp;gl=us&amp;t=h&amp;z=18">Map to their location</a></p>
+
+<p><strong>Phone:</strong> (503) 992-0180</p>
+
+<hr>
+
+
+<p><strong>Eco Binary - Beaverton Oregon</strong></p>
+
+<p><a href="http://www.ecobinary.com/">Their Website</a></p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/cheap-computer-oregon-1.jpg" title="Where to find a cheap computer in Oregon" ></p>
+
+<p>I just recently discovered this place, and they treated me really well. I picked up a laptop for $100 (the Core2 Toshiba) and an old G4 machine for a server. The dusty old G4 had been sitting a while but he said "yes, it works if not bring it back". Great policy, but the machine did work exactly as advertised.</p>
+
+<p>Again it's a good place with knowledgeable people and no sales pressure. It's family run and they do a great service for the community and their customers.</p>
+
+<p><a href="https://maps.google.com/maps?q=8240+SW+Nimbus+Ave.+Beaverton,+OR+97008&amp;hnear=8240+SW+Nimbus+Ave,+Beaverton,+Oregon+97008&amp;gl=us&amp;t=h&amp;z=16">Map to their location</a></p>
+
+<p><strong>Phone:</strong> (503) 352-4991</p>
+
+<hr>
+
+
+<p><strong>Free Geek</strong></p>
+
+<p><a href="http://www.freegeek.org/">Their Website</a></p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/cheap-computer-oregon-2.jpg" title="Where to find a cheap computer in Oregon" ></p>
+
+<p>For those in the Portland Metro area this is another great service you gotta check out. They are a non profit that offers free computers (if you qualify) and free computer classes as well. But if you don't qualify for a free one or you feel like supporting them you can visit their <a href="http://www.freegeek.org/thrift-store/">thrift store</a> and purchase items at a great price. All purchases support their mission.</p>
+
+<p><a href="https://maps.google.com/maps?q=1731+SE+10th+Avenue,+Portland,+OR&amp;hnear=1731+SE+10th+Ave,+Portland,+Multnomah,+Oregon+97214&amp;gl=us&amp;t=h&amp;z=16">Map to their location</a></p>
+
+<p><strong>Phone:</strong> (503) 232-9350</p>
+
+<hr>
+
+
+<h3>Recycled computers are awesome!</h3>
+
+<p>I will be researching more of these types of companies locally and adding to this list. There's many reasons getting a recycled computer makes sense, you save money and help keep this stuff from hitting landfills. You support families and volunteers rather than giant corporations.</p>
+
+<p>If you're not from the Northwest Oregon area, search for some recyclers in your area! Even if you already have your dream machine it may be worth getting a machine to tinker with for projects, media servers etc. Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[We're here to put a dent in the universe]]></title>
+    <link href="https://www.jeremymorgan.com/blog/general/a-dent-in-the-universe/"/>
+    <updated>2013-02-04T22:29:00-08:00</updated>
+    <id>https://www.jeremymorgan.com/blog/general/were-here-to-put-a-dent-in-the-universe</id>
+    <content type="html"><![CDATA[<p>The famous words of Steve Jobs have been ringing in my head a lot since my Dad passed away last week. He and Steve Jobs were not very much alike, in fact probably complete opposites. Dad wasn't much of a dreamer or rock the boat kind of guy, and believed in treating everyone with respect. His style was not pushing people to be great but encouraging them to want it on their own. But they both shared one thing: wanting to make people's lives better. Steve wanted to help strangers, but Dad made sure he took care of those around him.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/russ-peckham-1.png" title="Russ Peckham" > I will definitely write more on this subject soon, as you might imagine I have more pressing matters going on right now than my blog. I have tried to use it as a distraction though, and maybe that's what this post is but the point I'd like to get across tonight is pretty simple: make your dent. Make a difference.</p>
+
+<p>If you're reading this blog it's probably because you're a programmer or an SEO to start with. That means you create things. And creating things is just a small part of making a dent. It's not the items you create, the software you build or the successful marketing campaigns that define you. It's what the things you build do for others that really matters. It's how you make the world better with what you do.</p>
+
+<h3>My Dad was a fixer</h3>
+
+<p>The way my Dad made his dent was helping others. He worked with his hands and his mind in way that's tough to replicate. He could look at any piece of machinery and figure out how it worked, fix it or make it better every time. And most of the time he was doing it for someone else. It was just what he did.</p>
+
+<p>The same hands that assembled a cackling top fuel dragster or pull an axle from his semi truck were the same hands he used to hug his wife, kids and grandkids. Whether it was welding a "stack of dimes" ten feet long or patting you on the back it was always heartfelt and done with purpose. While he wasn't always a man of many words he always meant what he said and always tried to build us up.</p>
+
+<h3>The greatest thing he ever built</h3>
+
+<p><img class="left" src="https://www.jeremymorgan.com/images/russ-peckham-3.png" title="Russ Peckham" > I don't have enough space on this website to list the machinery Dad built. From his 32 Ford to those top fuel dragsters to the custom part on my Mercedes that's still there ("damn German cars! he said) there are tons of things out there he built.</p>
+
+<p>These things will live on, the little outlaw cars he loved so much and helped build will be tearing up the tracks in the Northwest next summer. But they will rust away and become forgotten over time. Dad never will.</p>
+
+<p>What won't be forgotten was the things he built that really mattered. He gave almost 3 decades to my mom, treating her how her kids thought she should be treated, with respect and dignity. My mother is one of the greatest people I know, and truly special. Russ saw that right away. And he raised 4 kids with a set of values that are already carrying on to his grandchildren.</p>
+
+<p>The greatest thing he ever built was the people he touched. He always built us up in every way he could. Growing up all of us kids went through our phases and we all had dreams and aspirations, and when we shared them with Dad, he always told us we could do it, and encouraged us. I chose a path of technology and computers, which was something he never fully understood but he respected my goals and always tried to give advice with what he knew. His words will always ring in my head.</p>
+
+<h3>What really matters</h3>
+
+<p>He taught me early on that what really matters is gaining happiness by helping others around you. If you have a talent, use it. If you are dreaming of something, build it. This website where I put up all this free info helping people with SEO and Technology is here because he taught me when you know something you shouldn't keep it hidden away from others. Share what you know and if someone takes that and makes something better with it don't be jealous or envious be happy for them.</p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/russ-peckham-2.png" title="Russ Peckham" >And if you have something you love to do, follow it. He made his dent by building up everyone around him. So many people had a great amount of respect for him, not just because of his intelligence and talent but the fact that he had it and was willing to share it, and tempered it with humility like nobody I know. I try to emulate that in my daily life, and I still have a ways to go.</p>
+
+<p>I will miss that man for the rest of my life, just as we all will but I will honor him by carrying on his values and trying to do things the way he did.</p>
+
+<p>You should do the same. You probably didn't know my Dad but you know someone like him. Go out and make a difference and do something that matters. Life is not about chasing dollars and buying fancy toys it's about doing what you love and taking care of others. That can apply to building software or fancy websites just as much as it applies to fixing a leaky faucet for your Grandmother. Just do something meaningful and make your dent.</p>
+
+<p>One way I am going to honor him is by sharing what I learned from him over the last 27 years. I will be starting a series of articles and pages dedicated to these lessons, and I hope people steal it and copy it and use it for their own lives. Stay tuned.</p>
+
+<p>Rest in peace big guy, I'll continue to try to make you proud.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My February blog challenge]]></title>
+    <link href="https://www.jeremymorgan.com/blog/general/my-february-blog-challenge/"/>
+    <updated>2013-01-26T21:21:00-08:00</updated>
+    <id>https://www.jeremymorgan.com/blog/general/my-february-blog-challenge</id>
+    <content type="html"><![CDATA[<p>I'm one of those people who has a million ideas a day. I've always been this way, and I believe it's some form of adult ADD, but it's gotten me through life pretty well. Today I had an idea to write a blog post every day for a month. Not an original idea by any means, but something I've never done before on any of my websites.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<h3>What do I hope to achieve out of this?</h3>
+
+<p>I don't know exactly, but judging by how it's gone for others, I should expect a few things should I succeed:</p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/jeremy-morgan-blog.png" title="Jeremy Morgans Programming Blog" ></p>
+
+<ul>
+<li>Improve my writing skills</li>
+<li>Push myself outside of my comfort zone</li>
+<li>Give myself new ideas to think about</li>
+<li>Let fans of this site get to know me better</li>
+<li>Win new fans with new content</li>
+</ul>
+
+
+<p>So if I'm able to succeed at this, I can expect at least some kind of change somewhere. I'll have to push myself for ideas to write about and that might stir up my brain in a good way. I'll probably annoy the heck out of people on my feed and newsletter list, I apologize in advance. But it could end up being better for everyone.</p>
+
+<h3>What will I blog about?</h3>
+
+<p>I'll try to keep in the general subject matter areas of the website as I know that's why people come here. It will be something that should fall within the major categories though I might stray a bit when I can't come up with anything good to write with.</p>
+
+<p>It will be geeky, artsy, or marketey stuff I'm sure.</p>
+
+<p>Maybe I'll blog about stuff like this awesome book I'm currently reading:</p>
+
+<p><a href="http://www.amazon.com/gp/product/0553380958/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0553380958&linkCode=as2&tag=webfootcentra-20"><img class="center" src="http://ecx.images-amazon.com/images/I/5192EnTxNQL.<em>SL500_AA300</em>.jpg" title="&#34;Snow Crash&#34;" alt="&#34;Snow Crash&#34;"></a></p>
+
+<p>The book <a href="http://www.amazon.com/gp/product/0553380958/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0553380958&linkCode=as2&tag=webfootcentra-20">Snow Crash</a><img src="http://www.assoc-amazon.com/e/ir?t=webfootcentra-20&l=as2&o=1&a=0553380958" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /> was recommended to me by a friend, and you might be surprised to learn I've avoided cyberpunk stuff most of my life, but am really enjoying this. Do you care? Probably not but I'll still talk about it anyway.</p>
+
+<p>Earlier last year I said I was going to start adding more content and exploring new stuff on the site, as well as making it mobile friendly. That turned out really, really well. I had to upgrade my hosting to handle the extra traffic and meeting lots of new people so I hope this experiment has a positive outcome as well.</p>
+
+<h3>Conclusion</h3>
+
+<p>So in a few days I'll start blowing up the site with daily posts. Some may be a paragraph, some a novel. I'll likely share some insights or something useful so stay tuned. Maybe in the comments you can place your bet for how long it will be until I break the streak. I won't mind.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Remembering Rick Rescorla]]></title>
+    <link href="https://www.jeremymorgan.com/blog/general/remembering-rick-rescorla/"/>
+    <updated>2012-09-11T09:14:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/blog/general/remembering-rick-rescorla</id>
+    <content type="html"><![CDATA[<p>Rick Rescorla may not be a familiar name to most of you, but he should be. Rick was a director of security for Morgan Stanley who anticipated an aircraft attack on the World Trade Center and created a plan for it.
+<img class="right" src="https://s3-us-west-1.amazonaws.com/jeremymorgan/hosted/Rick_Rescorla.jpg" title="Remembering Rick Rescorla" ></p>
+
+<p>As he led groups of people out, he kept going back in. When one of his colleagues told him he too had to evacuate the World Trade Center, Rescorla replied, "As soon as I make sure everyone else is out".</p>
+
+<p>Rick was on the 10th floor when the building collapsed. His remains have never been found.</p>
+
+<p>I just found out about Rick today, as many of you just did. Share this story or stories like it. Let's keep their memory alive as well as the memory of all the other men and women who died that day, whether they be police officers, firefighters or just average citizens like Rick Rescorla who cared enough about their fellow people to help them out.</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Rick_Rescorla" target="_blank">http://en.wikipedia.org/wiki/Rick_Rescorla</a></p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How to Overclock your Raspberry Pi - Raspberry Pi Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How to Overclock your Raspberry Pi" /><meta itemprop="name" content="How to Overclock your Raspberry Pi" /><meta name="twitter:title" content="How to Overclock your Raspberry Pi">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-12-17 06:40:00 -0800" />
+
+<meta property="article:section" content="Raspberry PiTutorials" />
+
+<meta name="description" content="Do you want to safely overclock your Raspberry Pi? Here's how you need to do it." />
+<meta property="og:description" content="Do you want to safely overclock your Raspberry Pi? Here's how you need to do it." />
+<meta itemprop="description" content="Do you want to safely overclock your Raspberry Pi? Here's how you need to do it." />
+<meta name="twitter:description" content="Do you want to safely overclock your Raspberry Pi? Here's how you need to do it.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-overclock-raspberry-pi/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-overclock-raspberry-pi/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-overclock-raspberry-pi/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How to Overclock Your Raspberry Pi</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-17T06:40:00-08:00" pubdate data-updated="true">Dec 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>Do you want to safely overclock your Raspberry Pi? Here&#8217;s how you need to do it. There are a few articles out there on overclocking your Raspberry Pi, and I followed them but it didn&#8217;t work. So after some Googling and Stack Overflow work I find the answer, and I&#8217;m here to save you some time.</p>
+
+<!-- more -->
+
+
+<br />
+
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div>
+
+
+<h3>Find your current clock speed</h3>
+
+<p>There are several ways to find out what you Pi is running at currently. Most likely it&#8217;s running at 700mhz, and this is how you verify it</p>
+
+<pre>
+cat /proc/cpuinfo
+</pre>
+
+
+<p>After running this you should see the following output:</p>
+
+<pre>
+Processor       : ARMv6-compatible processor rev 7 (v6l)
+BogoMIPS        : 697.95
+Features        : swp half thumb fastmult vfp edsp java tls
+CPU implementer : 0x41
+CPU architecture: 7
+CPU variant     : 0x0
+CPU part        : 0xb76
+CPU revision    : 7
+
+Hardware        : BCM2708
+Revision        : 000f
+Serial          : 0000000035dfc68c
+</pre>
+
+
+<p>Note the &#8220;BogoMIPS&#8221; is at 697.95. You can also run this:</p>
+
+<pre>
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+</pre>
+
+
+<p>Which displays your frequency in Hz, which should be 700000.</p>
+
+<p>The best way to see what your Pi is really running is by using the following:</p>
+
+<pre>
+vcgencmd get_config arm_freq
+</pre>
+
+
+
+
+<div class="tutorialbox">
+<h3>Other Raspberry Pi Stuff</h3>
+<ol>
+<li><a href="/tutorials/raspberry-pi/how-to-raspberry-pi-web-server/">Set up a Raspberry Pi Web Server</a></li>
+<li><a href="/blog/programming/raspberry-pi-web-server-comparison/" rel="prev">Raspberry Pi Web Server Speed Test</a></li>
+<li>How to Overclock Raspberry Pi</li>
+<li><a href="/tutorials/raspberry-pi/how-to-install-node-js-raspberry-pi/" rel="next">How to Install Node.js on RPi</a></li>
+<li><a href="/tutorials/raspberry-pi/how-to-raspberry-pi-file-server/">How to Build a Raspberry Pi File Server</a></li>
+</ol>
+<a href="http://feedburner.google.com/fb/a/mailverify?uri=JeremyMorganTutorials&amp;loc=en_US" rel="nofollow"><strong>Get notified when new tutorials are released!</strong></a>
+</div>
+
+
+<p>It should say something like</p>
+
+<blockquote><p>arm_freq=700</p></blockquote>
+
+<p>*Note: it may say arm_freq=0 I have seen this happen too. Don&#8217;t fret about it.</p>
+
+<p>This is the base frequency of 700 MHz, which is the default. But we want it to go faster than that right?</p>
+
+<br />
+
+
+<h3>How to Overclock the Raspberry Pi</h3>
+
+<p>You can use software to overclock your Raspberry Pi and still be covered by the warranty. I gave some innaccurate information about this and was corrected in the comments:</p>
+
+<blockquote><p>Please note though that dynamic overvolting as you describe here doesn&#8217;t void your warranty; it&#8217;s only if you set &#8220;force_turbo=1&#8221; that we set the &#8220;warranty void&#8221; bit. - Eben Upton</p></blockquote>
+
+<p>The first thing you&#8217;ll want to do is modify your config.txt:</p>
+
+<pre>
+sudo nano /boot/config.txt
+</pre>
+
+
+<p>The config.txt is read by the GPU before the ARM core is initialized. It can be used to set various system configuration parameters such as overclocking.</p>
+
+<p>In this file, you&#8217;ll want to add the following two lines:</p>
+
+<pre>
+arm_freq=800
+sdram_freq=500
+</pre>
+
+
+<p><strong>Note:</strong> These are the settings I found that get the most speed and stability. Your mileage may vary, feel free to play around with it. There are folks running at 1ghz just fine, but my unit didn&#8217;t function well at this level.</p>
+
+<p>Now according to most instructions you can change this and just reboot. But it won&#8217;t always work. It didn&#8217;t for me. I found some advice on <a href="http://raspberrypi.stackexchange.com/questions/1219/how-do-i-determine-the-current-mhz" rel="nofollow">Stack Overflow</a> and had to do the following:</p>
+
+<pre>
+sudo sync
+sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"
+sudo cp config.txt config.txt.save
+sudo cp config.txt config.txt.save.1
+sudo sync; sync; exit; exit
+</pre>
+
+
+<p>This will log you out of your terminal, or terminal window, so log back in and type:</p>
+
+<pre>
+sudo sync; sync;
+sudo shutdown -h now
+</pre>
+
+
+<p>Now, your Raspberry Pi will be shut down. Unplug it, and plug it back in.</p>
+
+<h3>Check your changes</h3>
+
+<div style="float:right; margin: 15px;><br />
+<br />
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JeremyMorgan.com - In Article side */
+google_ad_slot = "4095166357";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br />
+</div>
+
+
+<p>To see what frequency you&#8217;re running at, issue the following command:</p>
+
+<p>vcgencmd get_config arm_freq</p>
+
+<p>It should say:</p>
+
+<blockquote><p>arm_freq=800</p></blockquote>
+
+<p>Congratulations, you&#8217;ve overclocked your Pi. For building large packages or just surfing the desktop you&#8217;ll notice a big difference.</p>
+
+<br />
+
+
+<h3>If that doesn&#8217;t work</h3>
+
+<p>You can also overclock using the raspi-config utility. To get this, you&#8217;ll have to update your firmware, issue the following command:</p>
+
+<pre>
+sudo apt-get update && sudo apt-get install raspberrypi* raspi-config
+</pre>
+
+
+<p>Now with the updated firmware, start the raspi-config utility:</p>
+
+<pre>
+sudo raspi-config
+</pre>
+
+
+<p>You will see the following menu:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-overclock-raspberry-pi-1.png" title="How to overclock a raspberry pi" ></p>
+
+<p>And you&#8217;ll be shown the following options:</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-overclock-raspberry-pi-2.png" title="How to overclock a raspberry pi" ></p>
+
+<p>I set mine to &#8220;Modest&#8221; at 800/250. As it says this is a modest overclocking and seems the safest.</p>
+
+<p>After selecting your option, it will ask to reboot, say yes.</p>
+
+<p>Again to check it, you can type in</p>
+
+<pre>
+vcgencmd get_config arm_freq
+</pre>
+
+
+<p>and it should say:</p>
+
+<blockquote><p>arm_freq=800</p></blockquote>
+
+<p>You can also check more options by typing:</p>
+
+<pre>
+vcgencmd get_config int
+</pre>
+
+
+<p>And it should look like this:</p>
+
+<pre>
+arm_freq=800
+core_freq=250
+sdram_freq=500
+disable_overscan=1
+boot_delay=1
+temp_limit=85
+</pre>
+
+
+<p>Enjoy! As I said there are many different options and your results may vary. There are people running very fast speeds and not having stability or heat problems, I don&#8217;t know enough about the Pi to know exactly why that is. It could be a combination of environment and the tasks being performed.</p>
+
+<br />
+
+
+<h3>Even more options</h3>
+
+<p>So do you want to play around with it some more? Of course, if you have the Raspberry Pi you&#8217;re likely a hacker anyway. Here is another update you can do to make the memory dynamic between the GPU and CPU.</p>
+
+<pre>
+sudo rpi-update 5fcbae1010c1ba99a77bab5198508bb9e6964d03
+</pre>
+
+
+<p>And add the following to your cmdline.txt</p>
+
+<pre>
+coherent_pool=2M cma=2M smsc95xx.turbo_mode=N
+</pre>
+
+
+<p>And add the following to config.txt</p>
+
+<pre>
+gpu_mem_256=160
+gpu_mem_512=316
+cma_lwm=16
+cma_hwm=32
+</pre>
+
+
+<p>Reboot your Raspberry Pi. Now, you&#8217;ll always have a set number allocated to the ARM, it will have 96M of memory and the GPU will always have at least 20M. But, when the GPU gets low, it will request some memory from ARM, and vice versa. The cma_lwm is the &#8220;low water mark&#8221; meaning if it has less that memory available it will request it from ARM. If the GPU has more than cma_hwm (high water mark) it will release memory to the ARM.</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/raspberry-pi-web-server-02.png" title="How to over clock your Raspberry Pi" ></p>
+
+<br />
+
+
+<h3>Summary</h3>
+
+<p>I hope this has helped you wade through some of the problems with overclocking the Raspberry Pi. It&#8217;s not always as straightforward as some of the tutorials suggest, but it isn&#8217;t terribly difficult. Here are some additional <a href="http://elinux.org/RPi_config.txt#Overclocking_options" rel="nofollow">Raspberry Pi overlocking options</a> if you want to play around even more.</p>
+
+<p>For the most part you&#8217;ll probably want to run some pretty modest settings, but if you&#8217;re building something from source or doing a lot of video you&#8217;ll want to squeeze every bit of performance you can out of it.</p>
+
+<p>Let me know what kind of configs you come up with and what works best for you!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div>
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-17T06:40:00-08:00" pubdate data-updated="true">Dec 17<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/raspberry-pi/'>Raspberry Pi</a>, <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/c-programming/a-cleaner-display-of-your-ip/" title="Previous Post: A Cleaner Display of Your IP in Windows">&laquo; A Cleaner Display of Your IP in Windows</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/raspberry-pi/how-to-install-node-js-raspberry-pi/" title="Next Post: How to Install Node.js on Your Raspberry Pi">How to Install Node.js on Your Raspberry Pi &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-overclock-raspberry-pi/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-overclock-raspberry-pi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How to Install Drupal on Raspberry Pi -  Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How to Install Drupal on Raspberry Pi" /><meta itemprop="name" content="How to Install Drupal on Raspberry Pi" /><meta name="twitter:title" content="How to Install Drupal on Raspberry Pi">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-12-29 19:11:00 -0800" />
+
+<meta property="article:section" content="" />
+
+<meta name="description" content="Do you want to install Drupal on your Raspberry Pi? It&#8217;s a lot easier than you might think, and this tutorial will walk you through the details &hellip;" />
+<meta property="og:description" content="Do you want to install Drupal on your Raspberry Pi? It&#8217;s a lot easier than you might think, and this tutorial will walk you through the details &hellip;" />
+<meta itemprop="description" content="Do you want to install Drupal on your Raspberry Pi? It&#8217;s a lot easier than you might think, and this tutorial will walk you through the details &hellip;" />
+<meta name="twitter:description" content="Do you want to install Drupal on your Raspberry Pi? It&#8217;s a lot easier than you might think, and this tutorial will walk you through the details &hellip;">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/raspberry-pi-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-install-drupal-raspberry-pi/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-install-drupal-raspberry-pi/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-install-drupal-raspberry-pi/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How to Install Drupal on Raspberry Pi</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-29T19:11:00-08:00" pubdate data-updated="true">Dec 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>Do you want to install Drupal on your Raspberry Pi? It&#8217;s a lot easier than you might think, and this tutorial will walk you through the details of putting this great system on your Pi.</p>
+
+<!-- more -->
+
+
+<br />
+
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div>
+
+
+<h3>What you need to do first</h3>
+
+<p>First you&#8217;ll need the following:</p>
+
+<ul>
+<li>Web Server Software such as Apache, Nginx</li>
+<li>PHP 5.2.5 or higher (5.3 recommended)</li>
+<li>MySQL 5.0.15 or higher with PDO</li>
+</ul>
+
+
+<p>You should have all these set up and configured already. If you need to, refer back to How to set up a <a href="/tutorials/raspberry-pi/how-to-raspberry-pi-web-server/">Raspberry Pi Web Server</a> if you need to.</p>
+
+<p>You will also need to Install PHP with GD support. This is a simple apt-get command:</p>
+
+<blockquote><p>sudo apt-get install php5-gd</p></blockquote>
+
+<br />
+
+
+<h3>Get Drupal</h3>
+
+<p>For this tutorial we&#8217;re going to be using Drupal 7.18. The easiest way to get it on your Pi is to SSH into it or open a prompt and type the following:</p>
+
+<blockquote><p>cd /var/www
+sudo wget http://ftp.drupal.org/files/projects/drupal-7.18.tar.gz</p></blockquote>
+
+<p>This will download the tarball, then unzip it:</p>
+
+<blockquote><p>tar xvzf drupal-7.18.tar.gz</p></blockquote>
+
+<p>This will create a folder called /var/www/drupal-7.18 which I just rename to &#8220;drupal&#8221;</p>
+
+<blockquote><p>sudo mv drupal-7.18 drupal</p></blockquote>
+
+<p>Now we have our files extracted.</p>
+
+<br />
+
+
+<h3>Create a MySQL database and account</h3>
+
+<p>You&#8217;ll probably want to set up a separate MySQL database and account for this. We&#8217;re going to be doing it at the MySQL prompt, but don&#8217;t get intimidated, it&#8217;s really easy.</p>
+
+<p>Here&#8217;s how you do it.</p>
+
+<p>Log into the MySQL server using the account you created when you installed it:</p>
+
+<blockquote><p>mysql -u root -p</p></blockquote>
+
+<p>Create a database (name it whatever you want):</p>
+
+<blockquote><p>create database drupal;</p></blockquote>
+
+<p>Now create a database user</p>
+
+<blockquote><p>CREATE USER &#8216;yourusername&#8217;@&#8217;localhost&#8217; IDENTIFIED BY &#8216;yourpassword&#8217;;</p></blockquote>
+
+<p>(Please don&#8217;t use the exact phrase above, create your own secure username and password).</p>
+
+<p>Now that we have a Database and username created we need to associate them:</p>
+
+<blockquote><p>GRANT ALL on drupal.* TO &#8216;yourusername&#8217;@&#8217;localhost&#8217;;</p></blockquote>
+
+<p>This will grant this user the ability to modify the database as needed.</p>
+
+<blockquote><p>exit;</p></blockquote>
+
+<p>Wasn&#8217;t that easy? Using MySQL from the prompt is pretty scary at first, but it&#8217;s really simple stuff when you get used to it.</p>
+
+<br />
+
+
+<h3>Drupal Install</h3>
+
+<p>The first thing you&#8217;ll want to do is copy the default settings for your site. You can change this later.</p>
+
+<blockquote><p>sudo cp sites/default/default.settings.php ./sites/default/settings.php</p></blockquote>
+
+<p>Then Load up a web broswer with the IP address of your Raspberry Pi and point it that folder you installed Drupal in. For me it was:</p>
+
+<blockquote><p>http://192.168.254.18/drupal/</p></blockquote>
+
+<p>Since you haven&#8217;t yet installed Drupal it will take you to an install screen.</p>
+
+<p><strong>Step 1: Select an installation profile</strong></p>
+
+<p>For this we&#8217;ll choose &#8220;Standard - Install with commonly used features pre-configured&#8221;</p>
+
+<p>Click &#8220;Save and continue&#8221;</p>
+
+<p><strong>Step 2: Choose Language</strong></p>
+
+<p>Most likely English, which is built in.</p>
+
+<p><strong>Verifying Requirements</strong></p>
+
+<p>You shouldn&#8217;t see any problems here. If you get a message saying Drupal cannot modify your files, run the following command:</p>
+
+<blockquote><p>sudo chmod -R a+w /var/www/drupal</p></blockquote>
+
+<p>This will make your files writeable again and you&#8217;ll should see the next screen.</p>
+
+<p><strong>Database configuration</strong></p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-install-drupal-raspberry-pi.png" title="&#34;How to install Drupal on Raspberry Pi&#34;" alt="&#34;How to install Drupal on Raspberry Pi&#34;"></p>
+
+<p>Here is where we will put in our database information we created earlier.</p>
+
+<p><strong>Database Name</strong>- The name you gave your database (I called it drupal)</p>
+
+<p><strong>Database username</strong> - the name of the account you created</p>
+
+<p><strong>Database password</strong> - the password of that username</p>
+
+<p>Click save and continue. This may take a little while, as it creates your database and installs modules.</p>
+
+<br />
+
+
+<h3>Configure Drupal</h3>
+
+<p>Now that it&#8217;s installed (hopefully) you should see a configuration page.</p>
+
+<p>For your site configuration fill in the following info:</p>
+
+<p><strong>Site name</strong> - Jeremy&#8217;s Drupal Sandbox (or whatever you want to call it)</p>
+
+<p><strong>Site e-mail address</strong> - Your email Address</p>
+
+<p><strong>Password</strong> - A secure password, different from your database password!</p>
+
+<p><strong>Default Country</strong> - Where you live.</p>
+
+<p><strong>Default Timezone</strong> - Your time zone</p>
+
+<p>Then again click Save and continue</p>
+
+<p><img class="center" src="https://www.jeremymorgan.com/images/how-to-install-drupal-raspberry-pi-2.png" title="&#34;How to install Drupal on Raspberry Pi&#34;" alt="&#34;How to install Drupal on Raspberry Pi&#34;"></p>
+
+<p>You can now view your new website! Feel free to browse around and play with it, it&#8217;s the only way to learn. I&#8217;ll be adding some more articles pertaining to Drupal soon.</p>
+
+<br />
+
+
+<h3>Conclusion</h3>
+
+<p>I hope this has helped you get Drupal installed on your Raspberry Pi. I noticed it&#8217;s a little sluggish on mine, but it&#8217;s to be expected. It actually isn&#8217;t too bad for development, but I wouldn&#8217;t reccomend it for a production site.</p>
+
+<p>The point of the Raspberry Pi is education, so tutorials like this show the power this device is giving you, being able to host a Drupal site on this tiny thing is amazing.</p>
+
+<p>Good luck with your projects, and if you have any issues, let me know in the comments!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you like my Rasbperry Pi Tutorials? </h4>
+<div class="rssbutton"></div>
+I&#8217;m constantly hacking on stuff with the Raspberry Pi. If you want to get notified every time I post a new article <a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi"><strong>subscribe to my Raspberry Pi feed</strong></a> here, or you can <a href="http://www.feedblitz.com/f?sub=883810"><strong>Sign up for the Raspberry Pi Newsletter</strong></a> spam free!  
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-29T19:11:00-08:00" pubdate data-updated="true">Dec 29<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/raspberry-pi/how-to-remote-desktop-raspberry-pi/" title="Previous Post: Remote Desktop with Raspberry Pi">&laquo; Remote Desktop with Raspberry Pi</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/seo/agile-content-marketing-google-webmaster-tools/" title="Next Post: Agile Content Marketing with Google Webmaster Tools">Agile Content Marketing with Google Webmaster Tools &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-install-drupal-raspberry-pi/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-install-drupal-raspberry-pi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

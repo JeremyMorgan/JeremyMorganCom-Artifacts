@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>Python For The Absolute Beginner - Tutorials Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="Python For The Absolute Beginner" /><meta itemprop="name" content="Python For The Absolute Beginner" /><meta name="twitter:title" content="Python For The Absolute Beginner">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-05-21 03:58:15 -0700" />
+
+<meta property="article:section" content="Tutorials" />
+
+<meta name="description" content="Want to try out some Python? Here's a primer on getting started with this awesome language." />
+<meta property="og:description" content="Want to try out some Python? Here's a primer on getting started with this awesome language." />
+<meta itemprop="description" content="Want to try out some Python? Here's a primer on getting started with this awesome language." />
+<meta name="twitter:description" content="Want to try out some Python? Here's a primer on getting started with this awesome language.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/python-ogimage.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/python-ogimage.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/python-ogimage.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/python-tutorials/python-for-beginners/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/python-tutorials/python-for-beginners/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/python-tutorials/python-for-beginners/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">Python for the Absolute Beginner</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-21T03:58:15-07:00" pubdate data-updated="true">May 21<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>If you&#8217;re a Programmer / Developer, chances are you&#8217;ve at least heard of this neat little program called Python. Those who know it sing it&#8217;s praises, and it can be found in some very powerful applications. If you&#8217;ve been curious about how to get started with Python I have built this tutorial to help you on your way to becoming a text manipulating ninja.</p>
+
+<p>Ok, that sounded a little corny but Python is really, really good at parsing and manipulating text. It&#8217;s one of the duties you&#8217;ll see it doing often. Let&#8217;s get started.</p>
+
+<p><strong>Step 1:Get Python</strong></p>
+
+<p>I&#8217;m not going to go into great detail about installation, but you can get python for any of the big three (PC, Mac Linux) operating environments and the setup is pretty similar. In many versions of OSX and Linux Python is installed by default. One way to see if it&#8217;s installed is by opening up a command window, and simply typing &#8220;python&#8221; or &#8220;py&#8221;. If it&#8217;s installed you&#8217;ll see something like this:</p>
+
+<blockquote><p>[jeremy@localhost ~]$ python
+Python 2.4.3 (#1, Jul 27 2009, 11:32:33)
+[GCC 4.1.2 20080704 (Red Hat 4.1.2-44)] on linux2
+Type &#8220;help&#8221;, &#8220;copyright&#8221;, &#8220;credits&#8221; or &#8220;license&#8221; for more information.</p>
+
+<blockquote><blockquote></blockquote></blockquote></blockquote>
+
+<p>If not, the best place to get the latest version is from<a href="http://www.python.org/download/"> Python.org</a>.</p>
+
+<p><strong>Step 2: Start Coding</strong>
+<a href="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/python-tutorials.jpg"><img src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/05/python-tutorials.jpg" alt="Python Tutorials" /></a>
+Here is how you should start building Python scripts:</p>
+
+<ul>
+<li><p>Plain Text Editor</p></li>
+<li><p>Running Python at the prompt</p></li>
+</ul>
+
+
+<p>The editor I use the most is <a href="http://kate-editor.org/">Kate</a> in Linux. This is because Kate manages your files, and you have a command terminal below, allowing you to enter stuff. If I&#8217;m on a windowless machine Vim works very well too. For Windows machines I would recommend <a href="http://notepad-plus-plus.org/">Notepad++</a> to edit. Both are free and there are tons of free text editors out there, especially in Linux.</p>
+
+<p>Your first step is the obligatory &#8220;Hello world&#8221;. You&#8217;ll find it&#8217;s nearly as simple as it could possibly be in Python.</p>
+
+<p>Create a file called test.py and put the following line in it:</p>
+
+<pre><code>print "hello world"
+</code></pre>
+
+<p>and save it. Now type:</p>
+
+<blockquote><p>python test.py</p></blockquote>
+
+<p>Amazing right? Now do something silly, to make it spit out an error, and remove the last quote. Type this exactly as you see it:</p>
+
+<pre><code>print "hello world
+</code></pre>
+
+<p>You should see the following message:</p>
+
+<blockquote><p>File &#8220;test.py&#8221;, line 1
+print &#8220;hello world
+^
+SyntaxError: EOL while scanning string literal</p></blockquote>
+
+<p>Like every programming language you have to close everything you open. (With the exception of tags in PHP, but let&#8217;s not get into that).</p>
+
+<p>So to clarify, our steps are:</p>
+
+<ol>
+<li><p> Put python code into a text file.</p></li>
+<li><p> run that text file with python ( python + filename )</p></li>
+<li><p> look at the results.</p></li>
+</ol>
+
+
+<p>Seems simple enough, so let&#8217;s do some more stuff.</p>
+
+<p><strong>Comments</strong></p>
+
+<p>A quick note about comments: use them. When you become a better programmer you can decide whether &#8220;good code comments itself&#8221; but for now, let&#8217;s use comments to explain what&#8217;s going on. Basically a comment is any text that YOU can see as a programmer, but the computer can&#8217;t. This is so you can leave yourself notes, or notes for other programmers.</p>
+
+<p>In Python, you use the # pound sign for commenting, like so:</p>
+
+<pre><code># This is a comment
+print "hello world"
+</code></pre>
+
+<p>But usually they&#8217;re explaining something a little more important:</p>
+
+<pre><code># classroom.py
+
+boys = 5 # Boys in the class
+girls = 8 # Girls in the class
+total = boys + girls # Add up the total
+
+# print our message
+print "There are", boys, "boys in the class and", girls, "girls in the class"
+
+# print the total
+print "There are a total of", total, "students in this class"
+</code></pre>
+
+<p>When you run classroom.py the computer (python interpreter to be exact) will ignore all the comments you insert, but they remain in the file for the next person to look at (which could be you).</p>
+
+<p>Speaking of math, let&#8217;s do some!</p>
+
+<p>As you saw above it doesn&#8217;t take much to do basic arithmatic in Python. Here is one way of performing mathmatic expressions:</p>
+
+<pre><code># weeksinyear.py
+
+print "How many weeks are in a year?", 365 / 7
+
+See how easy that was? But this prints the answer at the end of the line. What if we want it in the middle of the sentence?
+
+# weeksinyear.py
+
+# figure out the total
+weeksinyear = 365 / 7
+
+print "There are", weeksinyear, "weeks in a year"
+</code></pre>
+
+<p>Notice how easy it was to insert the text into the sentence? That was done with a variable.</p>
+
+<p>Here is what you should see:</p>
+
+<blockquote><p>There are 52 weeks in a year</p></blockquote>
+
+<p>You can do all kinds of things with the output, you can output just answers:</p>
+
+<pre><code>print 3+2
+</code></pre>
+
+<p>But why stop there?</p>
+
+<pre><code>print 3 + (2 + 4) / 2 * 34
+</code></pre>
+
+<p>You can group expressions and output the answer however you like, or feed it into a variable and use the variable.</p>
+
+<p>Python also outputs boolean (true / false) as well:</p>
+
+<pre><code>print 3 + 3 &lt; 10
+</code></pre>
+
+<p>Since 6 obviously less than 10 it will output true. This statement isn&#8217;t exactly useful, but once you start using variables and inputs it will.</p>
+
+<p>Variables.</p>
+
+<p>Variables are simply containers to put data in. Think of a set of mailboxes for an apartment building. Each mailbox contains someone&#8217;s mail (data) and each mailbox is labeled with a number (variable name). The variable is the mailbox, and the number on the mailbox is the variable name.</p>
+
+<p>So let&#8217;s create some variables.</p>
+
+<pre><code># aboutme.py
+name = "Jeremy"
+age = 34
+currentyear = 2012
+drivingyears = age - 16
+alcyears = age - 21
+
+print "Some facts about",name
+print "Jeremy was born sometime around", currentyear - age
+print "He's",age,"years
+print "He has been driving around", drivingyears, "years"
+print "He could has been able to drink alcohol for about", alcyears, "years"
+</code></pre>
+
+<p>Here you can see we&#8217;ve created some variables here to hold my name, age, and the current year. We also added in a couple of formulas to figure out how long I&#8217;ve been driving, and (legally) drinking alchohol. If you copy this script exactly (don&#8217;t!) you will get the following output:</p>
+
+<blockquote><p>Some facts about Jeremy
+Jeremy was born sometime around 1978
+He&#8217;s 34 years old
+He has been driving around 18 years
+He has been able to legally drink alcohol for about 13 years</p></blockquote>
+
+<p>OK, so this script makes me feel pretty old. Create a similar script for yourself and feel free to modify it. Add in how many years you&#8217;ve been married or how long you&#8217;ve been in school. I encourage you to take these examples and run with them, modify and go crazy, because that&#8217;s the best way to learn. Experiment and don&#8217;t worry about breaking things.</p>
+
+<p>Now it&#8217;s time to change it up a little.</p>
+
+<pre><code>radius = 2
+pi = 3.14
+
+print "The area of our circle is", pi * (radius * radius)
+</code></pre>
+
+<p>Notice something different? We&#8217;re now using a floating point number, which Python detected and used, then output another float. Python supports many different datatypes including integers, long, floats and complex.</p>
+
+<p>In the next tutorial we&#8217;re going to get a little more in depth and start exploring some more math, and loops.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-21T03:58:15-07:00" pubdate data-updated="true">May 21<span>st</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/linux/how-to-build-apache-php5-and-mysql-from-source-the-hard-way/" title="Previous Post: Linux Tutorial: How to Build Apache, PHP5 and MySQL from Source ( The Hard Way)">&laquo; Linux Tutorial: How to Build Apache, PHP5 and MySQL from Source ( The Hard Way)</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/recipes/how-to-make-the-perfect-salmon/" title="Next Post: How to Make the Perfect Salmon">How to Make the Perfect Salmon &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/python-tutorials/python-for-beginners/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/python-tutorials/python-for-beginners/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

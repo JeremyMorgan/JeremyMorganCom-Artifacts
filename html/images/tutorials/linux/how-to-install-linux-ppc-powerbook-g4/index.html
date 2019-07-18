@@ -1,0 +1,583 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How to install Linux on a PowerBook G4 - Tutorials Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How to install Linux on a PowerBook G4" /><meta itemprop="name" content="How to install Linux on a PowerBook G4" /><meta name="twitter:title" content="How to install Linux on a PowerBook G4">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-02-10 15:43:00 -0800" />
+
+<meta property="article:section" content="Tutorials" />
+
+<meta name="description" content="A complete tutorial on how to Install Ubuntu Linux on a Powerbook G4 (PowerPC) machine" />
+<meta property="og:description" content="A complete tutorial on how to Install Ubuntu Linux on a Powerbook G4 (PowerPC) machine" />
+<meta itemprop="description" content="A complete tutorial on how to Install Ubuntu Linux on a Powerbook G4 (PowerPC) machine" />
+<meta name="twitter:description" content="A complete tutorial on how to Install Ubuntu Linux on a Powerbook G4 (PowerPC) machine">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-13.png" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-13.png" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-13.png"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/tutorials/linux/how-to-install-linux-ppc-powerbook-g4/">
+<meta property="og:url" content="https://www.jeremymorgan.com/tutorials/linux/how-to-install-linux-ppc-powerbook-g4/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/tutorials/linux/how-to-install-linux-ppc-powerbook-g4/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How to Install Linux on a PowerBook G4</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-10T15:43:00-08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>Do you want to breathe life back into your old PowerBook or PowerPC machine? Want some modern software on it? In this tutorial I&#8217;ll show how you can put Ubuntu Linux on a PowerBook G4 and resurrect one of these durable old laptops from the dead.</p>
+
+<!-- more -->
+
+
+<p>Running an old version of OSX leopard in 2013 just doesn&#8217;t make sense. Even with everything updated simple things like checking Gmail or Facebook are nearly impossible. Every software package is ancient because  Using Linux will get you into a more modern environment.</p>
+
+<h3>What version of Linux am I using and why?</h3>
+
+<p>For my machine I chose Ubuntu 10.04. As I have <a href="https://plus.google.com/u/0/+JeremyMorgan/posts/ZNyuKYWg3GX" target="_blank">opined in the past</a> I feel 10.04 is a very stable version of Ubuntu and not too bloated or buggy. I also despise the Unity interface no matter how much they improve it. I couldn&#8217;t find any compelling advantages to the newer distributions but if you choose to install one of them the instructions should be the same.</p>
+
+<p>Other distributions of Linux/Unix are available for the PPC platform as well. Here are the ones I&#8217;ve tried:</p>
+
+<p><strong>Debian PPC (<a href="http://www.debian.org/ports/powerpc/" target="_blank" rel="nofollow">Link</a>)</strong> - This distro works very well but some software doesn&#8217;t update, the system clock has problems and there is a screen flicker / blank out problem that drove me nuts. You could switch to a new terminal to fix it, but it&#8217;s annoying.</p>
+
+<p><strong>Yellow Dog Linux (<a href="http://www.yellowdoglinux.com/" target="_blank" rel="nofollow">Link</a>)</strong> - A very respectable Linux distribution but it isn&#8217;t being updated much anymore. I found I could get a lot of newer software on it but it was a lot of configuration and compiling.</p>
+
+<p><strong>FreeBSD for PPC (<a href="http://www.freebsd.org/platforms/ppc.html" target="_blank" rel="nofollow">Link</a>)</strong> - This is a well reviewed option for PPC machines, but I just couldn&#8217;t get it working properly and didn&#8217;t have the patience for it. If you have a lot of time it will probably get you a good setup, but I got frustrated cleaning up errors.</p>
+
+<p><strong>Gentoo for PPC (<a href="http://www.gentoo.org/doc/en/handbook/handbook-ppc.xml" target="_blank" rel="nofollow">Link</a>)</strong> - Awesome distro but it takes forever and a week to set up. I got mine setup and dialed in after about 30 hours of work, used it for quite a while and the hard drive went out. I haven&#8217;t had the time to redo this install and didn&#8217;t back it up. Also had the screen flicker problem though not as frequent as Debian</p>
+
+<p>Depending on how much time you invest you can get any of these distributions working well, but the fastest and easiest setup for mine is using Ubuntu 10.04. A few hours of work and it produces a nice stable machine you don&#8217;t have to mess with. If that&#8217;s your goal keep reading.</p>
+
+<h3>Install</h3>
+
+<p>Download <a href="http://cdimage.ubuntu.com/ports/releases/10.04/release/ubuntu-10.04-desktop-powerpc.iso" target="_blank" rel="nofollow">The Ubuntu 10.04 PPC iso</a> and burn it to a CD. USB installs are pretty tricky with the powerbook.</p>
+
+<p>Hold down the &#8220;C&#8221; button while booting to boot from the CD.</p>
+
+<p>At the prompt, press enter to boot.(Be patient the startup time is pretty long)</p>
+
+<h4>1. Start Installer</h4>
+
+<p>Click on the &#8220;Install Ubuntu 10.04 LTS&#8221; link on the desktop.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-1.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<h4>2. Select Language</h4>
+
+<p>You should see a screen that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-2.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>Select English and click Forward.</p>
+
+<h4>3. Time Zone</h4>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-3.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>Select your timezone in the next window and click Forward.</p>
+
+<h4>4. Keyboard Layout</h4>
+
+<p>In the next window you&#8217;ll see a screen to test your keyboard layout. USA works great, so select that and click Forward</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-4.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<h4>5. Partitioning</h4>
+
+<p>In the next screen you&#8217;ll see something like this. My laptop did not have an OS, but yours might.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-5.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>The best option here is to Erase and use the entire disk. Click Forward.</p>
+
+<h4>6. Set your Username Info</h4>
+
+<p>In this screen you will set your username. Type in your full name and the username you will use to log in.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-6.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>Set the name of the computer, and select &#8220;Require my password to log in&#8221;. Do not allow it to log in automatically, this is a big security risk.</p>
+
+<p>You may also choose to encrypt your home folder. This is a good idea, however it will slow your system down quite a bit. I opted not to do this, but if you do the procedure is nearly identical.</p>
+
+<h3>7. Ready to Install</h3>
+
+<p>You will see this screen, which allows you to verify the info you submitted.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-7.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>Click advanced, and make sure &#8220;Install boot loader&#8221; is checked.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-8.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>Click install.</p>
+
+<h4>8. Installation Complete</h4>
+
+<p>Once the installation is completed you&#8217;ll see the following screen:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-9.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>Reboot the machine. It will eject the CD and ask you to click enter.</p>
+
+<p>That&#8217;s it! If you don&#8217;t want to do any crazy partitioning or anything like that this is the easiest method to install it. If you want to dual boot operating systems that&#8217;s possible too and I might write a tutorial about that in the future. There is also some configuration to be done, and I&#8217;ll cover that in future tutorials as well.</p>
+
+<h4>9. Fresh Install Updates</h4>
+
+<p>The first thing you should do after installing is update everything. Run the following commands from the terminal (Applications - Accessories - Terminal)</p>
+
+<pre>
+sudo apt-get update
+sudo apt-get upgrade
+</pre>
+
+
+<p>There aren&#8217;t many updates but it&#8217;s nice to get it started.</p>
+
+<h4>10. Speed up the system</h4>
+
+<p>There isn&#8217;t a lot you can do to make this any faster, after all this is old hardware and a dead architecture. But a couple things have helped with my machine and might help yours as well.</p>
+
+<p>Go to system - preferences - startup applications</p>
+
+<p>Here you can change which applications come up on startup. Whatever ones you don&#8217;t need, remove them.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-10.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>There is also a text based application you can use with a few more options:</p>
+
+<pre>
+sudo apt-get install rcconf
+</pre>
+
+
+<p>This allows even more options for turning off startup services.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-11.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>Common ones I disable are</p>
+
+<ul>
+<li>bluetooth</li>
+<li>brltty</li>
+<li>cups</li>
+<li>ondemand</li>
+<li>pcmciautils</li>
+<li>ppd-dns</li>
+</ul>
+
+
+<p>You can play around with these, and disable whatever you don&#8217;t need. Since you&#8217;re dealing with limited hardware it&#8217;s always a good idea to trim the fat any way you can.</p>
+
+<h4>Set swappiness</h4>
+
+<p>The linux kernel has a setting called swappiness. This is a number from 0-100 that sets how much of your memory is left before going to swap. It is set at a default of 60, which means when 40% of your ram is in use it will start swapping. This can kill performance on your G4 pretty quick, as well as increase disk thrashing.</p>
+
+<p>You can check your current setting here:</p>
+
+<pre>
+cat /proc/sys/vm/swappiness
+</pre>
+
+
+<p>This will show what your current swappiness is. I generally like to set mine at 10. When I&#8217;m getting that close to full I need the swap, but I don&#8217;t want it swapping all the time.</p>
+
+<p>To set it, open your sysctl.conf:</p>
+
+<pre>
+sudo nano /etc/sysctl.conf
+</pre>
+
+
+<p>and at the bottom of the file, add</p>
+
+<pre>
+vm.swappiness = 10
+</pre>
+
+
+<p>Your results may vary, but generally 10-15 does pretty well. A setting of zero will never hit the swap and a setting of 100 always will. Where you find in between that works best depends on what you&#8217;re doing with it.</p>
+
+<h3>Summary</h3>
+
+<p>I hope this has been a good guide to setting up Ubuntu on a PPC machine. It&#8217;s super easy, with comparison to other operating systems. It&#8217;s a great way to recycle a computer for your kids, or even yourself rather than throwing it away. Besides it&#8217;s efficient, how else can you get a desktop that only uses 116mb of memory?</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-install-linux-ppc-powerbook-g4-12.png" title="&#34;how to install linux on PPC G4 Powerbook&#34;" alt="&#34;how to install linux on PPC G4 Powerbook&#34;"></p>
+
+<p>I am typing out this article on this very machine, I enjoy writing on it as it leaves me free of distractions and I can focus on what I&#8217;m doing. It&#8217;s also neat to carry around and hack up stuff when I need to.</p>
+
+<p>If you have any questions, please leave them in the comments! I have done quite a few of these installs and there are some snags that come up occassionally. If you&#8217;re using an old PPC linux system for something cool, let me know about that too!</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-10T15:43:00-08:00" pubdate data-updated="true">Feb 10<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tutorials/'>Tutorials</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/blog/general/a-dent-in-the-universe/" title="Previous Post: We're here to put a dent in the universe">&laquo; We're here to put a dent in the universe</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/tutorials/raspberry-pi/raspberry-pi-how-to-svn-server/" title="Next Post: Raspberry Pi how to: Set up a SVN Server">Raspberry Pi how to: Set up a SVN Server &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/tutorials/linux/how-to-install-linux-ppc-powerbook-g4/';
+        var disqus_url = 'https://www.jeremymorgan.com/tutorials/linux/how-to-install-linux-ppc-powerbook-g4/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

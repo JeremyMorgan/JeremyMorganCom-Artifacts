@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Ubuntu | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/ubuntu/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2015-05-30T12:51:07-07:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to Watch Netflix in Ubuntu Linux]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/linux/how-to-netflix-ubuntu-linux/"/>
+    <updated>2013-03-15T20:29:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/linux/how-to-install-netflix-in-ubuntu-linux</id>
+    <content type="html"><![CDATA[<p>One of the biggest hurdles to Linux adoption is getting stuff to work in Linux that works great in Windows. Microsoft has enjoyed a huge market share over the years, and because of that when companies develop commercial software they target Windows first, and maybe OSX. Linux is either an option for companies with a geekier application, or their product is either emulated or ported by dedicated Linux hackers. What this does is ensure you pretty much need a Windows box somewhere for some task. But this changes every day.</p>
+
+<!-- more -->
+
+
+<h3>Netflix in Linux - A long wait</h3>
+
+<p>Netflix is something that Linux hackers have wanted for years. Netflix is written in Silverlight / .Net and it looks like that isn't going to change anytime soon. The frequent requests for a Linux Native Netflix client have been ignored, as there would be a serious expenditure for them to build a different streaming system, and they'd have the problem of supporting two.</p>
+
+<p>So the solution most used was to create a Virtual machine with a Windows and watch it that way. Not the best option, but at least a working one. Then along comes someone like <a href="http://www.compholio.com/" target="_blank">Erich E. Hoover, Ph.D</a> to create a more elegant and easier solution. That's the solution I'll be outlining here. It's super easy, and doesn't take as much horsepower as a dedicated Windows virtual machine either.</p>
+
+<h3>How to Install The Tools to Watch Netflix in Linux</h3>
+
+<p>Note that this is by no means an official Netflix solution, nor is it endorsed or encouraged by them. I'm using Ubuntu 13.04 Raring Ringtail for this installation, but it works in many Ubuntu versions and variants.</p>
+
+<p>First, update your system:</p>
+
+<pre>
+sudo apt-get update
+</pre>
+
+
+<p>Then, add the repository:</p>
+
+<pre>
+sudo apt-add-repository ppa:ehoover/compholio
+</pre>
+
+
+<p>Now run the following:</p>
+
+<pre>
+sudo apt-get update && sudo apt-get install netflix-desktop
+</pre>
+
+
+<p>This may take a while, especially if you're on a slow connection. You'll see the following screen:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-netflix-linux-0.jpg" title="How to install Netflix in Linux" ></p>
+
+<p>Agree to it (if you want to install this). After it installs a pile of stuff, you'll see the Netflix icon on your start bar under "Sound and Video" (I'm using LXDE but it's pretty easy to find with other Window managers).</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-netflix-linux-1.jpg" title="How to install Netflix in Linux" ></p>
+
+<p>The first time you run it, will get a window asking you to install Mono:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-netflix-linux-2.jpg" title="How to install Netflix in Linux" ></p>
+
+<p>Then it will need to install Gecko (Firefox for watching)</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-netflix-linux-3.jpg" title="How to install Netflix in Linux" ></p>
+
+<p>Then you're ready to go. You may get a few errors that pop up here and there but it will still work.</p>
+
+<h3>The Final Result</h3>
+
+<p>That's it! This is all there is to installing Netflix in Linux.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/how-to-netflix-linux-4.jpg" title="How to install Netflix in Linux" ></p>
+
+<p>My only complaint so far is not being able to put it into smaller window, but I'll figure out how to do that and update this article soon. I noticed the Video quality and Sound are the same as they are in Windows, and you can go full screen and it works great! Thanks Erich for creating this awesome solution.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Set up the Ultimate PHP Dev Machine in Ubuntu 13.04]]></title>
+    <link href="https://www.jeremymorgan.com/tutorials/linux/ultimate-php-ubuntu-13-04-raring-ringtail/"/>
+    <updated>2013-03-07T19:55:00-08:00</updated>
+    <id>https://www.jeremymorgan.com/tutorials/linux/how-to-set-up-the-ultimate-php-dev-machine-in-ubuntu</id>
+    <content type="html"><![CDATA[<p>Today I'm going to tell you how to build the ultimate PHP development environment in Ubuntu 13.04 (Raring Ringtail). PHP has been getting a lot of flack lately, but there is still a lot of enterprise level professional development going on with this language. And hey, I love .Net programming but you can build solid, quality PHP applications with the right knowledge and the right tools. Today I'll tell you how set that up.</p>
+
+<!-- more -->
+
+
+<h3>What we'll need</h3>
+
+<p>This is going to be a fairly long tutorial, but worth the trouble. In order to set up a this development environment, here is what we'll need:</p>
+
+<ul>
+<li>A PHP 5 Installation.</li>
+<li>A local instance of a Web Server.</li>
+<li>An IDE</li>
+<li>A debugger</li>
+<li>A unit tester</li>
+</ul>
+
+
+<p>This is an enterprise class setup, and believe it or not the entire thing is free. That's what makes this so much cooler than developing .Net in Visual Studio. All you need is a computer.</p>
+
+<h3>Set up PHP and our Web Server</h3>
+
+<p>The first thing we'll want to do is set up our web server. What this will do is put a local server on your machine for development. You really don't want to be saving and uploading to a server over and over, especially for a big project.</p>
+
+<p>There are a few ways we can do this:</p>
+
+<p><strong>Compile from Source</strong> - The best option for custom stuff and the most performance. It's a great way to do it, but not how we're going to set it up today.</p>
+
+<p><strong>Install from apt-get or Software Center</strong> - Also a great option, super easy and a good way to get the latest and greatest. Also not the way we're going to do it today.</p>
+
+<p><strong>Install Zend Server </strong> because of the extra tools and nice integration, we're going to be using the Zend Server Community edition. It's an easy setup, and free.</p>
+
+<p>Download <a href="http://www.zend.com/en/products/server/" title="Zend Server">Zend Server Here</a> and save it.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-1.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Now click on the home folder and go to downloads, and you'll see it:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-2.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Double click it and extract it somewhere. I just put it in the download folder.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-3.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Sorry if some of this seems kind of basic, but I want to make sure everyone gets a chance to do this. If you have any questions feel free to comment.</p>
+
+<h4>Install Zend Server</h4>
+
+<p>To install this, we will run a script in the terminal. Zend provides a script for Ubuntu that sets up your repositories and downloads a fresh version and saves you a lot of work.</p>
+
+<p>Click the launcher in the upper left corner of the screen, and type in "terminal". Then click the terminal icon.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-4.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>In the terminal, type in</p>
+
+<pre>
+sudo -s
+</pre>
+
+
+<p>and hit enter. This will make you root. Then go to your download folder and type in</p>
+
+<pre>
+./install_zs.sh 5.4
+</pre>
+
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-5.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>And the script will start. After it updates everything if it's successful it will ask you:</p>
+
+<pre>
+Need to get 101 MB of archives
+After this operation, 340 MB of additional disk space will be used. 
+Do you want to continue [Y/n]?
+</pre>
+
+
+<p>Click Y to continue. If you have a slow connection or computer, go grab a soda.</p>
+
+<p>If it's successful, you'll see this screen:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-6.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Now, open FireFox and go to the following web address:</p>
+
+<pre>
+http://localhost:10081/ZendServer
+</pre>
+
+
+<p>Agree to the terms of service and click next.</p>
+
+<p>Select "Development" and click next.</p>
+
+<p>Enter the password you want to use for the admin interface.</p>
+
+<h3>How to make sure it's the free version</h3>
+
+<p>Once the web interface is open, you will see this is a "Zend Server Enterprise Trial". If you want to use the full version during the trial, or even purchase it that's great. But if you can't afford the price tag or just need the bare features, go up to the upper right hand corner to your messages:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-7.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>And then click details</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-8.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>And select "Use free edition". Don't worry, it will still have plenty of awesome stuff for us to use.</p>
+
+<h3>Set up your web folder</h3>
+
+<p>By default the website's files are published to /var/www. Usually people either set up virtual user directories or point the web root. The simplest way, is just to add permissions for your account to access the web folder:</p>
+
+<pre>
+sudo chown -R [your username] /var/www
+</pre>
+
+
+<p>That way you can write to the /var/www folder. You can even create a symbolic link to a folder in your home folder. One thing I usually do is:</p>
+
+<pre>
+ln -s /var/www/ /home/jeremy/
+</pre>
+
+
+<p>This makes it a little quicker to get to my web folder after logging in.</p>
+
+<h3>Create your php info page</h3>
+
+<p>If you're a php dev, you've likely done this a million times. In your web directory, create a file called phpinfo.php (or whatever you want). Inside that file put the following code:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?php phpinfo(); ?></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And load it up in your browser. You can use this page to see all your PHP settings.</p>
+
+<h3>Make your utilities usable system wide.</h3>
+
+<p>Zend Server installs stuff like PEAR, PECL, etc but it's not installed in the usual locations and it isn't in your path. Run these commands to make them avaialable system wide.</p>
+
+<pre>
+sudo ln -s /usr/local/zend/bin/zendctl.sh /usr/sbin/zendctl
+sudo ln -s /usr/local/zend/bin/pear /usr/sbin/pear
+sudo ln -s /usr/local/zend/bin/pecl /usr/sbin/pecl
+sudo ln -s /usr/local/zend/bin/php /usr/sbin/php
+sudo ln -s /usr/local/zend/bin/phpize /usr/sbin/phpize
+</pre>
+
+
+<h3>Install XDebug</h3>
+
+<p>We're going to set up some Debuggers you can use to get a better idea of what's going on with this program. Many PHP developers neglect debuggers for some reason, but they really are helpful and do save you a lot of time. The Zend Debugger is already installed with the Zend server, but we're going to add XDebug too, in case you prefer that. There are valid reasons to use both of them.</p>
+
+<pre>
+sudo apt-get install m4
+sudo apt-get install autoconf
+sudo pecl install xdebug
+</pre>
+
+
+<p>After that completes, you'll need to add the xdebug.so to your extention</p>
+
+<pre>
+sudo nano /usr/local/zend/etc/conf.d/debugger.ini 
+</pre>
+
+
+<p>add the following line at the TOP of the file:</p>
+
+<pre>
+zend_extension=/usr/local/zend/lib/php_extensions/xdebug.so
+</pre>
+
+
+<p>CTRL+X they "Y" to save. Then restart the server:</p>
+
+<pre>
+sudo /etc/init.d/zend-server restart
+</pre>
+
+
+<p>Now, you can check to see if xdebug installed properly:</p>
+
+<pre>
+php -i | grep xdebug
+</pre>
+
+
+<p>You should see output similar to this:</p>
+
+<pre>
+xdebug
+xdebug support => enabled
+xdebug.auto_trace => Off => Off
+xdebug.cli_color => 0 => 0
+xdebug.collect_assignments => Off => Off
+xdebug.collect_includes => On => On
+xdebug.collect_params => 0 => 0
+xdebug.collect_return => Off => Off
+xdebug.collect_vars => Off => Off
+xdebug.coverage_enable => On => On
+xdebug.default_enable => On => On
+xdebug.dump.COOKIE => no value => no value
+xdebug.dump.ENV => no value => no value
+xdebug.dump.FILES => no value => no value
+xdebug.dump.GET => no value => no value
+xdebug.dump.POST => no value => no value
+xdebug.dump.REQUEST => no value => no value
+xdebug.dump.SERVER => no value => no value
+xdebug.dump.SESSION => no value => no value
+xdebug.dump_globals => On => On
+xdebug.dump_once => On => On
+xdebug.dump_undefined => Off => Off
+xdebug.extended_info => On => On
+xdebug.file_link_format => no value => no value
+xdebug.idekey => no value => no value
+xdebug.max_nesting_level => 100 => 100
+xdebug.overload_var_dump => On => On
+xdebug.profiler_aggregate => Off => Off
+xdebug.profiler_append => Off => Off
+xdebug.profiler_enable => Off => Off
+xdebug.profiler_enable_trigger => Off => Off
+xdebug.profiler_output_dir => /tmp => /tmp
+xdebug.profiler_output_name => cachegrind.out.%p => cachegrind.out.%p
+xdebug.remote_autostart => Off => Off
+xdebug.remote_connect_back => Off => Off
+xdebug.remote_cookie_expire_time => 3600 => 3600
+xdebug.remote_enable => Off => Off
+xdebug.remote_handler => dbgp => dbgp
+xdebug.remote_host => localhost => localhost
+xdebug.remote_log => no value => no value
+xdebug.remote_mode => req => req
+xdebug.remote_port => 9000 => 9000
+xdebug.scream => Off => Off
+xdebug.show_exception_trace => Off => Off
+xdebug.show_local_vars => Off => Off
+xdebug.show_mem_delta => Off => Off
+xdebug.trace_enable_trigger => Off => Off
+xdebug.trace_format => 0 => 0
+xdebug.trace_options => 0 => 0
+xdebug.trace_output_dir => /tmp => /tmp
+xdebug.trace_output_name => trace.%c => trace.%c
+xdebug.var_display_max_children => 128 => 128
+xdebug.var_display_max_data => 512 => 512
+xdebug.var_display_max_depth => 3 => 3
+</pre>
+
+
+<p>This means it installed properly and you can now use it for debugging!</p>
+
+<p><div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br /></p>
+
+<h3>Install Composer</h3>
+
+<p>Composer is one of the most awesome things to come to PHP. To install it, you will need curl to get the installer. If you don't already have it, type</p>
+
+<pre>
+sudo apt-get install curl
+</pre>
+
+
+<p>And to get the Composer installer:</p>
+
+<pre>
+curl -sS https://getcomposer.org/installer | php
+</pre>
+
+
+<p>You should see something that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-9.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Note where it shows composer.phar is. We want to move that to our path so we can call composer from anywhere.</p>
+
+<pre>
+sudo mv composer.phar /usr/local/bin/composer
+</pre>
+
+
+<p>That's it!</p>
+
+<h3>Install PHPUnit</h3>
+
+<p>Now we want to install PHPUnit so we can do unit testing in our environment.</p>
+
+<p>Here is how you do it:</p>
+
+<pre>
+sudo pear config-set auto_discover 1
+sudo pear clear-cache
+sudo Pear install pear.phpunit.de/PHPUnit
+</pre>
+
+
+<p>This will use pear to install PHP unit for you. If you would like you can <a href="http://www.phpunit.de/manual/3.0/en/writing-tests-for-phpunit.html">Build a test case for PHPUnit</a> to make sure it's working properly.</p>
+
+<h3>Install JRE</h3>
+
+<p>You will need the JRE to run Eclipse, if you don't already have it installed, you'll need to download it from here:</p>
+
+<ul>
+<li><a href="http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jre-7u17-linux-i586.tar.gz">JRE 32 bit</a></li>
+<li><a href="http://download.oracle.com/otn-pub/java/jdk/7u17-b02/jre-7u17-linux-x64.tar.gz">JRE 64 bit</a></li>
+</ul>
+
+
+<p>Save the archive in your downloads folder.</p>
+
+<p>I like to install this one fresh, especially with the latest Java Security issues going around. Run the following to remove any old versions:</p>
+
+<pre>
+sudo apt-get purge openjdk*
+</pre>
+
+
+<p>Now, go to where you saved the file (for me it was /home/jeremy/Downloads) and extract it:</p>
+
+<pre>
+tar -xvzf jre-7u17-linux-x64.tar.gz
+sudo mkdir -p /usr/lib/jvm/jre1.7.0
+sudo mv jre1.7.0_17/* /usr/lib/jvm/jre1.7.0/
+sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jre1.7.0/bin/java 0
+</pre>
+
+
+<p>While you're here, you may as well set it up for Firefox as well:</p>
+
+<pre>
+mkdir ~/.mozilla/plugins 
+ln -s /usr/lib/jvm/jre1.7.0/lib/i386/libnpjp2.so ~/.mozilla/plugins/
+</pre>
+
+
+<h3>Install Eclipse</h3>
+
+<p>We're going to install the Eclipse PDT plugin by Zend. You might notice we're using a lot of Zend products: this is for consistency between the products but it's by no means a requirement.</p>
+
+<p><a href="http://www.zend.com/en/community/pdt/downloads">Eclipse PDT download Page</a></p>
+
+<p>Click on your version (32 or 64 bit) and again, open with the archive manager. You might note that Eclipse is a standalone application, so it doesn't have an "Installer" and you can put it anywhere.</p>
+
+<p>I just extract mine into /home/jeremy and run it from there. Open the folder and click on the eclipse-php icon:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-10.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>It will ask you to save a workspace. You will want to make this your web root.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-11.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>And let's create a new project. Go to the New button and select new -&gt; PHP Project.</p>
+
+<p>I usually configure it something like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-12.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Now we have an open project we can work with. Create an index.php file and open it up. Put in the following code:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$somevar = "test";&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>echo "This is a " . $somevar;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now we'll set up Eclipse and play around with it a little.</p>
+
+<h3>Configuring Eclipse</h3>
+
+<p>The first thing we want to do is go to Project -&gt; Properties.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-13.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>In the properties window, select <strong>PHP Debug</strong> and check "Enable project specific settings".</p>
+
+<p>You'll notice here you can choose your debugger:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-14.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Click on:
+"Enable CLI Debug"
+"PHP Executables"
+"Add"</p>
+
+<p>In the next window, put the following information to point to your PHP executables.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-15.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Now you can do CLI debugging whenever you need to.</p>
+
+<p>Let's set up web debugging. Click on the little green bug and select "Debug Configurations".</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-16.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Set up this screen to look like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-17.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Then click "configure" and make sure it's set up like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-18.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>Save the settings.</p>
+
+<h3>Do a test run</h3>
+
+<p>Now you have it set up, so click on the green bug again and select "index". You'll see a screen that looks like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/php-development-in-ubuntu-13-04-raring-ringtail-19.png" alt="Install PHP in Ubuntu 13.04 Raring Ringtail" /></p>
+
+<p>This, of course is your debug screen. This shows you all your variable data, and a lot more.</p>
+
+<p>With this you are now ready to rock!</p>
+
+<h3>Conclusion</h3>
+
+<p>Ok so that was definitely a lot of setup, but I hope it at least gives an idea of what a professional level PHP development environment should look like. You should have debugging and Unit testing going with all of your PHP applications no matter what. Much of the bad reputation associated with PHP is from people "gluing" stuff together and hacking up nasty solutions and leaving them around for years. One way to improve the reputation of PHP is to start building better code, and I think this set up helps with that.</p>
+
+<p>All the software in the world configured perfectly won't make you write better code. THat's up to you, and something I'll cover in future tutorials as well, and I'll show you some ways to make your PHP solutions solid, fast and enterprise ready.</p>
+
+<p><br />
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div></p>
+]]></content>
+  </entry>
+  
+</feed>

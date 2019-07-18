@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Blog Category:  Tech News | Jeremy's Programming Blog]]></title>
+  <link href="https://www.jeremymorgan.com/blog/tech-news/atom.xml" rel="self"/>
+  <link href="https://www.jeremymorgan.com/"/>
+  <updated>2015-05-30T12:51:07-07:00</updated>
+  <id>https://www.jeremymorgan.com/</id>
+  <author>
+    <name><![CDATA[Jeremy Morgan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Tech News September 5th 2014]]></title>
+    <link href="https://www.jeremymorgan.com/blog/tech-news/tech-news-9-05-2014/"/>
+    <updated>2014-09-04T22:04:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/blog/tech-news/tech-news-september-5th-2014</id>
+    <content type="html"><![CDATA[<h3>New Stuff</h3>
+
+<p>Here's some tech news for September 5th, 2014. Cool stuff I found on the web, and decided to share.</p>
+
+<!-- more -->
+
+
+<p><strong>Miriam Minds</strong> - <a href="http://www.marianminds.com/">Practice Verb Conjugators for People Studying French, Latin, or Italian</a></p>
+
+<p><strong>Tetris in ClojureScript</strong> - <a href="http://shaunlebron.com/t3tr0s-slides/#0">This is pretty cool</a>.</p>
+
+<p><strong>Mjolnir</strong> - <a href="http://mjolnir.io/">An automation/productivity app for OS X</a></p>
+
+<p><strong>Angular-Permission</strong> - <a href="https://github.com/Narzerus/angular-permission">simple access control for your routes in AngularJS</a></p>
+
+<p><strong>Pythonpy</strong> – <a href="https://github.com/Russell91/pythonpy">The swiss army knife of the command line</a></p>
+
+<p><strong>PojoViz</strong> – <a href="http://maurizzzio.github.io/PojoViz/public/vulcanize.html#readme">Visualize the structure of any JavaScript library, framework</a></p>
+
+<p><strong>Pixelapse</strong> - T<a href="https://toolbelt.pixelapse.com/inspector">he most powerful image inspector on the web</a></p>
+
+<p><strong>LLVM &amp; Clang</strong> - <a href="http://llvm.org/releases/3.5.0/docs/ReleaseNotes.html">Version 3.5 released </a></p>
+
+<p><strong>Visual Studio 2013</strong> - <a href="http://visualstudiomagazine.com/articles/2014/09/04/vs-and-tfs-2013-4-ctp.aspx">Update 4 CTP 1 Offers Web-Based Code Review</a></p>
+
+<p><strong>Serena Deployment Automation</strong> - <a href="http://www.serena.com/index.php/en/products/featured-products/serena-deployment-automation/overview">Free Community Edition released</a>.</p>
+
+<p><strong>MEAN Development Stack</strong> - <a href="https://developers.google.com/cloud/mean/">MEAN development stack on Google Compute Engine</a></p>
+
+<h3>Articles</h3>
+
+<p>I found this cool link on Hacker News, <a href="http://wp.sigmod.org/?p=688">Fifty Years of Databases</a> and it's a heck of a read. Very interesting to see how far we've come.</p>
+
+<p>And in a funny case of history repeating itself, <a href="http://paleofuture.gizmodo.com/uber-is-currently-fighting-the-battle-that-jitneys-lost-1629552478">Uber Is Currently Fighting the Battle That Jitneys Lost 100 Years Ago</a>. I still don't know how I feel about the Uber thing, but it's an interesting read none the less.</p>
+
+<p>Check out <a href="http://blog.urx.com/urx-blog/2014/9/4/the-science-of-crawl-part-1-deduplication-of-web-content">The Science of Crawl Part 1: Deduplication of Web Content</a> if you're interested in stuff like that (I am).</p>
+
+<p>In sad news, <a href="http://blog.twitpic.com/2014/09/twitpic-is-shutting-down/">Twitpic is shutting down</a>. Yet another ridiculous show of greed by Twitter, rather than acquiring them, or working out some kind of deal, they just felt they needed to kill it. It's not a new tactic for Twitter, but upsetting anyway.</p>
+
+<h3>Meetups</h3>
+
+<p>The next Portland Meetup I'll be attending is the <a href="http://www.meetup.com/pdxSass/events/200404332/">Portland SASS Meetup</a> at Puppet Labs. This meetup has grown considerably, and for good reason. The organizers have done a great job of creating awesome, useful presentations.</p>
+
+<p>Another good one I might check out is <a href="http://www.meetup.com/pdxnode/events/190140022/">NodeJS Code &amp; Learn night</a>, I've been to a couple before and it's always pretty interesting.</p>
+
+<p>Ideas? comments? Feedback? Hit me up on <a href="http://www.twitter.com/jeremycmorgan">Twitter</a> or one of the <a href="/contact">contact methods here</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tech News August 27 2014]]></title>
+    <link href="https://www.jeremymorgan.com/blog/tech-news/tech-news-8-27-2014/"/>
+    <updated>2014-08-27T12:49:00-07:00</updated>
+    <id>https://www.jeremymorgan.com/blog/tech-news/tech-news-august-27-2014</id>
+    <content type="html"><![CDATA[<p>I've decided to start writing posts bringing my blog back to a magazine style format, and share some of the cool stuff I find here instead of emailing or IMing to all my friends. I have no idea if I'll stick with it or not we'll see how much the readers like it.</p>
+
+<!-- more -->
+
+
+<h3>New Stuff</h3>
+
+<p><a href="https://github.com/mattgreen/hython" target="_blank"><strong>Hython</strong></a> - This is kind of a cool project on Github, it's basically a Python 3 interpreter written in Haskell. I don't know what the advantages of this would be, but as he states it's a project to help him learn Haskell, which is respectable. Who knows what might come out of something like this.</p>
+
+<p><a href="http://c3js.org/" target="_blank"><strong>C3.Js</strong></a> - This is a reuseable chart library based on D3. One of the selling points is that it should be an easier and more customizable way to build charts with D3. I haven't tried it out yet, but working with D3 was pretty awesome so I hope they're improving on that.</p>
+
+<p><a href="http://sportyapp.com/" target="_blank"><strong>Sporty</strong></a> - This is a new app to find people nearby to play sports with. This is one of those ideas that's so obvious you would have thought someone came up with it years ago. But it's an excellent example of using technology to improve real life activities as opposed to helping other technology.</p>
+
+<h3>Articles</h3>
+
+<p>Here's a good article talking about the <a href="http://glamour.tweakblogs.net/blog/10747/the-significance-of-the-33%24-firefox-os-smartphone.html">Significance of the $33 Firefox OS Smartphone</a>. Excellent food for thought if you've been watching this.</p>
+
+<p>What is Idempotence? The word is thrown around a lot when talking about APIs and Unit testing, but it's actually an incredibly simple concept, but <a href="http://www.embeddedrelated.com/showarticle/629.php">this article</a> covers it well.</p>
+
+<p>If you aren't excited about Microsoft's Katana Web Server you should be. <a href="http://www.infoq.com/news/2014/08/Katana-3">Katana just hit version 3</a> and if it catches on it's going to be a big game changer. Big bloated web server software is a thing of the past.</p>
+
+<h3>Meetups</h3>
+
+<p>Are you on <a href="http://www.meetup.com/">Meetup</a> yet? It's a great way to meet other enthusiasts in your area and has been catching on big here in Portland. Tonight I'll be heading to the <a href="http://www.meetup.com/Portland-JavaScript-Admirers/events/190140432/">Portland JavaScript Admirers</a> meeting where they're going to be talking about ReactJS. Should be good stuff.</p>
+
+<p>Ideas? comments? Feedback? Hit me up on <a href="http://www.twitter.com/jeremycmorgan">Twitter</a> or one of the <a href="/contact">contact methods here</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

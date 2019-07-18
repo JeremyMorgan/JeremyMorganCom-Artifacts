@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>How I improved the speed of my mobile app by over 1000% - Programming Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="How I improved the speed of my mobile app by over 1000%" /><meta itemprop="name" content="How I improved the speed of my mobile app by over 1000%" /><meta name="twitter:title" content="How I improved the speed of my mobile app by over 1000%">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-04-03 20:34:00 -0700" />
+
+<meta property="article:section" content="Programming" />
+
+<meta name="description" content="In this article I describe how I drastically increased the load time of my Android app and made it 10 times faster." />
+<meta property="og:description" content="In this article I describe how I drastically increased the load time of my Android app and made it 10 times faster." />
+<meta itemprop="description" content="In this article I describe how I drastically increased the load time of my Android app and made it 10 times faster." />
+<meta name="twitter:description" content="In this article I describe how I drastically increased the load time of my Android app and made it 10 times faster.">
+
+<meta property="og:image" content="https://www.jeremymorgan.com/images/firecom-android-app-7.jpg" /><meta itemprop="image" content="https://www.jeremymorgan.com/images/firecom-android-app-7.jpg" /><meta name="twitter:image" content="https://www.jeremymorgan.com/images/firecom-android-app-7.jpg"><meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/programming/making-firecom-faster/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/programming/making-firecom-faster/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/programming/making-firecom-faster/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">How I Improved the Speed of My Mobile App by Over 1000%</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-03T20:34:00-07:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>A couple years ago I wrote an app called &#8220;FireCom&#8221; for the Android phone that&#8217;s basically just a listing of active Fire and EMS calls in Washington County, Oregon. I never expected too many people to use it and gave it away so I didn&#8217;t put a lot of time into it. As it turned out a lot of people started using it, so lately I decided to put a little more effort into it.</p>
+
+<!-- more -->
+
+
+<h3>What is FireCom?</h3>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/firecom-android-app-5.jpg" title="FireCom Android App" > I created the application in February 2011, and it spawned from being a volunteer firefighter and looking up calls on our <a href="http://www.wccca.com/PITS/">Joint CAD Incident Tracking System</a> which a listing of calls in our local county plotted out on a Google map.</p>
+
+<p>There is also a <a href="http://www.broadcastify.com/listen/feed/1102/web/?rl=rr">link to audio</a> there as well, and when I was in the Fire Academy I listened a lot to learn everything from radio etiquette to fireground strategy. Turns out there&#8217;s a lot you can learn by listening to this stuff.</p>
+
+<p>But if you tried to look up any of this data on your phone, it was less than great. Sometimes curiosity takes over as well, when you see a speeding ambulance or fire truck you want to know where they are going or what&#8217;s going on.</p>
+
+<p>This is why I created the <a href="https://play.google.com/store/apps/details?id=com.jeremymorgan.wccca&amp;hl=en">FireCom app</a>, I wanted to make something quick and easy someone could bring up on their phone that would show that information. After some research and digging around I found a script written by <a href="http://gary.moonrize.com/">Gary Kee</a> that scraped the calls from an RSS feed to post on Twitter. It was the perfect missing link.</p>
+
+<h3>How the first FireCom worked.</h3>
+
+<p>The first iteration of the FireCom app parsed the XML feed and displayed the results on the screen using Java. I found it to be pretty slow and really unreliable, so it didn&#8217;t last very long. I&#8217;m not an expert Java or Android programmer and didn&#8217;t want to mess with it very much. So instead I decided to stick with what I was good at, and created a PHP page on this site that scraped the data and formatted it into nice little page. Then I created a WebView wrapper that simply brought up the page.</p>
+
+<p>It worked great for a couple years. As I said I didn&#8217;t expect many people to use it and I used it myself for quite a while. But after a while I would started getting emails from people about it, and talking to fellow firefighters who were using it all the time. The two complaints I kept hearing were how slow it was sometimes, and how the map function didn&#8217;t work well. It took a few seconds to load because it was basically set up like this:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/firecom-android-app-1.jpg" alt="FireCom Android App" /></p>
+
+<p>Basically the WebView loaded up a PHP page on my server. The PHP page pulled the data from the output XML in realtime from the WCCCA server. It parsed it and created some HTML for the page formatted for the phone and did some cleanup of the text and station names. I decided using a WebView would be the best way so I could make updates and changes without making someone download the updates constantly.</p>
+
+<p>The biggest problem was it was accessing this XML file every time someone loaded up the app, and sometimes it was quite slow. It&#8217;s a large XML file that&#8217;s dynamically generated and it puts out a lot of data that had to be parsed, and only a small portion is actually used. There were times when it really took a long time to load, and on a phone that can be even worse. Here was the average load time the night I upgraded the app:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/firecom-android-app-2.jpg" alt="FireCom Android App" /></p>
+
+<p>As you can see the time isn&#8217;t that great. There are a few reasons, the slow XML process I described, plus the repeat view isn&#8217;t going to be any different. I turned off caching on this script because it&#8217;s live data that shouldn&#8217;t be cached. 4 seconds may not seem like much, but it&#8217;s really pretty sluggish and I think folks using the app just got accustomed to pressing the icon and waiting for the results. Could I fix that? I came up with a new way to solve that very problem.</p>
+
+<h3>The new, improved FireCom</h3>
+
+<p>For the second iteration, I decided to do a few things to speed it up.</p>
+
+<ul>
+<li><strong>Remove excess HTML</strong> - Anything that wasn&#8217;t absolutely required was removed. Should have done this a long time ago.</li>
+<li><strong>Compressed HTML</strong> - I removed all returns and whitespace from the file. Just a single line of html was pushed out.</li>
+<li><strong>Optimized the WCCCA image</strong> - This is a small thing, but on a mobile connection it can make a difference. I also set caching for this image.</li>
+<li><strong>Refactored the application</strong> - This is the process I&#8217;ll detail below.</li>
+</ul>
+
+
+<p>I refactored the application by changing the way I pulled the data. Instead of accessing the XML file every time a user brought up the app, I created a script to pull the data, and generate the feed.php file.</p>
+
+<p><img src="https://www.jeremymorgan.com/images/firecom-android-app-3.jpg" alt="Firecom Android App" /></p>
+
+<p>The feed.php file is now actually only a single line of HTML. But since there are already about 2000 people pointing to that file, it wouldn&#8217;t be wise to change it. So now I have a feedloader that reads the xml and generates a static PHP file to read, so the load time is considerably faster:</p>
+
+<p><img src="https://www.jeremymorgan.com/images/firecom-android-app-4.jpg" alt="FireCom Android App" /></p>
+
+<p>Over 10 times faster in fact. The repeat view is a little faster as well due to the image caching. So now the app is way faster, and my job is done right? Not exactly.</p>
+
+<h3>Now we have a new problem</h3>
+
+<p>So if you&#8217;ve looked at the new system you&#8217;ve figured out that the feedloader does the heavy lifting and just generates a static PHP file for the app. This is where the majority of the speed improvements have come from. But this file has to be run pretty frequently, because with the old system feed.php was in realtime, now it is a static file. If I don&#8217;t update it then the users are stuck with old information.</p>
+
+<p>Since I&#8217;m hosted on a Windows server, I can&#8217;t just whip up a quick CRON job for this. I set up Windows Scheduler to run this file every 2 minutes or so. After watching it very closely and doing some testing I found that it is very spotty. Sometimes it will run every two minutes consistently, and sometimes it will run every 5, or even ten minutes. Since I am not the admin of this server there isn&#8217;t much I can do.</p>
+
+<h3>Let&#8217;s crowd source it!</h3>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/firecom-android-app-6.jpg" title="FireCom Android App" >
+I was thinking of having it randomly run the feedloader when someone loads the app. Maybe one out of every 100 people visiting would trigger the feedloader and that would refresh the feed.php for everyone. But this seemed like a terrible solution because I&#8217;m picking users at random to have a slow experience. While 99 people get a snappy page, that one person is stuck loading the file for the feed. Not a great solution.</p>
+
+<p>I decided to let the scheduled task continue to run in it&#8217;s spotty fashion, and I put a &#8220;last updated&#8221; timestamp into the page. Then I put a &#8220;refresh data&#8221; button in that runs the feed loader. This also takes 4-5 seconds but at least the user is <em>choosing</em> to take that time in order to see the newest version of the page. I&#8217;m not springing it on people expecting people do it without their permission.</p>
+
+<p>In the future I&#8217;m likely going to migrate this to a Linux server and set up a cron job. I&#8217;ve never really seen those fail, but Windows scheduler is a different story. I may even set up something on my Raspberry Pi to do the job who knows.</p>
+
+<h3>Lessons Learned</h3>
+
+<p>What I learned from this, is the value of making a WebView app when you can. This way you can do all kinds of stuff behind the scenes without bothering the user with updates all the time. Naturally not every app can be made into a WebView but if you can, it&#8217;s worth trying.</p>
+
+<p>I also learned every little bit counts, and while moving feed.php to a static file was the big performance improvement, the little stuff like html compression helps too. When it comes to page speed, every tiny thing counts. When you&#8217;re dealing with mobile devices and varying amounts of bandwidth it does a lot of good to cut down the amount of data you&#8217;re transferring. For some people it&#8217;s even saving them on their bill.</p>
+
+<p>Overall I&#8217;m glad people are using this app, and I hope the faster version works better for them.</p>
+
+<br />
+
+
+<div class="subscribefooter">
+<h4>Do you want to be notified every time a new tutorial is posted?</h4>
+<div class="rssbutton"></div>
+If you want to see more tutorials like these <a href="http://www.feedblitz.com/f?sub=889026"><strong>subscribe to our spam free newsletter</strong></a> and get them instantly in your inbox or feed reader.
+If you want to get all my updates, <a href="http://feedburner.google.com/fb/a/mailverify?uri=jeremymorgan/NJwt&amp;loc=en_US"><strong>subscribe to the main RSS feed</strong></a> here.
+</div>
+
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-03T20:34:00-07:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/raspberry-pi/how-to-c-sharp-raspberry-pi/" title="Previous Post: How to Build C# apps on Your Raspberry Pi">&laquo; How to Build C# apps on Your Raspberry Pi</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/programming/what-is-mvc/" title="Next Post: What is MVC?">What is MVC? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/blog/programming/making-firecom-faster/';
+        var disqus_url = 'https://www.jeremymorgan.com/blog/programming/making-firecom-faster/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>

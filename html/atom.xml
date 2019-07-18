@@ -4,7 +4,7 @@
   <title><![CDATA[Jeremy's Programming Blog]]></title>
   <link href="https://www.jeremymorgan.com/atom.xml" rel="self"/>
   <link href="https://www.jeremymorgan.com/"/>
-  <updated>2019-02-27T06:18:08+00:00</updated>
+  <updated>2019-07-07T02:24:36+00:00</updated>
   <id>https://www.jeremymorgan.com/</id>
   <author>
     <name><![CDATA[Jeremy Morgan]]></name>
@@ -14,6 +14,612 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Thinking About Reusable Code]]></title>
+    <link href="https://www.jeremymorgan.com/blog/programming/reusable-code/"/>
+    <updated>2019-06-03T06:09:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/programming/do-we-really-want-reusable-code</id>
+    <content type="html"><![CDATA[<p>The mythical &#8220;reusable code&#8221; idea has existed for decades. It showed up shortly after the first lines of code were written. We preach re-usability and sometimes strive for it but it rarely becomes a reality. I&#8217;ve seen various levels of success with this over the years. Everything from &#8220;we have a reusable library that 75% of us use&#8221; to &#8220;we have shared code libraries here, but never use them in your projects&#8221;.</p>
+
+<p>A recent discussion led me to think about this. Why don&#8217;t more software development organizations have shared code libraries? It is the pointy-haired bosses preventing it? Team conflicts? Or is it the developers themselves? </p>
+
+<p>We can&#8217;t blame the pointy-haired bosses for this one. If you explain the basic concepts of reusable code to management, most would agree it&#8217;s a great idea. Building something once, so you don&#8217;t have to build it repeatedly? Easy to find the upside here.</p>
+
+<p>Team conflicts can also contribute to it, which is usually people disagreeing about who gets to determine what code is shared. Developers themselves can also be opposed to it, due not having enough time to build them.</p>
+
+<p>All of these are contributing factors to lack of adoption, but the question you should ask is do we need reusable code libraries at all?</p>
+
+<br />
+
+
+<h3>What Are Shared Libraries and Why Do We Care?</h3>
+
+<p>If you have tasks your developers are building that contain code you can use for something else, you put that code in its own &#8220;library&#8221; to use later. This can be a DLL, a folder of snippets, a Node module, whatever. Connecting to a database? There&#8217;s no reason to write that code for every piece of software that accesses a database. Create a DB_Connect class, and put that in a file you can copy to another project later.</p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/reusable-code/reusable-code-01.jpg" title="&#34;Thinking about Reusable Code&#34;" alt="&#34;Thinking about Reusable Code&#34;"></p>
+
+<p>It&#8217;s easy. You take a function and if it&#8217;s abstract enough, parameterize it and make it available for other projects to use. When you start your project, you don&#8217;t have to write code to connect to the database, pull the library and enter your parameters. Here are some upsides:</p>
+
+<ul>
+<li>You write code once and use it multiple times (saving cycle times)</li>
+<li>If tested thoroughly, it cuts regression errors</li>
+<li>It enforces standards other groups can follow</li>
+</ul>
+
+
+<p>These are all great reasons to use shared libraries. Countless articles and books have been written about code reuse and most of you are familiar with them. The biggest selling point for this is not having to code &#8220;boring stuff&#8221; over and over and have wild variations of the same methods in the wild. This frees up time to work on exciting features.</p>
+
+<br />
+
+
+<h3>How Are They Used?</h3>
+
+<p>Here are some ways shared libraries are used in business:</p>
+
+<ul>
+<li><strong>Internal Use</strong> Code that shared with internal groups and used for projects</li>
+<li><strong>External Use</strong> Code that designed for programmers outside the organization to use</li>
+<li><strong>Forked</strong> - Users can take your initial code and &#8220;fork&#8221; it to make it work for their specific needs</li>
+</ul>
+
+
+<p>This falls in line with the DRY principle of software development. Don&#8217;t repeat yourself.</p>
+
+<br />
+
+
+<h3>Do We Want Shared Code Libraries?</h3>
+
+<p>Why isn&#8217;t everyone doing this? Your organization may avoid shared libraries for a good reason. Not every project or team benefits from this and it&#8217;s not the magic bullet to solve all development problems. Here are some reasons not to use code libraries.</p>
+
+<ul>
+<li><p><strong>Distributed Monolith Problem</strong> - If you put something into a library and everyone uses it, that doesn&#8217;t mean it isn&#8217;t bad. An inefficient database connector design means everyone is using an inefficient database connector. Changes to your implementation can still have negative cascading effects. A small change to an API could mean every single system is now broken.</p></li>
+<li><p><strong>Dependency Hell</strong> - If every piece of software is relying on your library, there&#8217;s a tight coupling in place. There will be a myriad of dependencies in place, for instance, relying on a framework like Angular. If you have software built to use a specific version, upgrading it could produce a chain reaction amongst your applications.</p></li>
+<li><p><strong>Inflexible Design</strong> - Sometimes you&#8217;re asked to use a design in a certain way that&#8217;s different from what you actually need. Because &#8220;everyone else is doing it&#8221; you&#8217;re forced to make your code work around it, which can then increase development time. Wait, why did we build shared libraries in the first place?</p></li>
+<li><p><strong>Programming Language Lock-In</strong> - Too many times I&#8217;ve heard &#8220;well our library is written in ____ so you have to use that&#8221; which means you&#8217;re locked into a single programming language. This can lead to using the wrong tool for the job.
+So don&#8217;t assume because your team doesn&#8217;t use shared libraries means they&#8217;re unenlightened and don&#8217;t want better production.</p></li>
+</ul>
+
+
+<br />
+
+
+<h3>What to Examine if You Want to Use Reusable Code Libraries</h3>
+
+<p>If you&#8217;re considering creating reusable code libraries, you should first see if it makes sense to do so.</p>
+
+<ul>
+<li><strong>Take a hard look at the design</strong> - Then look at it again. Will you really benefit from it? Do you have repeated code now? Are there any issues that may encourage tight coupling? </li>
+<li><strong>Closely examine your dependencies</strong> - Are you creating dependencies others will have to work around? How often do they change? Can they bypass the ones you create? </li>
+<li><strong>Start abstract as possible</strong> - You want your libraries to be highly abstract so that they perform expected functions, but can be overridden or extended to meet specialized use cases. Give them the basics but let them evolve it how they&#8217;d like.</li>
+</ul>
+
+
+<br />
+
+
+<h3>How to Get Developers to Implement Them</h3>
+
+<p>So you&#8217;ve decided you want a shared library. Here are some ways you can help teams adopt your library:</p>
+
+<ul>
+<li><p><strong>Steal it from an existing project</strong> - This is the easiest way to start a new library. Take an existing project and remove everything that&#8217;s specialized and keep everything that can be re-used and feels solid.</p></li>
+<li><p><strong>Thoroughly test it</strong> - The last thing you want to do is introduce problems into the software. After building your abstract library, test it thoroughly so you can rely on it, and help developers find regressions. Don&#8217;t hand them garbage and expect them to use it.</p></li>
+<li><p><strong>Examine all current use cases</strong> - By digging in and understanding how people will use your library you can determine whether it will benefit them, and whether to make changes. Do this on a method by method basis to ensure that you&#8217;re asking them to use something that will work for them with minimum effort. 
+Like most anything in business, success will come from great communication. Top down design is not your friend here, you&#8217;ll want to examine the needs of the group and design a library from those needs.</p></li>
+</ul>
+
+
+<br />
+
+
+<h3>Conclusion</h3>
+
+<p>Most of the organizations I&#8217;ve been involved with do not use a shared code library. They&#8217;re usually in some form of working towards one, and only two where they were implemented and working well.</p>
+
+<p>At one end of the spectrum you have a pattern where all repeated code is in a library. On the other you&#8217;ll have no code library, and everyone builds software for their own projects. You&#8217;ll find success somewhere between the two. How far you lean toward each extreme will depend on your needs.</p>
+
+<p>There are abstract functions that should always be shared. Some that come to mind are authentication/authorization, database connections and logging. It should be either a shared library you developed, or one that&#8217;s open sourced and built by someone else. Everything else should be examined, considering the overall design.</p>
+
+<p>Don&#8217;t jump to conclusions and take on a large project to build a giant code library that will make developers lives worse. But don&#8217;t exclude the idea altogether. Be purposeful and observant to find which strategy will work best for your projects. </p>
+
+<!-- more -->
+
+
+<p></p>
+
+<br /><br />
+
+
+<h4>What is your DevOps IQ?</h4>
+
+<p><a href="https://pluralsight.pxf.io/PqV2q">
+<img src="https://www.jeremymorgan.com/images/devops-score.jpg" alt="what's your devops score" /></a></p>
+
+<br />
+
+
+<p><strong>My Devops Skill IQ is 232. Can you beat it? <a href="https://pluralsight.pxf.io/PqV2q" target="_blank">Take the test now</a> to find out your Devops IQ score!!</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Transforming Your Organization with the Andon Cord]]></title>
+    <link href="https://www.jeremymorgan.com/blog/devops/andon-cord-in-devops/"/>
+    <updated>2019-05-14T22:50:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/devops/how-the-andon-cord-can-transform-your-organization</id>
+    <content type="html"><![CDATA[<p>Imagine you’re working in a factory. You’re assembling Toyotas all day long, then your part won’t fit. What’s going on? You do this hundreds of times a day but now the bolts won’t go in. No reason to panic, you pull a cord to get help. Two co-workers arrive immediately. They find out you have a box of bolts with the wrong thread. They swap out the bolts, and you keep going.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/andon-cord-in-devops/andon-cord-devops-01.jpg" title="&#34;How the Andon Cord can Transform Your Organization&#34;" alt="&#34;How the Andon Cord can Transform Your Organization&#34;"></p>
+
+<p>At the next meeting, you discuss what happened with the team. The two boxes of bolts are the same color with a similar-looking label. It&#8217;s easy to mix these up, and that&#8217;s exactly what happened. The team puts different colored labels on the boxes so the folks stocking your bolts don’t mix them up.</p>
+
+<p>Sounds like a great system right? You ran into an issue, called for help, and with more eyes on the problem you found a solution. Then you share the solution with the group.</p>
+
+<p>That&#8217;s the power of the Andon cord, and it&#8217;s something you can use in your IT organization.</p>
+
+<br />
+
+
+<h3>The Origins of the Andon Cord</h3>
+
+<p>The &#8220;Andon Cord&#8221; is a part of the <a href="https://en.wikipedia.org/wiki/Toyota_Production_System" target="_blank"><strong>Toyota Production System</strong></a>. It was created when Toyota was smashing records for production, and they did something unheard of. It was not intuitive or natural, a way to <em>stop the production line</em> when it was common knowledge you.. don’t stop the production line.</p>
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/andon-cord-in-devops/andon-cord-devops-03.jpg" title="&#34;How the Andon Cord can Transform Your Organization&#34;" alt="&#34;How the Andon Cord can Transform Your Organization&#34;"></p>
+
+<p>It was just a simple rope, like the one you pull on a bus to let the driver know your stop is coming up. People pulled it when they needed help. The ways it changed their manufacturing efficiency was astounding.</p>
+
+<p>Though it sounds simple, this was a big culture change for the factory. Anyone on the floor had the power to pull the rope for any reason. They weren&#8217;t scolded or chastised for doing it. You wouldn&#8217;t get fired for pulling it too much. You just pull.</p>
+
+<p>The results of this experiment? They created a <strong>learning organization</strong>.</p>
+
+<p>In the words of Andrew Shafer: you&#8217;re either a learning organization or you&#8217;re losing to someone that is.</p>
+
+<br />
+
+
+<h3>My Personal Experience with the Andon Cord</h3>
+
+<p>I’ve been blessed to see the entire spectrum of this philosophy. Right out of high school I worked at a lumber mill. My job was to pull boards off a moving chain and stack them. 10 footers in one pile, 14 footers in another, etc. We had big red buttons you would press to stop the chain when things went wrong. Usually, it was a row of lumber falling over, or being unable to stack the incoming boards fast enough.</p>
+
+<br />
+
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/andon-cord-in-devops/andon-cord-devops-02.jpg" title="&#34;How the Andon Cord can Transform Your Organization&#34;" alt="&#34;How the Andon Cord can Transform Your Organization&#34;"></p>
+
+<br /><br />
+
+
+<p>If you stopped the chain, instantly things went quiet, and beacon lights all around you went off letting everyone know it’s stopped. If we stopped the chain for more than a minute, the planer and saws would have to shut down, and our former drill sergeant boss would come down the stairs screaming, asking why the chain stopped. They could fire you for doing it too many times. Though I wasn’t fired for it I remember being on the receiving end of some serious yelling for stopping the chain. I can still picture him screaming and spitting in my face yelling.</p>
+
+<br />
+
+
+<p><img class="right" src="https://www.jeremymorgan.com/images/andon-cord-in-devops/andon-cord-devops-04.jpg" title="&#34;How the Andon Cord can Transform Your Organization&#34;" alt="&#34;How the Andon Cord can Transform Your Organization&#34;"></p>
+
+<br /><br />
+
+
+<p>As a volunteer firefighter for our <a href="https://www.preventprotectserve.com/" target="_blank">local fire district</a>, it&#8217;s quite the opposite. If you run into a problem or large abnormality, you <em>must</em> pull that Andon cord and ask for help. If you come on to a scene and don&#8217;t know what to do, or have a patient in a bad situation and you need ideas, you had better squeeze that radio microphone and ask for help. People&#8217;s lives are at stake, so it&#8217;s not just encouraged <em>it&#8217;s a mandate</em>. It is an expectation that you stop what you&#8217;re doing and ask for help.</p>
+
+<p>After the call an officer or chief will do a &#8220;blameless post mortem&#8221; and discuss why you asked for help, what you could have done, and whether the course of action was successful. We all learn from it and become better firefighters/EMTs. Learn, learn, and learn some more.</p>
+
+<p>In my professional IT career I&#8217;ve seen a variety as well, but these two are the extremes. You&#8217;ll need to find your sweet spot for your organization.</p>
+
+<br />
+
+
+<h3>Can You Use This?</h3>
+
+<p>So implementing this in your organization in principle is easy, at least in principle. When someone runs into a blocker, they alert the team they need help. You could do this via Slack, IM, or even email if you absolutely had to. Then the team drops what they&#8217;re doing and everyone swarms the problem until it&#8217;s solved.</p>
+
+<p>You might be rolling your eyes already. You will find resistance to this idea, and the reasons are pretty easy to guess. <br /><br /></p>
+
+<p><strong>The Coworkers or &#8220;doers&#8221; might object because:</strong></p>
+
+<ul>
+<li>Nobody wants to just drop what they&#8217;re doing for your problem.</li>
+<li>They&#8217;ll be too busy, or in a meeting.</li>
+<li>They don&#8217;t believe swarming will solve the problem. <br /><br /></li>
+</ul>
+
+
+<p><strong>Managers might object because:</strong></p>
+
+<ul>
+<li>They don&#8217;t want a bunch of doers stopping work at once</li>
+<li>They may not believe swarming is effective</li>
+<li>Timelines may be affected by this. <br /><br /></li>
+</ul>
+
+
+<p>These are all valid concerns. Honestly, these may be valid reasons for your organization to avoid doing it. You should at least give it a try.</p>
+
+<p>The upside here is you become a learning organization, constantly experimenting, learning, and advancing your effectiveness. It&#8217;s highly unlikely you&#8217;ll pull the Andon cord and stop work for something you&#8217;ve already solved as a team, right? It&#8217;s worth trying.</p>
+
+<br />
+
+
+<h3>How You Can Implement the Andon Cord</h3>
+
+<p>If you want to implement this idea with a team, here are some things you&#8217;ll want to establish before starting out.</p>
+
+<ol>
+<li><strong>Identify your fixers</strong> - Identify common pathways for common problems. For instance if it&#8217;s a database issue, get Mark involved. He&#8217;s great with databases. If it&#8217;s an infrastructure issue, get Debbie involved. She knows our systems like nobody else. Identify your &#8220;clutch&#8221; people, chances are your team already knows who they are, but establish it formally. <br /><br /></li>
+<li><strong>Prioritize your problems</strong> - Categorize the severity of the issue and determine a level that requires stopping everything. If it&#8217;s slow performance or a small configuration issue, you can put it under the threshold for stopping the team. If it&#8217;s a major blocker that prevents progress, bump it up in priority so everyone knows they&#8217;re stopping for a good reason. <br /><br /></li>
+<li><strong>Store your findings immediately</strong> - The first time you &#8220;pull the Andon cord&#8221; document your findings and the solution right away. Don&#8217;t wait for it, and show the team the results. This helps you greatly with buy-in of the idea when they can see the usefulness. <br /><br /></li>
+</ol>
+
+
+<h3>Conclusion</h3>
+
+<p>Nobody has to tell you that technology moves fast. If you and your team want to keep up you need an advantage. By creating a culture that fosters experimentation and constant learning you&#8217;ll be leaps ahead in the battle to keep up. The days of &#8220;we&#8217;ve always done it this way&#8221; are over. This is one tool you can use to make your team more solid an effective. Try it out and let me know what you think. You can always <a href="https://twitter.com/JeremyCMorgan" target="_blank"><strong>yell at me on Twitter</strong></a> or <a href="https://www.linkedin.com/in/jeremycmorgan/" target="_blank"><strong>LinkedIn</strong></a> and start a thread. I&#8217;d love to hear your experiences and feedback.</p>
+
+<br /><br />
+
+
+<h4>What is your DevOps IQ?</h4>
+
+<p><a href="https://pluralsight.pxf.io/PqV2q">
+<img src="https://www.jeremymorgan.com/images/devops-score.jpg" alt="what's your devops score" /></a></p>
+
+<br />
+
+
+<p><strong>My Devops Skill IQ is 232. Can you beat it? <a href="https://pluralsight.pxf.io/PqV2q" target="_blank">Take the test now</a> to find out your Devops IQ score!!</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Comparing and Syncing IIS Configurations]]></title>
+    <link href="https://www.jeremymorgan.com/blog/iis-devops/comparing-iis-configuration/"/>
+    <updated>2019-04-07T18:57:00+00:00</updated>
+    <id>https://www.jeremymorgan.com/blog/iis-devops/comparing-iis-configurations</id>
+    <content type="html"><![CDATA[<p>Imagine you&#8217;re an administrator at ACME Widgets and it&#8217;s time to upgrade your IIS server. You&#8217;ll just copy over some folders and point the DNS to the new server and be done right? If you&#8217;ve ever done this before you know that isn&#8217;t the case. The new IIS server needs to be configured identically to the old one or you&#8217;re going to have problems, and you don&#8217;t have time for problems.</p>
+
+<br />
+
+
+<!-- more -->
+
+
+<h3>Can&#8217;t We Just Move This from One Server to Another?</h3>
+
+<p>As you stare at the Server Manager on the new machine you plan your next move. Your old i3 server that&#8217;s worked for years has all of your websites and applications on it. The shiny new XEON machine is just waiting to go into service. It has Windows 2016 on it and ready to go.</p>
+
+<p>To do this transfer you&#8217;ll need to:</p>
+
+<ul>
+<li>Install IIS and the necessary modules</li>
+<li>Find a way to match the old server&#8217;s configuration</li>
+<li>Create websites and applications</li>
+</ul>
+
+
+<p>In this article we&#8217;re only concerned with the first two parts, which is making sure IIS is installed and configured like it was on the first server. If you copy over the new sites and simply install IIS and fire it up, it&#8230;..might work. Unless you have the most basic websites running, it won&#8217;t.</p>
+
+<p>There are other problems moving from one server to another. What if the operating system is different? It probably will be. Though IIS remarkably good at forward compatibility the UI changes with each release, so if you&#8217;re staring at IIS manager to find the settings, it will likely be different.</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-01.jpg" alt="Internet Information Services (IIS) Manager" /></p>
+
+<br />
+
+
+<p>So you can look through all these settings and try to figure out which modules are installed, which aren&#8217;t etc. Or maybe you can go into server manager to the <strong>Add Roles and Features Wizard</strong> and try to decipher it from there:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-02.jpg" alt="Add Roles and Features Wizard" /></p>
+
+<br />
+
+
+<p>This is certainly one way to figure out what&#8217;s installed. In fact I&#8217;ve done it a few times this way years ago when I first started out with this stuff. You won&#8217;t have to do this, because we&#8217;re going to look at a much better way to compare IIS Installations and replicate servers.</p>
+
+<br />
+
+
+<h3>Getting the IIS Configuration</h3>
+
+<p>We need to copy the IIS installation configuration from ALPHA which is the existing server to BRAVO which is the new one.</p>
+
+<p>Since you&#8217;re a Windows DevOps professional (or would like to be) you&#8217;re going to use PowerShell for this task. It&#8217;s extremely easy to get the current IIS installation information from a PowerShell prompt. Type in the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Get-WindowsFeature -Name Web-*</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Get-WindowsFeature will output every windows feature and it&#8217;s installation status, and by specifying a name of Web-* we&#8217;ll get all the features that pertain to IIS and Web Services. Our ALPHA server currently looks like this:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-03.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>This shows our features and whether they are installed on the current server. We can filter it down a little so it only shows the features that are installed instead of all of them:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Get-WindowsFeature -Name Web-* | where installed</span></code></pre></td></tr></table></div></figure>
+
+
+<p>By using the pipe and filtering for &#8220;where installed&#8221; we only show the modules that are currently installed.</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-04.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>This is a quick way to spot check what we have installed. When we run this on BRAVO, the new server, we can see that IIS isn&#8217;t installed at all.</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-05.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>So now we have a clear idea of the IIS Configuration, how it&#8217;s setup on ALPHA, and how it&#8217;s set up on the new server (not at all).</p>
+
+<br />
+
+
+<h3>Comparing the IIS Servers with a Deterministic Method</h3>
+
+<p>So you can visually see the differences in your old server and your new server with the commands we just ran. Now you just have to remember what&#8217;s installed on the first one and carry it over to the new server. But you&#8217;ve been really digging into the DevOps thing and keep hearing about making things <em>deterministic</em>. Saying it looks &#8220;close enough&#8221; won&#8217;t cut it, you need to prove it. Here&#8217;s a method I&#8217;ve come up with that works well for this.</p>
+
+<p>We&#8217;re going to use one of the oldest methods in the book: the diff.</p>
+
+<p>So you run the following command on your ALPHA server, which again is the existing server we want to replicate:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Get-WindowsFeature &gt; ALPHA.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>What this does is pipe the output from Get-WindowsFeature to a text file named ALPHA.txt. Then we&#8217;ll copy that text file to our workstation.</p>
+
+<p>Now on the BRAVO server, do the same thing:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Get-WindowsFeature &gt; BRAVO.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we&#8217;ll copy that file to our workstation as well.</p>
+
+<p>Now we&#8217;ll run a simple diff on those two files, I&#8217;m using KDiff3 for this:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-06.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>Now you can clearly see the differences in the two configurations and you can prove it, keeping the DevOps gods happy.</p>
+
+<br />
+
+
+<h3>Syncing up Settings in a Repeatable Way</h3>
+
+<p>Now that we know exactly what the differences are in our configuration, we need to set up the new server with those settings so we can move our websites and applications over.</p>
+
+<p>Again we&#8217;re going to do this in a Devops friendly fashion. You can just install all the items in the diff and be done with the task. But again we want to do this in a <em>deterministic</em> and <em>repeatable</em> way. We want to know for certain it&#8217;s the same and be able to do it multiple times. Who knows how many more times you&#8217;ll have to change servers or move to the cloud. Wouldn&#8217;t you rather have a script to do this for you?</p>
+
+<p>So we&#8217;ll take all the items from our DIFF and put them into a list. We are only interested in the NAME of the feature, found here:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-07.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>We have our list and it looks like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Web-Server
+</span><span class='line'>Web-WebServer
+</span><span class='line'>Web-Common-Http
+</span><span class='line'>Web-Default-Doc
+</span><span class='line'>Web-Dir-Browsing
+</span><span class='line'>Web-Http-Errors
+</span><span class='line'>Web-Static-Content
+</span><span class='line'>Web-Health
+</span><span class='line'>Web-Http-Logging
+</span><span class='line'>Web-Custom-Logging
+</span><span class='line'>Web-Performance
+</span><span class='line'>Web-Stat-Compression
+</span><span class='line'>Web-Dyn-Compression
+</span><span class='line'>Web-Security
+</span><span class='line'>Web-Filtering
+</span><span class='line'>Web-App-Dev
+</span><span class='line'>Web-Net-Ext45
+</span><span class='line'>Web-ASP
+</span><span class='line'>Web-Asp-Net45
+</span><span class='line'>Web-ISAPI-Ext
+</span><span class='line'>Web-ISAPI-Filter
+</span><span class='line'>Web-Mgmt-Tools
+</span><span class='line'>Web-Mgmt-Console
+</span><span class='line'>NET-Framework-45-ASPNET</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, that&#8217;s a lot to Install right? It would be far easier to just build a script to do this, so you can just run it any time you need to set up a server with this configuration. In the the last tutorial we learned <a href="https://www.jeremymorgan.com/blog/iis-devops/how-to-dism-repeatable-iis-install/" target="_blank">how to use DISM to create a repeatable IIS installation</a> but for fun, we&#8217;ll do something a little different.</p>
+
+<p>So let&#8217;s create a PowerShell script.</p>
+
+<p>At the top, I&#8217;ll put in a string array of all these features:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$features = @(
+</span><span class='line'>
+</span><span class='line'>    "Web-Server",
+</span><span class='line'>    "Web-WebServer",
+</span><span class='line'>    "Web-Common-Http",
+</span><span class='line'>    "Web-Default-Doc",
+</span><span class='line'>    "Web-Dir-Browsing",
+</span><span class='line'>    "Web-Http-Errors",
+</span><span class='line'>    "Web-Static-Content",
+</span><span class='line'>    "Web-Health",
+</span><span class='line'>    "Web-Http-Logging",
+</span><span class='line'>    "Web-Custom-Logging",
+</span><span class='line'>    "Web-Performance",
+</span><span class='line'>    "Web-Stat-Compression",
+</span><span class='line'>    "Web-Dyn-Compression",
+</span><span class='line'>    "Web-Security",
+</span><span class='line'>    "Web-Filtering",
+</span><span class='line'>    "Web-App-Dev",
+</span><span class='line'>    "Web-Net-Ext45",
+</span><span class='line'>    "Web-ASP",
+</span><span class='line'>    "Web-Asp-Net45",
+</span><span class='line'>    "Web-ISAPI-Ext",
+</span><span class='line'>    "Web-ISAPI-Filter",
+</span><span class='line'>    "Web-Mgmt-Tools",
+</span><span class='line'>    "Web-Mgmt-Console",
+</span><span class='line'>    "NET-Framework-45-ASPNET"
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a good list that we can come back and modify if needed later down the road. We&#8217;ll just loop through it to install everything using a foreach loop:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foreach ($feature in $features){
+</span><span class='line'>    # do something
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Inside that foreach loop we&#8217;ll do something like the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>foreach ($feature in $features){
+</span><span class='line'>    if(Get-WindowsFeature -Name $feature | Where-Object {$_. installstate -ne "installed"}){
+</span><span class='line'>        Write-Output "Feature $feature not installed. Installing"
+</span><span class='line'>        Install-WindowsFeature -Name $feature
+</span><span class='line'>    } 
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now as we can see here, we loop through each feature in the list, and say if the feature is not installed, we&#8217;ll write out a message saying it isn&#8217;t installed, and then install it. If the feature is not installed, we&#8217;ll do nothing.</p>
+
+<p>This is an example of an <em>idempotent</em> script. This is another key DevOps concept, it means we can run this script over and over and it should do the same thing each time. The expected state (all of these features installed) should be the same no matter how many times we run it.</p>
+
+<p>Once we run the script on our BRAVO (new) server, it looks like this:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-08.jpg" alt="Managing IIS with PowerShell" /></p>
+
+<br />
+
+
+<p>Now we should have all the same features installed. We run another Get-WindowsFeature check and diff, and see the following:</p>
+
+<br />
+
+
+<p><img src="https://www.jeremymorgan.com/images/comparing-iis-configurations/comparing-iis-configuration-09.jpg" alt="Managing IIS With PowerShell" /></p>
+
+<br />
+
+
+<p>Success! You have now compared the two configurations, determined what you needed to install and scripted it. Now you can take this script and run it on any new server that will host your websites and applications.</p>
+
+<br />
+
+
+<h3>Conclusion</h3>
+
+<p>You&#8217;re now once again the hero of the ACME Widgets Information Services department. You had an existing IIS server that was running our websites and applications, and duplicated the configuration to a new server. It&#8217;s the same concept we covered in the previous article on DISM, only this time we took it a step further by doing a deterministic comparison, then using PowerShell instead of a batch file. This is a more advanced and extendable way.</p>
+
+<p>We used some patterns and methods here that fit in well with DevOps practices:</p>
+
+<ul>
+<li><strong>Deterministic</strong> - We didn&#8217;t guess at what the configuration differences were, we proved it</li>
+<li><strong>Automated</strong> - Rather than jumping in and installing things we scripted it</li>
+<li><strong>Idempotent</strong> - We created a repeatable process that produces the same results every time we do it.</li>
+</ul>
+
+
+<p>This is important stuff, and will take to the next level of Administrator. I cover this topic in detail and many similar operations in my course <a href="https://pluralsight.pxf.io/RE0D2" target="_blank"><strong>Installing and Configuring IIS Servers</strong></a> on Pluralsight. It covers many ways you can make your life easier as an Administrator.</p>
+
+<p>Questions? Comments? <a href="https://twitter.com/jeremycmorgan" target="_blank">Yell at me on Twitter</a>!</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Using DISM to Create a Repeatable IIS Installation]]></title>
     <link href="https://www.jeremymorgan.com/blog/iis-devops/how-to-dism-repeatable-iis-install/"/>
     <updated>2018-09-28T23:20:00+00:00</updated>
@@ -21,6 +627,9 @@
     <content type="html"><![CDATA[<p>Repeatable installs are all the rage in Devops these days. As developers we have this &#8220;automate everything&#8221; mentality, and for good reason. In this article I&#8217;ll show you how you can do that with IIS installation as well. There&#8217;s no reason to go hunting and pecking around the GUI every time you need to do this. This is the just one of many ways to automate IIS installs, which I&#8217;ll be covering in the next few weeks.</p>
 
 <p>I also cover this in depth in <a href="https://pluralsight.pxf.io/c/1221983/424552/7490?u=https%3A%2F%2Fwww.pluralsight.com%2Fcourses%2Finstalling-configuring-iis" target="_blank">my latest Pluralsight course</a> on Installing IIS.</p>
+
+<!-- more -->
+
 
 <h3>Why would I ever need to do this?</h3>
 
@@ -2913,10 +3522,14 @@ sudo udisks --detach /dev/sda
     <id>https://www.jeremymorgan.com/blog/programming/easy-crud-for-your-web-api-with-dapper</id>
     <content type="html"><![CDATA[<p>Full disclosure here: I don&#8217;t like ORMs. If you&#8217;re building an enormous enterprise project, you should absolutely use an ORM. If you have data you really care about and a complex, monstrous system using something like Entity Framework can save you a lot of frustration. If you&#8217;re building a simple application, or some home project it&#8217;s really unnecessary.</p>
 
-<!-- more -->
+<div style="margin: auto; text-align: center;">
+<a href="https://pluralsight.pxf.io/k1GQv">
+    <img src="https://www.jeremymorgan.com/images/dapper-how-to.jpg" alt="Dapper Course" />
+</a>
+<p><strong>Do you want to be a Dapper master??? <a href="https://pluralsight.pxf.io/k1GQv">This course will get there fast!</a> Check it out now!</strong> </p>
+<br />
+</div>
 
-
-<p></p>
 
 <p>Recently I found an ORM that I really like: <a href="https://www.nuget.org/packages/Dapper">Dapper</a>. It&#8217;s small, simple, and fast. It can be useful on even the smallest of projects. Dapper is a simple object mapper for .Net that extends the IDbConnection interface. It contains helpers that execute queries and map results in a very elegant way. The best part is the performance is close enough to plain old SQL that it&#8217;s well worth it. It will reduce the amount of code you write as well, by a long shot.</p>
 
@@ -3976,786 +4589,6 @@ You can also follow my projects on GitHub:<br />
 
 
 
-
-<br />
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Getting Started with Adafruit IO]]></title>
-    <link href="https://www.jeremymorgan.com/internet-of-things/how-to-adafruit-io/"/>
-    <updated>2015-12-26T20:31:28+00:00</updated>
-    <id>https://www.jeremymorgan.com/internet-of-things/getting-started-with-adafruit-io</id>
-    <content type="html"><![CDATA[<br />
-
-
-<p><a href="https://eepurl.com/bMxQr5"><img src="https://www.jeremymorgan.com/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
-
-<br />
-
-
-<p>Earlier this year Adafruit Industries put their IoT dashboard <a href="http://www.adafruit.io">Adafruit.IO</a> into Beta, and it looks pretty cool. I&#8217;ll show you how to set up a dashboard using one of my mini weather station designs for data input. You may remember <a href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-weather-station-raspberry-pi/">this project</a> from a few months ago. I&#8217;ll be adding yet another endpoint to the project on Adafruit.IO.</p>
-
-<!-- more -->
-
-
-<h2>Setting up the Feeds</h2>
-
-<p>Adafruit IO uses &#8220;feeds&#8221; for the data used in your dashboard. This feed contains the raw data you&#8217;ll be looking at, such as a temperature reading. This data can be populated through a REST API, Python, Ruby, and NodeJS clients, or uploading a .csv. I&#8217;m going to be using the REST Api called from a Python script in <a href="https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station">this project</a>.</p>
-
-<p>The first step is to create a feed:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-01.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>After creating it you&#8217;ll be given a chance to edit some metadata:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-02.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>After your feed is created, you can edit attributes such as:</p>
-
-<ul>
-<li>Name</li>
-<li>Description</li>
-<li>License</li>
-<li>Public / Private setting</li>
-</ul>
-
-
-<p>This is pretty neat because you can make your feeds public, and specify how you would like them used. If this service gains a big following this opens a ton of doors for us.</p>
-
-<p>In my case I set up feeds for each piece of data I want on my dashboard that will come from the Raspberry Pi with the corresponding sensors wired up:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-03.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>Next I&#8217;ll show you how I populated them.</p>
-
-<br />
-
-
-<p><a href="https://eepurl.com/bMxQr5"><img src="https://www.jeremymorgan.com/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
-
-<br />
-
-
-<h2>Working with the Feed API</h2>
-
-<p>For this project we&#8217;re going to use the feed REST API. <a href="https://learn.adafruit.com/adafruit-io-basics-feeds/resources">You can find full documentation here</a>. I won&#8217;t go into great detail with interacting with the API, but instead explain what I&#8217;ve done so far. I encourage you to dig into it and take a look.</p>
-
-<p>First, the base URL is:</p>
-
-<blockquote><p><a href="https://io.adafruit.com/api">https://io.adafruit.com/api</a></p></blockquote>
-
-<p>Let&#8217;s send a few requests to it and see how it works.</p>
-
-<p>Note: You will need your AIO key for all requests, you can get this key in the upper right hand corner of your feed view with the &#8220;View AIO keys&#8221; button:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-04.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>To send a simple request, I&#8217;ll use CURL to test it out. I sent the following command:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>curl https://io.adafruit.com/api/feeds?x-aio-key=[MY AIO KEY]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It shows the following response (showing a list of my feeds)</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-05.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>Using similar REST commands, we&#8217;ll send data to the feeds. I&#8217;ll use Postman for building and testing these commands.</p>
-
-<p>Create a new request in Postman, using the following URL:</p>
-
-<blockquote><p>https://io.adafruit.com/api/feeds/temperature/data</p></blockquote>
-
-<p>Set the x-aio-key header with your key:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-06.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>and send a form value like so:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-07.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>After sending it you should see a result like this:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-08.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>You&#8217;ve just sent a piece of data to your feed (I recommend deleting test entries of course). Now we&#8217;ll integrate that into the script on the Raspberry Pi that&#8217;s gathering data.</p>
-
-<h2>Integrating the REST Calls Into the Weather Station</h2>
-
-<p>For this part, I&#8217;m going to use the code from the <a href="https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station">Raspberry Pi Mini Weather Station</a> I set up a few months ago. I&#8217;ve got this sitting in my garage collecting data (going to both an Azure site and a Python/Linux endpoint) and this will make a nice realtime monitor for it.</p>
-
-<p>If you want to use this code as a base to start, clone it:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/JeremyMorgan/Raspberry_Pi_Weather_Station.git</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you want to replicate my results exactly, you&#8217;ll want to make sure it&#8217;s set up as described in the <a href="https://www.jeremymorgan.com/tutorials/raspberry-pi/how-to-weather-station-raspberry-pi/">Raspberry Pi Mini Weather Station</a> project.</p>
-
-<p>Here we&#8217;ll open up readings.py, and add &#8220;import urllib&#8221; to the top, since we&#8217;ll be using that in addition to the urllib2 we&#8217;ve been using.</p>
-
-<p>Then we&#8217;ll add an additional call (for temperature). We start by adding a variable for my AIO key:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-09.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>Next we&#8217;ll go down add the additional call. Add the URL for the 3rd call here:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>url3 = 'https://io.adafruit.com/api/feeds/temperature/data'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Next, let&#8217;s create a 3rd request. The data object for this one will be a little different from the others in the file:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ftemp = round((9.0 / 5.0  * avgTemp + 32), 2)
-</span><span class='line'>values3 = {'value' : ftemp }</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We have converted it to Farenhiet and created a small tuple called &#8220;values&#8221;</p>
-
-<p>The request for this will be different from the others in the file as well. We&#8217;re going to urlencode the value, then add a different content type header, and the aiokey. It will look like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>data3 = urllib.urlencode(values3)
-</span><span class='line'>req3 = urllib2.Request(url3, data3)
-</span><span class='line'>req3.add_header('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
-</span><span class='line'>req3.add_header('x-aio-key',aiokey)
-</span><span class='line'>
-</span><span class='line'>response3 = urllib2.urlopen(req3)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now, after saving the file you should now be sending data to the endpoint.</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-10.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>You should also see entries for when the data is sent:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-11.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>Congratulations, you&#8217;ve got a feed going! Repeat this process for the other measurements you want to add to your dashboard. I added in the following:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-12.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>Let&#8217;s create a dashboard next to view the data.</p>
-
-<br />
-
-
-<p><a href="https://eepurl.com/bMxQr5"><img src="https://www.jeremymorgan.com/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
-
-<br />
-
-
-<h2>Creating an Adafruit IO Dashboard</h2>
-
-<p>Now that you have some feeds gathering info, you can create a dashboard to view it. The dashboard is a customized window into your data, and you can use as many or as few of your feeds. Create a new dashboard and take a look at the options available:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-13.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<ul>
-<li>Edit your dashboard blocks and layout</li>
-<li>Create a new block</li>
-<li>View your secret AIO key</li>
-<li>Delete Dashboard</li>
-<li>Set privacy</li>
-</ul>
-
-
-<p>When you create a new block, you&#8217;re greeted with a list of options:</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-14.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>Once you choose one (for instance I chose the gauge) you can modify some of the options, and select the feed.</p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-15.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<p>It&#8217;s that easy to set up. You create a set of blocks, and put together your dashboard.</p>
-
-<p><a href="https://io.adafruit.com/JeremyMorgan/garage-weather">Take a look at my Garage Dashboard</a></p>
-
-<p><img class="center" src="https://www.jeremymorgan.com/images/adafruit-io/adafruit-io-how-to-16.jpg" title="&#34;Adafruit IO How To&#34;" alt="&#34;Adafruit IO How To&#34;"></p>
-
-<h2>Conclusion: My Impressions</h2>
-
-<p>One key thing to keep in mind if you&#8217;ll be using this service: it&#8217;s still in beta. It&#8217;s not yet ready for production use. That being said it does appear to be functioning quite well. I had a few issues sizing up boxes and rendering the dashboard in Chrome under Arch Linux, but opened it up in Firefox and it was fine. These were the only minor problems I ran into. I got set up pretty fast and it looks great, so I&#8217;d recommend checking it out.</p>
-
-<p>The good points:</p>
-
-<ul>
-<li>Several options to interface data</li>
-<li>REST API well structured and useful</li>
-<li>Great documentation</li>
-<li>Easy to use and set up</li>
-<li>Visually appealing</li>
-</ul>
-
-
-<p>So if you&#8217;d like a cool dashboard to augment your project or want to share some data go check it out. It&#8217;s well worth a couple hours of playing.</p>
-
-<br />
-
-
-<br />
-
-
-<br />
-
-
-<div>
-<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
-<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="https://www.jeremymorgan.com/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
-<br /><br />
-<p>I have just released my new course titled &#8221;<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>&#8221; which is intended to be a course for people who want to get started with IoT. I&#8217;ll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I&#8217;m offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
-</div>
-
-
-<br />
-
-
-<p><a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br /></p>
-
-<br />
-
-
-<br />
-
-
-<p><a href="https://eepurl.com/bMxQr5"><img src="https://www.jeremymorgan.com/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
-
-<br />
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[How to add WiFi to your Arduino]]></title>
-    <link href="https://www.jeremymorgan.com/internet-of-things/arduino-projects/how-to-wifi-arduino/"/>
-    <updated>2015-12-19T01:05:24+00:00</updated>
-    <id>https://www.jeremymorgan.com/internet-of-things/arduino-projects/adding-wifi-to-arduino-with-the-cc3000</id>
-    <content type="html"><![CDATA[<br />
-
-
-<p><a href="https://eepurl.com/bMxQr5"><img src="https://www.jeremymorgan.com/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
-
-<br />
-
-
-<p>If you want to add internet connectivity to an Arduino, you have quite a few options. Since most Arduino models are not bundled with Ethernet or WiFi a market has developed for it, and I decided to try one out and share my thoughts.</p>
-
-<p>For this article I&#8217;ll be using the Adafruit CC3000 <a href="https://www.adafruit.com/products/1469">breakout board found here</a>. For the platform I&#8217;m using an Arduino Mega 2560 I received from <a href="http://www.newark.com" target="_blank">Newark element14</a>.</p>
-
-<!-- more -->
-
-
-<h3>Assembling the CC3000</h3>
-
-<p>The CC3000 comes shipped with the board and pins like so:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-1.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>This kit does require soldering, but not a lot. One tip, is to break off the 9 pins as instructed and put them in the a breadboard and place the PCB on top:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-2.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>This will hold it in place while soldering, when done it should look like this:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-3.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>Only I hope your soldering looks better.</p>
-
-<p>Now, put it on the breadboard and wire it up! The <a href="https://learn.adafruit.com/adafruit-cc3000-wifi/cc3000-breakout">wiring instructions are here</a>  and in this case it&#8217;s wired up for an Arduino Mega.</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-4.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>Notice I have an additional power supply coming in. A note from Adafruit:</p>
-
-<blockquote><p>Make sure your Arduino is powered by a 1 amp or higher rated external power supply when using with the CC3000! Powering an Arduino + CC3000 from a computer/laptop USB port will lead to unstable behavior and lockups because the USB port can&#8217;t supply enough power!</p></blockquote>
-
-<p>This is good advice, and if you don&#8217;t have a power supply yet, pick one up. You&#8217;ll need it when you start adding things to your Arduino.</p>
-
-<h2>Software</h2>
-
-<p>Now, we&#8217;re going to work on the software part of the project using Arduino Sketch. I&#8217;m doing it in Linux, but the instructions will be the same for Windows and OSX as well.</p>
-
-<p>You&#8217;ll want to make sure and get the <a href="https://github.com/adafruit/Adafruit_CC3000_Library/archive/master.zip">latest Adafruit CC3000 library here</a> for the next steps.</p>
-
-<p>Unzip this file into a folder, we&#8217;ll be working with some of the demos included. Do not delete the Zip file.</p>
-
-<p>Open up sketch and browse to the folder you just created:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-5.jpg" alt="Arduino WiFi How To" /></p>
-
-<h3>Run the Build Test</h3>
-
-<p>We want to run the build test to make sure the device is working correctly. Open up buildtest.ino. You&#8217;ll need to change the following to connect to your WiFi network:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#define WLAN_SSID       "myNetwork" 
-</span><span class='line'>#define WLAN_PASS       "myPassword"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Note if you want to change the security setting for your WAP with the &#8220;WLAN_SECURITY&#8221; Variable.</p>
-
-<p>Save the sketch. Now you&#8217;ll want to import the Adafruit CC3000 library into your sketch. This is generally the fastest way to do it:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-6.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>Browse to where you downloaded the zip archive and import it.</p>
-
-<p>Now, try compiling the sketch. You should see this:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-7.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>It is now ready to send to the Arduino. Next I&#8217;ll show you how to communicate with the Arduino to watch what&#8217;s happening.</p>
-
-<h3>Monitor the Serial Port</h3>
-
-<p>You can compile a sketch and push it to the Arduino and (hopefully) things will happen. The serial monitor is a good way to visually see what&#8217;s happening and get feedback from the device. In the Sketch IDE go to Tools -> Serial Monitor.</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-8.jpg" alt="Arduino WiFi How To" /></p>
-
-<blockquote><p>Note: If you&#8217;re using Linux, you may need to add your user account to a group to access this port. Instructions <a href="http://playground.arduino.cc/Linux/All#Permission">can be found here</a> for how to do that.</p></blockquote>
-
-<p>Make sure and set the proper baud rate for the CC3000, which is 115200:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-9.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>If your WiFi info is correct, you should see:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-10.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>and after it connects it will attempt to ping adafruit. If successful it will look like this:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-11.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>I&#8217;m not sure why but on mine it says it failed to get an IP, then displays it and pings the site. I&#8217;ll be looking into that further soon. If all tests pass you&#8217;re ready to go.</p>
-
-<h3>Build a Web Server</h3>
-
-<p>For this project, go back into the examples folder and go into the HTTPServer folder.</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-12.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>Open up HTTPServer.ino in sketch. Like the previous file, you will need to change the WiFi settings:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#define WLAN_SSID       "myNetwork" 
-</span><span class='line'>#define WLAN_PASS       "myPassword"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Note if you want to change the security setting for your WAP with the &#8220;WLAN_SECURITY&#8221; Variable.</p>
-
-<p>Verify and upload the sketch.</p>
-
-<p>Open the Serial Monitor again to watch the output of the sketch.  If successful, you should see something like this:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-13.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>Your server is now listening and ready to go!</p>
-
-<p>Open a web browser and browse to the IP address:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-wifi-how-to/arduino-wifi-how-to-14.jpg" alt="Arduino WiFi How To" /></p>
-
-<p>And easy as that you have a web server up. It&#8217;s pretty barebones but a good starting point.</p>
-
-<h2>Conclusion</h2>
-
-<p>I&#8217;ve been doing a considerable amount of hacking on the Arduino and the lack of network connectivity hasn&#8217;t been that big of a deal. However I know for future projects it will be necessary which is why I decided to purchase this kit and give it a try, and share my results with you.</p>
-
-<p>Overall it was really easy to assemble, only having to solder the pins in. The wiring diagrams are clearly laid out on the Adafruit site, and the software is pretty much written for you. At $34.95 this is an awesome deal for hobbyists wanting an easy way to go Wifi. I opted for the breakout option to see how well it works in case I want to build a product that uses this form factor. I would be curious to see how the shield version stacks up, but I suspect it will be identical.</p>
-
-<p>If you&#8217;re looking for a quick, easy way to add WiFi to your Arduino, I recommend the CC3000.</p>
-
-<p>Thanks again to <a href="http://www.newark.com" target="_blank">Newark element14</a> for the Arduino Mega!</p>
-
-<br />
-
-
-<br />
-
-
-<br />
-
-
-<div>
-<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
-<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="https://www.jeremymorgan.com/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
-<br /><br />
-<p>I have just released my new course titled &#8221;<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>&#8221; which is intended to be a course for people who want to get started with IoT. I&#8217;ll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I&#8217;m offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
-</div>
-
-
-<br />
-
-
-<p><a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br /></p>
-
-<br />
-
-
-<br />
-
-
-<p><a href="https://eepurl.com/bMxQr5"><img src="https://www.jeremymorgan.com/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
-
-<br />
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Arduino LCD Shield Kit]]></title>
-    <link href="https://www.jeremymorgan.com/internet-of-things/arduino-projects/arduino-lcd-shield-kit/"/>
-    <updated>2015-11-14T14:27:00+00:00</updated>
-    <id>https://www.jeremymorgan.com/internet-of-things/arduino-projects/the-arduino-led-shield-kit</id>
-    <content type="html"><![CDATA[<br />
-
-
-<p><a href="https://eepurl.com/bMxQr5"><img src="https://www.jeremymorgan.com/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
-
-<br />
-
-
-<p>I recently picked up an <a href="https://www.adafruit.com/products/772">Arduino LCD shield kit</a> from Adafruit. I&#8217;ve wanted to play around with some LCD screens and since this was a self contained kit for $20, I thought I&#8217;d try it out. Here&#8217;s my thoughts on it.</p>
-
-<!-- more -->
-
-
-<p>For this article I&#8217;m using an Arduino Mega 2560, obtained from <a href="http://www.newark.com/">Newark Element 14</a></p>
-
-<h3>The Arduino LCD Shield Kit</h3>
-
-<p>The kit comes with the following items:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-01.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>In the kit we have:</p>
-
-<ul>
-<li>5 Resistors</li>
-<li>Potentiometer</li>
-<li>Printed Circuit Board</li>
-<li>Header Pins</li>
-<li>Pushbuttons</li>
-<li>i2c Port Expander Chip</li>
-</ul>
-
-
-<p>It&#8217;s definitely a &#8220;turnkey&#8221; kit that comes with everything you need. The <a href="https://learn.adafruit.com/rgb-lcd-shield">full assembly instructions </a>show you how to build it, step by step.</p>
-
-<h3>Bust Out Your Soldering Iron!</h3>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-02.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>For this kit you will need to do a considerable amount of soldering. Some folks aren&#8217;t a fan of this idea, but I love it. This is great for beginners so they can learn soldering techniques and get better at it. Even though this is a complete kit that could be easily shipped soldered and assembled, I think that would be cheating beginners out of the experience of assembly. Not to mention it frees you up to use only the parts you need, or even use them in something else.</p>
-
-<p>You&#8217;re a hacker now, embrace it!</p>
-
-<h3>Assembling the Shield</h3>
-
-<p>For the first step you&#8217;ll want to solder on the resistors out of the kit in the following configuration:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-03.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>An easy way to do this is pull the resistors down through the holes and cross the wires like so. Then once they are all through, solder each piece and trim off the ends.</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-04.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" />
-Next, add the buttons. You&#8217;ll have to be careful with these pins as they are very close together.</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-05.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>Now, install the IC with the notch matching, as shown in the diagram:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-06.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>Then break apart the header pins and insert them as shown:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-07.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>You can now place the board on the Arduino so the pins match up.</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-08.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>Now you can solder the pins in. This gives you an interface to your Arduino, but mostly it&#8217;s just to keep the sheild stable. At this point you could add risers to the header pins for stacking other devices if you want.</p>
-
-<p>Finally, you then solder on the LCD screen:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-09.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>And you&#8217;re done!</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-10.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>Next we&#8217;ll cover how to put some text on the screen.</p>
-
-<h3>Displaying Text</h3>
-
-<p>The easiest way to interact with this shield is to use Adafruit&#8217;s <a href="https://github.com/adafruit/Adafruit-RGB-LCD-Shield-Library/archive/master.zip">RGB LCD Shield Library</a>. Download that and install it into sketch. (<a href="https://www.arduino.cc/en/Guide/Libraries">How to install additional Arduino libraries</a>)</p>
-
-<p>To output the message shown above, create a file with the following code:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">#include &lt;Wire.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;Adafruit_MCP23017.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;Adafruit_RGBLCDShield.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">Adafruit_RGBLCDShield</span> <span class="n">lcd</span> <span class="o">=</span> <span class="n">Adafruit_RGBLCDShield</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// Debugging output</span>
-</span><span class='line'>  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
-</span><span class='line'>  <span class="c1">// set up the LCD&#39;s number of columns and rows: </span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-</span><span class='line'>  <span class="c1">// print in first row</span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Be sure to drink&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="c1">// set cursor to second row (row 1)</span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>  <span class="c1">// print in second row</span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;your Ovaltine&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="c1">// set backlight to white </span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">setBacklight</span><span class="p">(</span><span class="mh">0x7</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="c1">// do nothing for now</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(<a href="https://github.com/IoT-Projects/Arduino-LCD-Shield">Get this code on Github</a>)</p>
-
-<p>Pretty easy right? I hope the comments explain what&#8217;s going on. But we have some other buttons on there we want to work with. We&#8217;ll put the following in the loop:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="n">uint8_t</span> <span class="n">buttons</span> <span class="o">=</span> <span class="n">lcd</span><span class="p">.</span><span class="n">readButtons</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">lcd</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-</span><span class='line'>    <span class="n">lcd</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span> <span class="o">&amp;</span> <span class="n">BUTTON_UP</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;pressed UP&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span> <span class="o">&amp;</span> <span class="n">BUTTON_DOWN</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;pressed DOWN&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span> <span class="o">&amp;</span> <span class="n">BUTTON_LEFT</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>     <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;pressed LEFT&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span> <span class="o">&amp;</span> <span class="n">BUTTON_RIGHT</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;pressed RIGHT&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span> <span class="o">&amp;</span> <span class="n">BUTTON_SELECT</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;pressed SELECT&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(<a href="https://github.com/IoT-Projects/Arduino-LCD-Shield">Get this code on Github</a>)</p>
-
-<p>This code should be really straightforward. You can check to see if a button is pressed in the loop, and create code based on it. So let&#8217;s do something with that.</p>
-
-<h3>Turn an LED On and Off with Indicator</h3>
-
-<p>Here&#8217;s something to try, hook up an LED to a digital pin. I am using the Arduino Mega, and just put it in the board like this:</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-11.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>Now, create a file with the following code:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-</pre></td><td class='code'><pre><code class='cpp'><span class='line'><span class="cp">#include &lt;Wire.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;Adafruit_MCP23017.h&gt;</span>
-</span><span class='line'><span class="cp">#include &lt;Adafruit_RGBLCDShield.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">Adafruit_RGBLCDShield</span> <span class="n">lcd</span> <span class="o">=</span> <span class="n">Adafruit_RGBLCDShield</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;LED MODE:&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>  <span class="c1">// off by default</span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;OFF&quot;</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">setBacklight</span><span class="p">(</span><span class="mh">0x7</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">pinMode</span><span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">uint8_t</span> <span class="n">buttons</span> <span class="o">=</span> <span class="n">lcd</span><span class="p">.</span><span class="n">readButtons</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-</span><span class='line'>  <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;LED MODE:&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">lcd</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span> <span class="o">&amp;</span> <span class="n">BUTTON_UP</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="c1">// turn led on</span>
-</span><span class='line'>      <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
-</span><span class='line'>      <span class="c1">// display it</span>
-</span><span class='line'>      <span class="n">lcd</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;ON&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttons</span> <span class="o">&amp;</span> <span class="n">BUTTON_DOWN</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="c1">// turn led off</span>
-</span><span class='line'>      <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
-</span><span class='line'>      <span class="c1">// display it</span>
-</span><span class='line'>      <span class="n">lcd</span><span class="p">.</span><span class="n">setCursor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">lcd</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;OFF&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>(<a href="https://github.com/IoT-Projects/Arduino-LCD-Shield">Get this code on Github</a>)</p>
-
-<p>This is pretty straightforward stuff, not that we set &#8220;pinMode&#8221; to 53,OUTPUT. This is how we set up the pin to light up the LED with the digitalWrite function. By setting pin 53 to HIGH it powers it, and setting it to LOW stops it. The LCD screen then prints the status.</p>
-
-<p><img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-12.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" />
-<img src="https://www.jeremymorgan.com/images/arduino-lcd/arduino-projects-13.jpg" title="Arduino projects - LCD Shield Kit" alt="Arduino Projects - LCD Shield Kit" /></p>
-
-<p>The possibilities are endless here!</p>
-
-<br />
-
-
-<p><a href="https://eepurl.com/bMxQr5"><img src="https://www.jeremymorgan.com/images/banners/raspberry-pi-newsletter-650.jpg" alt="Raspberry Pi Newsletter" /></a></p>
-
-<br />
-
-
-<h3>Summary</h3>
-
-<p>Overall I think this product is a fantastic value. I&#8217;ve just barely scratched the surface of what can be done here, and it&#8217;s only $19.95. It could be a very valuable display for your projects. It&#8217;s easy to assemble and works great. So pick up an Arduino (I really like the <a href="http://www.newark.com/arduino/a000067/dev-brd-atmega2560-arduino-mega/dp/45W6205">Mega 2650</a>) and an LCD shield and start tinkering! Contact me with any cool projects you create!</p>
-
-<br />
-
-
-<br />
-
-
-<br />
-
-
-<div>
-<h4>My New Course: Hands on Internet of Things with the Raspberry Pi </h4>
-<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS"><img src="https://www.jeremymorgan.com/images/banners/internet-of-things.jpg" alt="Internet of Things" /></a>
-<br /><br />
-<p>I have just released my new course titled &#8221;<a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">Hands on Internet of Things</a>&#8221; which is intended to be a course for people who want to get started with IoT. I&#8217;ll take you through blinking lights and reading sensors to creating YOUR own IoT endpoint and dashboard. I&#8217;m offering this special coupon for readers of my site: <a href="https://www.udemy.com/hands-on-internet-of-things-raspberry-pi/?couponCode=DOTCOMFANS">get %50 off this course here</a>. Thanks for being a reader! </p>
-</div>
-
-
-<br />
-
-
-<p><a href="http://eepurl.com/bMxQr5">Like my IoT projects? Sign up here to be added to my IoT newsletter</a><br /></p>
 
 <br />
 

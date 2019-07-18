@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head><meta charset="utf-8" /><title>What is Microsoft Azure and Why Should You Care?  - Programming Blog </title><meta name="twitter:card" content="summary">
+<meta property="og:title" content="What is Microsoft Azure and Why Should You Care? " /><meta itemprop="name" content="What is Microsoft Azure and Why Should You Care? " /><meta name="twitter:title" content="What is Microsoft Azure and Why Should You Care? ">
+<meta name="author" content="Jeremy Morgan" />
+<meta property="article:author" content="https://plus.google.com/+JeremyMorgan" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-07-17 16:29:56 -0700" />
+
+<meta property="article:section" content="Programming" />
+
+<meta name="description" content="There&#8217;s a lot of talk flying around about Microsoft Azure, especially in the .Net programmer world. Azure has been around a couple years, but &hellip;" />
+<meta property="og:description" content="There&#8217;s a lot of talk flying around about Microsoft Azure, especially in the .Net programmer world. Azure has been around a couple years, but &hellip;" />
+<meta itemprop="description" content="There&#8217;s a lot of talk flying around about Microsoft Azure, especially in the .Net programmer world. Azure has been around a couple years, but &hellip;" />
+<meta name="twitter:description" content="There&#8217;s a lot of talk flying around about Microsoft Azure, especially in the .Net programmer world. Azure has been around a couple years, but &hellip;">
+
+<meta property="og:site_name" content="JeremyMorgan.com" />
+ <!-- http://t.co/dKP3o1e -->
+<meta name="twitter:url" content="https://www.jeremymorgan.com/blog/programming/what-is-microsoft-azure/">
+<meta property="og:url" content="https://www.jeremymorgan.com/blog/programming/what-is-microsoft-azure/" />
+<link rel="canonical" href="https://www.jeremymorgan.com/blog/programming/what-is-microsoft-azure/" />
+<link href="/favicon.png" rel="icon" />
+<meta name="twitter:site" content="@JeremyCMorgan">
+<meta name="twitter:creator" content="@JeremyCMorgan">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://www.jeremymorgan.com/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" title="Jeremy's Programming Blog" type="application/atom+xml" /></head>
+<body   >
+  <header role="banner"><hgroup><div id="logo"><div id="logoLeft">{</div><div id="logoText">JM</div><div id="logoRight">}</div><div class="clear"></div></div><h1><a href="/">Jeremy Morgan</a></h1><h2>Mostly Coherent Ramblings of a Silicon Forest Software Developer</h2><div class="clear"></div></hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.jeremymorgan.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation"> <li><a href="/">Home</a></li>  <li><a href="/blog/programming/">Programming</a></li> <li><a href="/tutorials/">Tutorials</a></li><li><a href="/blog/seo/">SEO</a></li><li><a href="/seo-tools/">SEO Tools</a></li><li><a href="/funny/">Funny</a></li>  <li><a href="/contact/">Contact</a></li></ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  <header>
+    
+    
+        <h1 class="entry-title">What Is Microsoft Azure and Why Should You Care?</h1>
+    <br /><p>Author:  <a href="/about/" rel="author">Jeremy Morgan</a>
+    <br />
+    <br />
+<a href="https://twitter.com/JeremyCMorgan" class="twitter-follow-button" data-show-count="false">Follow @JeremyCMorgan</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<br />
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag where you want the badge to render. -->
+<!-- <div class="g-plus" data-width="352" data-height="69" data-href="//plus.google.com/112073155512624080129" data-rel="author"></div> -->
+  
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-17T16:29:56-07:00" pubdate data-updated="true">Jul 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div style="margin-left: auto; margin-right: auto; width: 480px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8244625199628957";
+/* JM in Article 468 */
+google_ad_slot = "1362025951";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<br />
+<div class="entry-content"><p>There&#8217;s a lot of talk flying around about Microsoft Azure, especially in the .Net programmer world. Azure has been around a couple years, but it&#8217;s recently evolved into a service that could change computing as we know it. It&#8217;s more than just hype as you&#8217;ll see.</p>
+
+<!-- more -->
+
+
+<h3><strong>What is Microsoft Azure?</strong></h3>
+
+<p>If you have no idea what I&#8217;m talking about, here&#8217;s a good definition <a href="http://en.wikipedia.org/wiki/Azure_Services_Platform">from Wikipedia</a>:</p>
+
+<blockquote><p>Windows Azure is a Microsoft cloud computing platform used to build, host and scale web applications through Microsoft data centers. Windows Azure is classified as platform as a service and forms part of Microsoft&#8217;s cloud computing strategy, along with its software as a service offering, Microsoft Online Services.</p></blockquote>
+
+<p>Basically, it&#8217;s a full service and platform hosted by Microsoft for your products. This is much more than just web hosting, this is an all inclusive service hosted by them. But today we&#8217;re going to use web hosting as an example of one of the things Microsoft Azure is going to revolutionize and why.</p>
+
+<h3><strong>Web Hosting The Old Way</strong></h3>
+
+<p><img class="center" src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/07/oldweb.jpg" title="Web Hosting The Old Way" ></p>
+
+<p>The diagram above illustrates the conventional method of web hosting, and in fact many sites are still hosted this way.  Your website is hosted on a computer at a datacenter (usually a web hosting company or internet service provider) and it resides on a single server, and maybe even a single hard drive. You had a separate database server (or not) and your data would live on that machine. Here are the common options for conventional web hosting:</p>
+
+<p><strong>Standard Hosting</strong> - Your site is hosted on a single hard drive, with many other websites. Web server software points requests to your domain name to a folder on the hard drive of that machine, as are other websites. You have a database that&#8217;s either hosted on that machine or on a separate machine, and that is also shared with other websites, and other customers.
+<strong>Dedicated Server</strong> - This is a machine that&#8217;s all yours. Your site resides on this machine and it&#8217;s sole purpose is serving up your website. You manage it, update it and reboot it when you need to. This may be an actual physical machine or a virtual machine on a larger server, but either way it acts as your own computer. More expensive and usually used on high traffic or websites with a lot of data.
+<strong>Multiple Server Hosting</strong> - This is similar  to cloud hosting in that you have multiple machines dedicated to your site. When traffic gets high, there are multiple webservers or databases to choose from, and your site is duplicated across them. This is more expensive and usually only for high traffic sites that require this type of performance.</p>
+
+<p>There are many variations on this, but these are the most common setups. You can also host a website in your house off a DSL line ( I did this with JeremyMorgan.com the first 2 years of it&#8217;s existence) if you choose to, but most people would not want to deal with that. So those were the options we&#8217;ve had over the last couple of decades for hosting our sites, and it&#8217;s served us well. But what are some of the problems we encounter with conventional web hosting.</p>
+
+<p><img class="center" src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/07/webserver.jpg" title="Conventional Web Server" >
+How a typical webserver operates</p>
+
+<h3><strong>Problems with Conventional Hosting</strong></h3>
+
+<p><strong>Safety -</strong> If you&#8217;re running a cheap web hosting account, it&#8217;s very likely your site lives on one hard drive, on one machine, and you may not even have a backup system in place. This is disaster if something happens to that machine, and hard drives  fail frequently and without much warning.  Even if they have a backup system in place, there could be a problem that affects the entire datacenter (fire, flood, etc) and then your backup is toast too. Or maybe they have a power outage or their internet connection drops, causing your site to be down. While most web hosting companies have pretty impressive uptime rates, it&#8217;s no guarantee.
+<strong>Redundancy</strong> - This ties into the safety part because having your website in two places is far better than one. But what if your website suddenly experiences a huge load? If your site gets &#8220;slashdotted&#8221; and you have a sudden surge of traffic, chances are that shared server or even a dedicated server is going to choke, giving a bunch of people 404s. So your 15 minutes of fame once your site hits the front page of Reddit could end up being a huge embarrassment, or worse yet expensive.
+<strong>Scalability - </strong>So imagine your site suddenly becomes the next big thing. People are flooding in and it&#8217;s time to upgrade your site, because it&#8217;s going slow and people are getting 404s. It&#8217;s a great problem to have, but what will it take to upgrade? You&#8217;ll have to put in a work order with your hosting provider and they either have to move you to a bigger and faster machine, or build a bigger, faster server and migrate your data there. While some companies can do this really well there is still some lag time involved. It could be a day of moving things, but maybe a few days, or even a week. Plus there are always the unexpected things that inevitably come up when you do things like this.</p>
+
+<p><strong>Speed based on location</strong> - So the guy who lives down the street browses your site really fast, and those who live in the same state, or in the same country have a pretty good speed, but those visitors on the other side of the world? They&#8217;re pretty frustrated with how slow your website is. Because it&#8217;s hosted in one specific location the further you get from it, the slower it can be.</p>
+
+<p>So how can we solve these problems? This is where cloud computing comes in.</p>
+
+<h3><strong>New Cloud Hosting With Azure</strong></h3>
+
+<p><img class="center" src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/07/cloud-microsoft-azure.jpg" title="Cloud Hosting with Microsoft Azure" ></p>
+
+<p>This is the new way of hosting, called &#8220;cloud hosting&#8221;. Basically you have massive arrays of machines clustered together to serve your content. Your site does not live on any one server,  but rather a bit of it lives on many machines, spread out across the datacenter, and then there are multiple datacenters hosted in multiple geographical locations. These machines are shared between thousands of others of course, but they&#8217;re available for you if you need it. Rather than just one single server you have an army of them at your command and everything is distributed evenly. How does this solve the problems we had above?</p>
+
+<p><strong>Safety</strong> - Since your data now resides on multiple machines, in multiple datacenters safety isn&#8217;t as much of a concern as it once was. A hard drive failure isn&#8217;t even noticeable. Even if an entire machine goes down the others pick up the slack. If an entire datacenter goes down, the others pick up.   Your data is copied all over the world now instead of one spot giving you extra reliability.</p>
+
+<p><strong>Redundancy</strong> - Since everything is  spread out into clusters, redundancy is a natural occurrence.  If you get slammed with traffic, it will be redirected to more pipes, and more servers start churning out your content, in multiple datacenters. Slowdowns will be a thing of the past once your site is spread out to all corners of the world on banks of fast servers.</p>
+
+<p><strong>Scalability - </strong>One of the primary reasons cloud computing was created was for scalability. Websites and companies can grow at the speed of light, and literally become overnight sensations. What was once a website that got a few hundred hits a month can the next day be getting thousands of people an hour on it. With Microsoft Azure you won&#8217;t be calling your host and having techs scramble to build you a new machine. You simply click a slider and give yourself some more bandwidth, or space. You can go from zero to hero without missing a beat. You only pay for what you use so if things slow down, you aren&#8217;t stuck maintaining a bunch of expensive servers you bought during a rush. In my opinion this is the most incredible and useful part of Microsoft Azure.</p>
+
+<p><strong>Speed based on Location?</strong> - Not a problem anymore. There are multiple world class datacenters all over with your content on it. While you may  be living in Oregon and hitting a server in California, the guy in Virginia visiting your site is hitting a  datacenter 50 miles from him, and you&#8217;re both looking at the same website, and sharing the same data.  Pretty awesome huh?</p>
+
+<h3><strong>Is there a Downside?</strong></h3>
+
+<p><img class="center" src="http://jeremymorgan.s3.amazonaws.com/wp-content/uploads/2012/07/microsoft-azure-downside.jpg" title="Microsoft Azure" ></p>
+
+<p>Nothing good comes without risk, but luckily Microsoft is absorbing most of this risk. They&#8217;ve invested millions of dollars in state of the art datacenters, top notch hardware and the people to run it all. They&#8217;ve also invested heavily in the software development and R&amp;D required for something of this magnitude. But is there any risk for you?</p>
+
+<p><strong>Security</strong> - This is always the number one question people ask about cloud computing and hosting. Is it secure? Theoretically there should be no difference in security than a conventionally hosted site, but there certainly are new risks. Is the clustering software secure? Are all the facilities physically secure? Is my data being transmitted securely? These are all valid questions and one of the downsides of having your data stored all over the place is&#8230;. well having your data all over the place. Only time will tell whether this ends up being a long term problem for cloud hosting and cloud computing in general.</p>
+
+<p><strong>Privacy</strong>  - This ties closely with your security, but do you trust Microsoft with all your data? Remember Azure is about more than hosting, it&#8217;s also a service provider, meaning you can build software as a service and have it live in Azure. There are many advantages to this but you&#8217;re also putting everything in the hands of Microsoft and there are many who are simply too paranoid for that.  There are advocates in the industry that are afraid of Microsoft using their data or usage patterns to their own advantage.</p>
+
+<p><strong>Dependence</strong> - So lets say your website takes off and becomes the next big thing or your service becomes ultra successful. You&#8217;ll be putting all your eggs in the Microsoft Basket. If Azure is successful and Microsoft remains profitable there&#8217;s no reason to expect it to go away, but what if there is a problem with that? What if Microsoft goes belly up (highly unlikely) or Azure doesn&#8217;t turn a profit and they&#8217;re forced to pull the plug (not as likely)? Your whole business could collapse. If you&#8217;re hosting a site the conventional way you don&#8217;t have to rely on any one single company or technology for survival.</p>
+
+<h3><strong>Conclusion</strong></h3>
+
+<p>So I hope I&#8217;ve done a good job of showing you how Microsoft Azure intends to change the way we think about computing. I used web hosting as an example, but Azure is so much more than just hosting, it&#8217;s actually several levels above that. It&#8217;s a combination of:</p>
+
+<ul>
+<li>Software as a service</li>
+<li>Platform as a service</li>
+<li>Infrastructure as a service</li>
+</ul>
+
+
+<p>Microsoft has had the &#8220;software as a service&#8221; as a goal for a very long time, and they&#8217;re finally reaching that. This is a major shift for computing as we go from running binary executables on our own personal machines to running distributed services from the internet to do the same thing. This is revolutionary and I&#8217;ll cover this in my next article about Microsoft Azure as a software service.</p>
+
+<p>If you have comments or questions, please feel free to leave them below.</p>
+</div>
+
+<footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Author: <a href="/about/" rel="author"><span class="fn">Jeremy Morgan</span></a></span>
+
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-17T16:29:56-07:00" pubdate data-updated="true">Jul 17<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/tutorials/c-sharp/c-workshop-introduction-net-architecture-basics/" title="Previous Post: C# Tutorials - Introduction: .Net Architecture Basics">&laquo; C# Tutorials - Introduction: .Net Architecture Basics</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/blog/seo/why-the-best-seos-at-mozcon-arent-worried-about-tonights-google-update/" title="Next Post: Why The Best SEOs at MozCon Aren't Worried About Tonight's Google Panda Update">Why The Best SEOs at MozCon Aren't Worried About Tonight's Google Panda Update &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+	<h2>About Jeremy Morgan</h2>
+	<div class="aboutmeimage">&nbsp;</div>
+	<p>I'm just a Hacker / Developer writing about Tech, Development, Programming, and SEO. <br /><br />I'm passionate about tech, and as long as I'm building cool stuff and helping people, I'll never work a day in my life.</p>
+<ul>
+<li><a href="https://twitter.com/JeremyCMorgan" rel="nofollow"><div class="twittericon">Connect With Me on Twitter</div></a></li>
+<li><a href="https://plus.google.com/+JeremyMorgan?rel=author"><div class="gplusicon">Connect With Me on Google+</div></a></li>
+<li><a href="https://facebook.com/JeremyMorganDotCom" rel="nofollow"><div class="facebookicon">Connect With Me on FaceBook</div></a></li>
+<li><a href="https://github.com/jeremymorgan" rel="nofollow"><div class="githubicon">Connect With Me on GitHub</div></a></span></li>
+</ul>
+</section>
+<section> 
+<br />
+<h2>Categories</h2>
+<ul>
+<li><a href="/tutorials/">Tutorials</a></li>
+<li><a href="/blog/raspberry-pi/">Raspberry Pi</a></li>
+<li><a href="/blog/programming/">Programming</a></li>
+<li><a href="/blog/seo/">Search Engine Optimization</a></li>
+<li><a href="/blog/general/">General</a></li>
+</ul>
+</section><section>
+ <br />
+  <h2>Recent Articles</h2>
+  <ul id="recent_posts">
+	
+	  <li class="post">
+		<a href="/blog/programming/intro-restful-web-services/">Brief Introduction to REST</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/how-to-asp-5-linux/">How to install ASP.Net 5 on Ubuntu Linux</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/seo/open-graph-tags-for-seo/">Open Graph Tags Are Terribly Important</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/how-to-blink-led-raspberry-pi-2/">How to Blink an LED on a Raspberry Pi 2</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/raspberry-pi/raspberry-pi-2-has-arrived/">Raspberry Pi 2 has arrived!</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/blog/programming/2015-tech-predictions/">Developer Predictions for 2015</a>
+	  </li>
+	
+	  <li class="post">
+		<a href="/tutorials/vnext/how-to-build-c-sharp-on-mac-osx/">Building C#/ASP.NET apps on a Mac with vNext</a>
+	  </li>
+	
+  </ul>
+</section>
+<section> 
+<br />
+<br />
+<div align="center" style="margin-left: auto; margin-right: auto;">
+<p><strong>This site is powered by Arvixe Hosting</strong></p>
+<a href="https://affiliates.arvixe.com/track.php?id=5348&tid1=homepage" target="_blank" rel="nofollow"><img border="0" src="https://www.jeremymorgan.com/images/dotnethosting.gif" width="125" height="125" alt="Cheap ASP Hosting"></a>
+<br /><strong>Full featured ASP.Net hosting<br /> for only 4$ a month. <br /><br /><a href="https://affiliates.arvixe.com/track.php?id=5348&amp;tid1=homepage" target="_blank" rel="nofollow">Sign up today!</strong></a></div><br />
+</section><section>
+<br />
+<br />
+<h2>My Hosted Applications</h2>
+<ul>
+	<li><a href="/apps/oregon-deq-boundary/">Oregon DEQ Boundaries</a></li>
+	<li><a href="/apps/findjennifer/">Find Jennifer Huston</a></li>
+	<li><a href="/apps/36-pit-fire-realtime/">36 Pit Fire Realtime</a></li>
+	<li><a href="/apps/deception-complex-fire/">Deception Complex Realtime</a></li>	
+	<li><a href="/apps/rowena-fire-realtime/">Rowena Fire Realtime</a></li>
+	<li><a href="/apps/bryant-fire-realtime/">Bryant Fire Realtime</a></li>
+	<li><a href="/apps/owens-fire-realtime/">Owens Fire Realtime</a></li>
+	<li><a href="/apps/shaniko-butte-realtime/">Shaniko Butte Realtime</a></li>
+	<li><a href="/apps/two-bulls-realtime/">Two Bulls Realtime</a></li>
+	<li><a href="/seo-tools/blog-ping/">Blog Pinger</a></li>
+	<li><a href="/seo-tools/server-header-checker/">Server Header Checker</a></li>
+	<li><a href="/portland-tech-meetups/">Portland Tech Meetups</a></li>
+	<li><a href="/apps/firecom/feed.php">FireCom</a></li>
+</ul>
+<br />
+<br /> 
+<h1 style="text-align:center; margin: auto;">$5 Linux Hosting</h1>
+<a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4"><img src="/images/linux.jpg" /></a>
+<h1 style="text-align:center; margin: auto;"><a href="https://www.digitalocean.com/?refcode=ca6f81fa42b4">Click Here For Info</a></h1>
+
+<br />
+<br />
+<br />
+<h2>Friends</h2>
+<ul>
+	<li><a href="http://imageevent.com/irishglyn">Irish Glyn Rat Terriers</a></li>
+	<li><a href="http://cykovisuals.com">Cyko Visuals</a></li>
+	<li><a href="http://dannynunez.com/">Danny Nunez</a></li>
+	<li><a href="http://steven-senkus.com/">Steven Senkus</a></li>
+	<li><a href="http://compositecode.com">Composite Code</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="http://notla.com">Brad Carter</a></li>
+	<li><a href="http://scottbones.com">Scott Bones</a></li>
+	<li><a href="http://thomashubbard.net">Thomas Hubbard</a></li>
+	<li><a href="http://theservicedeptrepair.com">Wilsonville Computer Repair</a></li>
+	<li><a href="http://vichargrave.com/">Vic Hargrave</a></li>
+	<li><a href="https://dotnetkicks.com/">Dot Net Kicks</a></li>	
+</ul>
+<br />
+<br />
+</section>  <section>
+  <br />
+  <h2>My RSS Feeds</h2>
+  <ul>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganTutorials" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Tutorials Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganRaspberryPi" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Raspberry Pi Feed</div></a></li>
+  <li><a href="http://feeds.feedburner.com/JeremyMorganProgramming" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">Programming Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/JeremyMorganSEO" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">SEO Article Feed</div></a></li>  
+  <li><a href="http://feeds.feedburner.com/jeremymorgan/NJwt" rel="alternate" rel="nofollow" type="application/rss+xml"><div class="feedsharkicon">All Feeds</div></a></li>
+  </ul>
+  </section>
+<div class="g-plusone" data-annotation="inline" data-width="245"></div>
+
+
+<section>
+<br />
+<br />
+<br />
+<br />
+	<script type="text/javascript"><!--
+	google_ad_client = "ca-pub-8244625199628957";
+	/* JM Sidebar */
+	google_ad_slot = "5211972753";
+	google_ad_width = 160;
+	google_ad_height = 600;
+	//-->
+	</script>
+	<script type="text/javascript"
+	src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+</section>
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div class="footerstuff"><p>Copyright &copy; 2015 - Jeremy Morgan -<span class="credit">Proudly Powered by <a href="http://octopress.org">Octopress</a> with <a href="http://blog.jphpsf.com/2012/06/12/squeezing-octopress-for-faster-load-times">optimizations from JP</a></span></p>
+<p>This website dedicated to the memory of <a href="/blog/general/a-dent-in-the-universe/">Russell Peckham</a> and <a href="https://www.jeremymorgan.com/greg-peckham/">Greg Peckham</a>. Without them this site would not exist.</p>
+Running Fast ASP.Net 4.5 hosting by <a href="http://www.arvixe.com/5348.html" rel="nofollow">Arvixe</a>.
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jeremymorgandotcom';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://www.jeremymorgan.com/blog/programming/what-is-microsoft-azure/';
+        var disqus_url = 'https://www.jeremymorgan.com/blog/programming/what-is-microsoft-azure/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+<script type="text/javascript">
+(function() {
+  var all = document.createElement('script'); all.type = 'text/javascript'; all.async = true;
+  all.src = 'https://jeremymorgan.com/scripts/allscripts.js';
+  s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(all, s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2937467-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+</body>
+</html>
